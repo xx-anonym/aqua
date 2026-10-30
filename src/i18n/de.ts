@@ -379,6 +379,7 @@ const de = {
     pending: 'Vorgemerkte Fotos',
   },
   profile: {
+    orEmail: 'oder per E-Mail-Link',
     title: 'Profil',
     account: 'Konto & Sync',
     notSignedIn: 'Ohne Konto bleiben alle Daten auf diesem Gerät. Mit Konto werden sie zwischen deinen Geräten synchronisiert.',

@@ -29,6 +29,8 @@ const admin = createClient(Deno.env.get('SUPABASE_URL')!, Deno.env.get('SUPABASE
 
 Deno.serve(async (req) => {
   if (req.method === 'OPTIONS') return new Response('ok', { headers: CORS });
+  // Status check without side effects: is a model key configured?
+  if (req.method === 'GET') return json({ configured: !!anthropic, model: MODEL, monthly_limit: LIMIT });
   if (req.method !== 'POST') return json({ error: 'method_not_allowed' }, 405);
 
   const token = (req.headers.get('Authorization') ?? '').replace(/^Bearer /, '');

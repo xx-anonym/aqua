@@ -92,7 +92,10 @@ Seabook oder anderen kommerziellen Apps verwendet.
 - **Login per E-Mail-Link**: In Supabase unter *Authentication → URL Configuration* die
   Vercel-URL als *Site URL* und `https://<deine-domain>/**` als *Redirect URL* eintragen.
   Der Standard-Mailversand von Supabase ist stark begrenzt; für mehr Nutzer einen eigenen SMTP-Server hinterlegen.
-- **Apple/Google**: Provider in Supabase aktivieren und `VITE_AUTH_PROVIDERS=google,apple` setzen.
+- **Google/Apple**: Provider in Supabase unter *Authentication → Sign In / Providers* aktivieren.
+  Die App fragt beim Öffnen des Profils ab, welche Anbieter aktiv sind, und zeigt die Knöpfe dann
+  automatisch an (kein neuer Build nötig). Für Google: OAuth-Client vom Typ *Webanwendung* in der
+  Google Cloud Console mit der Weiterleitungs-URI `https://kkppnegmlvplxpvcuhkn.supabase.co/auth/v1/callback`.
 - **Foto-ID**: unter *Edge Functions → Secrets* `ANTHROPIC_API_KEY` eintragen. Optional
   `PHOTO_ID_MODEL` (Standard `claude-sonnet-5-5`, günstiger: `claude-haiku-5-5`) und
   `PHOTO_ID_MONTHLY_LIMIT` (Standard 50 Fotos pro Nutzer und Monat).

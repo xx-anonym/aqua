@@ -379,6 +379,7 @@ const en = {
     pending: 'Queued photos',
   },
   profile: {
+    orEmail: 'or with an email link',
     title: 'Profile',
     account: 'Account & sync',
     notSignedIn: 'Without an account all data stays on this device. With an account it syncs between your devices.',

@@ -15,10 +15,37 @@ export const supabase: SupabaseClient | null =
 
 export const PHOTO_BUCKET = 'sighting-photos';
 
-export const oauthProviders = (import.meta.env.VITE_AUTH_PROVIDERS ?? '')
-  .split(',')
-  .map((p) => p.trim())
-  .filter((p): p is 'google' | 'apple' => p === 'google' || p === 'apple');
+export type OAuthProvider = 'google' | 'apple';
+const PROVIDERS_KEY = 'aqua-auth-providers';
+
+/**
+ * Sign-in providers switched on in Supabase (Authentication → Providers). Asked at runtime, so a
+ * provider appears in the app as soon as it is enabled there; the last answer is kept for offline use.
+ */
+export async function fetchOAuthProviders(): Promise<OAuthProvider[]> {
+  const cached = (): OAuthProvider[] => {
+    try {
+      return JSON.parse(localStorage.getItem(PROVIDERS_KEY) ?? '[]');
+    } catch {
+      return [];
+    }
+  };
+  if (!url || !key) return [];
+  try {
+    const res = await fetch(`${url}/auth/v1/settings`, { headers: { apikey: key } });
+    if (!res.ok) return cached();
+    const external = ((await res.json()).external ?? {}) as Record<string, boolean>;
+    const enabled = (['google', 'apple'] as const).filter((p) => external[p]);
+    try {
+      localStorage.setItem(PROVIDERS_KEY, JSON.stringify(enabled));
+    } catch {
+      /* storage unavailable */
+    }
+    return enabled;
+  } catch {
+    return cached();
+  }
+}
 
 export function supabaseRemote(client: SupabaseClient, userId: string): Remote {
   return {
