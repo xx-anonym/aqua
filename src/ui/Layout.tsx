@@ -10,7 +10,6 @@ const TABS = [
   null,
   { to: '/logbook', icon: 'logbook', key: 'logbook' },
   { to: '/collection', icon: 'collection', key: 'collection' },
-  { to: '/profile', icon: 'profile', key: 'profile' },
 ] as const;
 
 export function Layout() {

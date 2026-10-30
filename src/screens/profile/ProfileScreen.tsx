@@ -288,7 +288,7 @@ export default function ProfileScreen() {
 
   return (
     <div className="page">
-      <PageHeader title={t('profile.title')} />
+      <PageHeader title={t('profile.title')} back />
 
       <h2 className="section-title" style={{ marginTop: 0 }}>
         {t('profile.account')}

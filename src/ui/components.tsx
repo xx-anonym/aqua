@@ -1,27 +1,38 @@
 import { useEffect, useId, useRef, type ReactNode } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import type { Species, Trait } from '../catalog/types';
 import { catalogAssetUrl } from '../catalog/catalog';
 import { speciesName, traitLabel, useLang } from '../catalog/useCatalog';
 import { COLOR_SWATCHES, Icon } from './icons/Icon';
+import { ProfileButton } from './ProfileButton';
 
 export function PageHeader({ title, back, actions }: { title: string; back?: boolean | string; actions?: ReactNode }) {
   const navigate = useNavigate();
+  const { pathname } = useLocation();
   const { t } = useTranslation();
+  const goBack = () => {
+    if (typeof back === 'string') return navigate(back);
+    // Pages opened directly (e.g. after the sign-in redirect) have no in-app history to go back to.
+    const idx = (window.history.state as { idx?: number } | null)?.idx ?? 0;
+    return idx > 0 ? navigate(-1) : navigate('/discover');
+  };
+  // Main screens carry the profile button; detail screens keep the header for their own actions.
+  const showProfile = !back && !pathname.startsWith('/profile');
   return (
     <header className={`header${back ? ' with-back' : ''}`}>
       {back && (
-        <button
-          className="icon-btn"
-          aria-label={t('common.back')}
-          onClick={() => (typeof back === 'string' ? navigate(back) : navigate(-1))}
-        >
+        <button className="icon-btn" aria-label={t('common.back')} onClick={goBack}>
           <Icon name="back" />
         </button>
       )}
       <h1>{title}</h1>
-      {actions && <div className="header-actions">{actions}</div>}
+      {(actions || showProfile) && (
+        <div className="header-actions">
+          {actions}
+          {showProfile && <ProfileButton />}
+        </div>
+      )}
     </header>
   );
 }
