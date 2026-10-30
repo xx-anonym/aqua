@@ -107,7 +107,7 @@ export default function CollectionScreen() {
           </div>
           <div className="segmented" role="radiogroup" aria-label={t('collection.show')} style={{ margin: '8px 0 12px' }}>
             {(['all', 'seen', 'missing'] as Show[]).map((x) => (
-              <button key={x} role="radio" aria-checked={show === x} aria-pressed={show === x} onClick={() => setShow(x)}>
+              <button key={x} role="radio" aria-checked={show === x} onClick={() => setShow(x)}>
                 {t(`collection.show${x === 'all' ? 'All' : x === 'seen' ? 'Seen' : 'Missing'}`)}
               </button>
             ))}

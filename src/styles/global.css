@@ -471,6 +471,7 @@ textarea.input {
 }
 
 .segmented button[aria-pressed='true'],
+.segmented button[aria-checked='true'],
 .segmented button[aria-selected='true'] {
   background: var(--surface);
   color: var(--text);
@@ -599,9 +600,6 @@ textarea.input {
   filter: grayscale(1) brightness(0.55) contrast(0.9);
 }
 
-.species-card.unseen .names {
-  opacity: 0.7;
-}
 
 .seen-badge {
   position: absolute;

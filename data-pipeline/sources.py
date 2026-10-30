@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import hashlib
+import http.client
 import json
 import threading
 import time
@@ -82,9 +83,17 @@ def download(url: str, dest: Path, retries: int = 4) -> bool:
         try:
             req = urllib.request.Request(url, headers={"User-Agent": USER_AGENT})
             with urllib.request.urlopen(req, timeout=120) as res:
-                dest.write_bytes(res.read())
+                data = res.read()
+            tmp = dest.with_suffix(dest.suffix + ".part")
+            tmp.write_bytes(data)
+            tmp.replace(dest)  # never leave a truncated file behind
             return True
-        except (urllib.error.URLError, TimeoutError):
+        except urllib.error.HTTPError as e:
+            if e.code in (403, 404):
+                return False
+            if attempt < retries - 1:
+                time.sleep(2 ** (attempt + 1))
+        except (urllib.error.URLError, TimeoutError, http.client.IncompleteRead, ConnectionError):
             if attempt < retries - 1:
                 time.sleep(2 ** (attempt + 1))
     return False

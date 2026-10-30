@@ -1,0 +1,16 @@
+# Species dropped from the catalog: shore/mangrove/freshwater animals that divers and snorkellers do not meet in the water.
+Salmo trutta
+Periophthalmodon schlosseri
+Spirula spirula
+Ocypode pallidula
+Ocypode ryderi
+Ocypode saratan
+Ocypode urvillii
+Austruca annulipes
+Austruca occidentalis
+Mictyris longicarpus
+Neosarmatium africanum
+Grapsus albolineatus
+Grapsus tenuicrustatus
+Leptograpsus variegatus
+Pachygrapsus marmoratus

@@ -28,7 +28,7 @@ function Segmented<T extends string>({ value, options, onChange, label }: { valu
   return (
     <div className="segmented" role="radiogroup" aria-label={label}>
       {options.map(([v, text]) => (
-        <button key={v} role="radio" aria-checked={value === v} aria-pressed={value === v} onClick={() => onChange(v)}>
+        <button key={v} role="radio" aria-checked={value === v} onClick={() => onChange(v)}>
           {text}
         </button>
       ))}
@@ -336,7 +336,7 @@ export default function ProfileScreen() {
           <Icon name="upload" />
           <div className="grow title">{t('profile.restore')}</div>
         </button>
-        <input ref={restoreInput} type="file" accept=".sqlite,application/octet-stream,application/vnd.sqlite3" className="sr-only" onChange={(e) => restore(e.target.files?.[0])} />
+        <input ref={restoreInput} type="file" aria-label={t('profile.restore')} accept=".sqlite,application/octet-stream,application/vnd.sqlite3" className="sr-only" onChange={(e) => restore(e.target.files?.[0])} />
       </div>
 
       <h2 className="section-title">{t('profile.about')}</h2>

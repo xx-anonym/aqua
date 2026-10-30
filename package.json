@@ -37,6 +37,7 @@
     "@types/react-dom": "^18.3.5",
     "@types/sql.js": "^1.4.9",
     "@vitejs/plugin-react": "^4.3.4",
+    "axe-core": "^4.10.2",
     "eslint": "^9.17.0",
     "eslint-plugin-react-hooks": "^5.1.0",
     "eslint-plugin-react-refresh": "^0.4.16",

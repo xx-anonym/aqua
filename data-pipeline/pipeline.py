@@ -461,8 +461,19 @@ def read_traits_csv(path: Path) -> dict[str, dict]:
     if not path.exists():
         return {}
     with path.open(newline="", encoding="utf-8") as f:
-        rows = list(csv.DictReader(f, delimiter=";"))
+        rows = list(csv.DictReader((line for line in f if not line.startswith("#")), delimiter=";"))
     return {r["scientific_name"]: r for r in rows}
+
+
+def excluded() -> set[str]:
+    path = INPUT / "exclude.txt"
+    if not path.exists():
+        return set()
+    return {line.strip() for line in path.read_text().splitlines() if line.strip() and not line.startswith("#")}
+
+
+# Free-floating hydrozoans look and behave like jellyfish for divers.
+GENUS_CATEGORY = {"Physalia": ("creature", "jellyfish"), "Porpita": ("creature", "jellyfish"), "Velella": ("creature", "jellyfish")}
 
 
 def step_traits() -> None:
@@ -644,11 +655,18 @@ def write_manifest(db_path: Path, species: list[dict], version: str) -> None:
 def step_build() -> None:
     species = load_json(CACHE / "species.json")
     curated = read_traits_csv(INPUT / "traits.csv")
+    skip = excluded()
+    applies = {t["id"]: t["applies_to"].split(",") for t in load_json(INPUT / "traits.json")}
     out = []
     missing = 0
     for s in species:
+        if s["scientific_name"] in skip:
+            continue
         if not s.get("chosen_photos"):
             continue  # every catalog entry needs at least one openly licensed photo
+        genus = s["scientific_name"].split()[0]
+        if genus in GENUS_CATEGORY:
+            s["category"], s["group"] = GENUS_CATEGORY[genus]
         row = curated.get(s["scientific_name"])
         traits = trait_ids(row) if row else []
         if not row:
@@ -656,7 +674,10 @@ def step_build() -> None:
             sug = suggest_traits(s)
             traits = trait_ids({k: ",".join(v) for k, v in sug.items()})
         if row and row.get("common_name_de"):
-            s["common_name_de"] = row["common_name_de"]
+            # "-" removes a misleading name from the sources (the app then shows the English one).
+            s["common_name_de"] = None if row["common_name_de"] == "-" else row["common_name_de"]
+        # Drop traits that do not exist for this category (e.g. "solitary" for a coral).
+        traits = [t for t in traits if s["category"] in applies.get(t, [s["category"]])]
         fb = s.get("fishbase") or {}
         s["group_key"] = group_of(s)
         s["traits"] = traits

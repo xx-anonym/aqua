@@ -99,10 +99,10 @@ export function SiteEditorSheet({
           {region && ` · ${regionName(catalog.regionsById.get(region)!, lang)}`}
         </p>
         <div className="segmented" role="radiogroup" aria-label={t('sites.private')}>
-          <button type="button" role="radio" aria-checked={isPrivate} aria-pressed={isPrivate} onClick={() => setPrivate(true)}>
+          <button type="button" role="radio" aria-checked={isPrivate} onClick={() => setPrivate(true)}>
             {t('sites.private')}
           </button>
-          <button type="button" role="radio" aria-checked={!isPrivate} aria-pressed={!isPrivate} onClick={() => setPrivate(false)}>
+          <button type="button" role="radio" aria-checked={!isPrivate} onClick={() => setPrivate(false)}>
             {t('sites.public')}
           </button>
         </div>
