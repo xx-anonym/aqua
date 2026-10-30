@@ -29,16 +29,14 @@ TRAIT_EN = {
               "plate": "plate- or table-shaped", "fan": "fan-shaped", "soft": "soft and leathery", "tube": "tube- or vase-shaped",
               "anemone": "polyp-like with a ring of tentacles", "encrusting": "encrusting", "plant": "leafy"},
 }
-BEHAV_DE = {"open-water": "hält sich gern im Freiwasser auf", "reef": "ist meist über dem Riff zu sehen",
-            "bottom": "hält sich bevorzugt am Boden auf", "buried": "gräbt sich gern im Sand ein",
-            "crevice": "versteckt sich gern in Spalten und Höhlen", "nocturnal": "ist vor allem nachts aktiv",
-            "cleaner": "betreibt Putzerstationen", "camouflage": "ist hervorragend getarnt",
-            "symbiosis": "lebt in enger Gemeinschaft mit anderen Arten", "sessile": "ist festsitzend"}
-BEHAV_EN = {"open-water": "is often seen in open water", "reef": "is usually seen above the reef",
-            "bottom": "prefers to stay on the bottom", "buried": "often buries itself in sand",
-            "crevice": "likes to hide in crevices and caves", "nocturnal": "is mainly active at night",
-            "cleaner": "runs cleaning stations", "camouflage": "is superbly camouflaged",
-            "symbiosis": "lives in close association with other species", "sessile": "is sessile"}
+BEHAV_DE = {"open-water": "oft im Freiwasser", "reef": "meist über dem Riff", "bottom": "bevorzugt am Boden",
+            "buried": "gräbt sich gern im Sand ein", "crevice": "versteckt sich gern in Spalten und Höhlen",
+            "nocturnal": "vor allem nachts aktiv", "cleaner": "betreibt Putzerstationen", "camouflage": "hervorragend getarnt",
+            "symbiosis": "lebt in enger Gemeinschaft mit anderen Arten", "sessile": "festsitzend"}
+BEHAV_EN = {"open-water": "often in open water", "reef": "usually above the reef", "bottom": "prefers the bottom",
+            "buried": "often buried in sand", "crevice": "likes to hide in crevices and caves", "nocturnal": "mainly active at night",
+            "cleaner": "runs cleaning stations", "camouflage": "superbly camouflaged",
+            "symbiosis": "lives in close association with other species", "sessile": "sessile"}
 SOCIAL_DE = {"school": "in Schwärmen", "group": "in Gruppen", "pair": "paarweise", "solitary": "meist einzeln", "colony": "in Kolonien"}
 SOCIAL_EN = {"school": "in schools", "group": "in groups", "pair": "in pairs", "solitary": "mostly alone", "colony": "in colonies"}
 IUCN_DE = {"LC": "nicht gefährdet", "NT": "potenziell gefährdet", "VU": "gefährdet", "EN": "stark gefährdet",
@@ -77,8 +75,7 @@ def describe(s: dict, regions: list[dict]) -> tuple[str, str]:
 
     fam = s.get("family")
     de.append(f"{name_de} ({s['scientific_name']}) gehört zur Familie {fam}." if fam else f"{name_de} ({s['scientific_name']}).")
-    en.append(f"The {name_en.lower() if name_en != s['scientific_name'] else name_en} ({s['scientific_name']}) belongs to the family {fam}." if fam
-              else f"{name_en} ({s['scientific_name']}).")
+    en.append(f"{name_en} ({s['scientific_name']}) belongs to the family {fam}." if fam else f"{name_en} ({s['scientific_name']}).")
 
     look_de = [TRAIT_DE["shape"][x] for x in t["shape"] if x in TRAIT_DE["shape"]][:1]
     look_en = [TRAIT_EN["shape"][x] for x in t["shape"] if x in TRAIT_EN["shape"]][:1]
@@ -102,26 +99,26 @@ def describe(s: dict, regions: list[dict]) -> tuple[str, str]:
             parts_en.append("mostly " + _join(cols_en, "and"))
         if pat_en:
             parts_en.append(_join(pat_en, "and"))
-        en.append("Key features: " + _join(parts_en, "and") + ".")
+        en.append("Key features: " + "; ".join(parts_en) + ".")
 
     size, dmin, dmax = s.get("max_size_cm"), s.get("depth_min_m"), s.get("depth_max_m")
     if size:
-        de.append(f"Sie wird bis zu {_fmt(size)} cm groß.")
+        de.append(f"Die Art wird bis zu {_fmt(size)} cm groß.")
         en.append(f"It grows to about {_fmt(size)} cm.")
     if dmax:
         de.append(f"Typischer Tiefenbereich: {_fmt(dmin or 0)} bis {_fmt(dmax)} m.")
         en.append(f"Typical depth range: {_fmt(dmin or 0)} to {_fmt(dmax)} m.")
 
-    behav_de = [BEHAV_DE[x] for x in t["behav"] if x in BEHAV_DE][:2]
-    behav_en = [BEHAV_EN[x] for x in t["behav"] if x in BEHAV_EN][:2]
+    behav_de = [BEHAV_DE[x] for x in t["behav"] if x in BEHAV_DE][:3]
+    behav_en = [BEHAV_EN[x] for x in t["behav"] if x in BEHAV_EN][:3]
     social_de = [SOCIAL_DE[x] for x in t["social"] if x in SOCIAL_DE][:2]
     social_en = [SOCIAL_EN[x] for x in t["social"] if x in SOCIAL_EN][:2]
     if behav_de:
-        de.append("Die Art " + _join(behav_de, "und") + (f" und tritt {_join(social_de, 'oder')} auf." if social_de else "."))
-        en.append("It " + _join(behav_en, "and") + (f" and occurs {_join(social_en, 'or')}." if social_en else "."))
-    elif social_de:
-        de.append(f"Sie tritt {_join(social_de, 'oder')} auf.")
-        en.append(f"It occurs {_join(social_en, 'or')}.")
+        de.append("Verhalten: " + ", ".join(behav_de) + ".")
+        en.append("Behaviour: " + ", ".join(behav_en) + ".")
+    if social_de:
+        de.append("Auftreten: " + _join(social_de, "oder") + ".")
+        en.append("Occurrence: " + _join(social_en, "or") + ".")
 
     regs = [region_names[r] for r in s.get("regions", []) if r in region_names]
     if regs:
