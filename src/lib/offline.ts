@@ -1,5 +1,6 @@
 /** Offline photo pack: full-size catalog photos in the Cache Storage the service worker serves from. */
 export const IMAGE_CACHE = 'catalog-images';
+export const THUMB_CACHE = 'catalog-thumbs';
 
 export interface CatalogManifest {
   version: string;
@@ -59,6 +60,40 @@ export async function downloadPhotoPack(
   };
   await Promise.all(Array.from({ length: 6 }, worker));
   return failed;
+}
+
+async function fillCache(cacheName: string, urls: string[], concurrency: number, onDone?: () => void): Promise<number> {
+  const cache = await caches.open(cacheName);
+  const have = new Set((await cache.keys()).map((r) => r.url));
+  const todo = urls.filter((u) => !have.has(u));
+  let next = 0;
+  let failed = 0;
+  const worker = async () => {
+    while (next < todo.length) {
+      const url = todo[next++];
+      try {
+        const res = await fetch(url);
+        if (res.ok) await cache.put(url, res);
+        else failed++;
+      } catch {
+        failed++;
+      }
+      onDone?.();
+    }
+  };
+  await Promise.all(Array.from({ length: concurrency }, worker));
+  return failed;
+}
+
+/**
+ * Loads all grid thumbnails (~5 MB) into the cache once after start, so species grids show
+ * photos offline without downloading the full photo pack. Skipped when the browser asks to save data.
+ */
+export async function warmThumbnails(thumbs: (string | null)[]) {
+  if (!('caches' in window) || !navigator.onLine) return;
+  const conn = (navigator as Navigator & { connection?: { saveData?: boolean } }).connection;
+  if (conn?.saveData) return;
+  await fillCache(THUMB_CACHE, thumbs.filter((t): t is string => !!t).map(urlOf), 6);
 }
 
 export async function removePhotoPack() {

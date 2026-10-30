@@ -28,13 +28,19 @@ export default defineConfig({
         ],
       },
       workbox: {
-        // App shell, the catalog database and all thumbnails are precached so the
-        // catalog, search, filter, logbook and collection work offline right after install.
-        globPatterns: ['**/*.{js,css,html,svg,png,wasm,sqlite,json}', 'catalog/thumb/**/*.webp'],
+        // App shell and the catalog database are precached, so catalog, search, filter, logbook
+        // and collection work offline right after install. Thumbnails are warmed in parallel by
+        // the app after start (src/lib/offline.ts), which is much faster than precaching 500 files.
+        globPatterns: ['**/*.{js,css,html,svg,png,wasm,sqlite}', 'catalog/catalog-manifest.json'],
         maximumFileSizeToCacheInBytes: 8 * 1024 * 1024,
         navigateFallback: '/index.html',
         cleanupOutdatedCaches: true,
         runtimeCaching: [
+          {
+            urlPattern: ({ url }) => url.pathname.startsWith('/catalog/thumb/'),
+            handler: 'CacheFirst',
+            options: { cacheName: 'catalog-thumbs', expiration: { maxEntries: 5000 } },
+          },
           {
             // Full-size species photos; the "offline package" fills this cache in bulk.
             urlPattern: ({ url }) => url.pathname.startsWith('/catalog/img/'),
