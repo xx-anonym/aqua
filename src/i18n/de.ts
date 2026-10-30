@@ -1,4 +1,5 @@
 const de = {
+  catalogMeta: 'Katalogversion {{version}}, erstellt am {{date}}',
   common: {
     back: 'Zurück',
     close: 'Schließen',
@@ -199,6 +200,12 @@ const de = {
     timesSeen_other: '{{count}}× gesehen',
   },
   dive: {
+    profileSummary: 'Tauchprofil: maximal {{depth}}, Dauer {{time}} min',
+    tempRange: 'Wassertemperatur {{min}} bis {{max}}',
+    profileTable: 'Als Tabelle anzeigen',
+    time: 'Zeit',
+    depthLabel: 'Tiefe',
+    sitePrivate: 'privat',
     rating: 'Bewertung',
     ratingValue_one: '{{count}} Stern',
     ratingValue_other: '{{count}} Sterne',
@@ -269,6 +276,9 @@ const de = {
     },
   },
   logbook: {
+    statsLabel: 'Statistik',
+    speciesSeen_one: '{{count}} Sichtung',
+    speciesSeen_other: '{{count}} Sichtungen',
     title: 'Logbuch',
     empty: 'Noch keine Tauchgänge',
     emptyHint: 'Lege deinen ersten Tauchgang an oder importiere Daten deines Tauchcomputers.',
@@ -329,6 +339,7 @@ const de = {
     withProfile: 'mit Profil',
   },
   identify: {
+    removePhoto: 'Foto nicht speichern',
     title: 'Bestimmen',
     photoTitle: 'Per Foto bestimmen',
     photoHint: 'Fotografiere das Tier oder wähle ein Bild. Du bekommst bis zu 5 Vorschläge aus dem Katalog.',

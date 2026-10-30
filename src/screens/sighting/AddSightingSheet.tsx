@@ -17,12 +17,15 @@ export function AddSightingSheet({
   species,
   diveId,
   identifiedBy = 'manual',
+  initialPhoto,
   onClose,
   onSaved,
 }: {
   species: Species;
   diveId?: string | null;
   identifiedBy?: IdentifiedBy;
+  /** Photo used for photo ID, stored with the sighting unless the user removes it. */
+  initialPhoto?: Blob | null;
   onClose: () => void;
   onSaved?: () => void;
 }) {
@@ -37,7 +40,7 @@ export function AddSightingSheet({
   const [time, setTime] = useState(timeLocal());
   const [count, setCount] = useState('');
   const [note, setNote] = useState('');
-  const [photo, setPhoto] = useState<File | null>(null);
+  const [photo, setPhoto] = useState<Blob | null>(initialPhoto ?? null);
   const [saving, setSaving] = useState(false);
 
   const save = async () => {
@@ -116,7 +119,14 @@ export function AddSightingSheet({
           <textarea className="input" value={note} onChange={(e) => setNote(e.target.value)} />
         </Field>
         <Field label={t('sighting.photo')}>
-          <input className="input" type="file" accept="image/*" onChange={(e) => setPhoto(e.target.files?.[0] ?? null)} />
+          {initialPhoto && photo === initialPhoto ? (
+            <button type="button" className="btn small outline" onClick={() => setPhoto(null)}>
+              <Icon name="close" />
+              {t('identify.removePhoto')}
+            </button>
+          ) : (
+            <input className="input" type="file" accept="image/*" onChange={(e) => setPhoto(e.target.files?.[0] ?? null)} />
+          )}
         </Field>
       </div>
     </Sheet>

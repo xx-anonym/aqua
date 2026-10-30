@@ -1,4 +1,5 @@
 const en = {
+  catalogMeta: 'Catalog version {{version}}, built {{date}}',
   common: {
     back: 'Back',
     close: 'Close',
@@ -199,6 +200,12 @@ const en = {
     timesSeen_other: 'seen {{count}}×',
   },
   dive: {
+    profileSummary: 'Dive profile: max {{depth}}, duration {{time}} min',
+    tempRange: 'Water temperature {{min}} to {{max}}',
+    profileTable: 'Show as table',
+    time: 'Time',
+    depthLabel: 'Depth',
+    sitePrivate: 'private',
     rating: 'Rating',
     ratingValue_one: '{{count}} star',
     ratingValue_other: '{{count}} stars',
@@ -269,6 +276,9 @@ const en = {
     },
   },
   logbook: {
+    statsLabel: 'Statistics',
+    speciesSeen_one: '{{count}} sighting',
+    speciesSeen_other: '{{count}} sightings',
     title: 'Logbook',
     empty: 'No dives yet',
     emptyHint: 'Log your first dive or import data from your dive computer.',
@@ -329,6 +339,7 @@ const en = {
     withProfile: 'with profile',
   },
   identify: {
+    removePhoto: 'Do not keep the photo',
     title: 'Identify',
     photoTitle: 'Identify by photo',
     photoHint: 'Take or choose a photo of the animal. You get up to 5 suggestions from the catalog.',

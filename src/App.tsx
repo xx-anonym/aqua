@@ -7,6 +7,7 @@ import { DbProvider } from './db/react';
 import { useSettings } from './settings/settings';
 import { FeedbackProvider } from './ui/feedback';
 import { router } from './router';
+import { initCloud } from './sync/syncManager';
 
 function useApplySettings() {
   const theme = useSettings((s) => s.theme);
@@ -31,7 +32,10 @@ export function App() {
 
   useEffect(() => {
     bootDb()
-      .then(setDb)
+      .then((d) => {
+        initCloud(d);
+        setDb(d);
+      })
       .catch((e: unknown) => setError(e instanceof Error ? e.message : String(e)));
   }, []);
 
@@ -57,7 +61,7 @@ export function App() {
   return (
     <DbProvider db={db}>
       <FeedbackProvider>
-        <RouterProvider router={router} />
+        <RouterProvider router={router} future={{ v7_startTransition: true }} />
       </FeedbackProvider>
     </DbProvider>
   );

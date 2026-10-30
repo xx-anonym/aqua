@@ -23,8 +23,8 @@ function currentUserId(db: AppDb): string | null {
  * so the sync engine pushes it; deleted_at is cleared (re-adding a favorite revives it).
  * Use inside db.tx() for multi-row writes.
  */
-export function upsertRow<T extends { id?: string }>(db: AppDb, table: SyncTable, values: T): string {
-  const id = values.id ?? newId();
+export function upsertRow(db: AppDb, table: SyncTable, values: object): string {
+  const id = (values as { id?: string }).id ?? newId();
   const now = nowIso();
   const existing = db.get<{ id: string }>(`SELECT id FROM ${table} WHERE id = ?`, [id]);
   const data = clean({ ...values, id, updated_at: now, deleted_at: null, dirty: 1 });

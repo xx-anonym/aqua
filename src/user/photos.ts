@@ -24,13 +24,30 @@ export async function savePhoto(file: Blob): Promise<string> {
   return `idb:${id}`;
 }
 
+/** Local blob key: "idb:<uuid>" for photos not yet uploaded, the full "sb:<path>" uri for synced ones. */
+const keyOf = (uri: string) => (uri.startsWith('idb:') ? uri.slice(4) : uri);
+
+let remoteLoader: ((uri: string) => Promise<Blob | undefined>) | null = null;
+/** Set by the cloud module: downloads a synced photo ("sb:…") when it is not cached on this device. */
+export function setRemotePhotoLoader(fn: typeof remoteLoader) {
+  remoteLoader = fn;
+}
+
 export async function loadPhoto(uri: string): Promise<Blob | undefined> {
-  if (!uri.startsWith('idb:')) return undefined;
-  return idb.get<Blob>('photos', uri.slice(4));
+  if (!uri.startsWith('idb:') && !uri.startsWith('sb:')) return undefined;
+  const local = await idb.get<Blob>('photos', keyOf(uri));
+  if (local || !uri.startsWith('sb:') || !remoteLoader) return local;
+  const blob = await remoteLoader(uri).catch(() => undefined);
+  if (blob) await idb.set('photos', keyOf(uri), blob);
+  return blob;
+}
+
+export async function storePhoto(uri: string, blob: Blob) {
+  await idb.set('photos', keyOf(uri), blob);
 }
 
 export async function deletePhoto(uri: string | null | undefined) {
-  if (uri?.startsWith('idb:')) await idb.del('photos', uri.slice(4));
+  if (uri?.startsWith('idb:') || uri?.startsWith('sb:')) await idb.del('photos', keyOf(uri));
 }
 
 /** Object URL for a stored photo (idb:…) or a remote URL as-is. */
@@ -41,7 +58,7 @@ export function usePhotoUrl(uri: string | null | undefined): string | null {
       setUrl(null);
       return;
     }
-    if (!uri.startsWith('idb:')) {
+    if (!uri.startsWith('idb:') && !uri.startsWith('sb:')) {
       setUrl(uri);
       return;
     }

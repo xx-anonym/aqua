@@ -4,7 +4,6 @@ import { AppDb } from './appDb';
 import { idb } from './idb';
 
 const CATALOG_URL = '/catalog/catalog.sqlite';
-const PERSIST_DELAY_MS = 400;
 
 async function loadCatalogBytes(): Promise<Uint8Array> {
   try {
@@ -21,12 +20,30 @@ async function loadCatalogBytes(): Promise<Uint8Array> {
   }
 }
 
-let persistTimer: ReturnType<typeof setTimeout> | undefined;
+let writing: Promise<void> | null = null;
+let again = false;
 
-export async function persistNow(db: AppDb) {
-  clearTimeout(persistTimer);
-  persistTimer = undefined;
-  await idb.set('kv', 'userdb', db.exportUser());
+/**
+ * Writes the user database to IndexedDB right after a change (the export of a few hundred KB
+ * takes milliseconds), so closing the app immediately after saving never loses data.
+ * Writes are serialised; changes during a write trigger exactly one follow-up write.
+ */
+export function persistNow(db: AppDb): Promise<void> {
+  if (writing) {
+    again = true;
+    return writing;
+  }
+  writing = (async () => {
+    try {
+      do {
+        again = false;
+        await idb.set('kv', 'userdb', db.exportUser());
+      } while (again);
+    } finally {
+      writing = null;
+    }
+  })();
+  return writing;
 }
 
 export async function bootDb(): Promise<AppDb> {
@@ -37,17 +54,16 @@ export async function bootDb(): Promise<AppDb> {
   ]);
   const db = AppDb.create(SQL, catalogBytes, userBytes);
 
+  let scheduled = false;
   db.subscribe(() => {
-    clearTimeout(persistTimer);
-    persistTimer = setTimeout(() => void persistNow(db), PERSIST_DELAY_MS);
+    // Coalesce changes made in the same task (e.g. a dive and its sightings) into one write.
+    if (scheduled) return;
+    scheduled = true;
+    queueMicrotask(() => {
+      scheduled = false;
+      void persistNow(db);
+    });
   });
-  const flush = () => {
-    if (persistTimer !== undefined) void persistNow(db);
-  };
-  document.addEventListener('visibilitychange', () => {
-    if (document.visibilityState === 'hidden') flush();
-  });
-  window.addEventListener('pagehide', flush);
   // Ask the browser not to evict our data under storage pressure.
   navigator.storage?.persist?.().catch(() => undefined);
   return db;
