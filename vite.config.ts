@@ -1,0 +1,56 @@
+import { defineConfig } from 'vitest/config';
+import react from '@vitejs/plugin-react';
+import { VitePWA } from 'vite-plugin-pwa';
+
+export default defineConfig({
+  plugins: [
+    react(),
+    VitePWA({
+      registerType: 'autoUpdate',
+      includeAssets: ['icons/*.png', 'icons/*.svg'],
+      manifest: {
+        name: 'Aqua – Tauch-Logbuch & Artensammlung',
+        short_name: 'Aqua',
+        description: 'Meerestiere bestimmen, Tauchgänge loggen und jede gesichtete Art sammeln – auch offline.',
+        lang: 'de',
+        theme_color: '#0b5f66',
+        background_color: '#071318',
+        display: 'standalone',
+        orientation: 'portrait',
+        start_url: '/',
+        icons: [
+          { src: '/icons/icon-192.png', sizes: '192x192', type: 'image/png' },
+          { src: '/icons/icon-512.png', sizes: '512x512', type: 'image/png' },
+          { src: '/icons/icon-maskable-512.png', sizes: '512x512', type: 'image/png', purpose: 'maskable' },
+        ],
+      },
+      workbox: {
+        // App shell, the catalog database and all thumbnails are precached so the
+        // catalog, search, filter, logbook and collection work offline right after install.
+        globPatterns: ['**/*.{js,css,html,svg,png,wasm,sqlite,json}', 'catalog/thumb/**/*.webp'],
+        maximumFileSizeToCacheInBytes: 8 * 1024 * 1024,
+        navigateFallback: '/index.html',
+        cleanupOutdatedCaches: true,
+        runtimeCaching: [
+          {
+            // Full-size species photos; the "offline package" fills this cache in bulk.
+            urlPattern: ({ url }) => url.pathname.startsWith('/catalog/img/'),
+            handler: 'CacheFirst',
+            options: { cacheName: 'catalog-images', expiration: { maxEntries: 5000 } },
+          },
+          {
+            urlPattern: ({ url }) => url.hostname.endsWith('tile.openstreetmap.org'),
+            handler: 'StaleWhileRevalidate',
+            options: { cacheName: 'map-tiles', expiration: { maxEntries: 800, maxAgeSeconds: 60 * 60 * 24 * 30 } },
+          },
+        ],
+      },
+    }),
+  ],
+  test: {
+    environment: 'jsdom',
+    globals: true,
+    setupFiles: ['src/test/setup.ts'],
+    css: false,
+  },
+});

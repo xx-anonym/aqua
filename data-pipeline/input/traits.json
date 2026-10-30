@@ -1,0 +1,560 @@
+[
+ {
+  "id": "color-red",
+  "type": "color",
+  "label_de": "Rot",
+  "label_en": "Red",
+  "icon": "color-red",
+  "applies_to": "fish,creature,coral_sponge_plant",
+  "sort": 0
+ },
+ {
+  "id": "color-orange",
+  "type": "color",
+  "label_de": "Orange",
+  "label_en": "Orange",
+  "icon": "color-orange",
+  "applies_to": "fish,creature,coral_sponge_plant",
+  "sort": 1
+ },
+ {
+  "id": "color-yellow",
+  "type": "color",
+  "label_de": "Gelb",
+  "label_en": "Yellow",
+  "icon": "color-yellow",
+  "applies_to": "fish,creature,coral_sponge_plant",
+  "sort": 2
+ },
+ {
+  "id": "color-green",
+  "type": "color",
+  "label_de": "Grün",
+  "label_en": "Green",
+  "icon": "color-green",
+  "applies_to": "fish,creature,coral_sponge_plant",
+  "sort": 3
+ },
+ {
+  "id": "color-blue",
+  "type": "color",
+  "label_de": "Blau",
+  "label_en": "Blue",
+  "icon": "color-blue",
+  "applies_to": "fish,creature,coral_sponge_plant",
+  "sort": 4
+ },
+ {
+  "id": "color-violet",
+  "type": "color",
+  "label_de": "Violett",
+  "label_en": "Purple",
+  "icon": "color-violet",
+  "applies_to": "fish,creature,coral_sponge_plant",
+  "sort": 5
+ },
+ {
+  "id": "color-pink",
+  "type": "color",
+  "label_de": "Rosa",
+  "label_en": "Pink",
+  "icon": "color-pink",
+  "applies_to": "fish,creature,coral_sponge_plant",
+  "sort": 6
+ },
+ {
+  "id": "color-brown",
+  "type": "color",
+  "label_de": "Braun",
+  "label_en": "Brown",
+  "icon": "color-brown",
+  "applies_to": "fish,creature,coral_sponge_plant",
+  "sort": 7
+ },
+ {
+  "id": "color-black",
+  "type": "color",
+  "label_de": "Schwarz",
+  "label_en": "Black",
+  "icon": "color-black",
+  "applies_to": "fish,creature,coral_sponge_plant",
+  "sort": 8
+ },
+ {
+  "id": "color-white",
+  "type": "color",
+  "label_de": "Weiß",
+  "label_en": "White",
+  "icon": "color-white",
+  "applies_to": "fish,creature,coral_sponge_plant",
+  "sort": 9
+ },
+ {
+  "id": "color-grey",
+  "type": "color",
+  "label_de": "Grau",
+  "label_en": "Grey",
+  "icon": "color-grey",
+  "applies_to": "fish,creature,coral_sponge_plant",
+  "sort": 10
+ },
+ {
+  "id": "color-silver",
+  "type": "color",
+  "label_de": "Silbrig",
+  "label_en": "Silver",
+  "icon": "color-silver",
+  "applies_to": "fish,creature,coral_sponge_plant",
+  "sort": 11
+ },
+ {
+  "id": "pattern-plain",
+  "type": "pattern",
+  "label_de": "Einfarbig",
+  "label_en": "Plain",
+  "icon": "pattern-plain",
+  "applies_to": "fish,creature,coral_sponge_plant",
+  "sort": 12
+ },
+ {
+  "id": "pattern-stripes",
+  "type": "pattern",
+  "label_de": "Längsstreifen",
+  "label_en": "Stripes",
+  "icon": "pattern-stripes",
+  "applies_to": "fish,creature,coral_sponge_plant",
+  "sort": 13
+ },
+ {
+  "id": "pattern-bars",
+  "type": "pattern",
+  "label_de": "Querbänder",
+  "label_en": "Bars",
+  "icon": "pattern-bars",
+  "applies_to": "fish,creature,coral_sponge_plant",
+  "sort": 14
+ },
+ {
+  "id": "pattern-spots",
+  "type": "pattern",
+  "label_de": "Gepunktet",
+  "label_en": "Spotted",
+  "icon": "pattern-spots",
+  "applies_to": "fish,creature,coral_sponge_plant",
+  "sort": 15
+ },
+ {
+  "id": "pattern-blotches",
+  "type": "pattern",
+  "label_de": "Gefleckt / marmoriert",
+  "label_en": "Blotched / mottled",
+  "icon": "pattern-blotches",
+  "applies_to": "fish,creature,coral_sponge_plant",
+  "sort": 16
+ },
+ {
+  "id": "pattern-eyespot",
+  "type": "pattern",
+  "label_de": "Augenfleck",
+  "label_en": "Eyespot",
+  "icon": "pattern-eyespot",
+  "applies_to": "fish,creature,coral_sponge_plant",
+  "sort": 17
+ },
+ {
+  "id": "pattern-reticulated",
+  "type": "pattern",
+  "label_de": "Netzmuster",
+  "label_en": "Reticulated",
+  "icon": "pattern-reticulated",
+  "applies_to": "fish,creature,coral_sponge_plant",
+  "sort": 18
+ },
+ {
+  "id": "pattern-bicolor",
+  "type": "pattern",
+  "label_de": "Zweifarbig",
+  "label_en": "Two-tone",
+  "icon": "pattern-bicolor",
+  "applies_to": "fish,creature,coral_sponge_plant",
+  "sort": 19
+ },
+ {
+  "id": "shape-compressed",
+  "type": "body_shape",
+  "label_de": "Seitlich abgeflacht, hochrückig",
+  "label_en": "Compressed, deep-bodied",
+  "icon": "shape-compressed",
+  "applies_to": "fish",
+  "sort": 20
+ },
+ {
+  "id": "shape-fusiform",
+  "type": "body_shape",
+  "label_de": "Spindel- / torpedoförmig",
+  "label_en": "Torpedo-shaped",
+  "icon": "shape-fusiform",
+  "applies_to": "fish",
+  "sort": 21
+ },
+ {
+  "id": "shape-elongated",
+  "type": "body_shape",
+  "label_de": "Langgestreckt",
+  "label_en": "Elongated",
+  "icon": "shape-elongated",
+  "applies_to": "fish",
+  "sort": 22
+ },
+ {
+  "id": "shape-eel",
+  "type": "body_shape",
+  "label_de": "Aal- / schlangenförmig",
+  "label_en": "Eel-like",
+  "icon": "shape-eel",
+  "applies_to": "fish",
+  "sort": 23
+ },
+ {
+  "id": "shape-round",
+  "type": "body_shape",
+  "label_de": "Rund / kugelig",
+  "label_en": "Round / globular",
+  "icon": "shape-round",
+  "applies_to": "fish",
+  "sort": 24
+ },
+ {
+  "id": "shape-flat",
+  "type": "body_shape",
+  "label_de": "Flach am Boden",
+  "label_en": "Flattened",
+  "icon": "shape-flat",
+  "applies_to": "fish",
+  "sort": 25
+ },
+ {
+  "id": "shape-box",
+  "type": "body_shape",
+  "label_de": "Kastenförmig",
+  "label_en": "Box-shaped",
+  "icon": "shape-box",
+  "applies_to": "fish",
+  "sort": 26
+ },
+ {
+  "id": "shape-odd",
+  "type": "body_shape",
+  "label_de": "Ungewöhnliche Form",
+  "label_en": "Unusual shape",
+  "icon": "shape-odd",
+  "applies_to": "fish",
+  "sort": 27
+ },
+ {
+  "id": "shape-slug",
+  "type": "body_shape",
+  "label_de": "Nacktschnecke / Plattwurm",
+  "label_en": "Sea slug / flatworm",
+  "icon": "shape-slug",
+  "applies_to": "creature",
+  "sort": 28
+ },
+ {
+  "id": "shape-shell",
+  "type": "body_shape",
+  "label_de": "Mit Schale / Gehäuse",
+  "label_en": "With shell",
+  "icon": "shape-shell",
+  "applies_to": "creature",
+  "sort": 29
+ },
+ {
+  "id": "shape-crab",
+  "type": "body_shape",
+  "label_de": "Krebs / Garnele",
+  "label_en": "Crab / shrimp",
+  "icon": "shape-crab",
+  "applies_to": "creature",
+  "sort": 30
+ },
+ {
+  "id": "shape-cephalopod",
+  "type": "body_shape",
+  "label_de": "Krake / Tintenfisch",
+  "label_en": "Octopus / squid",
+  "icon": "shape-cephalopod",
+  "applies_to": "creature",
+  "sort": 31
+ },
+ {
+  "id": "shape-star",
+  "type": "body_shape",
+  "label_de": "Sternförmig",
+  "label_en": "Star-shaped",
+  "icon": "shape-star",
+  "applies_to": "creature",
+  "sort": 32
+ },
+ {
+  "id": "shape-spiny",
+  "type": "body_shape",
+  "label_de": "Stachelig",
+  "label_en": "Spiny",
+  "icon": "shape-spiny",
+  "applies_to": "creature",
+  "sort": 33
+ },
+ {
+  "id": "shape-worm",
+  "type": "body_shape",
+  "label_de": "Wurm- / walzenförmig",
+  "label_en": "Worm-like / cylindrical",
+  "icon": "shape-worm",
+  "applies_to": "creature",
+  "sort": 34
+ },
+ {
+  "id": "shape-turtle",
+  "type": "body_shape",
+  "label_de": "Schildkröte / Seeschlange",
+  "label_en": "Turtle / sea snake",
+  "icon": "shape-turtle",
+  "applies_to": "creature",
+  "sort": 35
+ },
+ {
+  "id": "shape-mammal",
+  "type": "body_shape",
+  "label_de": "Meeressäuger",
+  "label_en": "Marine mammal",
+  "icon": "shape-mammal",
+  "applies_to": "creature",
+  "sort": 36
+ },
+ {
+  "id": "shape-jelly",
+  "type": "body_shape",
+  "label_de": "Qualle / gallertig",
+  "label_en": "Jelly / gelatinous",
+  "icon": "shape-jelly",
+  "applies_to": "creature",
+  "sort": 37
+ },
+ {
+  "id": "shape-branching",
+  "type": "body_shape",
+  "label_de": "Verzweigt",
+  "label_en": "Branching",
+  "icon": "shape-branching",
+  "applies_to": "coral_sponge_plant",
+  "sort": 38
+ },
+ {
+  "id": "shape-massive",
+  "type": "body_shape",
+  "label_de": "Massiv / knollig",
+  "label_en": "Massive / boulder",
+  "icon": "shape-massive",
+  "applies_to": "coral_sponge_plant",
+  "sort": 39
+ },
+ {
+  "id": "shape-plate",
+  "type": "body_shape",
+  "label_de": "Platten- / tischförmig",
+  "label_en": "Plate / table",
+  "icon": "shape-plate",
+  "applies_to": "coral_sponge_plant",
+  "sort": 40
+ },
+ {
+  "id": "shape-fan",
+  "type": "body_shape",
+  "label_de": "Fächerförmig",
+  "label_en": "Fan-shaped",
+  "icon": "shape-fan",
+  "applies_to": "coral_sponge_plant",
+  "sort": 41
+ },
+ {
+  "id": "shape-soft",
+  "type": "body_shape",
+  "label_de": "Weich / lederartig",
+  "label_en": "Soft / leathery",
+  "icon": "shape-soft",
+  "applies_to": "coral_sponge_plant",
+  "sort": 42
+ },
+ {
+  "id": "shape-tube",
+  "type": "body_shape",
+  "label_de": "Röhren- / vasenförmig",
+  "label_en": "Tube / vase",
+  "icon": "shape-tube",
+  "applies_to": "coral_sponge_plant",
+  "sort": 43
+ },
+ {
+  "id": "shape-anemone",
+  "type": "body_shape",
+  "label_de": "Anemone / Einzelpolyp",
+  "label_en": "Anemone / polyp",
+  "icon": "shape-anemone",
+  "applies_to": "coral_sponge_plant",
+  "sort": 44
+ },
+ {
+  "id": "shape-encrusting",
+  "type": "body_shape",
+  "label_de": "Krustenförmig",
+  "label_en": "Encrusting",
+  "icon": "shape-encrusting",
+  "applies_to": "coral_sponge_plant",
+  "sort": 45
+ },
+ {
+  "id": "shape-plant",
+  "type": "body_shape",
+  "label_de": "Seegras / Alge",
+  "label_en": "Seagrass / alga",
+  "icon": "shape-plant",
+  "applies_to": "coral_sponge_plant",
+  "sort": 46
+ },
+ {
+  "id": "behav-open-water",
+  "type": "behavior",
+  "label_de": "Im Freiwasser",
+  "label_en": "In open water",
+  "icon": "behav-open-water",
+  "applies_to": "fish,creature",
+  "sort": 47
+ },
+ {
+  "id": "behav-reef",
+  "type": "behavior",
+  "label_de": "Über dem Riff",
+  "label_en": "Above the reef",
+  "icon": "behav-reef",
+  "applies_to": "fish,creature",
+  "sort": 48
+ },
+ {
+  "id": "behav-bottom",
+  "type": "behavior",
+  "label_de": "Am Boden",
+  "label_en": "On the bottom",
+  "icon": "behav-bottom",
+  "applies_to": "fish,creature",
+  "sort": 49
+ },
+ {
+  "id": "behav-buried",
+  "type": "behavior",
+  "label_de": "Im Sand vergraben",
+  "label_en": "Buried in sand",
+  "icon": "behav-buried",
+  "applies_to": "fish,creature",
+  "sort": 50
+ },
+ {
+  "id": "behav-crevice",
+  "type": "behavior",
+  "label_de": "In Spalten / Höhlen",
+  "label_en": "In crevices / caves",
+  "icon": "behav-crevice",
+  "applies_to": "fish,creature",
+  "sort": 51
+ },
+ {
+  "id": "behav-nocturnal",
+  "type": "behavior",
+  "label_de": "Nachtaktiv",
+  "label_en": "Nocturnal",
+  "icon": "behav-nocturnal",
+  "applies_to": "fish,creature,coral_sponge_plant",
+  "sort": 52
+ },
+ {
+  "id": "behav-cleaner",
+  "type": "behavior",
+  "label_de": "Putzer",
+  "label_en": "Cleaner",
+  "icon": "behav-cleaner",
+  "applies_to": "fish,creature",
+  "sort": 53
+ },
+ {
+  "id": "behav-camouflage",
+  "type": "behavior",
+  "label_de": "Gut getarnt",
+  "label_en": "Camouflaged",
+  "icon": "behav-camouflage",
+  "applies_to": "fish,creature",
+  "sort": 54
+ },
+ {
+  "id": "behav-symbiosis",
+  "type": "behavior",
+  "label_de": "Lebt in Symbiose",
+  "label_en": "Symbiotic",
+  "icon": "behav-symbiosis",
+  "applies_to": "fish,creature,coral_sponge_plant",
+  "sort": 55
+ },
+ {
+  "id": "behav-sessile",
+  "type": "behavior",
+  "label_de": "Festsitzend",
+  "label_en": "Sessile",
+  "icon": "behav-sessile",
+  "applies_to": "coral_sponge_plant,creature",
+  "sort": 56
+ },
+ {
+  "id": "social-school",
+  "type": "social",
+  "label_de": "Schwarm",
+  "label_en": "School",
+  "icon": "social-school",
+  "applies_to": "fish,creature",
+  "sort": 57
+ },
+ {
+  "id": "social-group",
+  "type": "social",
+  "label_de": "Gruppe",
+  "label_en": "Group",
+  "icon": "social-group",
+  "applies_to": "fish,creature",
+  "sort": 58
+ },
+ {
+  "id": "social-pair",
+  "type": "social",
+  "label_de": "Paarweise",
+  "label_en": "In pairs",
+  "icon": "social-pair",
+  "applies_to": "fish,creature",
+  "sort": 59
+ },
+ {
+  "id": "social-solitary",
+  "type": "social",
+  "label_de": "Einzeln",
+  "label_en": "Solitary",
+  "icon": "social-solitary",
+  "applies_to": "fish,creature",
+  "sort": 60
+ },
+ {
+  "id": "social-colony",
+  "type": "social",
+  "label_de": "Kolonie",
+  "label_en": "Colony",
+  "icon": "social-colony",
+  "applies_to": "coral_sponge_plant,creature",
+  "sort": 61
+ }
+]
