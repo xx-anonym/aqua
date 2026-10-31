@@ -80,6 +80,9 @@ const DEVICES = [
       }
       ctx.putImageData(img, 0, 0);
       splash.style.background = `url(${canvas.toDataURL()}) 0 0 / 100% 100%`;
+      const noGradient = document.createElement('style');
+      noGradient.textContent = '#splash::before { content: none; }';
+      document.head.append(noGradient);
     });
     await page.waitForTimeout(100);
     const file = `iphone-${w * r}x${h * r}.png`;

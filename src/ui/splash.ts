@@ -1,5 +1,6 @@
 /** Shortest time the start screen stays up, counted from page start, so it never just flickers. */
 const MIN_VISIBLE_MS = 900;
+/** Content and gradient fade (0.25 s), overlapped by the fade of the plain layer: see index.html. */
 const FADE_MS = 450;
 
 /** Fades out the start screen from index.html (no-op when it is already gone, e.g. in tests). */

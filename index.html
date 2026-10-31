@@ -30,22 +30,44 @@
     <style>
       #splash {
         position: fixed;
-        inset: 0;
+        top: 0;
+        left: 0;
+        width: 100%;
+        /* --sp-h: full screen height in installed iOS apps (see the script below). */
+        height: var(--sp-h, 100%);
         z-index: 1000;
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
         gap: 14px;
-        background: radial-gradient(130% 90% at 50% 35%, #0e7f87 0%, #08464d 55%, #04252b 100%);
-        color: #f4fbfb;
-        font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-        transition: opacity 0.45s ease, transform 0.45s ease;
+        /* Under the gradient: the app's own background once its stylesheet is loaded. */
+        background: var(--bg, #05333a);
+        transition: opacity 0.25s ease 0.2s;
       }
+      #splash::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(130% 90% at 50% 35%, #0e7f87 0%, #08464d 55%, #04252b 100%);
+        transition: opacity 0.25s ease;
+      }
+      #splash > * {
+        position: relative;
+        transition: opacity 0.2s ease, transform 0.25s ease-in;
+      }
+      /* Leaving: the fish swims off and the gradient gives way to the app's background colour,
+         then the (now plain) layer fades. No tinted half-transparent overlay over the app. */
       #splash[data-state='leaving'] {
         opacity: 0;
-        transform: scale(1.06);
         pointer-events: none;
+      }
+      #splash[data-state='leaving']::before,
+      #splash[data-state='leaving'] > * {
+        opacity: 0;
+      }
+      #splash[data-state='leaving'] .sp-scene {
+        transform: translateX(-36px);
       }
       #splash .sp-scene {
         width: 136px;
@@ -61,14 +83,13 @@
       #splash:not([data-state='leaving']) ~ #root {
         visibility: hidden;
       }
-      html:has(#splash),
-      html:has(#splash) body {
+      html:has(#splash:not([data-state='leaving'])),
+      html:has(#splash:not([data-state='leaving'])) body {
         background: #05333a;
       }
       #splash .sp-wave {
         width: 96px;
         height: 12px;
-        opacity: 0.75;
       }
       .sp-fish {
         transform-origin: 234px 264px;
@@ -139,14 +160,17 @@
           animation: none;
           opacity: 0.8;
         }
-        #splash {
-          transition: opacity 0.2s linear;
-        }
-        #splash[data-state='leaving'] {
+        #splash[data-state='leaving'] .sp-scene {
           transform: none;
         }
       }
     </style>
+    <script>
+      // Installed iOS apps start with a viewport a bit shorter than the screen and then grow it,
+      // which made the centred start screen jump. Pin it to the screen height, as on the iOS
+      // startup image.
+      if (navigator.standalone) document.documentElement.style.setProperty('--sp-h', screen.height + 'px');
+    </script>
   </head>
   <body>
     <div id="splash" aria-hidden="true">
@@ -170,6 +194,7 @@
           d="M0 6q6-5 12 0t12 0t12 0t12 0t12 0t12 0t12 0t12 0t12 0t12 0t12 0"
           fill="none"
           stroke="#bfeef0"
+          stroke-opacity="0.75"
           stroke-width="2.5"
           stroke-linecap="round"
         />
