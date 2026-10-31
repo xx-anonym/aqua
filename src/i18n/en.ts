@@ -1,5 +1,9 @@
 const en = {
   catalogMeta: 'Catalog version {{version}}, built {{date}}',
+  update: {
+    available: 'New version available',
+    reload: 'Update',
+  },
   common: {
     back: 'Back',
     close: 'Close',

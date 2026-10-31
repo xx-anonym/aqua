@@ -9,7 +9,8 @@ export default defineConfig({
   plugins: [
     react(),
     VitePWA({
-      registerType: 'autoUpdate',
+      // The app shows an update banner (src/ui/UpdateBanner.tsx) instead of reloading by itself.
+      registerType: 'prompt',
       includeAssets: ['icons/*.png', 'icons/*.svg'],
       manifest: {
         name: 'Aqua – Tauch-Logbuch & Artensammlung',

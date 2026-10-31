@@ -6,6 +6,7 @@ import type { AppDb } from './db/appDb';
 import { DbProvider } from './db/react';
 import { useSettings } from './settings/settings';
 import { FeedbackProvider } from './ui/feedback';
+import { UpdateBanner } from './ui/UpdateBanner';
 import { router } from './router';
 import { initCloud } from './sync/syncManager';
 import { getCatalog } from './catalog/useCatalog';
@@ -66,6 +67,7 @@ export function App() {
     <DbProvider db={db}>
       <FeedbackProvider>
         <RouterProvider router={router} future={{ v7_startTransition: true }} />
+        <UpdateBanner />
       </FeedbackProvider>
     </DbProvider>
   );

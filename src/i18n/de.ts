@@ -1,5 +1,9 @@
 const de = {
   catalogMeta: 'Katalogversion {{version}}, erstellt am {{date}}',
+  update: {
+    available: 'Neue Version verfügbar',
+    reload: 'Aktualisieren',
+  },
   common: {
     back: 'Zurück',
     close: 'Schließen',
