@@ -1,6 +1,10 @@
 const de = {
   catalogMeta: 'Katalogversion {{version}}, erstellt am {{date}}',
   update: {
+    check: 'Nach Updates suchen',
+    current: 'Du hast die neueste Version.',
+    offline: 'Keine Verbindung – Update-Prüfung nicht möglich.',
+    unsupported: 'Updates werden in diesem Browser nicht unterstützt.',
     available: 'Neue Version verfügbar',
     reload: 'Aktualisieren',
   },
@@ -439,6 +443,7 @@ const de = {
     about: 'Über die App',
     aboutText: 'Privates, nicht-kommerzielles Projekt. Artendaten aus offenen Quellen, Texte selbst formuliert.',
     version: 'Version {{version}}',
+    build: 'Build {{build}} vom {{date}}',
   },
   credits: {
     title: 'Bildnachweise & Lizenzen',

@@ -3,6 +3,40 @@ import { useTranslation } from 'react-i18next';
 import { Icon } from './icons/Icon';
 
 const CHECK_EVERY_MS = 30 * 60 * 1000;
+const MIN_GAP_MS = 60 * 1000;
+
+let registrationRef: ServiceWorkerRegistration | undefined;
+
+export type UpdateCheck = 'available' | 'current' | 'offline' | 'unsupported';
+
+/** Manual check from the profile screen; a found update also shows the banner. */
+export async function checkForUpdate(): Promise<UpdateCheck> {
+  const reg = registrationRef ?? (await navigator.serviceWorker?.getRegistration().catch(() => undefined));
+  if (!reg) return 'unsupported';
+  if (!navigator.onLine) return 'offline';
+  if (reg.waiting) return 'available';
+  try {
+    await reg.update();
+  } catch {
+    return 'offline';
+  }
+  if (reg.waiting) return 'available';
+  const installing = reg.installing;
+  if (!installing) return 'current';
+  // The new version is still downloading: wait until it is ready (or gives up).
+  return new Promise<UpdateCheck>((resolve) => {
+    const timer = setTimeout(() => resolve('current'), 30_000);
+    installing.addEventListener('statechange', () => {
+      if (installing.state === 'installed') {
+        clearTimeout(timer);
+        resolve('available');
+      } else if (installing.state === 'redundant') {
+        clearTimeout(timer);
+        resolve('current');
+      }
+    });
+  });
+}
 
 /**
  * Installed iOS web apps are usually resumed rather than restarted, so a new version would
@@ -18,13 +52,21 @@ export function UpdateBanner() {
   } = useRegisterSW({
     onRegisteredSW(_url, registration) {
       if (!registration) return;
+      registrationRef = registration;
+      let last = 0;
       const check = () => {
-        if (navigator.onLine) void registration.update().catch(() => undefined);
+        if (!navigator.onLine || Date.now() - last < MIN_GAP_MS) return;
+        last = Date.now();
+        void registration.update().catch(() => undefined);
       };
       setInterval(check, CHECK_EVERY_MS);
+      // iOS reports a resumed home-screen app through different events depending on version.
       document.addEventListener('visibilitychange', () => {
         if (document.visibilityState === 'visible') check();
       });
+      window.addEventListener('focus', check);
+      window.addEventListener('pageshow', check);
+      window.addEventListener('online', check);
     },
   });
 

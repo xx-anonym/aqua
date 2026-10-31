@@ -23,6 +23,7 @@ import { exportUddf } from '../../user/io/uddf';
 import { Field, PageHeader } from '../../ui/components';
 import { useFeedback } from '../../ui/feedback';
 import { Icon } from '../../ui/icons/Icon';
+import { checkForUpdate } from '../../ui/UpdateBanner';
 
 function Segmented<T extends string>({ value, options, onChange, label }: { value: T; options: [T, string][]; onChange: (v: T) => void; label: string }) {
   return (
@@ -420,9 +421,20 @@ export default function ProfileScreen() {
           <div className="grow title">{t('profile.credits')}</div>
           <Icon name="chevron" />
         </Link>
+        <button
+          className="list-item"
+          onClick={async () => {
+            const result = await checkForUpdate();
+            toast(t(`update.${result}`));
+          }}
+        >
+          <Icon name="sync" />
+          <div className="grow title">{t('update.check')}</div>
+        </button>
       </div>
       <p className="small muted">
-        {t('profile.aboutText')} {t('profile.version', { version: __APP_VERSION__ })}
+        {t('profile.aboutText')} {t('profile.version', { version: __APP_VERSION__ })} ·{' '}
+        {t('profile.build', { build: __APP_BUILD__, date: formatDateTime(__APP_BUILT_AT__, lang) })}
       </p>
     </div>
   );

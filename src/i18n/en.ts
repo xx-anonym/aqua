@@ -1,6 +1,10 @@
 const en = {
   catalogMeta: 'Catalog version {{version}}, built {{date}}',
   update: {
+    check: 'Check for updates',
+    current: 'You have the latest version.',
+    offline: 'No connection – cannot check for updates.',
+    unsupported: 'Updates are not supported in this browser.',
     available: 'New version available',
     reload: 'Update',
   },
@@ -439,6 +443,7 @@ const en = {
     about: 'About',
     aboutText: 'Private, non-commercial project. Species data from open sources, texts written for this app.',
     version: 'Version {{version}}',
+    build: 'build {{build}} from {{date}}',
   },
   credits: {
     title: 'Photo credits & licenses',
