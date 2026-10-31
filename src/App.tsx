@@ -7,6 +7,7 @@ import { DbProvider } from './db/react';
 import { useSettings } from './settings/settings';
 import { FeedbackProvider } from './ui/feedback';
 import { UpdateBanner } from './ui/UpdateBanner';
+import { hideSplash } from './ui/splash';
 import { router } from './router';
 import { initCloud } from './sync/syncManager';
 import { getCatalog } from './catalog/useCatalog';
@@ -43,6 +44,11 @@ export function App() {
       })
       .catch((e: unknown) => setError(e instanceof Error ? e.message : String(e)));
   }, []);
+
+  useEffect(() => {
+    if (error) hideSplash(true);
+    else if (db) hideSplash();
+  }, [db, error]);
 
   if (error) {
     return (
