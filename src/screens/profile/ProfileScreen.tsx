@@ -16,7 +16,7 @@ import {
 } from '../../lib/offline';
 import { useSettings, type Language, type Theme } from '../../settings/settings';
 import { fetchOAuthProviders, type OAuthProvider } from '../../sync/cloud';
-import { sendMagicLink, signInWithProvider, signOut, syncNow, useSync, verifyCode } from '../../sync/syncManager';
+import { sendSignInEmail, signInWithProvider, signOut, syncNow, useSync, verifyCode } from '../../sync/syncManager';
 import { exportCsv } from '../../user/io/csv';
 import { downloadText, exportFileName } from '../../user/io/importer';
 import { exportUddf } from '../../user/io/uddf';
@@ -55,9 +55,12 @@ function AccountCard() {
   const sync = useSync();
   const [email, setEmail] = useState('');
   const [code, setCode] = useState('');
-  const [sent, setSent] = useState(false);
+  const [step, setStep] = useState<'email' | 'code'>('email');
   const [busy, setBusy] = useState(false);
+  const [codeError, setCodeError] = useState(false);
   const [providers, setProviders] = useState<OAuthProvider[]>([]);
+  // A sign-in link opened from the mail app lands here in the browser, not in the installed app.
+  const [cameFromLink] = useState(() => /[?&#](code|error_code|error)=/.test(location.search + location.hash));
 
   useEffect(() => {
     void fetchOAuthProviders().then(setProviders);
@@ -65,9 +68,28 @@ function AccountCard() {
 
   if (sync.status === 'disabled') return <p className="muted">{t('profile.cloudUnavailable')}</p>;
 
+  const send = async () => {
+    setBusy(true);
+    try {
+      await sendSignInEmail(email.trim());
+      setStep('code');
+      setCode('');
+      setCodeError(false);
+    } catch (err) {
+      toast(String((err as Error).message));
+    } finally {
+      setBusy(false);
+    }
+  };
+
   if (sync.status === 'signedOut') {
     return (
       <div className="stack">
+        {cameFromLink && (
+          <p className="notice warn small" role="alert" style={{ margin: 0 }}>
+            {t('profile.linkInBrowser')}
+          </p>
+        )}
         <p className="muted small" style={{ margin: 0 }}>
           {t('profile.notSignedIn')}
         </p>
@@ -87,47 +109,71 @@ function AccountCard() {
             {t('profile.orEmail')}
           </div>
         )}
-        <form
-          className="stack"
-          onSubmit={async (e) => {
-            e.preventDefault();
-            setBusy(true);
-            try {
-              await sendMagicLink(email.trim());
-              setSent(true);
-              toast(t('profile.linkSent'));
-            } catch (err) {
-              toast(String((err as Error).message));
-            } finally {
-              setBusy(false);
-            }
-          }}
-        >
-          <Field label={t('profile.email')}>
-            <input className="input" type="email" autoComplete="email" required value={email} onChange={(e) => setEmail(e.target.value)} />
-          </Field>
-          <button className="btn primary" type="submit" disabled={busy || !email.includes('@')}>
-            <Icon name="mail" />
-            {t('profile.sendLink')}
-          </button>
-        </form>
-        {sent && (
+        {step === 'email' ? (
           <form
-            className="row"
-            style={{ flexWrap: 'nowrap' }}
+            className="stack"
+            onSubmit={(e) => {
+              e.preventDefault();
+              void send();
+            }}
+          >
+            <Field label={t('profile.email')}>
+              <input className="input" type="email" autoComplete="email" required value={email} onChange={(e) => setEmail(e.target.value)} />
+            </Field>
+            <button className="btn primary" type="submit" disabled={busy || !email.includes('@')}>
+              <Icon name="mail" />
+              {t('profile.sendLink')}
+            </button>
+          </form>
+        ) : (
+          <form
+            className="stack"
             onSubmit={async (e) => {
               e.preventDefault();
+              setBusy(true);
+              setCodeError(false);
               try {
-                await verifyCode(email.trim(), code.trim());
-              } catch (err) {
-                toast(String((err as Error).message));
+                await verifyCode(email.trim(), code);
+              } catch {
+                setCodeError(true);
+              } finally {
+                setBusy(false);
               }
             }}
           >
-            <input className="input" inputMode="numeric" autoComplete="one-time-code" placeholder={t('profile.code')} aria-label={t('profile.code')} value={code} onChange={(e) => setCode(e.target.value)} />
-            <button className="btn outline" type="submit" disabled={code.trim().length < 6}>
+            <p className="notice small" style={{ margin: 0 }} aria-live="polite">
+              {t('profile.codeSent', { email: email.trim() })}
+            </p>
+            <Field label={t('profile.code')}>
+              <input
+                className="input"
+                inputMode="numeric"
+                autoComplete="one-time-code"
+                autoFocus
+                maxLength={10}
+                value={code}
+                onChange={(e) => setCode(e.target.value.replace(/\D/g, ''))}
+                aria-invalid={codeError}
+                style={{ fontSize: '1.4rem', letterSpacing: '0.3em', textAlign: 'center' }}
+              />
+            </Field>
+            {codeError && (
+              <p className="notice warn small" role="alert" style={{ margin: 0 }}>
+                {t('profile.codeInvalid')}
+              </p>
+            )}
+            <button className="btn primary" type="submit" disabled={busy || code.length < 6}>
+              <Icon name="check" />
               {t('profile.verify')}
             </button>
+            <div className="row">
+              <button type="button" className="btn small outline" disabled={busy} onClick={() => void send()}>
+                {t('profile.resend')}
+              </button>
+              <button type="button" className="btn small outline" onClick={() => setStep('email')}>
+                {t('profile.changeEmail')}
+              </button>
+            </div>
           </form>
         )}
       </div>

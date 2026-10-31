@@ -123,7 +123,12 @@ export function initCloud(appDb: AppDb) {
   }, 5 * 60 * 1000);
 }
 
-export async function sendMagicLink(email: string) {
+/**
+ * Sends the sign-in mail. The app signs in with the code from that mail: on iOS a link from the
+ * mail app opens in Safari, which shares no storage with the installed app (and PKCE needs the
+ * same browser), so the link alone can never sign in the installed app.
+ */
+export async function sendSignInEmail(email: string) {
   if (!supabase) throw new Error('disabled');
   const { error } = await supabase.auth.signInWithOtp({ email, options: { emailRedirectTo: `${location.origin}/profile` } });
   if (error) throw new Error(error.message);
