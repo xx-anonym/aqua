@@ -42,11 +42,24 @@ export function upsertRow(db: AppDb, table: SyncTable, values: object): string {
   return id;
 }
 
-export function softDelete(db: AppDb, table: SyncTable, where: string, params: SqlValue[]) {
-  const now = nowIso();
+/**
+ * Marks rows deleted (kept for sync). Returns the deletion stamp, which restoreDeleted() uses
+ * to bring back exactly the rows of this deletion; pass `at` to share one stamp across tables.
+ */
+export function softDelete(db: AppDb, table: SyncTable, where: string, params: SqlValue[], at = nowIso()): string {
   db.exec(`UPDATE ${table} SET deleted_at = ?, updated_at = ?, dirty = 1 WHERE deleted_at IS NULL AND (${where})`, [
-    now,
-    now,
+    at,
+    at,
+    ...params,
+  ]);
+  return at;
+}
+
+/** Undoes softDelete() for the rows deleted at `deletedAt`; a newer updated_at wins on sync. */
+export function restoreDeleted(db: AppDb, table: SyncTable, deletedAt: string, where: string, params: SqlValue[]) {
+  db.exec(`UPDATE ${table} SET deleted_at = NULL, updated_at = ?, dirty = 1 WHERE deleted_at = ? AND (${where})`, [
+    nowIso(),
+    deletedAt,
     ...params,
   ]);
 }

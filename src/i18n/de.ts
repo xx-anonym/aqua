@@ -23,6 +23,8 @@ const de = {
     none: 'keine Angabe',
     online: 'Online',
     offline: 'Offline',
+    undo: 'Rückgängig',
+    restored: 'Wiederhergestellt',
   },
   boot: {
     loading: 'Katalog wird geladen …',
@@ -254,6 +256,7 @@ const de = {
     addSighting: 'Sichtung hinzufügen',
     notes: 'Notizen',
     saved: 'Tauchgang gespeichert',
+    delete: 'Tauchgang löschen',
     deleted: 'Tauchgang gelöscht',
     confirmDelete: 'Diesen Tauchgang mit allen Sichtungen löschen?',
     notFound: 'Tauchgang nicht gefunden',

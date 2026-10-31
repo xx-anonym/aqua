@@ -7,14 +7,15 @@ import { useDb, useDbQuery } from '../../db/react';
 import { formatDate } from '../../lib/format';
 import { formatDepth, formatDuration, formatNumber, formatPressure, formatTemp } from '../../lib/units';
 import { useSettings } from '../../settings/settings';
-import { deleteDive, getDive } from '../../user/dives';
+import { deleteDive, getDive, restoreDive } from '../../user/dives';
 import { getSite } from '../../user/sites';
-import { deleteSighting, sightingsForDive } from '../../user/sightings';
+import { sightingsForDive } from '../../user/sightings';
 import { EmptyState, PageHeader, SpeciesThumb, Stars } from '../../ui/components';
 import { useFeedback } from '../../ui/feedback';
 import { Icon } from '../../ui/icons/Icon';
 import { AddSightingSheet } from '../sighting/AddSightingSheet';
 import { SpeciesPickerSheet } from '../sighting/SpeciesPickerSheet';
+import { useDeleteSighting } from '../sighting/useDeleteSighting';
 import { ProfileChart } from './ProfileChart';
 
 export default function DiveDetailScreen() {
@@ -31,6 +32,7 @@ export default function DiveDetailScreen() {
   const sightings = useDbQuery((d) => sightingsForDive(d, id), [id]);
   const [picking, setPicking] = useState(false);
   const [picked, setPicked] = useState<{ species: Species; via: 'manual' | 'filter' } | null>(null);
+  const removeSighting = useDeleteSighting();
 
   if (!dive) {
     return (
@@ -43,9 +45,16 @@ export default function DiveDetailScreen() {
 
   const remove = () => {
     if (!confirm(t('dive.confirmDelete'))) return;
-    deleteDive(db, dive.id);
-    toast(t('dive.deleted'));
+    const diveId = dive.id;
+    const stamp = deleteDive(db, diveId);
     navigate('/logbook', { replace: true });
+    toast(t('dive.deleted'), {
+      label: t('common.undo'),
+      run: () => {
+        restoreDive(db, diveId, stamp);
+        toast(t('common.restored'));
+      },
+    });
   };
 
   const c = dive.conditions;
@@ -93,9 +102,14 @@ export default function DiveDetailScreen() {
         title={`#${dive.dive_no ?? '–'} · ${dive.site_name ?? t('dive.noSite')}`}
         back="/logbook"
         actions={
-          <Link className="icon-btn" to={`/logbook/${dive.id}/edit`} aria-label={t('common.edit')}>
-            <Icon name="edit" />
-          </Link>
+          <>
+            <Link className="icon-btn" to={`/logbook/${dive.id}/edit`} aria-label={t('common.edit')} title={t('common.edit')}>
+              <Icon name="edit" />
+            </Link>
+            <button className="icon-btn" onClick={remove} aria-label={t('dive.delete')} title={t('dive.delete')}>
+              <Icon name="trash" />
+            </button>
+          </>
         }
       />
       <div className="row spread">
@@ -174,10 +188,8 @@ export default function DiveDetailScreen() {
                 <button
                   className="icon-btn"
                   aria-label={t('sighting.delete')}
-                  onClick={() => {
-                    deleteSighting(db, s.id);
-                    toast(t('sighting.deleted'));
-                  }}
+                  title={t('sighting.delete')}
+                  onClick={() => removeSighting(s.id)}
                 >
                   <Icon name="trash" />
                 </button>

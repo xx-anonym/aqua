@@ -2,8 +2,8 @@ import { describe, expect, it, beforeEach } from 'vitest';
 import { createTestDb } from '../test/testDb';
 import type { AppDb } from '../db/appDb';
 import { loadCatalog } from '../catalog/catalog';
-import { deleteDive, durationFromTimes, getDive, lastEquipment, listDives, nextDiveNo, saveDive } from './dives';
-import { addSighting, sightingsForDive, sightingsForSpecies } from './sightings';
+import { deleteDive, durationFromTimes, getDive, lastEquipment, listDives, nextDiveNo, restoreDive, saveDive } from './dives';
+import { addSighting, deleteSighting, restoreSighting, sightingsForDive, sightingsForSpecies } from './sightings';
 import { lifeList, progressReport } from './lifelist';
 import { addToCollection, collectionSpeciesIds, deleteCollection, favoriteIds, removeFromCollection, saveCollection, toggleFavorite } from './collections';
 import { listSites, regionForPoint, saveSite } from './sites';
@@ -65,6 +65,23 @@ describe('dives', () => {
     expect(db.get<{ n: number }>('SELECT COUNT(*) AS n FROM dive WHERE deleted_at IS NOT NULL')!.n).toBe(1);
   });
 
+  it('restores a deleted dive with exactly the sightings deleted with it', async () => {
+    const id = saveDive(db, { dive_no: 1, date: '2026-01-01', conditions: { water_temp_c: 20 } } as never);
+    const keep = addSighting(db, { dive_id: id, species_id: 'chromis-chromis' }).id;
+    const goneBefore = addSighting(db, { dive_id: id, species_id: 'pterois-miles' }).id;
+    deleteSighting(db, goneBefore);
+    await new Promise((r) => setTimeout(r, 5)); // distinct deletion stamps
+    const stamp = deleteDive(db, id);
+    db.exec('UPDATE dive SET dirty = 0');
+    restoreDive(db, id, stamp);
+    expect(getDive(db, id)!.conditions?.water_temp_c).toBe(20);
+    expect(sightingsForDive(db, id).map((s) => s.id)).toEqual([keep]);
+    const row = db.get<{ dirty: number; deleted_at: string | null; updated_at: string }>('SELECT dirty, deleted_at, updated_at FROM dive WHERE id = ?', [id])!;
+    expect(row.dirty).toBe(1);
+    expect(row.deleted_at).toBeNull();
+    expect(row.updated_at > stamp).toBe(true);
+  });
+
   it('computes duration across midnight', () => {
     expect(durationFromTimes('23:40', '00:25')).toBe(45);
     expect(durationFromTimes('10:00', null)).toBeNull();
@@ -84,6 +101,16 @@ describe('sightings and life list', () => {
     expect(addSighting(db, { species_id: 'pterois-miles' }).isFirst).toBe(true);
     expect(addSighting(db, { species_id: 'pterois-miles' }).isFirst).toBe(false);
     expect(sightingsForSpecies(db, 'pterois-miles')).toHaveLength(2);
+  });
+
+  it('deletes and restores a single sighting', async () => {
+    const { id } = addSighting(db, { species_id: 'chelonia-mydas' });
+    const stamp = deleteSighting(db, id);
+    expect(sightingsForSpecies(db, 'chelonia-mydas')).toHaveLength(0);
+    expect(lifeList(db).has('chelonia-mydas')).toBe(false);
+    await new Promise((r) => setTimeout(r, 2));
+    restoreSighting(db, id, stamp);
+    expect(sightingsForSpecies(db, 'chelonia-mydas')).toHaveLength(1);
   });
 
   it('allows sightings without a dive', () => {

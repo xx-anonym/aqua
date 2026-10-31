@@ -23,6 +23,8 @@ const en = {
     none: 'not set',
     online: 'Online',
     offline: 'Offline',
+    undo: 'Undo',
+    restored: 'Restored',
   },
   boot: {
     loading: 'Loading catalog …',
@@ -254,6 +256,7 @@ const en = {
     addSighting: 'Add sighting',
     notes: 'Notes',
     saved: 'Dive saved',
+    delete: 'Delete dive',
     deleted: 'Dive deleted',
     confirmDelete: 'Delete this dive with all its sightings?',
     notFound: 'Dive not found',

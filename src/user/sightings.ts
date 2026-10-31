@@ -1,6 +1,6 @@
 import type { AppDb } from '../db/appDb';
 import { nowIso } from '../lib/ids';
-import { softDelete, upsertRow } from './repo';
+import { restoreDeleted, softDelete, upsertRow } from './repo';
 
 export type IdentifiedBy = 'manual' | 'filter' | 'photo_ai' | 'import';
 
@@ -55,8 +55,13 @@ export function updateSighting(db: AppDb, input: SightingInput & { id: string })
   db.tx(() => upsertRow(db, 'sighting', input));
 }
 
-export function deleteSighting(db: AppDb, id: string) {
-  db.tx(() => softDelete(db, 'sighting', 'id = ?', [id]));
+/** Returns the stamp for restoreSighting(). */
+export function deleteSighting(db: AppDb, id: string): string {
+  return db.tx(() => softDelete(db, 'sighting', 'id = ?', [id]));
+}
+
+export function restoreSighting(db: AppDb, id: string, deletedAt: string) {
+  db.tx(() => restoreDeleted(db, 'sighting', deletedAt, 'id = ?', [id]));
 }
 
 export function sightingsForSpecies(db: AppDb, speciesId: string): SightingWithContext[] {

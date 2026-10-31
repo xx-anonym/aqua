@@ -1,5 +1,5 @@
 import type { AppDb } from '../db/appDb';
-import { softDelete, upsertRow } from './repo';
+import { restoreDeleted, softDelete, upsertRow } from './repo';
 
 export type WaterType = 'salt' | 'fresh' | 'brackish';
 export type Current = 'none' | 'light' | 'moderate' | 'strong';
@@ -163,14 +163,24 @@ export function saveDive(db: AppDb, input: DiveInput): string {
   return db.tx(() => writeDive(db, input));
 }
 
-/** Soft-deletes the dive, its detail rows and its sightings. */
-export function deleteDive(db: AppDb, id: string) {
+const DIVE_DETAIL_TABLES = ['dive_conditions', 'dive_features', 'dive_equipment', 'dive_profile'] as const;
+
+/** Soft-deletes the dive, its detail rows and its sightings; returns the stamp for restoreDive(). */
+export function deleteDive(db: AppDb, id: string): string {
+  return db.tx(() => {
+    const at = softDelete(db, 'dive', 'id = ?', [id]);
+    for (const t of DIVE_DETAIL_TABLES) softDelete(db, t, 'id = ?', [id], at);
+    softDelete(db, 'sighting', 'dive_id = ?', [id], at);
+    return at;
+  });
+}
+
+/** Undo for deleteDive(). Sightings that had been deleted on their own before stay deleted. */
+export function restoreDive(db: AppDb, id: string, deletedAt: string) {
   db.tx(() => {
-    softDelete(db, 'dive', 'id = ?', [id]);
-    for (const t of ['dive_conditions', 'dive_features', 'dive_equipment', 'dive_profile'] as const) {
-      softDelete(db, t, 'id = ?', [id]);
-    }
-    softDelete(db, 'sighting', 'dive_id = ?', [id]);
+    restoreDeleted(db, 'dive', deletedAt, 'id = ?', [id]);
+    for (const t of DIVE_DETAIL_TABLES) restoreDeleted(db, t, deletedAt, 'id = ?', [id]);
+    restoreDeleted(db, 'sighting', deletedAt, 'dive_id = ?', [id]);
   });
 }
 

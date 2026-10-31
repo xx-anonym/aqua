@@ -3,8 +3,14 @@ import { useTranslation } from 'react-i18next';
 import { useCatalog, speciesName, useLang } from '../catalog/useCatalog';
 import { SpeciesThumb } from './components';
 
+export interface ToastAction {
+  label: string;
+  run: () => void;
+}
+
 interface Feedback {
-  toast: (message: string) => void;
+  /** Short message; with an action (e.g. "Undo") it stays longer and shows a button. */
+  toast: (message: string, action?: ToastAction) => void;
   /** Shows the "new species!" animation for a first sighting. */
   celebrate: (speciesId: string) => void;
 }
@@ -14,16 +20,16 @@ const FeedbackContext = createContext<Feedback>({ toast: () => undefined, celebr
 export const useFeedback = () => useContext(FeedbackContext);
 
 export function FeedbackProvider({ children }: { children: ReactNode }) {
-  const [toastMsg, setToastMsg] = useState<string | null>(null);
+  const [toastMsg, setToastMsg] = useState<{ text: string; action?: ToastAction; key: number } | null>(null);
   const [celebrated, setCelebrated] = useState<string | null>(null);
 
   useEffect(() => {
     if (!toastMsg) return;
-    const t = setTimeout(() => setToastMsg(null), 2800);
+    const t = setTimeout(() => setToastMsg(null), toastMsg.action ? 6000 : 2800);
     return () => clearTimeout(t);
   }, [toastMsg]);
 
-  const toast = useCallback((m: string) => setToastMsg(m), []);
+  const toast = useCallback((text: string, action?: ToastAction) => setToastMsg({ text, action, key: Date.now() }), []);
   const celebrate = useCallback((id: string) => setCelebrated(id), []);
   const value = useMemo(() => ({ toast, celebrate }), [toast, celebrate]);
 
@@ -31,8 +37,20 @@ export function FeedbackProvider({ children }: { children: ReactNode }) {
     <FeedbackContext.Provider value={value}>
       {children}
       {toastMsg && (
-        <div className="toast" role="status" aria-live="polite">
-          {toastMsg}
+        <div className="toast" role="status" aria-live="polite" key={toastMsg.key}>
+          <span>{toastMsg.text}</span>
+          {toastMsg.action && (
+            <button
+              className="toast-action"
+              onClick={() => {
+                // Clear first: the action may show its own toast.
+                setToastMsg(null);
+                toastMsg.action!.run();
+              }}
+            >
+              {toastMsg.action.label}
+            </button>
+          )}
         </div>
       )}
       {celebrated && <Celebration speciesId={celebrated} onDone={() => setCelebrated(null)} />}

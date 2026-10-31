@@ -24,6 +24,7 @@
   --iucn-en: #ea580c;
   --iucn-cr: #b91c1c;
   --iucn-dd: #64748b;
+  --toast-action: #7dd8dc;
   color-scheme: light;
 }
 
@@ -42,6 +43,7 @@
     --seen: #4ade80;
     --danger: #f87171;
     --shadow: 0 1px 2px rgb(0 0 0 / 0.4);
+    --toast-action: #0b5f66;
     color-scheme: dark;
   }
 }
@@ -60,6 +62,7 @@
   --seen: #4ade80;
   --danger: #f87171;
   --shadow: 0 1px 2px rgb(0 0 0 / 0.4);
+  --toast-action: #0b5f66;
   color-scheme: dark;
 }
 
@@ -1015,6 +1018,17 @@ textarea.input {
   border-bottom: none;
 }
 
+/* Main (often linked) part of a list item that also has a trailing button. */
+.list-item-main {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex: 1;
+  min-width: 0;
+  color: inherit;
+  text-decoration: none;
+}
+
 .list-item .grow {
   flex: 1;
   min-width: 0;
@@ -1244,7 +1258,25 @@ textarea.input {
   border-radius: 999px;
   font-weight: 600;
   box-shadow: var(--shadow);
+  width: max-content;
   max-width: calc(100vw - 32px);
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.toast-action {
+  flex: none;
+  min-height: 36px;
+  margin: -8px -8px -8px 0;
+  padding: 6px 8px;
+  border: none;
+  border-radius: 999px;
+  background: none;
+  color: var(--toast-action);
+  font: inherit;
+  font-weight: 800;
+  cursor: pointer;
 }
 
 /* ---------- New species celebration ---------- */

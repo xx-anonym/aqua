@@ -12,6 +12,7 @@ import { useSettings } from '../../settings/settings';
 import { isFavorite, toggleFavorite } from '../../user/collections';
 import { lifeList } from '../../user/lifelist';
 import { sightingsForSpecies } from '../../user/sightings';
+import { useDeleteSighting } from '../sighting/useDeleteSighting';
 import { EmptyState, IucnBadge, PageHeader, SpeciesCard, TraitIcon } from '../../ui/components';
 import { Icon } from '../../ui/icons/Icon';
 import { RegionMap } from '../../ui/maps';
@@ -28,6 +29,7 @@ export default function SpeciesScreen() {
   const species = catalog.byId.get(id);
   const photos = useMemo(() => (species ? loadPhotos(db, species.id) : []), [db, species]);
   const sightings = useDbQuery((d) => sightingsForSpecies(d, id), [id]);
+  const removeSighting = useDeleteSighting();
   const favorite = useDbQuery((d) => isFavorite(d, id), [id]);
   const seen = useDbQuery((d) => lifeList(d));
   const [sheet, setSheet] = useState<'sighting' | 'album' | null>(null);
@@ -178,33 +180,35 @@ export default function SpeciesScreen() {
         <p className="muted">{t('species.noSightings')}</p>
       ) : (
         <div className="list">
-          {sightings.map((s) =>
-            s.dive_id ? (
-              <Link key={s.id} to={`/logbook/${s.dive_id}`} className="list-item">
-                <Icon name="logbook" />
+          {sightings.map((s) => {
+            const body = (
+              <>
+                <Icon name={s.dive_id ? 'logbook' : 'eye'} />
                 <div className="grow">
                   <div className="title">{formatDate(s.seen_at, lang)}</div>
                   <div className="sub">
-                    #{s.dive_no ?? '–'} · {s.site_name ?? t('dive.noSite')}
-                    {s.count ? ` · ${t('sighting.countValue', { count: s.count })}` : ''}
-                  </div>
-                </div>
-                <Icon name="chevron" />
-              </Link>
-            ) : (
-              <div key={s.id} className="list-item">
-                <Icon name="eye" />
-                <div className="grow">
-                  <div className="title">{formatDate(s.seen_at, lang)}</div>
-                  <div className="sub">
-                    {t('sighting.withoutDive')}
+                    {s.dive_id ? `#${s.dive_no ?? '–'} · ${s.site_name ?? t('dive.noSite')}` : t('sighting.withoutDive')}
                     {s.count ? ` · ${t('sighting.countValue', { count: s.count })}` : ''}
                     {s.note ? ` · ${s.note}` : ''}
                   </div>
                 </div>
+              </>
+            );
+            return (
+              <div key={s.id} className="list-item">
+                {s.dive_id ? (
+                  <Link to={`/logbook/${s.dive_id}`} className="list-item-main">
+                    {body}
+                  </Link>
+                ) : (
+                  <div className="list-item-main">{body}</div>
+                )}
+                <button className="icon-btn" aria-label={t('sighting.delete')} title={t('sighting.delete')} onClick={() => removeSighting(s.id)}>
+                  <Icon name="trash" />
+                </button>
               </div>
-            ),
-          )}
+            );
+          })}
         </div>
       )}
 
