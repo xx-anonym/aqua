@@ -291,7 +291,8 @@ img {
   cursor: pointer;
   background: var(--surface-2);
   color: var(--text);
-  white-space: nowrap;
+  /* Labels stay on one line while there is room and wrap instead of spilling out on narrow screens. */
+  text-align: center;
 }
 
 .btn svg {
@@ -318,6 +319,12 @@ img {
 
 .btn.block {
   width: 100%;
+  white-space: normal;
+  text-align: center;
+}
+
+.btn {
+  max-width: 100%;
 }
 
 .btn.small {
@@ -459,7 +466,8 @@ textarea.input {
 
 .grid-2 {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  /* minmax(0, …) lets columns shrink below their content instead of pushing past the card */
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 12px;
 }
 
@@ -546,6 +554,12 @@ textarea.input {
   font-size: 0.95rem;
   font-weight: 600;
   cursor: pointer;
+  max-width: 100%;
+  text-align: left;
+}
+
+/* Chips in horizontal scroll rows stay on one line; elsewhere long labels wrap. */
+.chips.scroll .chip {
   white-space: nowrap;
 }
 
@@ -718,6 +732,16 @@ textarea.input {
 .sheet-body {
   overflow-y: auto;
   padding: 16px 20px;
+}
+
+/* Secondary actions keep their size; the main (block) action takes the rest and may wrap. */
+.sheet-foot > .btn {
+  flex: none;
+}
+
+.sheet-foot > .btn.block {
+  flex: 1 1 0;
+  min-width: 0;
 }
 
 .sheet-foot {

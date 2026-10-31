@@ -184,13 +184,13 @@ function PhotoIdCard() {
           ))}
         </select>
       </label>
-      <div className="grid-2">
-        <label className="btn primary">
+      <div className="stack" style={{ gap: 10 }}>
+        <label className="btn primary block">
           <Icon name="camera" />
           {t('identify.takePhoto')}
           <input type="file" accept="image/*" capture="environment" className="sr-only" onChange={(e) => pick(e.target.files?.[0])} />
         </label>
-        <label className="btn outline">
+        <label className="btn outline block">
           <Icon name="image" />
           {t('identify.choosePhoto')}
           <input type="file" accept="image/*" className="sr-only" onChange={(e) => pick(e.target.files?.[0])} />
