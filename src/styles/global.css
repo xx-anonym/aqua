@@ -1043,7 +1043,8 @@ textarea.input {
   font-size: 0.875rem;
 }
 
-.list-item > svg {
+.list-item > svg,
+.list-item-main > svg {
   width: 22px;
   height: 22px;
   color: var(--muted);
