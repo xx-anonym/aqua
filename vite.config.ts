@@ -34,7 +34,7 @@ export default defineConfig({
         description: 'Meerestiere bestimmen, Tauchgänge loggen und jede gesichtete Art sammeln – auch offline.',
         lang: 'de',
         theme_color: '#0b5f66',
-        background_color: '#071318',
+        background_color: '#08464d',
         display: 'standalone',
         orientation: 'portrait',
         start_url: '/',
@@ -49,6 +49,8 @@ export default defineConfig({
         // and collection work offline right after install. Thumbnails are warmed in parallel by
         // the app after start (src/lib/offline.ts), which is much faster than precaching 500 files.
         globPatterns: ['**/*.{js,css,html,svg,png,wasm,sqlite}', 'catalog/catalog-manifest.json'],
+        // iOS startup images: fetched by iOS itself, only the one matching the device.
+        globIgnores: ['splash/**'],
         maximumFileSizeToCacheInBytes: 8 * 1024 * 1024,
         navigateFallback: '/index.html',
         cleanupOutdatedCaches: true,
