@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { regionName, useCatalog, useLang } from '../../catalog/useCatalog';
 import { useDb } from '../../db/react';
+import { countryName, DIRECTORY_RADIUS_KM, DirectoryError, nearbyDiveSites, tidySiteName, type DirectorySite } from '../../lib/diveSiteDirectory';
 import { formatNumber } from '../../lib/units';
 import { regionForPoint, saveSite, type DiveSite } from '../../user/sites';
 import { Field, Sheet } from '../../ui/components';
@@ -30,24 +31,69 @@ export function SiteEditorSheet({
   const [lng, setLng] = useState<number | null>(site?.lng ?? null);
   const [isPrivate, setPrivate] = useState(site ? !!site.is_private : true);
   const [locating, setLocating] = useState(false);
+  const [directory, setDirectory] = useState<
+    { state: 'idle' } | { state: 'loading' } | { state: 'error'; message: string } | { state: 'done'; sites: DirectorySite[]; all: boolean }
+  >({ state: 'idle' });
   const region = lat != null && lng != null ? regionForPoint(catalog.regions, lat, lng) : null;
 
-  const locate = () => {
-    if (!navigator.geolocation) return toast(t('sites.gpsError'));
+  const locate = (then?: (lat: number, lng: number) => void) => {
+    if (!navigator.geolocation) {
+      toast(t('sites.gpsError'));
+      return false;
+    }
     setLocating(true);
     navigator.geolocation.getCurrentPosition(
       (pos) => {
         setLat(pos.coords.latitude);
         setLng(pos.coords.longitude);
         setLocating(false);
+        then?.(pos.coords.latitude, pos.coords.longitude);
       },
       () => {
         setLocating(false);
-        toast(t('sites.gpsError'));
+        if (then) setDirectory({ state: 'error', message: t('sites.directoryNeedsLocation') });
+        else toast(t('sites.gpsError'));
       },
       { enableHighAccuracy: true, timeout: 15000 },
     );
+    return true;
   };
+
+  /** PADI dive sites around the pin, or around the current position when no pin is set yet. */
+  const searchDirectory = () => {
+    const run = async (a: number, b: number) => {
+      setDirectory({ state: 'loading' });
+      try {
+        setDirectory({ state: 'done', sites: await nearbyDiveSites(a, b), all: false });
+      } catch (e) {
+        const offline = e instanceof DirectoryError && e.code === 'offline';
+        setDirectory({ state: 'error', message: t(offline ? 'sites.directoryOffline' : 'sites.directoryError') });
+      }
+    };
+    if (lat != null && lng != null) void run(lat, lng);
+    else if (!locate((a, b) => void run(a, b))) setDirectory({ state: 'error', message: t('sites.directoryNeedsLocation') });
+  };
+
+  const pickFromDirectory = (s: DirectorySite) => {
+    setName(tidySiteName(s.name));
+    setLat(s.lat);
+    setLng(s.lng);
+    if (s.country) setCountry(countryName(s.country, lang));
+    setDirectory({ state: 'idle' });
+    toast(t('sites.directoryPicked'));
+  };
+
+  const siteFacts = (s: DirectorySite) =>
+    [
+      t('sites.distanceKm', { km: formatNumber(s.distanceKm, s.distanceKm < 10 ? 1 : 0, lang) }),
+      s.maxDepthM ? t('sites.depthTo', { m: s.maxDepthM }) : null,
+      s.types
+        .slice(0, 3)
+        .map((type) => t(`sites.types.${type.replace(/\W+/g, '_')}`, { defaultValue: type }))
+        .join(', ') || null,
+    ]
+      .filter(Boolean)
+      .join(' · ');
 
   const save = () => {
     const id = saveSite(
@@ -72,13 +118,64 @@ export function SiteEditorSheet({
       }
     >
       <div className="stack">
+        {!site && (
+          <section className="stack" style={{ gap: 8 }} aria-live="polite">
+            <button className="btn outline block" type="button" onClick={searchDirectory} disabled={directory.state === 'loading' || locating}>
+              <Icon name="search" />
+              {t('sites.directory')}
+            </button>
+            {directory.state === 'idle' && (
+              <p className="small muted" style={{ margin: 0 }}>
+                {t('sites.directoryHint', { km: DIRECTORY_RADIUS_KM })}
+              </p>
+            )}
+            {(directory.state === 'loading' || locating) && (
+              <p className="small muted" style={{ margin: 0 }}>
+                {t('sites.directoryLoading')}
+              </p>
+            )}
+            {directory.state === 'error' && (
+              <p className="small" style={{ margin: 0 }}>
+                {directory.message}
+              </p>
+            )}
+            {directory.state === 'done' &&
+              (directory.sites.length === 0 ? (
+                <p className="small" style={{ margin: 0 }}>
+                  {t('sites.directoryEmpty', { km: DIRECTORY_RADIUS_KM })}
+                </p>
+              ) : (
+                <>
+                  <div className="list">
+                    {(directory.all ? directory.sites : directory.sites.slice(0, 8)).map((s) => (
+                      <button key={s.id} type="button" className="list-item" onClick={() => pickFromDirectory(s)}>
+                        <Icon name="pin" />
+                        <div className="grow">
+                          <div className="title">{tidySiteName(s.name)}</div>
+                          <div className="sub">{siteFacts(s)}</div>
+                        </div>
+                      </button>
+                    ))}
+                  </div>
+                  {!directory.all && directory.sites.length > 8 && (
+                    <button type="button" className="btn small outline" onClick={() => setDirectory({ ...directory, all: true })}>
+                      {t('sites.directoryShowAll', { count: directory.sites.length })}
+                    </button>
+                  )}
+                  <p className="small muted" style={{ margin: 0 }}>
+                    {t('sites.directorySource')}
+                  </p>
+                </>
+              ))}
+          </section>
+        )}
         <Field label={`${t('sites.name')} *`}>
-          <input className="input" value={name} onChange={(e) => setName(e.target.value)} required autoFocus />
+          <input className="input" value={name} onChange={(e) => setName(e.target.value)} required />
         </Field>
         <Field label={t('sites.country')}>
           <input className="input" value={country} onChange={(e) => setCountry(e.target.value)} autoComplete="country-name" />
         </Field>
-        <button className="btn outline" type="button" onClick={locate} disabled={locating}>
+        <button className="btn outline" type="button" onClick={() => locate()} disabled={locating}>
           <Icon name="locate" />
           {t('sites.useGps')}
         </button>

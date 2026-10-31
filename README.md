@@ -16,7 +16,7 @@ Sri Lanka, Südostasien & Korallendreieck, Australien & Korallenmeer, Pazifische
 | Entdecken | Kategorien (Fische, Meerestiere, Korallen & Pflanzen), tippfehlertolerante Suche über deutsche, englische und wissenschaftliche Namen sowie Familie, Merkmalsfilter mit Icon-Chips und Live-Trefferzahl (innerhalb eines Typs ODER, zwischen Typen UND), Region oder Land (z. B. Ägypten am Roten Meer) |
 | Artenseite | Fotogalerie mit Bildnachweis pro Foto, Steckbrief, IUCN-Status, Verbreitungskarte, eigene Sichtungen, Gesehen / Gefällt mir / Zu Sammlung, ähnliche Arten und Vergleichsansicht |
 | Bestimmen | Foto-ID per Claude (Top 5 mit Konfidenz, nur Arten aus dem Regionskatalog, Warteschlange ohne Netz) und geführte Bestimmung über Merkmale |
-| Logbuch | Tauchgänge mit Basisdaten, Bedingungen, Typ, Ausrüstung (letzte übernehmen), Sichtungen, Notizen, Bewertung; Statistik; Tauchplätze mit Karte; Import (UDDF, Subsurface-XML, CSV inkl. Profil, Duplikaterkennung); Export (CSV, UDDF) |
+| Logbuch | Tauchgänge mit Basisdaten, Bedingungen, Typ, Ausrüstung (letzte übernehmen), Sichtungen, Notizen, Bewertung; Statistik; Tauchplätze mit Karte und Suche im PADI-Verzeichnis; Import (UDDF, Subsurface-XML, CSV inkl. Profil, Duplikaterkennung); Export (CSV, UDDF) |
 | Sammlung | Lebensliste mit Fortschritt gesamt, pro Kategorie und Region, Animation bei Erstsichtung, Alben (teilbar per Link), Favoriten |
 | Profil | Konto & Sync, Offline-Bildpaket, Einheiten (m/ft, °C/°F, bar/psi), Hell/Dunkel, Deutsch/Englisch, Sicherung, Bildnachweise |
 
@@ -114,3 +114,13 @@ Seabook oder anderen kommerziellen Apps verwendet.
 ## Deployment
 
 Vercel baut aus diesem Repository (`vercel.json`: Vite-Build, SPA-Rewrites, Cache-Header).
+
+Serverless-Funktionen in `api/`:
+
+- `api/keepalive.ts`: Vercel-Cronjob, hält das Supabase-Projekt im Free-Plan aktiv.
+- `api/divesites.ts`: Tauchplätze in der Nähe aus dem PADI Dive Guide für „Tauchplatz anlegen“
+  (`/api/divesites?lat=…&lng=…&km=30`). Fragt PADI nur bei Bedarf für einen Punkt ab, die Antwort
+  wird einen Tag im CDN zwischengespeichert; gespeichert wird nur der Platz, den man auswählt.
+  Genutzt mit Genehmigung für dieses private, nicht-kommerzielle Projekt. PADI bietet dafür keine
+  offizielle Schnittstelle, die Abfragen können sich also ändern. SSI ist nicht angebunden, weil
+  deren Karte einen Zugangsschlüssel ihrer eigenen Webseite voraussetzt.
