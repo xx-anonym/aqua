@@ -454,6 +454,27 @@ textarea.input {
   font-size: 16px;
 }
 
+/*
+ * iOS Safari gives date/time inputs an intrinsic minimum width that ignores the column width,
+ * so they stuck out of two-column rows. Dropping the native appearance removes that minimum;
+ * tapping still opens the iOS date/time picker.
+ */
+input[type='date'].input,
+input[type='time'].input,
+input[type='datetime-local'].input {
+  -webkit-appearance: none;
+  appearance: none;
+  display: block;
+  min-width: 0;
+  max-width: 100%;
+  line-height: 1.4;
+}
+
+input.input::-webkit-date-and-time-value {
+  text-align: left;
+  min-height: 1.4em;
+}
+
 textarea.input {
   min-height: 96px;
   resize: vertical;
@@ -731,6 +752,8 @@ textarea.input {
 
 .sheet-body {
   overflow-y: auto;
+  /* never scroll sideways inside a sheet */
+  overflow-x: hidden;
   padding: 16px 20px;
 }
 
