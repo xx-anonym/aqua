@@ -13,6 +13,7 @@ import {
 import { TRAIT_TYPES, type TraitType } from '../../catalog/types';
 import { regionName, useLang } from '../../catalog/useCatalog';
 import { Chip, Sheet, TraitChip } from '../../ui/components';
+import { DestinationSelect } from '../../ui/PlaceSelect';
 
 /** Icon-chip filter for colour, pattern, shape, behaviour, region, depth and size with a live result count. */
 export function FilterSheet({
@@ -67,12 +68,23 @@ export function FilterSheet({
                   key={r.id}
                   icon="globe"
                   selected={filter.regions.includes(r.id)}
-                  onToggle={() => onChange({ ...filter, regions: toggle(filter.regions, r.id) })}
+                  onToggle={() => onChange({ ...filter, regions: toggle(filter.regions, r.id), destinations: [] })}
                 >
                   {regionName(r, lang)}
                 </Chip>
               ))}
             </div>
+            {catalog.destinations.length > 0 && (
+              <div className="field" style={{ marginTop: 14 }}>
+                <span>{t('filter.destination')}</span>
+                <DestinationSelect
+                  label={t('filter.destination')}
+                  value={filter.destinations[0] ?? null}
+                  onChange={(id) => onChange({ ...filter, destinations: id ? [id] : [], regions: id ? [] : filter.regions })}
+                />
+                <span className="small muted">{t('filter.destinationHint')}</span>
+              </div>
+            )}
           </section>
         )}
         {types.map((type) => {

@@ -2,7 +2,7 @@ import { describe, expect, it, beforeAll } from 'vitest';
 import { createTestCatalog } from '../test/testDb';
 import type { Catalog } from './catalog';
 import { searchSpecies, normalize } from './search';
-import { applyFilter, emptyFilter, activeCount } from './filter';
+import { applyFilter, emptyFilter, activeCount, placeFilter, regionOfPlace } from './filter';
 import { similarSpecies, compareTraits } from './similar';
 
 let catalog: Catalog;
@@ -87,6 +87,18 @@ describe('trait filter', () => {
     expect(med.every((s) => s.regions.includes('mediterranean'))).toBe(true);
     f.regions = ['indo-pacific'];
     expect(applyFilter(catalog.species, f).map((s) => s.id)).toContain('amphiprion-bicinctus');
+  });
+
+  it('filters by country (destination) and maps places to filters', () => {
+    const species = catalog.species.slice(0, 3).map((s, i) => ({ ...s, destinations: i === 1 ? ['red-sea:EG'] : [] }));
+    const f = { ...emptyFilter(), ...placeFilter('red-sea:EG') };
+    expect(f.regions).toEqual([]);
+    expect(applyFilter(species, f).map((s) => s.id)).toEqual([species[1].id]);
+    expect(activeCount(f)).toBe(1);
+    expect(placeFilter('red-sea')).toEqual({ regions: ['red-sea'], destinations: [] });
+    expect(placeFilter(null)).toEqual({ regions: [], destinations: [] });
+    expect(regionOfPlace('red-sea:EG')).toBe('red-sea');
+    expect(regionOfPlace('mediterranean')).toBe('mediterranean');
   });
 
   it('filters by depth overlap and size', () => {

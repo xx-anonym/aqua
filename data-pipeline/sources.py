@@ -194,6 +194,27 @@ def gbif_region_counts(polygon_wkt: str, species_keys: list[int]) -> dict[int, i
     return counts
 
 
+def gbif_facet(params: dict, species_keys: list[int], facet: str, limit: int) -> dict[str, int]:
+    """Human-observation occurrence counts of our species, grouped by `facet` (chunked by species)."""
+    counts: dict[str, int] = {}
+    for i in range(0, len(species_keys), 120):
+        data = get_json(
+            f"{GBIF}/occurrence/search",
+            {
+                **params,
+                "basisOfRecord": "HUMAN_OBSERVATION",
+                "taxonKey": species_keys[i : i + 120],
+                "facet": facet,
+                "facetLimit": limit,
+                "limit": 0,
+            },
+        )
+        for f in (data or {}).get("facets", []):
+            for c in f["counts"]:
+                counts[c["name"]] = counts.get(c["name"], 0) + c["count"]
+    return counts
+
+
 # ---------------------------------------------------------------- FishBase / SeaLifeBase
 
 FB_PARQUET = "https://huggingface.co/datasets/cboettig/fishbase/resolve/main/data/{db}/{version}/parquet/{table}.parquet"

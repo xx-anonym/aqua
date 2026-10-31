@@ -26,6 +26,8 @@ export interface Species {
   traits: string[];
   /** Leaf regions plus their parents (e.g. red-sea and indo-pacific). */
   regions: string[];
+  /** Countries within a region where the species has been observed, e.g. "red-sea:EG". */
+  destinations: string[];
 }
 
 export interface Trait {
@@ -43,6 +45,16 @@ export interface Region {
   nameEn: string;
   parentId: string | null;
   geometry: GeoJSON.Polygon | null;
+}
+
+/** A country within a region (e.g. Egypt in the Red Sea), for "only what lives where I dive". */
+export interface Destination {
+  /** "<region id>:<ISO country code>", e.g. "red-sea:EG" */
+  id: string;
+  regionId: string;
+  country: string;
+  nameDe: string;
+  nameEn: string;
 }
 
 export interface SpeciesPhoto {

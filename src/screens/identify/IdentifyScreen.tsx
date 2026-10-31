@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { applyFilter, emptyFilter, toggle, type SpeciesFilter } from '../../catalog/filter';
+import { applyFilter, emptyFilter, placeFilter, regionOfPlace, toggle, type SpeciesFilter } from '../../catalog/filter';
 import { CATEGORIES, type Species, type TraitType } from '../../catalog/types';
 import { regionName, speciesName, useCatalog, useLang } from '../../catalog/useCatalog';
 import { useDbQuery } from '../../db/react';
@@ -20,6 +20,7 @@ import { useSync } from '../../sync/syncManager';
 import { lifeList } from '../../user/lifelist';
 import { Chip, EmptyState, PageHeader, SpeciesCard, SpeciesThumb, TraitChip } from '../../ui/components';
 import { Icon } from '../../ui/icons/Icon';
+import { DestinationSelect } from '../../ui/PlaceSelect';
 import { AddSightingSheet } from '../sighting/AddSightingSheet';
 
 function useObjectUrl(blob: Blob | null) {
@@ -101,7 +102,7 @@ function PhotoIdCard() {
   const catalog = useCatalog();
   const defaultRegion = useSettings((s) => s.region);
   const syncStatus = useSync((s) => s.status);
-  const [region, setRegion] = useState<string | null>(defaultRegion);
+  const [region, setRegion] = useState<string | null>(regionOfPlace(defaultRegion));
   const [photo, setPhoto] = useState<Blob | null>(null);
   const [result, setResult] = useState<IdentifyResult | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -237,14 +238,14 @@ function TraitWizard() {
   const catalog = useCatalog();
   const defaultRegion = useSettings((s) => s.region);
   const seen = useDbQuery((d) => lifeList(d));
-  const [filter, setFilter] = useState<SpeciesFilter>(() => ({ ...emptyFilter(), regions: defaultRegion ? [defaultRegion] : [] }));
+  const [filter, setFilter] = useState<SpeciesFilter>(() => ({ ...emptyFilter(), ...placeFilter(defaultRegion) }));
   const [step, setStep] = useState(0);
   const [showResults, setShowResults] = useState(false);
   const total = 2 + STEP_TYPES.length;
   const matches = useMemo(() => applyFilter(catalog.species, filter), [catalog, filter]);
 
   const restart = () => {
-    setFilter({ ...emptyFilter(), regions: defaultRegion ? [defaultRegion] : [] });
+    setFilter({ ...emptyFilter(), ...placeFilter(defaultRegion) });
     setStep(0);
     setShowResults(false);
   };
@@ -258,11 +259,26 @@ function TraitWizard() {
         </h3>
         <div className="chips">
           {catalog.regionTree().map((r) => (
-            <Chip key={r.id} icon="globe" selected={filter.regions.includes(r.id)} onToggle={() => setFilter({ ...filter, regions: toggle(filter.regions, r.id) })}>
+            <Chip
+              key={r.id}
+              icon="globe"
+              selected={filter.regions.includes(r.id)}
+              onToggle={() => setFilter({ ...filter, regions: toggle(filter.regions, r.id), destinations: [] })}
+            >
               {regionName(r, lang)}
             </Chip>
           ))}
         </div>
+        {catalog.destinations.length > 0 && (
+          <div className="field" style={{ marginTop: 14 }}>
+            <span>{t('filter.destination')}</span>
+            <DestinationSelect
+              label={t('filter.destination')}
+              value={filter.destinations[0] ?? null}
+              onChange={(id) => setFilter({ ...filter, destinations: id ? [id] : [], regions: id ? [] : filter.regions })}
+            />
+          </div>
+        )}
       </>
     );
   } else if (step === 1) {

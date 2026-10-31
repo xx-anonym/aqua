@@ -1,5 +1,5 @@
 import type { AppDb } from '../db/appDb';
-import type { Category, CatalogMeta, Region, Species, SpeciesPhoto, Trait, TraitType } from './types';
+import type { Category, CatalogMeta, Destination, Region, Species, SpeciesPhoto, Trait, TraitType } from './types';
 import { buildSearchIndex, type SearchIndex } from './search';
 
 interface SpeciesRow {
@@ -28,6 +28,7 @@ export class Catalog {
   readonly byId = new Map<string, Species>();
   readonly traitsById = new Map<string, Trait>();
   readonly regionsById = new Map<string, Region>();
+  readonly destinationsById = new Map<string, Destination>();
   readonly search: SearchIndex;
 
   constructor(
@@ -35,11 +36,20 @@ export class Catalog {
     readonly traits: Trait[],
     readonly regions: Region[],
     readonly meta: CatalogMeta,
+    readonly destinations: Destination[] = [],
   ) {
     species.forEach((s) => this.byId.set(s.id, s));
     traits.forEach((t) => this.traitsById.set(t.id, t));
     regions.forEach((r) => this.regionsById.set(r.id, r));
+    destinations.forEach((d) => this.destinationsById.set(d.id, d));
     this.search = buildSearchIndex(species);
+  }
+
+  /** Regions that have destinations, each with its countries (in catalog order). */
+  destinationGroups(): { region: Region; destinations: Destination[] }[] {
+    return this.regionTree()
+      .map((region) => ({ region, destinations: this.destinations.filter((d) => d.regionId === region.id) }))
+      .filter((g) => g.destinations.length > 0);
   }
 
   traitsOfType(type: TraitType, category?: Category | null): Trait[] {
@@ -122,7 +132,27 @@ export function loadCatalog(db: AppDb): Catalog {
       thumb: r.thumb,
       traits: traitMap.get(r.id) ?? [],
       regions: [...(regionMap.get(r.id) ?? [])],
+      destinations: [],
     }));
+
+  // Countries per region. Older catalog files (e.g. an offline fallback copy) do not have them yet.
+  let destinations: Destination[] = [];
+  const destMap = new Map<string, string[]>();
+  try {
+    destinations = db
+      .all<{ id: string; region_id: string; country: string; name_de: string; name_en: string }>(
+        'SELECT id, region_id, country, name_de, name_en FROM cat.destination ORDER BY sort',
+      )
+      .map((d) => ({ id: d.id, regionId: d.region_id, country: d.country, nameDe: d.name_de, nameEn: d.name_en }));
+    for (const r of db.all<{ species_id: string; destination_id: string }>('SELECT species_id, destination_id FROM cat.species_destination')) {
+      const list = destMap.get(r.species_id) ?? [];
+      list.push(r.destination_id);
+      destMap.set(r.species_id, list);
+    }
+  } catch {
+    destinations = [];
+  }
+  for (const s of species) s.destinations = destMap.get(s.id) ?? [];
 
   const metaRow = db.get<{ version: string; built_at: string; sources: string }>('SELECT * FROM cat.catalog_meta');
   const meta: CatalogMeta = {
@@ -130,7 +160,7 @@ export function loadCatalog(db: AppDb): Catalog {
     builtAt: metaRow?.built_at ?? '',
     sources: metaRow ? JSON.parse(metaRow.sources) : [],
   };
-  return new Catalog(species, traits, regions, meta);
+  return new Catalog(species, traits, regions, meta, destinations);
 }
 
 export function loadPhotos(db: AppDb, speciesId: string): SpeciesPhoto[] {

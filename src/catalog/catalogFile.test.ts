@@ -54,6 +54,16 @@ describe('shipped catalog', async () => {
     expect(searchSpecies(catalog.search, 'Riffmanta')[0]?.scientificName).toBe('Mobula alfredi');
   });
 
+  it.skipIf(isSeed)('offers countries per region, each listing only species of its region', () => {
+    const egypt = catalog.destinationsById.get('red-sea:EG');
+    expect(egypt?.nameDe).toBe('Ägypten');
+    expect(catalog.species.filter((s) => s.destinations.includes('red-sea:EG')).length).toBeGreaterThan(150);
+    expect(catalog.destinationGroups().map((g) => g.region.id)).toEqual(expect.arrayContaining(['red-sea', 'mediterranean', 'southeast-asia']));
+    for (const s of catalog.species) {
+      for (const d of s.destinations) expect(s.regions, `${s.id} in ${d}`).toContain(catalog.destinationsById.get(d)!.regionId);
+    }
+  });
+
   it('lists its sources', () => {
     if (!isSeed) expect(catalog.meta.sources.map((s) => s.name).join()).toMatch(/iNaturalist.*WoRMS.*GBIF.*FishBase/);
   });

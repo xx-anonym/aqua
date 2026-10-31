@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import { emptyFilter, type SpeciesFilter } from '../../catalog/filter';
+import { emptyFilter, placeFilter, type SpeciesFilter } from '../../catalog/filter';
 
 interface BrowseState {
   query: string;
@@ -25,7 +25,7 @@ export function useBrowseState(key: string, defaultRegion: string | null) {
   const update = useBrowseStore((s) => s.update);
   const current: BrowseState = state ?? {
     query: '',
-    filter: { ...emptyFilter(), regions: defaultRegion ? [defaultRegion] : [] },
+    filter: { ...emptyFilter(), ...placeFilter(defaultRegion) },
   };
   return {
     ...current,

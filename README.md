@@ -13,7 +13,7 @@ Sri Lanka, Südostasien & Korallendreieck, Australien & Korallenmeer, Pazifische
 
 | Bereich | Umfang |
 | --- | --- |
-| Entdecken | Kategorien (Fische, Meerestiere, Korallen & Pflanzen), tippfehlertolerante Suche über deutsche, englische und wissenschaftliche Namen sowie Familie, Merkmalsfilter mit Icon-Chips und Live-Trefferzahl (innerhalb eines Typs ODER, zwischen Typen UND) |
+| Entdecken | Kategorien (Fische, Meerestiere, Korallen & Pflanzen), tippfehlertolerante Suche über deutsche, englische und wissenschaftliche Namen sowie Familie, Merkmalsfilter mit Icon-Chips und Live-Trefferzahl (innerhalb eines Typs ODER, zwischen Typen UND), Region oder Land (z. B. Ägypten am Roten Meer) |
 | Artenseite | Fotogalerie mit Bildnachweis pro Foto, Steckbrief, IUCN-Status, Verbreitungskarte, eigene Sichtungen, Gesehen / Gefällt mir / Zu Sammlung, ähnliche Arten und Vergleichsansicht |
 | Bestimmen | Foto-ID per Claude (Top 5 mit Konfidenz, nur Arten aus dem Regionskatalog, Warteschlange ohne Netz) und geführte Bestimmung über Merkmale |
 | Logbuch | Tauchgänge mit Basisdaten, Bedingungen, Typ, Ausrüstung (letzte übernehmen), Sichtungen, Notizen, Bewertung; Statistik; Tauchplätze mit Karte; Import (UDDF, Subsurface-XML, CSV inkl. Profil, Duplikaterkennung); Export (CSV, UDDF) |
@@ -63,27 +63,34 @@ Anon-Key – geschützt wird über Row Level Security). Ohne diese Werte läuft 
 ## Datenpipeline (`data-pipeline/`)
 
 Erzeugt `public/catalog/catalog.sqlite`, `catalog-manifest.json` und die Fotos aus offenen Quellen.
-Benötigt Python 3.11+ mit `pyarrow` und `Pillow` (`pip install -r data-pipeline/requirements.txt`).
+Benötigt Python 3.11+ mit `pyarrow`, `Pillow` und `babel` (`pip install -r data-pipeline/requirements.txt`).
 
 ```bash
 python data-pipeline/pipeline.py all
 ```
 
-Schritte einzeln: `candidates` → `enrich` → `traits` → `photos` → `build` (`seed` baut den kleinen
+Schritte einzeln: `candidates` → `enrich` → `traits` → `photos` → `destinations` → `build` (`seed` baut den kleinen
 Entwicklungskatalog ohne Netz). Antworten der Quellen werden in `data-pipeline/cache` gespeichert.
 
 | Quelle | Verwendung | Lizenz / Hinweis |
 | --- | --- | --- |
 | iNaturalist | Artenauswahl nach Beobachtungshäufigkeit, Trivialnamen, Fotos | nur Fotos mit CC0 oder CC BY; Autor, Lizenz und Quelle werden je Foto gespeichert und angezeigt |
 | WoRMS | gültiger wissenschaftlicher Name, Familie, Filter auf Meeresarten | CC BY 4.0 |
-| GBIF | Fundorte für die Regionszuordnung, IUCN-Status-Kürzel | je Datensatz |
+| GBIF | Fundorte für die Zuordnung zu Regionen und Ländern, IUCN-Status-Kürzel | je Datensatz |
 | FishBase / SeaLifeBase | Größe, Tiefe, Lebensraum, Körperform, deutsche Namen | CC BY-NC – nur nicht-kommerziell |
 
 **Merkmale** (Farbe, Muster, Körperform, Verhalten, Auftreten) stehen in
 `data-pipeline/input/traits.csv`: ein KI-Vorschlag pro Art, Spalte `reviewed` für die manuelle
 Prüfung. Arten ohne Eintrag bekommen automatische Vorschläge (Körperform aus FishBase/Familie,
 Lebensraum) und landen zur Prüfung in `input/traits_review.csv`. Beschreibungstexte werden aus den
-strukturierten Daten neu formuliert, keine Texte werden übernommen. Es werden keine Inhalte aus
+strukturierten Daten neu formuliert, keine Texte werden übernommen.
+
+**Länder** (`destinations`): Pro Region fragt die Pipeline bei GBIF ab, vor welchen Ländern welche
+Katalogarten beobachtet wurden (Ländernamen aus CLDR über `babel`). Angeboten werden Länder mit
+genug Funden und mindestens 25 Arten; Randeffekte der groben Regionsgrenzen stehen in
+`DESTINATION_SKIP`. Arten, deren Funde fast nur auf einer Seite der Grenze Mittelmeer/Indopazifik
+liegen, brauchen auf der anderen Seite mindestens 10 Funde (`realm_cleanup`), sonst würden
+Fehlbestimmungen z. B. Mittelmeerbrassen ins Rote Meer bringen. Es werden keine Inhalte aus
 Seabook oder anderen kommerziellen Apps verwendet.
 
 ## Supabase

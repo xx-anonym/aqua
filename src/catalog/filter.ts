@@ -21,6 +21,8 @@ export const SIZE_BUCKETS: { id: SizeBucket; min: number; max: number }[] = [
 export interface SpeciesFilter {
   category: Category | null;
   regions: string[];
+  /** Countries within a region ("red-sea:EG"); used instead of regions, not together with them. */
+  destinations: string[];
   traits: Record<TraitType, string[]>;
   depth: DepthBucket[];
   size: SizeBucket[];
@@ -30,6 +32,7 @@ export function emptyFilter(category: Category | null = null): SpeciesFilter {
   return {
     category,
     regions: [],
+    destinations: [],
     traits: { color: [], pattern: [], body_shape: [], behavior: [], social: [] },
     depth: [],
     size: [],
@@ -38,7 +41,7 @@ export function emptyFilter(category: Category | null = null): SpeciesFilter {
 
 /** Number of active criteria (category excluded), shown on the filter button. */
 export function activeCount(f: SpeciesFilter): number {
-  return f.regions.length + TRAIT_TYPES.reduce((n, t) => n + f.traits[t].length, 0) + f.depth.length + f.size.length;
+  return f.regions.length + f.destinations.length + TRAIT_TYPES.reduce((n, t) => n + f.traits[t].length, 0) + f.depth.length + f.size.length;
 }
 
 function overlapsDepth(s: Species, bucket: { min: number; max: number }) {
@@ -59,6 +62,7 @@ function inSize(s: Species, bucket: { min: number; max: number }) {
 export function matchesFilter(s: Species, f: SpeciesFilter): boolean {
   if (f.category && s.category !== f.category) return false;
   if (f.regions.length && !f.regions.some((r) => s.regions.includes(r))) return false;
+  if (f.destinations.length && !f.destinations.some((d) => s.destinations.includes(d))) return false;
   for (const type of TRAIT_TYPES) {
     const selected = f.traits[type];
     if (selected.length && !selected.some((t) => s.traits.includes(t))) return false;
@@ -74,4 +78,18 @@ export function applyFilter(species: Species[], f: SpeciesFilter): Species[] {
 
 export function toggle<T>(list: T[], value: T): T[] {
   return list.includes(value) ? list.filter((v) => v !== value) : [...list, value];
+}
+
+/**
+ * A "place" is what the settings and pickers store: a region id ("red-sea") or a destination id
+ * ("red-sea:EG"). Returns the matching part of a filter.
+ */
+export function placeFilter(place: string | null): Pick<SpeciesFilter, 'regions' | 'destinations'> {
+  if (!place) return { regions: [], destinations: [] };
+  return place.includes(':') ? { regions: [], destinations: [place] } : { regions: [place], destinations: [] };
+}
+
+/** Region of a place (a destination belongs to the region before the colon). */
+export function regionOfPlace(place: string | null): string | null {
+  return place ? place.split(':')[0] : null;
 }

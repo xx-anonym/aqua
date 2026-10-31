@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { activeCount, applyFilter } from '../../catalog/filter';
 import { searchSpecies } from '../../catalog/search';
 import { CATEGORIES, type Category, type Species } from '../../catalog/types';
-import { regionName, useCatalog, useLang } from '../../catalog/useCatalog';
+import { placeName, useCatalog, useLang } from '../../catalog/useCatalog';
 import { useDbQuery } from '../../db/react';
 import { useSettings } from '../../settings/settings';
 import { lifeList } from '../../user/lifelist';
@@ -45,11 +45,13 @@ export function SpeciesBrowser({
 
   const filtersActive = activeCount(filter);
   const regionLabel =
-    filter.regions.length === 1
-      ? regionName(catalog.regionsById.get(filter.regions[0])!, lang)
-      : filter.regions.length > 1
-        ? t('filter.regionsCount', { count: filter.regions.length })
-        : t('filter.allRegions');
+    filter.destinations.length === 1
+      ? placeName(catalog, filter.destinations[0], lang)
+      : filter.regions.length === 1
+        ? placeName(catalog, filter.regions[0], lang)
+        : filter.regions.length > 1
+          ? t('filter.regionsCount', { count: filter.regions.length })
+          : t('filter.allRegions');
 
   const setCategory = (c: Category | null) => {
     // Body shapes are category-specific; drop ones that do not apply to the new tab.

@@ -71,3 +71,19 @@ CREATE TABLE species_region (
   region_id   TEXT NOT NULL REFERENCES region(id),
   PRIMARY KEY (species_id, region_id)
 );
+
+-- A country within a region, e.g. Egypt in the Red Sea (id "red-sea:EG"), and the species seen there.
+CREATE TABLE destination (
+  id         TEXT PRIMARY KEY,
+  region_id  TEXT NOT NULL REFERENCES region(id),
+  country    TEXT NOT NULL,           -- ISO 3166-1 alpha-2
+  name_de    TEXT NOT NULL,
+  name_en    TEXT NOT NULL,
+  sort       INTEGER NOT NULL DEFAULT 0
+);
+
+CREATE TABLE species_destination (
+  species_id      TEXT NOT NULL REFERENCES species(id),
+  destination_id  TEXT NOT NULL REFERENCES destination(id),
+  PRIMARY KEY (species_id, destination_id)
+) WITHOUT ROWID;                       -- about 10 000 rows: no separate index copy

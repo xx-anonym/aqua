@@ -6,6 +6,7 @@ Builds the species catalog (catalog.sqlite + WebP photos) for the Aqua app from 
   python data-pipeline/pipeline.py enrich      # WoRMS, GBIF (regions, IUCN), FishBase/SeaLifeBase, iNat names
   python data-pipeline/pipeline.py traits      # writes input/traits_review.csv with suggestions to review
   python data-pipeline/pipeline.py photos      # CC0 / CC BY photos -> WebP (640 px) + thumbnails
+  python data-pipeline/pipeline.py destinations # GBIF: which species were seen off which country, per region
   python data-pipeline/pipeline.py build       # public/catalog/catalog.sqlite + catalog-manifest.json
   python data-pipeline/pipeline.py all
   python data-pipeline/pipeline.py seed        # small dev catalog from src/test/fixtures (no network)
@@ -21,6 +22,7 @@ import re
 import shutil
 import sqlite3
 import sys
+import unicodedata
 from collections import defaultdict
 from datetime import datetime, timezone
 from pathlib import Path
@@ -68,6 +70,27 @@ GROUPS = [
 # The Mediterranean is a single region, so it gets a larger share of the catalog.
 REGION_FACTOR = {"mediterranean": 1.6}
 MIN_REGION_OCCURRENCES = 3
+# Destinations (a country within a region): a country needs this many records of our species in the
+# region to be offered, and at least MIN_DESTINATION_SPECIES of our species must have been seen there.
+MIN_DESTINATION_RECORDS = 200
+# A species whose records lie almost entirely on one side of the Mediterranean / Indo-Pacific divide
+# needs this many records to count for a region on the other side (misidentified or misplaced
+# records otherwise put e.g. Mediterranean breams into the Red Sea).
+CROSS_REALM_MIN = 10
+MED = "mediterranean"
+MIN_DESTINATION_SPECIES = 25
+# Clearer names where the country alone would mislead.
+DESTINATION_LABELS = {
+    "pacific-islands:US": {"de": "Hawaii (USA)", "en": "Hawaii (USA)"},
+    "pacific-islands:JP": {"de": "Japan (südliche Inseln)", "en": "Japan (southern islands)"},
+    "southeast-asia:IN": {"de": "Indien (Andamanen & Nikobaren)", "en": "India (Andaman & Nicobar)"},
+}
+# Edge effects of the coarse region polygons (a country's main waters belong to another region) and
+# areas without dive tourism.
+DESTINATION_SKIP = {
+    "southeast-asia:US", "southeast-asia:AU", "pacific-islands:SB", "australia:PG",
+    "western-indian-ocean:TF", "pacific-islands:UM", "central-indian-ocean:IO",
+}
 
 SOURCES = [
     {"name": "iNaturalist", "url": "https://www.inaturalist.org", "license": "Fotos CC0 / CC BY (pro Foto angegeben)",
@@ -75,7 +98,8 @@ SOURCES = [
     {"name": "WoRMS – World Register of Marine Species", "url": "https://www.marinespecies.org", "license": "CC BY 4.0",
      "usage": "Gültige wissenschaftliche Namen, Familie, Lebensraum (marin)"},
     {"name": "GBIF – Global Biodiversity Information Facility", "url": "https://www.gbif.org",
-     "license": "Daten je Datensatz CC0 / CC BY / CC BY-NC", "usage": "Fundorte für die Regionszuordnung, IUCN-Status-Kürzel"},
+     "license": "Daten je Datensatz CC0 / CC BY / CC BY-NC",
+     "usage": "Fundorte für die Zuordnung zu Regionen und Ländern, IUCN-Status-Kürzel"},
     {"name": "FishBase", "url": "https://www.fishbase.se", "license": "CC BY-NC 3.0 (nicht-kommerziell)",
      "usage": "Maximalgröße, Tiefenbereich, Lebensraum, Körperform, deutsche Namen (Fische)"},
     {"name": "SeaLifeBase", "url": "https://www.sealifebase.se", "license": "CC BY-NC 3.0 (nicht-kommerziell)",
@@ -600,6 +624,81 @@ def num(v):
         return None
 
 
+def gbif_keys(species: list[dict]) -> dict[str, int]:
+    """GBIF species key per catalog id (the matches are cached from the enrich step)."""
+    key_of: dict[str, int] = {}
+    for s in species:
+        m = src.gbif_match(s["scientific_name"]) or {}
+        k = m.get("speciesKey") or m.get("usageKey")
+        if k:
+            key_of[s["id"]] = k
+    return key_of
+
+
+def realm_cleanup(species: list[dict]) -> None:
+    """Drops region memberships across the Mediterranean / Indo-Pacific divide that rest on a few records."""
+    key_of = gbif_keys(species)
+    keys = sorted(set(key_of.values()))
+    counts = {r["id"]: src.gbif_region_counts(wkt(r), keys) for r in leaf_regions()}
+    dropped = 0
+    for s in species:
+        k = key_of.get(s["id"])
+        if not k or not s.get("regions"):
+            continue
+        per = {r: c.get(k, 0) for r, c in counts.items()}
+        med = per[MED]
+        ip = sum(v for r, v in per.items() if r != MED)
+        if med >= 0.9 * (med + ip):
+            foreign = {r for r in per if r != MED}
+        elif ip >= 0.9 * (med + ip):
+            foreign = {MED}
+        else:
+            continue  # found on both sides (turtles, dolphins, ...)
+        keep = [r for r in s["regions"] if r not in foreign or per[r] >= CROSS_REALM_MIN]
+        if keep:  # never leave a species without any region
+            dropped += len(s["regions"]) - len(keep)
+            s["regions"] = keep
+    print(f"realm cleanup: {dropped} region memberships dropped", flush=True)
+
+
+def step_destinations() -> None:
+    """Per region: countries off whose coasts our species were observed, and which species (GBIF)."""
+    from babel import Locale
+
+    species = load_json(CACHE / "species.json")
+    realm_cleanup(species)
+    key_of = gbif_keys(species)
+    id_of = {k: sid for sid, k in key_of.items()}
+    keys = sorted(set(key_of.values()))
+    names = {lang: Locale(lang).territories for lang in ("de", "en")}
+    out = []
+    for region in leaf_regions():
+        in_region = {s["id"] for s in species if region["id"] in (s.get("regions") or [])}
+        poly = wkt(region)
+        countries = src.gbif_facet({"geometry": poly}, keys, "country", 100)
+        for cc, records in sorted(countries.items(), key=lambda x: -x[1]):
+            if records < MIN_DESTINATION_RECORDS or f"{region['id']}:{cc}" in DESTINATION_SKIP:
+                continue
+            hits = src.gbif_facet({"geometry": poly, "country": cc}, keys, "speciesKey", 1000)
+            ids = sorted({id_of[int(k)] for k in hits if int(k) in id_of} & in_region)
+            if len(ids) < MIN_DESTINATION_SPECIES:
+                print(f"  skip {region['id']}:{cc} ({len(ids)} species)", flush=True)
+                continue
+            did = f"{region['id']}:{cc}"
+            label = DESTINATION_LABELS.get(did, {})
+            out.append({
+                "id": did,
+                "region_id": region["id"],
+                "country": cc,
+                "name_de": label.get("de") or names["de"].get(cc, cc),
+                "name_en": label.get("en") or names["en"].get(cc, cc),
+                "records": records,
+                "species": ids,
+            })
+            print(f"{did} {names['de'].get(cc, cc)}: {len(ids)} species ({records} records)", flush=True)
+    save_json(CACHE / "destinations.json", out)
+
+
 def write_catalog(db_path: Path, species: list[dict], version: str) -> None:
     traits = load_json(INPUT / "traits.json")
     valid_traits = {t["id"] for t in traits}
@@ -634,6 +733,20 @@ def write_catalog(db_path: Path, species: list[dict], version: str) -> None:
         for i, p in enumerate(s.get("photo_rows", [])):
             con.execute("INSERT INTO species_photo VALUES (?, ?, ?, ?, ?, ?, ?)",
                         (s["id"], p["file"], p["author"], p["license"], p["source"], p.get("bytes", 0), i))
+    dest_path = CACHE / "destinations.json"
+    destinations = load_json(dest_path) if dest_path.exists() else []
+    order = {r["id"]: r["sort"] for r in regions()}
+    # Countries within a region, sorted by region and name
+    def plain(name: str) -> str:  # "Ägypten" sorts with A
+        return "".join(c for c in unicodedata.normalize("NFD", name) if not unicodedata.combining(c))
+
+    destinations.sort(key=lambda d: (order[d["region_id"]], plain(d["name_de"])))
+    in_catalog = {s["id"] for s in species}
+    for i, d in enumerate(destinations):
+        con.execute("INSERT INTO destination VALUES (?, ?, ?, ?, ?, ?)",
+                    (d["id"], d["region_id"], d["country"], d["name_de"], d["name_en"], i))
+        con.executemany("INSERT INTO species_destination VALUES (?, ?)",
+                        [(sid, d["id"]) for sid in d["species"] if sid in in_catalog])
     con.commit()
     con.execute("VACUUM")
     con.close()
@@ -654,6 +767,7 @@ def write_manifest(db_path: Path, species: list[dict], version: str) -> None:
 
 def step_build() -> None:
     species = load_json(CACHE / "species.json")
+    realm_cleanup(species)
     curated = read_traits_csv(INPUT / "traits.csv")
     skip = excluded()
     applies = {t["id"]: t["applies_to"].split(",") for t in load_json(INPUT / "traits.json")}
@@ -732,13 +846,14 @@ STEPS = {
     "traits": step_traits,
     "photos": step_photos,
     "build": step_build,
+    "destinations": step_destinations,
     "seed": step_seed,
 }
 
 if __name__ == "__main__":
     cmd = sys.argv[1] if len(sys.argv) > 1 else "all"
     if cmd == "all":
-        for name in ("candidates", "enrich", "traits", "photos", "build"):
+        for name in ("candidates", "enrich", "traits", "photos", "destinations", "build"):
             print(f"== {name}", flush=True)
             STEPS[name]()
     else:

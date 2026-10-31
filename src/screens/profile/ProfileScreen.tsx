@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { regionName, useCatalog, useLang } from '../../catalog/useCatalog';
+import { useCatalog, useLang } from '../../catalog/useCatalog';
 import { persistNow } from '../../db/boot';
 import { useDb } from '../../db/react';
 import { formatBytes, formatDateTime } from '../../lib/format';
@@ -24,6 +24,7 @@ import { Field, PageHeader } from '../../ui/components';
 import { useFeedback } from '../../ui/feedback';
 import { Icon } from '../../ui/icons/Icon';
 import { checkForUpdate } from '../../ui/UpdateBanner';
+import { PlaceSelect } from '../../ui/PlaceSelect';
 
 function Segmented<T extends string>({ value, options, onChange, label }: { value: T; options: [T, string][]; onChange: (v: T) => void; label: string }) {
   return (
@@ -376,15 +377,7 @@ export default function ProfileScreen() {
           <Segmented<Language> label={t('profile.language')} value={settings.language} options={[['de', 'Deutsch'], ['en', 'English']]} onChange={(v) => settings.set({ language: v })} />
         </Field>
         <Field label={t('profile.defaultRegion')}>
-          <select className="input" value={settings.region ?? ''} onChange={(e) => settings.set({ region: e.target.value || null })}>
-            <option value="">{t('filter.allRegions')}</option>
-            {catalog.regionTree().map((r) => (
-              <option key={r.id} value={r.id}>
-                {r.parentId ? '— ' : ''}
-                {regionName(r, lang)}
-              </option>
-            ))}
-          </select>
+          <PlaceSelect label={t('profile.defaultRegion')} value={settings.region} onChange={(place) => settings.set({ region: place })} />
         </Field>
       </div>
 
