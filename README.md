@@ -89,9 +89,13 @@ Seabook oder anderen kommerziellen Apps verwendet.
 ## Supabase
 
 - Migrationen: `supabase/migrations/` (bereits auf das Projekt `tauchlog` angewendet).
-- **Login per E-Mail-Link**: In Supabase unter *Authentication → URL Configuration* die
-  Vercel-URL als *Site URL* und `https://<deine-domain>/**` als *Redirect URL* eintragen.
-  Der Standard-Mailversand von Supabase ist stark begrenzt; für mehr Nutzer einen eigenen SMTP-Server hinterlegen.
+- **Login per E-Mail-Code**: Die App schickt einen Code statt eines Links (ein Link würde auf dem
+  iPhone in Safari statt in der installierten App landen). In Supabase unter *Authentication → URL
+  Configuration* die Vercel-URL als *Site URL* und `https://<deine-domain>/**` als *Redirect URL*
+  eintragen. Eigene Mail-Vorlagen brauchen einen eigenen SMTP-Server (*Authentication → Emails → SMTP*).
+- **Mail-Vorlage**: `supabase/templates/sign-in-code.html` unter *Authentication → Emails → Templates*
+  in **Magic Link** und **Confirm signup** einfügen, Betreff jeweils
+  `{{ .Token }} ist dein Anmeldecode für Aqua`.
 - **Google/Apple**: Provider in Supabase unter *Authentication → Sign In / Providers* aktivieren.
   Die App fragt beim Öffnen des Profils ab, welche Anbieter aktiv sind, und zeigt die Knöpfe dann
   automatisch an (kein neuer Build nötig). Für Google: OAuth-Client vom Typ *Webanwendung* in der

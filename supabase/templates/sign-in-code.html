@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="light dark" />
+    <meta name="supported-color-schemes" content="light dark" />
+    <title>Dein Anmeldecode für Aqua</title>
+    <style>
+      @media (prefers-color-scheme: dark) {
+        .bg { background: #061217 !important; }
+        .card { background: #0d1f25 !important; border-color: #23434d !important; }
+        .text { color: #e9f2f4 !important; }
+        .muted { color: #9bb3ba !important; }
+        .codebox { background: #142c34 !important; border-color: #2d5662 !important; }
+        .code { color: #7dd8dc !important; }
+        .rule { border-color: #23434d !important; }
+      }
+      @media (max-width: 520px) {
+        .pad { padding-left: 22px !important; padding-right: 22px !important; }
+        .code { font-size: 30px !important; letter-spacing: 6px !important; }
+      }
+    </style>
+  </head>
+  <body class="bg" style="margin: 0; padding: 0; background: #eef3f4">
+    <!-- Preview line in the inbox and in notifications -->
+    <div style="display: none; max-height: 0; overflow: hidden; opacity: 0">
+      Dein Code: {{ .Token }} · 60 Minuten gültig&#8199;&#847;&#8199;&#847;&#8199;&#847;&#8199;&#847;&#8199;&#847;&#8199;&#847;&#8199;&#847;&#8199;&#847;
+    </div>
+    <table role="presentation" class="bg" width="100%" cellpadding="0" cellspacing="0" border="0" style="background: #eef3f4">
+      <tr>
+        <td align="center" style="padding: 32px 12px">
+          <table role="presentation" class="card" width="100%" cellpadding="0" cellspacing="0" border="0"
+            style="max-width: 480px; background: #ffffff; border: 1px solid #d8e3e6; border-radius: 20px; overflow: hidden">
+            <!-- Header -->
+            <tr>
+              <td style="background-color: #0b5f66; background-image: linear-gradient(135deg, #0e7f87 0%, #06343b 100%); padding: 22px 28px" class="pad">
+                <table role="presentation" cellpadding="0" cellspacing="0" border="0">
+                  <tr>
+                    <td style="vertical-align: middle">
+                      <img src="https://aqua-tauchlog.vercel.app/icons/icon-192.png" width="48" height="48" alt=""
+                        style="display: block; width: 48px; height: 48px; border-radius: 12px; border: 2px solid rgba(255, 255, 255, 0.35)" />
+                    </td>
+                    <td style="vertical-align: middle; padding-left: 14px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif">
+                      <div style="color: #ffffff; font-size: 22px; font-weight: 800; line-height: 1.1">Aqua</div>
+                      <div style="color: #bfeef0; font-size: 13px; line-height: 1.4">Tauch-Logbuch &amp; Artensammlung</div>
+                    </td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+            <!-- Body -->
+            <tr>
+              <td class="pad" style="padding: 30px 28px 8px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif">
+                <h1 class="text" style="margin: 0 0 8px; color: #0a1c22; font-size: 22px; line-height: 1.3; font-weight: 800">Dein Anmeldecode</h1>
+                <p class="muted" style="margin: 0 0 22px; color: #45606a; font-size: 16px; line-height: 1.5">
+                  Gib diesen Code in der Aqua-App ein, um dich anzumelden.
+                </p>
+                <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+                  <tr>
+                    <td class="codebox" align="center" style="background: #e8f5f6; border: 1px solid #b9e3e6; border-radius: 14px; padding: 20px 12px">
+                      <div class="code"
+                        style="font-family: 'SF Mono', SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace; font-size: 34px; font-weight: 700; letter-spacing: 8px; color: #0b5f66; line-height: 1.2">{{ .Token }}</div>
+                    </td>
+                  </tr>
+                </table>
+                <p class="muted" style="margin: 12px 0 0; color: #45606a; font-size: 14px; line-height: 1.5; text-align: center">
+                  60 Minuten gültig · nur einmal verwendbar
+                </p>
+              </td>
+            </tr>
+            <!-- Footer -->
+            <tr>
+              <td class="pad" style="padding: 24px 28px 28px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif">
+                <div class="rule" style="border-top: 1px solid #e3ebed; padding-top: 18px">
+                  <p class="muted" style="margin: 0; color: #45606a; font-size: 13px; line-height: 1.55">
+                    Du bekommst diese E-Mail, weil für {{ .Email }} eine Anmeldung bei Aqua angefordert wurde.
+                    Warst du das nicht, kannst du sie einfach ignorieren – ohne den Code kann sich niemand anmelden.
+                  </p>
+                </div>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>
