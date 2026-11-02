@@ -14,3 +14,17 @@ Grapsus albolineatus
 Grapsus tenuicrustatus
 Leptograpsus variegatus
 Pachygrapsus marmoratus
+Anguilla anguilla
+Anguilla reinhardtii
+Ocypode cordimana
+Ocypode ceratophthalmus
+Triglochin striata
+Episesarma versicolor
+Episesarma chentongense
+Paraleptuca crassipes
+Ocypode brevicornis
+Grapsus longitarsis
+Grapsus fourmanoiri
+Neosarmatium meinerti
+Aequorea forskalea
+Olindias muelleri
