@@ -17,7 +17,7 @@ USER_AGENT = "aqua-catalog-pipeline/0.1 (private, non-commercial dive log app)"
 
 # Minimum seconds between requests per host (iNaturalist asks for <= 1 req/s).
 RATE = {
-    "query.wikidata.org": 62.0,  # the query service currently allows about one request per minute
+    "www.wikidata.org": 0.25,
     "api.inaturalist.org": 1.05,
     "www.marinespecies.org": 0.25,
     "api.gbif.org": 0.1,
@@ -220,32 +220,43 @@ def gbif_facet(params: dict, species_keys: list[int], facet: str, limit: int) ->
 
 # ---------------------------------------------------------------- German names (Wikidata, WoRMS)
 
-WIKIDATA_SPARQL = "https://query.wikidata.org/sparql"
+WIKIDATA_API = "https://www.wikidata.org/w/api.php"
 
 
 def wikidata_german_names(names: list[str]) -> dict[str, dict[str, list[str]]]:
-    """Per scientific name: German label, German common names (P1843) and the German Wikipedia title."""
+    """Per scientific name: German label, German common names (P1843) and the German Wikipedia title.
+
+    Uses the regular Wikidata API (search by taxon name, then entities in batches of 50); the SPARQL
+    endpoint is too strictly rate-limited for this.
+    """
+    ids: dict[str, str] = {}
+    for name in names:
+        data = get_json(WIKIDATA_API, {"action": "query", "list": "search", "format": "json", "srlimit": 3,
+                                       "srsearch": f'haswbstatement:"P225={name}"'})
+        hits = (data or {}).get("query", {}).get("search", [])
+        if hits:
+            ids[hits[0]["title"]] = name
     out: dict[str, dict[str, list[str]]] = {}
-    for i in range(0, len(names), 100):
-        chunk = names[i : i + 100]
-        values = " ".join(json.dumps(n) for n in chunk)
-        query = f"""SELECT ?name ?label ?common ?article WHERE {{
-  VALUES ?name {{ {values} }}
-  ?item wdt:P225 ?name .
-  OPTIONAL {{ ?item rdfs:label ?label FILTER(LANG(?label) = "de") }}
-  OPTIONAL {{ ?item wdt:P1843 ?common FILTER(LANG(?common) = "de") }}
-  OPTIONAL {{ ?article schema:about ?item ; schema:isPartOf <https://de.wikipedia.org/> }}
-}}"""
-        data = get_json(WIKIDATA_SPARQL, {"query": query, "format": "json"})
-        for b in (data or {}).get("results", {}).get("bindings", []):
-            entry = out.setdefault(b["name"]["value"], {"label": [], "common": [], "article": []})
-            for key in ("label", "common"):
-                if key in b and b[key]["value"] not in entry[key]:
-                    entry[key].append(b[key]["value"])
-            if "article" in b:
-                title = urllib.parse.unquote(b["article"]["value"].rsplit("/", 1)[-1]).replace("_", " ")
-                if title not in entry["article"]:
-                    entry["article"].append(title)
+    qids = list(ids)
+    for i in range(0, len(qids), 50):
+        data = get_json(WIKIDATA_API, {"action": "wbgetentities", "format": "json", "ids": "|".join(qids[i : i + 50]),
+                                       "props": "labels|claims|sitelinks", "languages": "de", "sitefilter": "dewiki"})
+        for qid, ent in ((data or {}).get("entities") or {}).items():
+            name = ids.get(qid)
+            if not name:
+                continue
+            entry = {"label": [], "common": [], "article": []}
+            label = (ent.get("labels") or {}).get("de", {}).get("value")
+            if label:
+                entry["label"].append(label)
+            for claim in (ent.get("claims") or {}).get("P1843", []):
+                v = claim.get("mainsnak", {}).get("datavalue", {}).get("value", {})
+                if v.get("language") == "de" and v.get("text"):
+                    entry["common"].append(v["text"])
+            title = (ent.get("sitelinks") or {}).get("dewiki", {}).get("title")
+            if title:
+                entry["article"].append(title)
+            out[name] = entry
     return out
 
 
