@@ -3,7 +3,18 @@ import { createTestDb } from '../test/testDb';
 import type { AppDb } from '../db/appDb';
 import { loadCatalog } from '../catalog/catalog';
 import { deleteDive, durationFromTimes, getDive, lastEquipment, listDives, nextDiveNo, restoreDive, saveDive } from './dives';
-import { addSighting, deleteSighting, restoreSighting, sightingsForDive, sightingsForSpecies } from './sightings';
+import {
+  addSighting,
+  assignSpecies,
+  deleteSighting,
+  getSighting,
+  restoreSighting,
+  sightingsForDive,
+  sightingsForSpecies,
+  UNIDENTIFIED,
+  unidentifiedSightings,
+  updateSighting,
+} from './sightings';
 import { lifeList, progressReport } from './lifelist';
 import { addToCollection, collectionSpeciesIds, deleteCollection, favoriteIds, removeFromCollection, saveCollection, toggleFavorite } from './collections';
 import { listSites, regionForPoint, saveSite } from './sites';
@@ -110,6 +121,26 @@ describe('sightings and life list', () => {
     expect(lifeList(db).has('chelonia-mydas')).toBe(false);
     await new Promise((r) => setTimeout(r, 2));
     restoreSighting(db, id, stamp);
+    expect(sightingsForSpecies(db, 'chelonia-mydas')).toHaveLength(1);
+  });
+
+  it('records unidentified sightings outside the life list and assigns them later', () => {
+    const dive = saveDive(db, { dive_no: 1, date: '2026-03-01' } as never);
+    const { id, isFirst } = addSighting(db, { species_id: UNIDENTIFIED, dive_id: dive, note: 'gelber Fisch, blaue Punkte' });
+    expect(isFirst).toBe(false);
+    expect(lifeList(db).size).toBe(0);
+    expect(logStats(db).speciesCount).toBe(0);
+    expect(unidentifiedSightings(db).map((s) => [s.id, s.dive_no, s.note])).toEqual([[id, 1, 'gelber Fisch, blaue Punkte']]);
+    expect(assignSpecies(db, id, 'chaetodon-auriga', 'manual').isFirst).toBe(true);
+    expect(unidentifiedSightings(db)).toHaveLength(0);
+    expect(lifeList(db).has('chaetodon-auriga')).toBe(true);
+    expect(getSighting(db, id)?.note).toBe('gelber Fisch, blaue Punkte');
+  });
+
+  it('edits a sighting', () => {
+    const { id } = addSighting(db, { species_id: 'chelonia-mydas', count: 1 });
+    updateSighting(db, { id, species_id: 'chelonia-mydas', count: 3, note: 'zwei Jungtiere' });
+    expect(getSighting(db, id)).toMatchObject({ count: 3, note: 'zwei Jungtiere' });
     expect(sightingsForSpecies(db, 'chelonia-mydas')).toHaveLength(1);
   });
 

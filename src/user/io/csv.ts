@@ -2,7 +2,7 @@ import type { AppDb } from '../../db/appDb';
 import type { Catalog } from '../../catalog/catalog';
 import { getDive, listDives, type DiveType } from '../dives';
 import { getSite } from '../sites';
-import { sightingsForDive } from '../sightings';
+import { sightingsForDive, isUnidentified } from '../sightings';
 import { num, type ImportedDive } from './types';
 
 export const CSV_COLUMNS = [
@@ -25,7 +25,9 @@ export function exportCsv(db: AppDb, catalog: Catalog): string {
     .map((item) => {
       const d = getDive(db, item.id)!;
       const site = d.site_id ? getSite(db, d.site_id) : undefined;
-      const species = sightingsForDive(db, d.id).map((s) => catalog.byId.get(s.species_id)?.scientificName ?? s.species_id);
+      const species = sightingsForDive(db, d.id).map((s) =>
+        isUnidentified(s) ? `unbestimmt${s.note ? ` (${s.note})` : ''}` : (catalog.byId.get(s.species_id)?.scientificName ?? s.species_id),
+      );
       const values: Record<(typeof CSV_COLUMNS)[number], unknown> = {
         dive_no: d.dive_no,
         date: d.date,

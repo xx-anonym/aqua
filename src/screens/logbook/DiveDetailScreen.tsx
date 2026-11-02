@@ -9,11 +9,11 @@ import { formatDepth, formatDuration, formatNumber, formatPressure, formatTemp }
 import { useSettings } from '../../settings/settings';
 import { deleteDive, getDive, restoreDive } from '../../user/dives';
 import { getSite } from '../../user/sites';
-import { sightingsForDive } from '../../user/sightings';
-import { EmptyState, PageHeader, SpeciesThumb, Stars } from '../../ui/components';
+import { isUnidentified, sightingsForDive, type Sighting } from '../../user/sightings';
+import { EmptyState, PageHeader, Stars } from '../../ui/components';
 import { useFeedback } from '../../ui/feedback';
 import { Icon } from '../../ui/icons/Icon';
-import { AddSightingSheet } from '../sighting/AddSightingSheet';
+import { AddSightingSheet, SightingThumb } from '../sighting/AddSightingSheet';
 import { SpeciesPickerSheet } from '../sighting/SpeciesPickerSheet';
 import { useDeleteSighting } from '../sighting/useDeleteSighting';
 import { ProfileChart } from './ProfileChart';
@@ -31,7 +31,8 @@ export default function DiveDetailScreen() {
   const site = useDbQuery((d) => (dive?.site_id ? getSite(d, dive.site_id) : undefined), [dive?.site_id]);
   const sightings = useDbQuery((d) => sightingsForDive(d, id), [id]);
   const [picking, setPicking] = useState(false);
-  const [picked, setPicked] = useState<{ species: Species; via: 'manual' | 'filter' } | null>(null);
+  const [picked, setPicked] = useState<{ species: Species | null; via: 'manual' | 'filter' } | null>(null);
+  const [editing, setEditing] = useState<Sighting | null>(null);
   const removeSighting = useDeleteSighting();
 
   if (!dive) {
@@ -171,20 +172,37 @@ export default function DiveDetailScreen() {
       {sightings.length > 0 && (
         <div className="list">
           {sightings.map((s) => {
-            const sp = catalog.byId.get(s.species_id);
+            const sp = catalog.byId.get(s.species_id) ?? null;
+            const unknown = isUnidentified(s);
+            const body = (
+              <>
+                <div className="list-thumb">
+                  <SightingThumb photoUri={s.photo_uri} species={sp} />
+                </div>
+                <div className="grow">
+                  <div className="title">{unknown ? t('sighting.unidentified') : sp ? speciesName(sp, lang) : s.species_id}</div>
+                  <div className="sub">
+                    {[unknown ? null : sp?.scientificName, s.count ? t('sighting.countValue', { count: s.count }) : null, s.note]
+                      .filter(Boolean)
+                      .join(' · ')}
+                  </div>
+                </div>
+              </>
+            );
             return (
               <div key={s.id} className="list-item">
-                <Link to={`/species/${s.species_id}`} className="row grow" style={{ flexWrap: 'nowrap', textDecoration: 'none', color: 'inherit' }}>
-                  <div className="list-thumb">{sp && <SpeciesThumb species={sp} />}</div>
-                  <div className="grow">
-                    <div className="title">{sp ? speciesName(sp, lang) : s.species_id}</div>
-                    <div className="sub">
-                      {sp?.scientificName}
-                      {s.count ? ` · ${t('sighting.countValue', { count: s.count })}` : ''}
-                      {s.note ? ` · ${s.note}` : ''}
-                    </div>
-                  </div>
-                </Link>
+                {unknown ? (
+                  <button type="button" className="list-item-main" onClick={() => setEditing(s)}>
+                    {body}
+                  </button>
+                ) : (
+                  <Link to={`/species/${s.species_id}`} className="list-item-main">
+                    {body}
+                  </Link>
+                )}
+                <button className="icon-btn" aria-label={t('sighting.edit')} title={t('sighting.edit')} onClick={() => setEditing(s)}>
+                  <Icon name="edit" />
+                </button>
                 <button
                   className="icon-btn"
                   aria-label={t('sighting.delete')}
@@ -224,6 +242,17 @@ export default function DiveDetailScreen() {
             setPicking(false);
             setPicked({ species, via });
           }}
+          onUnknown={() => {
+            setPicking(false);
+            setPicked({ species: null, via: 'manual' });
+          }}
+        />
+      )}
+      {editing && (
+        <AddSightingSheet
+          species={catalog.byId.get(editing.species_id) ?? null}
+          sighting={editing}
+          onClose={() => setEditing(null)}
         />
       )}
       {picked && (

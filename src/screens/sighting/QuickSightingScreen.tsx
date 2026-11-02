@@ -6,6 +6,7 @@ import { useCatalog } from '../../catalog/useCatalog';
 import { PageHeader } from '../../ui/components';
 import { SpeciesBrowser } from '../discover/SpeciesBrowser';
 import { AddSightingSheet } from './AddSightingSheet';
+import { UnknownSpeciesButton } from './SpeciesPickerSheet';
 
 /** Plus button → "Schnelle Sichtung": pick a species via list, search or filter, then save. */
 export default function QuickSightingScreen() {
@@ -14,7 +15,8 @@ export default function QuickSightingScreen() {
   const navigate = useNavigate();
   const [params] = useSearchParams();
   const preset = params.get('species');
-  const [picked, setPicked] = useState<{ species: Species; via: 'manual' | 'filter' } | null>(
+  // species null = "Art unbekannt", recorded as unidentified sighting
+  const [picked, setPicked] = useState<{ species: Species | null; via: 'manual' | 'filter' } | null>(
     preset && catalog.byId.has(preset) ? { species: catalog.byId.get(preset)!, via: 'manual' } : null,
   );
 
@@ -24,13 +26,14 @@ export default function QuickSightingScreen() {
       <p className="muted" style={{ marginTop: 0 }}>
         {t('sighting.pickSpecies')}
       </p>
+      <UnknownSpeciesButton onClick={() => setPicked({ species: null, via: 'manual' })} />
       <SpeciesBrowser stateKey="quick" onSelect={(species, via) => setPicked({ species, via })} />
       {picked && (
         <AddSightingSheet
           species={picked.species}
           identifiedBy={picked.via}
           onClose={() => setPicked(null)}
-          onSaved={() => navigate(`/species/${picked.species.id}`)}
+          onSaved={(speciesId) => navigate(picked.species ? `/species/${speciesId}` : '/logbook', { replace: !picked.species })}
         />
       )}
     </div>

@@ -2,6 +2,7 @@ import type { AppDb } from '../db/appDb';
 import type { Catalog } from '../catalog/catalog';
 import type { Category, Species } from '../catalog/types';
 import { CATEGORIES } from '../catalog/types';
+import { UNIDENTIFIED } from './sightings';
 
 export interface LifeListEntry {
   speciesId: string;
@@ -18,8 +19,9 @@ export function lifeList(db: AppDb): Map<string, LifeListEntry> {
      FROM sighting g
      LEFT JOIN dive d ON d.id = g.dive_id AND d.deleted_at IS NULL
      LEFT JOIN dive_site s ON s.id = d.site_id AND s.deleted_at IS NULL
-     WHERE g.deleted_at IS NULL
+     WHERE g.deleted_at IS NULL AND g.species_id <> ?
      ORDER BY g.seen_at`,
+    [UNIDENTIFIED],
   );
   const map = new Map<string, LifeListEntry>();
   for (const r of rows) {

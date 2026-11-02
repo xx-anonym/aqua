@@ -11,6 +11,8 @@ import { exportCsv } from '../../user/io/csv';
 import { downloadText, exportFileName } from '../../user/io/importer';
 import { exportUddf } from '../../user/io/uddf';
 import { logStats } from '../../user/stats';
+import { unidentifiedSightings, type SightingWithContext } from '../../user/sightings';
+import { AddSightingSheet, SightingThumb } from '../sighting/AddSightingSheet';
 import { EmptyState, PageHeader, Sheet, Stars } from '../../ui/components';
 import { useFeedback } from '../../ui/feedback';
 import { Icon } from '../../ui/icons/Icon';
@@ -25,6 +27,8 @@ export default function LogbookScreen() {
   const dives = useDbQuery((d) => listDives(d));
   const stats = useDbQuery((d) => logStats(d));
   const [exportOpen, setExportOpen] = useState(false);
+  const unidentified = useDbQuery((d) => unidentifiedSightings(d));
+  const [editing, setEditing] = useState<SightingWithContext | null>(null);
 
   const doExport = (kind: 'csv' | 'uddf') => {
     if (kind === 'csv') downloadText(exportFileName('csv'), exportCsv(db, catalog), 'text/csv;charset=utf-8');
@@ -80,6 +84,34 @@ export default function LogbookScreen() {
           {t('logbook.newDive')}
         </Link>
       </div>
+
+      {unidentified.length > 0 && (
+        <section style={{ marginBottom: 20 }}>
+          <h3 className="section-title" style={{ marginTop: 0 }}>
+            {t('logbook.unidentified', { count: unidentified.length })}
+          </h3>
+          <p className="small muted" style={{ marginTop: 0 }}>
+            {t('logbook.unidentifiedHint')}
+          </p>
+          <div className="list">
+            {unidentified.map((s) => (
+              <button key={s.id} type="button" className="list-item" onClick={() => setEditing(s)}>
+                <div className="list-thumb">
+                  <SightingThumb photoUri={s.photo_uri} species={null} />
+                </div>
+                <div className="grow">
+                  <div className="title">{s.note || t('sighting.unidentified')}</div>
+                  <div className="sub">
+                    {formatDate(s.seen_at, lang)} · {s.dive_id ? `#${s.dive_no ?? '–'} · ${s.site_name ?? t('dive.noSite')}` : t('sighting.withoutDive')}
+                  </div>
+                </div>
+                <Icon name="chevron" />
+              </button>
+            ))}
+          </div>
+        </section>
+      )}
+      {editing && <AddSightingSheet species={null} sighting={editing} onClose={() => setEditing(null)} />}
 
       {dives.length === 0 ? (
         <EmptyState icon="logbook" title={t('logbook.empty')}>

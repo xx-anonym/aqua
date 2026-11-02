@@ -1,4 +1,5 @@
 import type { AppDb } from '../db/appDb';
+import { UNIDENTIFIED } from './sightings';
 
 export interface LogStats {
   diveCount: number;
@@ -23,7 +24,9 @@ export function logStats(db: AppDb): LogStats {
       .map((r) => r.country.trim().toLocaleLowerCase('de'))
       .filter(Boolean),
   );
-  const sp = db.get<{ n: number }>('SELECT COUNT(DISTINCT species_id) AS n FROM sighting WHERE deleted_at IS NULL');
+  const sp = db.get<{ n: number }>('SELECT COUNT(DISTINCT species_id) AS n FROM sighting WHERE deleted_at IS NULL AND species_id <> ?', [
+    UNIDENTIFIED,
+  ]);
   return {
     diveCount: d?.n ?? 0,
     totalMinutes: d?.minutes ?? 0,

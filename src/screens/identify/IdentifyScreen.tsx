@@ -22,17 +22,7 @@ import { Chip, EmptyState, PageHeader, SpeciesCard, SpeciesThumb, TraitChip } fr
 import { Icon } from '../../ui/icons/Icon';
 import { DestinationSelect } from '../../ui/PlaceSelect';
 import { AddSightingSheet } from '../sighting/AddSightingSheet';
-
-function useObjectUrl(blob: Blob | null) {
-  const [url, setUrl] = useState<string | null>(null);
-  useEffect(() => {
-    if (!blob) return setUrl(null);
-    const u = URL.createObjectURL(blob);
-    setUrl(u);
-    return () => URL.revokeObjectURL(u);
-  }, [blob]);
-  return url;
-}
+import { useObjectUrl } from '../../lib/useObjectUrl';
 
 function Suggestions({
   result,

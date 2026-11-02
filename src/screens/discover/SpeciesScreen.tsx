@@ -11,7 +11,7 @@ import { formatDepth } from '../../lib/units';
 import { useSettings } from '../../settings/settings';
 import { isFavorite, toggleFavorite } from '../../user/collections';
 import { lifeList } from '../../user/lifelist';
-import { sightingsForSpecies } from '../../user/sightings';
+import { sightingsForSpecies, type Sighting } from '../../user/sightings';
 import { useDeleteSighting } from '../sighting/useDeleteSighting';
 import { EmptyState, IucnBadge, PageHeader, SpeciesCard, TraitIcon } from '../../ui/components';
 import { Icon } from '../../ui/icons/Icon';
@@ -30,6 +30,7 @@ export default function SpeciesScreen() {
   const photos = useMemo(() => (species ? loadPhotos(db, species.id) : []), [db, species]);
   const sightings = useDbQuery((d) => sightingsForSpecies(d, id), [id]);
   const removeSighting = useDeleteSighting();
+  const [editing, setEditing] = useState<Sighting | null>(null);
   const favorite = useDbQuery((d) => isFavorite(d, id), [id]);
   const seen = useDbQuery((d) => lifeList(d));
   const [sheet, setSheet] = useState<'sighting' | 'album' | null>(null);
@@ -203,6 +204,9 @@ export default function SpeciesScreen() {
                 ) : (
                   <div className="list-item-main">{body}</div>
                 )}
+                <button className="icon-btn" aria-label={t('sighting.edit')} title={t('sighting.edit')} onClick={() => setEditing(s)}>
+                  <Icon name="edit" />
+                </button>
                 <button className="icon-btn" aria-label={t('sighting.delete')} title={t('sighting.delete')} onClick={() => removeSighting(s.id)}>
                   <Icon name="trash" />
                 </button>
@@ -230,6 +234,7 @@ export default function SpeciesScreen() {
       )}
 
       {sheet === 'sighting' && <AddSightingSheet species={species} onClose={() => setSheet(null)} />}
+      {editing && <AddSightingSheet species={species} sighting={editing} onClose={() => setEditing(null)} />}
       {sheet === 'album' && <AlbumPickerSheet speciesId={species.id} onClose={() => setSheet(null)} />}
     </div>
   );
