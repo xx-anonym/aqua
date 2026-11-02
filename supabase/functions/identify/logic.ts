@@ -32,17 +32,31 @@ export function sanitizeCandidates(input: unknown): Candidate[] {
   return out;
 }
 
-/** Stable text block (cacheable per region and catalog version): one candidate per line. */
+/** Comparison key for scientific names; ignores case, extra spaces and a subgenus in brackets. */
+const sciKey = (name: string) =>
+  name
+    .toLowerCase()
+    .replace(/\([^)]*\)/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
+
+/**
+ * Stable text block (cacheable per region and catalog version): one scientific name per line.
+ * Only the scientific name: the model knows species best by it, and common names and ids would
+ * triple the tokens of this, the largest part of every request.
+ */
 export function candidateBlock(candidates: Candidate[]): string {
+  const seen = new Set<string>();
   return candidates
-    .map((c) => [c.id, c.sci, c.en ?? '', c.de ?? ''].join(' | '))
+    .filter((c) => !seen.has(sciKey(c.sci)) && !!seen.add(sciKey(c.sci)))
+    .map((c) => c.sci)
     .join('\n');
 }
 
 export const SYSTEM_PROMPT = `You identify marine animals, corals and plants in underwater or snorkelling photos for a dive logbook app.
-You are given a fixed list of candidate species (id | scientific name | English name | German name) for the region where the photo was taken.
+You are given a fixed list of candidate species (scientific names, one per line) for the region where the photo was taken.
 Rules:
-- Only suggest ids from the candidate list. Never invent ids.
+- Only suggest species from the candidate list, with the scientific name exactly as listed. Never invent names.
 - Return up to 5 suggestions, most likely first. Fewer is fine when the photo clearly shows one species.
 - confidence is your probability (0 to 1) that the suggestion is correct; the values of all suggestions together must not exceed 1.
 - Use low confidence when the subject is small, blurry, partly hidden, or when similar species differ in details that are not visible.
@@ -57,11 +71,11 @@ export const OUTPUT_SCHEMA = {
       items: {
         type: 'object',
         properties: {
-          species_id: { type: 'string' },
+          scientific_name: { type: 'string' },
           confidence: { type: 'number' },
           reason: { type: 'string' },
         },
-        required: ['species_id', 'confidence', 'reason'],
+        required: ['scientific_name', 'confidence', 'reason'],
         additionalProperties: false,
       },
     },
@@ -70,20 +84,37 @@ export const OUTPUT_SCHEMA = {
   additionalProperties: false,
 } as const;
 
-/** Keeps only valid candidate ids, clamps confidences, sorts and caps at five. */
+/** Maps the model's scientific names back to catalog ids, clamps confidences, sorts and caps at five. */
 export function cleanSuggestions(raw: unknown, candidates: Candidate[]): Suggestion[] {
-  const ids = new Set(candidates.map((c) => c.id));
+  const idOf = new Map<string, string>();
+  for (const c of candidates) if (!idOf.has(sciKey(c.sci))) idOf.set(sciKey(c.sci), c.id);
   const list = (raw as { suggestions?: unknown })?.suggestions;
   if (!Array.isArray(list)) return [];
   const seen = new Set<string>();
   return list
-    .filter((s): s is Suggestion => !!s && typeof s.species_id === 'string' && ids.has(s.species_id))
-    .filter((s) => !seen.has(s.species_id) && seen.add(s.species_id))
-    .map((s) => ({
-      species_id: s.species_id,
+    .map((s: { scientific_name?: unknown; confidence?: unknown; reason?: unknown }) => ({
+      id: typeof s?.scientific_name === 'string' ? idOf.get(sciKey(s.scientific_name)) : undefined,
+      s,
+    }))
+    .filter((x): x is { id: string; s: { confidence?: unknown; reason?: unknown } } => !!x.id)
+    .filter((x) => !seen.has(x.id) && !!seen.add(x.id))
+    .map(({ id, s }) => ({
+      species_id: id,
       confidence: Math.max(0, Math.min(1, Number(s.confidence) || 0)),
       reason: String(s.reason ?? '').slice(0, 300),
     }))
     .sort((a, b) => b.confidence - a.confidence)
     .slice(0, 5);
+}
+
+/** Token counts of one request, for cost checks (returned to the app and written to the function log). */
+export function usageSummary(usage: unknown) {
+  const u = (usage ?? {}) as Record<string, unknown>;
+  const n = (k: string) => (typeof u[k] === 'number' ? (u[k] as number) : 0);
+  return {
+    input: n('input_tokens'),
+    cache_write: n('cache_creation_input_tokens'),
+    cache_read: n('cache_read_input_tokens'),
+    output: n('output_tokens'),
+  };
 }

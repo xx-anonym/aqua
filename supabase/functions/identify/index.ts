@@ -10,6 +10,7 @@ import {
   OUTPUT_SCHEMA,
   sanitizeCandidates,
   SYSTEM_PROMPT,
+  usageSummary,
 } from './logic.ts';
 
 const CORS = {
@@ -72,7 +73,7 @@ Deno.serve(async (req) => {
           role: 'user',
           content: [
             { type: 'image', source: { type: 'base64', media_type: mediaType, data: image } },
-            { type: 'text', text: `Region: ${String(body.region ?? 'unknown').slice(0, 60)}. Which candidate species is shown?` },
+            { type: 'text', text: `Region: ${String(body.region ?? 'unknown').slice(0, 60)}. Which candidate species is shown? Answer the reasons in German.` },
           ],
         },
       ],
@@ -85,11 +86,14 @@ Deno.serve(async (req) => {
     }
     const text = response.content.find((b) => b.type === 'text');
     const parsed = text && text.type === 'text' ? JSON.parse(text.text) : { suggestions: [] };
+    const usage = usageSummary(response.usage);
+    console.log(JSON.stringify({ photo_id: { model: response.model, candidates: candidates.length, ...usage } }));
     return json({
       suggestions: cleanSuggestions(parsed, candidates),
       used,
       limit: LIMIT,
       model: response.model,
+      usage,
     });
   } catch (e) {
     await admin.rpc('release_photo_id_quota', { p_user: user.id });
