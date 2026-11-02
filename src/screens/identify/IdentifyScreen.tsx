@@ -23,6 +23,7 @@ import { Icon } from '../../ui/icons/Icon';
 import { DestinationSelect } from '../../ui/PlaceSelect';
 import { AddSightingSheet } from '../sighting/AddSightingSheet';
 import { useObjectUrl } from '../../lib/useObjectUrl';
+import { useSessionState } from '../../lib/sessionState';
 
 function Suggestions({
   result,
@@ -34,7 +35,7 @@ function Suggestions({
   const { t } = useTranslation();
   const lang = useLang();
   const catalog = useCatalog();
-  const [rejected, setRejected] = useState<string[]>([]);
+  const [rejected, setRejected] = useSessionState<string[]>('identify.rejected', []);
   const [confirmed, setConfirmed] = useState<Species | null>(null);
   const items = result.suggestions.filter((s) => !rejected.includes(s.species_id) && catalog.byId.has(s.species_id));
 
@@ -92,11 +93,13 @@ function PhotoIdCard() {
   const catalog = useCatalog();
   const defaultRegion = useSettings((s) => s.region);
   const syncStatus = useSync((s) => s.status);
-  const [region, setRegion] = useState<string | null>(regionOfPlace(defaultRegion));
-  const [photo, setPhoto] = useState<Blob | null>(null);
-  const [result, setResult] = useState<IdentifyResult | null>(null);
-  const [error, setError] = useState<string | null>(null);
-  const [busy, setBusy] = useState(false);
+  // Kept while visiting a suggested species and coming back (session state, not component state).
+  const [region, setRegion] = useSessionState<string | null>('identify.region', () => regionOfPlace(defaultRegion));
+  const [photo, setPhoto] = useSessionState<Blob | null>('identify.photo', null);
+  const [result, setResult] = useSessionState<IdentifyResult | null>('identify.result', null);
+  const [error, setError] = useSessionState<string | null>('identify.error', null);
+  const [busy, setBusy] = useSessionState('identify.busy', false);
+  const [, setRejected] = useSessionState<string[]>('identify.rejected', []);
   const [queue, setQueue] = useState<QueuedPhoto[]>([]);
   const preview = useObjectUrl(photo);
 
@@ -118,6 +121,7 @@ function PhotoIdCard() {
     setBusy(true);
     setError(null);
     setResult(null);
+    setRejected([]);
     try {
       setResult(await identifyPhoto(catalog, blob, regionId));
       return true;
@@ -149,6 +153,7 @@ function PhotoIdCard() {
     setPhoto(file);
     setResult(null);
     setError(null);
+    setRejected([]);
   };
 
   return (
@@ -228,9 +233,9 @@ function TraitWizard() {
   const catalog = useCatalog();
   const defaultRegion = useSettings((s) => s.region);
   const seen = useDbQuery((d) => lifeList(d));
-  const [filter, setFilter] = useState<SpeciesFilter>(() => ({ ...emptyFilter(), ...placeFilter(defaultRegion) }));
-  const [step, setStep] = useState(0);
-  const [showResults, setShowResults] = useState(false);
+  const [filter, setFilter] = useSessionState<SpeciesFilter>('wizard.filter', () => ({ ...emptyFilter(), ...placeFilter(defaultRegion) }));
+  const [step, setStep] = useSessionState('wizard.step', 0);
+  const [showResults, setShowResults] = useSessionState('wizard.results', false);
   const total = 2 + STEP_TYPES.length;
   const matches = useMemo(() => applyFilter(catalog.species, filter), [catalog, filter]);
 
