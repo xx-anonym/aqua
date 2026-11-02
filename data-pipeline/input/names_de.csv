@@ -1,0 +1,266 @@
+# Deutsche Namen, aus dem englischen Volksnamen übersetzt, wo weder iNaturalist, FishBase, Wikidata noch WoRMS einen kennen.
+# Vorrang haben echte deutsche Namen aus den Quellen (Stufe "names"); eine Zeile in traits.csv (common_name_de) überschreibt alles.
+scientific_name;name_de;source
+Thamnaconus degeni;Blauflossen-Feilenfisch;übersetzt
+Coscinasterias muricata;Elfarmiger Seestern;übersetzt
+Echinometra mathaei;Riffdach-Bohrseeigel;übersetzt
+Actinia tenebrosa;Waratah-Seeanemone;übersetzt
+Physalia utriculus;Indopazifische Seeblase;übersetzt
+Meridiastra calcar;Teppich-Seestern;übersetzt
+Pteraeolidia semperi;Sempers Blauer Drache;übersetzt
+Parvulastra exigua;Zwerg-Kissenstern;übersetzt
+Nectocarcinus integrifrons;Raue Felsenkrabbe;übersetzt
+Holothuria leucospilota;Weißfleck-Seegurke;übersetzt
+Guinusia chabrus;Rote Felsenkrabbe;übersetzt
+Phyllidiella pustulosa;Pustel-Warzenschnecke;übersetzt
+Ovalipes australiensis;Australische Brandungskrabbe;übersetzt
+Oulactis muscosa;Gesprenkelte Felsanemone;übersetzt
+Heliocidaris erythrogramma;Australischer Purpurseeigel;übersetzt
+Leptomithrax gaimardii;Große Australische Seespinne;übersetzt
+Ceratosoma amoenum;Clown-Hornschnecke;übersetzt
+Portunus armatus;Australische Blaue Schwimmkrabbe;übersetzt
+Echinothrix calamaris;Gebänderter Diademseeigel;übersetzt
+Monetaria caputserpentis;Schlangenkopf-Kauri;übersetzt
+Scorpaena jacksoniensis;Östlicher Roter Drachenkopf;übersetzt
+Ceratosoma brevicaudatum;Kurzschwanz-Hornschnecke;übersetzt
+Haletta semifasciata;Blauer Seegras-Lippfisch;übersetzt
+Physalia megalista;Südliche Portugiesische Galeere;übersetzt
+Actinopyga varians;Weißgefleckte Pazifik-Seegurke;übersetzt
+Microcanthus joyceae;Ostaustralischer Streifenfisch;übersetzt
+Naria erosa;Angenagte Kauri;übersetzt
+Mauritia arabica;Arabische Kauri;übersetzt
+Trygonoptera testacea;Gewöhnlicher Rundstechrochen;übersetzt
+Tosia australis;Gewöhnlicher Keksstern;übersetzt
+Exaiptasia diaphana;Glasrose;übersetzt
+Aulactinia veratra;Grüne Schlangenlocken-Anemone;übersetzt
+Felimare picta;Gemalte Sternschnecke;übersetzt
+Palythoa mutuki;Grüne Knopfpolypen;übersetzt
+Anthothoe albocincta;Weißgestreifte Seeanemone;übersetzt
+Hypselodoris tryoni;Tryons Prachtsternschnecke;übersetzt
+Colobocentrotus (Podophora) atratus;Schindelseeigel;übersetzt
+Styela plicata;Gefaltete Seescheide;übersetzt
+Palythoa tuberculosa;Höckerige Krustenanemone;übersetzt
+Parma microlepis;Weißohr-Riffbarsch;übersetzt
+Felimare tricolor;Dreifarbige Prachtsternschnecke;übersetzt
+Dactylophora nigricans;Dunkler Morwong;übersetzt
+Dendrodoris krusensternii;Juwelen-Sternschnecke;übersetzt
+Meuschenia trachylepis;Gelbflossen-Feilenfisch;übersetzt
+Goniobranchus splendidus;Prächtige Sternschnecke;übersetzt
+Torquigener pleurogramma;Australischer Streifenkugelfisch;übersetzt
+Acanthaluteres brownii;Stachelschwanz-Feilenfisch;übersetzt
+Platycephalus fuscus;Dunkler Plattkopf;übersetzt
+Upeneichthys vlamingii;Blaupunkt-Meerbarbe;übersetzt
+Cnidoglanis macrocephalus;Ästuar-Korallenwels;übersetzt
+Ancylocaris brevicarpalis;Pfauenschwanz-Anemonengarnele;übersetzt
+Amphibolis antarctica;Seenymphen-Seegras;übersetzt
+Goniobranchus geometricus;Geometrische Sternschnecke;übersetzt
+Sepioteuthis australis;Südlicher Riffkalmar;übersetzt
+Phlyctenactis tuberculosa;Wandernde Seeanemone;übersetzt
+Istiblennius zebra;Zebra-Schleimfisch;übersetzt
+Pelates octolineatus;Westlicher Streifen-Grunzer;übersetzt
+Zoanthus sansibaricus;Violette Krustenanemone;übersetzt
+Hypselodoris bennetti;Bennetts Prachtsternschnecke;übersetzt
+Spirobranchus corniculatus;Indopazifischer Weihnachtsbaumwurm;übersetzt
+Dardanus megistos;Weißgefleckter Einsiedlerkrebs;übersetzt
+Pocillopora meandrina;Blumenkohlkoralle;übersetzt
+Purpuradusta gracilis;Zierliche Kauri;übersetzt
+Galaxea fascicularis;Galaxiekoralle;übersetzt
+Calcinus laevimanus;Linkshänder-Einsiedlerkrebs;übersetzt
+Samla bicolor;Zweifarbige Fadenschnecke;übersetzt
+Tetractenos hamiltoni;Hamiltons Kugelfisch;übersetzt
+Paramuricea clavata;Farbwechselnde Gorgonie;übersetzt
+Ascarosepion plangon;Trauer-Sepia;übersetzt
+Coryphellina exoptata;Begehrte Fadenschnecke;übersetzt
+Hypoplectrodes maccullochi;Halbgebänderter Zackenbarsch;übersetzt
+Monotaxis heterodon;Rotflossen-Großaugenbrasse;übersetzt
+Pocillopora grandis;Geweihkoralle;übersetzt
+Hypselodoris obscura;Dunkle Prachtsternschnecke;übersetzt
+Duncanopsammia peltata;Pagodenkoralle;übersetzt
+Aphelodoris varia;Pfannkuchen-Sternschnecke;übersetzt
+Austraeolis ornata;Geschmückte Fadenschnecke;übersetzt
+Pyura praeputialis;Cunjevoi-Seescheide;übersetzt
+Petricia vernicina;Samt-Seestern;übersetzt
+Fungia fungites;Gewöhnliche Pilzkoralle;übersetzt
+Porites rus;Säulen-Porenkoralle;übersetzt
+Lyncina carneola;Karneol-Kauri;übersetzt
+Clibanarius infraspinatus;Orangegestreifter Einsiedlerkrebs;übersetzt
+Ozius truncatus;Schwarzfinger-Krabbe;übersetzt
+Polycera capensis;Kronen-Nacktschnecke;übersetzt
+Hexabranchus lacer;Liegende Spanische Tänzerin;übersetzt
+Prostheceraeus roseus;Rosa Plattwurm;übersetzt
+Dardanus lagopodes;Behaarter Roter Einsiedlerkrebs;übersetzt
+Phestilla sibogae;Porites-Fadenschnecke;übersetzt
+Calcinus seurati;Seurats Einsiedlerkrebs;übersetzt
+Pentagonaster duebeni;Dübens Keksstern;übersetzt
+Aiptasia couchii;Couchs Glasrose;übersetzt
+Porites lobata;Lappige Porenkoralle;übersetzt
+Naxia aurita;Goldene Dekorateurkrabbe;übersetzt
+Plesiastrea versipora;Grüne Sternkoralle;übersetzt
+Monetaria caputophidii;Hawaii-Schlangenkopf-Kauri;übersetzt
+Leptogorgia sarmentosa;Orange Gorgonie;übersetzt
+Acanthosepion pharaonis;Pharao-Sepia;übersetzt
+Pseudorhiza haeckeli;Haeckels Qualle;übersetzt
+Dascyllus albisella;Hawaii-Preußenfisch;übersetzt
+Goniobranchus fidelis;Treue Sternschnecke;übersetzt
+Eriphia sebana;Glatte Rotaugenkrabbe;übersetzt
+Dardanus pedunculatus;Anemonen-Einsiedlerkrebs;übersetzt
+Meridiastra gunnii;Gunns Sechsarm-Seestern;übersetzt
+Stomopneustes variolaris;Mulden-Seeigel;übersetzt
+Antiopella cristata;Kamm-Fadenschnecke;übersetzt
+Pavona varians;Gewellte Blattkoralle;übersetzt
+Mauritia mauritiana;Buckel-Kauri;übersetzt
+Hypselodoris infucata;Bemalte Prachtsternschnecke;übersetzt
+Calcinus latens;Versteckter Einsiedlerkrebs;übersetzt
+Herdmania grandis;Malvenmund-Seescheide;übersetzt
+Cercodemas anceps;Rosa Warzen-Seegurke;übersetzt
+Nembrotha cristata;Kamm-Nembrotha;übersetzt
+Leptopsammia pruvoti;Gelbe Nelkenkoralle;übersetzt
+Calcinus tubularis;Röhren-Einsiedlerkrebs;übersetzt
+Halgerda batangas;Batangas-Sternschnecke;übersetzt
+Centrostephanus rodgersii;Australischer Langstachel-Seeigel;übersetzt
+Goniobranchus daphne;Daphnes Sternschnecke;übersetzt
+Portunus sanguinolentus;Dreifleck-Schwimmkrabbe;übersetzt
+Luisella babai;Weiße Fadenschnecke;übersetzt
+Sabellastarte australiensis;Südlicher Fächerwurm;übersetzt
+Pseudobiceros bedfordi;Perserteppich-Plattwurm;übersetzt
+Plectaster decanus;Mosaik-Seestern;übersetzt
+Porites cylindrica;Gelbe Fingerkoralle;übersetzt
+Nembrotha chamberlaini;Chamberlains Nembrotha;übersetzt
+Macrorhynchia philippina;Nesselnder Buschhydroid;übersetzt
+Naria helvola;Honig-Kauri;übersetzt
+Candiella odhneri;Peitschenkorallen-Nacktschnecke;übersetzt
+Hypselodoris imperialis;Kaiserliche Prachtsternschnecke;übersetzt
+Phlyctenanthus australis;Maulbeer-Anemone;übersetzt
+Luria lurida;Fahle Kauri;übersetzt
+Ascarosepion mestus;Schnitter-Sepia;übersetzt
+Thysanozoon brocchii;Teppich-Plattwurm;übersetzt
+Holopsamma laminaefavosa;Cremefarbener Wabenschwamm;übersetzt
+Comaster schlegelii;Veränderlicher Buschiger Haarstern;übersetzt
+Pyura spinifera;Riesige Seetulpe;übersetzt
+Chromodoris westraliensis;Westaustralische Sternschnecke;übersetzt
+Physogyra lichtensteini;Perlblasenkoralle;übersetzt
+Halgerda terramtuentis;Goldspitzen-Sternschnecke;übersetzt
+Spheciospongia vagabunda;Wandernder Bohrschwamm;übersetzt
+Antedon mediterranea;Mittelmeer-Haarstern;übersetzt
+Isopora palifera;Fangschalenkoralle;übersetzt
+Eudistoma elongatum;Australische Tropfen-Seescheide;übersetzt
+Doris chrysoderma;Zitronen-Sternschnecke;übersetzt
+Astrospartus mediterraneus;Mittelmeer-Medusenhaupt;übersetzt
+Nemesignis banyulensis;Lady-Godiva-Fadenschnecke;übersetzt
+Phyllodoce novaehollandiae;Grüner Paddelwurm;übersetzt
+Goniastrea pectinata;Kleine Sternkoralle;übersetzt
+Favites pentagona;Fünfeckige Wabenkoralle;übersetzt
+Pseudosquilla ciliata;Gewöhnlicher Fangschreckenkrebs;übersetzt
+Caryophyllia (Caryophyllia) inornata;Schlichte Nelkenkoralle;übersetzt
+Pseudoceros bifurcus;Rennstreifen-Plattwurm;übersetzt
+Brissus unicolor;Furchen-Herzseeigel;übersetzt
+Montipora capitata;Reiskoralle;übersetzt
+Alcyonium coralloides;Falsche Edelkoralle;übersetzt
+Phyllidiopsis xishaensis;Gestreifte Warzenschnecke;übersetzt
+Naria turdus;Drossel-Kauri;übersetzt
+Phyllidiella zeylanica;Domino-Warzenschnecke;übersetzt
+Millepora tenera;Zarte Feuerkoralle;übersetzt
+Pseudobiceros hancockanus;Hancocks Plattwurm;übersetzt
+Thalassia hemprichii;Sichel-Seegras;übersetzt
+Felimida binza;Harlekin-Sternschnecke;übersetzt
+Protula bispiralis;Roter Fächer-Röhrenwurm;übersetzt
+Euprymna berryi;Berrys Zwergsepia;übersetzt
+Phallusia obesa;Dicke Seescheide;übersetzt
+Lysiosquilla lisa;Lisas Fangschreckenkrebs;übersetzt
+Goniastrea stelligera;Knotenkoralle;übersetzt
+Halophila stipulacea;Halophila-Seegras;übersetzt
+Jorunna rubescens;Rotgestreifte Jorunna;übersetzt
+Hypselodoris pulchella;Schöne Prachtsternschnecke;übersetzt
+Haliclona (Reniera) fascigera;Großer Röhrenschwamm;übersetzt
+Enhalus acoroides;Bandseegras;übersetzt
+Alcyonium acaule;Mittelmeer-Seefinger;übersetzt
+Phestilla melanobrachia;Becherkorallen-Fadenschnecke;übersetzt
+Cyanea barkeri;Schleimqualle;übersetzt
+Goniobranchus vibratus;Zitternde Sternschnecke;übersetzt
+Calcinus pictus;Bemalter Einsiedlerkrebs;übersetzt
+Amplexidiscus fenestrafer;Elefantenohr-Anemone;übersetzt
+Pachycerianthus delwynae;Gebänderte Zylinderrose;übersetzt
+Pseudoceros ferrugineus;Fuchsia-Plattwurm;übersetzt
+Pycnochromis fieldi;Indisches Zweifarben-Schwalbenschwänzchen;übersetzt
+Acromitus flagellatus;Flussqualle;übersetzt
+Hypselodoris peasei;Peases Prachtsternschnecke;übersetzt
+Prostheceraeus moseleyi;Moseleys Plattwurm;übersetzt
+Dendronephthya australis;Australische Blumenkohl-Weichkoralle;übersetzt
+Astroides calycularis;Orangefarbene Sternkoralle;übersetzt
+Herdmania momus;Rotkehl-Seescheide;übersetzt
+Oceanapia sagittaria;Bovist-Schwamm;übersetzt
+Ardeadoris tomsmithi;Tom Smiths Sternschnecke;übersetzt
+Rhopilema nomadica;Nomadenqualle;übersetzt
+Micromussa lordhowensis;Lord-Howe-Koralle;übersetzt
+Pseudoceros scintillatus;Funkelnder Plattwurm;übersetzt
+Eriphia smithii;Rotaugen-Riffkrabbe;übersetzt
+Pseudoceros lindae;Lindas Plattwurm;übersetzt
+Lysiosquilla maculata;Tiger-Fangschreckenkrebs;übersetzt
+Leucetta chagosensis;Zitronenschwamm;übersetzt
+Trapezia bidentata;Rostrote Korallenwächterkrabbe;übersetzt
+Chrysaora chinensis;Malaiische Seenessel;übersetzt
+Chloeia flava;Goldener Borstenwurm;übersetzt
+Pherecardia striata;Gestreifter Feuerwurm;übersetzt
+Acanthaster mauritiensis;Westindik-Dornenkrone;übersetzt
+Cephea cephea;Blumenkohlqualle;übersetzt
+Halgerda wasinensis;Gelbblock-Sternschnecke;übersetzt
+Homophyllia australis;Grüne Einzelkoralle;übersetzt
+Phyllidia marindica;Nautische Warzenschnecke;übersetzt
+Callyspongia crassa;Stachliger Röhrenschwamm;übersetzt
+Goniobranchus geminus;Edelstein-Sternschnecke;übersetzt
+Spirobranchus kraussii;Blauer Korallenwurm;übersetzt
+Crambione mastigophora;Seetomate;übersetzt
+Phyllidia flava;Gelbe Warzenschnecke;übersetzt
+Phyllidiella rosans;Rosa Warzenschnecke;übersetzt
+Halisarca australiensis;Seetulpen-Krustenschwamm;übersetzt
+Sepiella inermis;Stachellose Sepia;übersetzt
+Versuriga anadyomene;Warzenqualle;übersetzt
+Fromia nodosa;Knotiger Seestern;übersetzt
+Mauritia histrio;Harlekin-Kauri;übersetzt
+Gastrolepidia clavigera;Seegurken-Schuppenwurm;übersetzt
+Eunice aphroditois;Bobbitwurm;übersetzt
+Thysanoteuthis rhombus;Rautenkalmar;übersetzt
+Chromodoris hamiltoni;Hamiltons Sternschnecke;übersetzt
+Acanthaster benziei;Rotmeer-Dornenkrone;übersetzt
+Pseudoceros susanae;Susans Plattwurm;übersetzt
+Thalassodendron ciliatum;Sichelblatt-Seegras;übersetzt
+Phyllidia undula;Wellen-Warzenschnecke;übersetzt
+Nymphozoon orsaki;Orsaks Plattwurm;übersetzt
+Callyspongia (Callyspongia) siphonella;Kolonie-Röhrenschwamm;übersetzt
+Crella (Grayella) cyathophora;Wabenschwamm;übersetzt
+Alloteuthis media;Mittlerer Kalmar;übersetzt
+Nembrotha aurea;Goldene Nembrotha;übersetzt
+Phyllidiopsis striata;Längsgestreifte Warzenschnecke;übersetzt
+Calcinus rosaceus;Rosa Einsiedlerkrebs;übersetzt
+Eudistoma caeruleum;Blaue Lollipop-Seescheide;übersetzt
+Crambionella stuhlmanni;Stuhlmanns Qualle;übersetzt
+Zonaria pyrum;Birnenkauri;übersetzt
+Asthenosoma marisrubri;Rotmeer-Feuerseeigel;übersetzt
+Rhombosepion prashadi;Kapuzen-Sepia;übersetzt
+Mauritia grayana;Grays Arabische Kauri;übersetzt
+Symplegma viride;Krustige Kolonie-Seescheide;übersetzt
+Spirobranchus gardineri;Gardiners Weihnachtsbaumwurm;übersetzt
+Hemimycale arabica;Arabischer Krustenschwamm;übersetzt
+Oceana serrulata;Büschel-Seegras;übersetzt
+Phyllidiopsis sinaiensis;Sinai-Warzenschnecke;übersetzt
+Cypraea pantherina;Pantherkauri;übersetzt
+Naria nebrites;Falsche Randkauri;übersetzt
+Erugosquilla massavensis;Rotmeer-Fangschreckenkrebs;übersetzt
+Filogranella elatensis;Zarter Röhrenwurm;übersetzt
+Schilderina achatidea;Achat-Kauri;übersetzt
+Caloria indica;Indische Fadenschnecke;übersetzt
+Phyllodesmium poindimiei;Poindimies Fadenschnecke;übersetzt
+Abudefduf sordidus;Schwarzfleck-Sergeant;übersetzt
+Abudefduf sparoides;Falschaugen-Sergeant;übersetzt
+Acanthopagrus australis;Australische Gelbflossenbrasse;übersetzt
+Rhabdosargus sarba;Goldstreifen-Brasse;übersetzt
+Echinopora hirsutissima;Igelkoralle;übersetzt
+Echinopora forskaliana;Forsskåls Igelkoralle;übersetzt
+Elysia pusilla;Kleine Samtschnecke;übersetzt
+Aegires villosus;Zottige Sternschnecke;übersetzt
+Thorunna daniellae;Danielles Sternschnecke;übersetzt
+Tambja affinis;Orangestreifen-Tambja;übersetzt
+Nembrotha kubaryana;Neonsternschnecke;übersetzt
+Gymnodoris ceylonica;Ceylon-Sternschnecke;übersetzt
+Phyllidia coelestis;Himmelblaue Warzenschnecke;übersetzt
+Phyllidia varicosa;Warzenschnecke;übersetzt

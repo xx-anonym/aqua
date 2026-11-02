@@ -17,7 +17,7 @@ USER_AGENT = "aqua-catalog-pipeline/0.1 (private, non-commercial dive log app)"
 
 # Minimum seconds between requests per host (iNaturalist asks for <= 1 req/s).
 RATE = {
-    "www.wikidata.org": 0.25,
+    "www.wikidata.org": 35.0,  # Wikimedia answers 429 with Retry-After ~30 s for this address
     "api.inaturalist.org": 1.05,
     "www.marinespecies.org": 0.25,
     "api.gbif.org": 0.1,
@@ -226,37 +226,35 @@ WIKIDATA_API = "https://www.wikidata.org/w/api.php"
 def wikidata_german_names(names: list[str]) -> dict[str, dict[str, list[str]]]:
     """Per scientific name: German label, German common names (P1843) and the German Wikipedia title.
 
-    Uses the regular Wikidata API (search by taxon name, then entities in batches of 50); the SPARQL
-    endpoint is too strictly rate-limited for this.
+    Looks the items up by page title (the scientific name) on English Wikipedia, where redirects lead
+    to the article, and on Wikispecies, 50 at a time. No search requests: those are rate-limited.
     """
-    ids: dict[str, str] = {}
-    for name in names:
-        data = get_json(WIKIDATA_API, {"action": "query", "list": "search", "format": "json", "srlimit": 3,
-                                       "srsearch": f'haswbstatement:"P225={name}"'})
-        hits = (data or {}).get("query", {}).get("search", [])
-        if hits:
-            ids[hits[0]["title"]] = name
     out: dict[str, dict[str, list[str]]] = {}
-    qids = list(ids)
-    for i in range(0, len(qids), 50):
-        data = get_json(WIKIDATA_API, {"action": "wbgetentities", "format": "json", "ids": "|".join(qids[i : i + 50]),
-                                       "props": "labels|claims|sitelinks", "languages": "de", "sitefilter": "dewiki"})
-        for qid, ent in ((data or {}).get("entities") or {}).items():
-            name = ids.get(qid)
-            if not name:
-                continue
-            entry = {"label": [], "common": [], "article": []}
-            label = (ent.get("labels") or {}).get("de", {}).get("value")
-            if label:
-                entry["label"].append(label)
-            for claim in (ent.get("claims") or {}).get("P1843", []):
-                v = claim.get("mainsnak", {}).get("datavalue", {}).get("value", {})
-                if v.get("language") == "de" and v.get("text"):
-                    entry["common"].append(v["text"])
-            title = (ent.get("sitelinks") or {}).get("dewiki", {}).get("title")
-            if title:
-                entry["article"].append(title)
-            out[name] = entry
+    wanted = {n.lower(): n for n in names}
+    for site in ("enwiki", "specieswiki"):
+        todo = [n for n in names if n not in out]
+        for i in range(0, len(todo), 50):
+            data = get_json(WIKIDATA_API, {"action": "wbgetentities", "format": "json", "sites": site, "redirects": "yes",
+                                           "titles": "|".join(todo[i : i + 50]), "props": "labels|claims|sitelinks",
+                                           "languages": "de", "sitefilter": "dewiki"})
+            for ent in ((data or {}).get("entities") or {}).values():
+                claims = ent.get("claims") or {}
+                taxon = [c.get("mainsnak", {}).get("datavalue", {}).get("value") for c in claims.get("P225", [])]
+                name = next((wanted[t.lower()] for t in taxon if isinstance(t, str) and t.lower() in wanted), None)
+                if not name or name in out:
+                    continue
+                entry = {"label": [], "common": [], "article": []}
+                label = (ent.get("labels") or {}).get("de", {}).get("value")
+                if label:
+                    entry["label"].append(label)
+                for claim in claims.get("P1843", []):
+                    v = claim.get("mainsnak", {}).get("datavalue", {}).get("value", {})
+                    if isinstance(v, dict) and v.get("language") == "de" and v.get("text"):
+                        entry["common"].append(v["text"])
+                title = (ent.get("sitelinks") or {}).get("dewiki", {}).get("title")
+                if title:
+                    entry["article"].append(title)
+                out[name] = entry
     return out
 
 

@@ -69,7 +69,7 @@ Benötigt Python 3.11+ mit `pyarrow`, `Pillow` und `babel` (`pip install -r data
 python data-pipeline/pipeline.py all
 ```
 
-Schritte einzeln: `candidates` → `enrich` → `traits` → `photos` → `destinations` → `build` (`seed` baut den kleinen
+Schritte einzeln: `candidates` → `enrich` → `traits` → `photos` → `destinations` → `names` → `build` (`seed` baut den kleinen
 Entwicklungskatalog ohne Netz). Antworten der Quellen werden in `data-pipeline/cache` gespeichert.
 
 | Quelle | Verwendung | Lizenz / Hinweis |
@@ -84,6 +84,12 @@ Entwicklungskatalog ohne Netz). Antworten der Quellen werden in `data-pipeline/c
 Prüfung. Arten ohne Eintrag bekommen automatische Vorschläge (Körperform aus FishBase/Familie,
 Lebensraum) und landen zur Prüfung in `input/traits_review.csv`. Beschreibungstexte werden aus den
 strukturierten Daten neu formuliert, keine Texte werden übernommen.
+
+**Deutsche Namen** (`names`): Fehlt ein deutscher Name aus iNaturalist/FishBase, sucht die Stufe
+in Wikidata (Volksname, Titel des deutschen Wikipedia-Artikels) und WoRMS. Was dann noch fehlt, steht
+als Übersetzung des englischen Namens in `input/names_de.csv`. Ein Name, den mehrere Arten tragen
+(z. B. „Nacktschnecke“), bleibt bei der meistbeobachteten Art; die anderen bekommen einen eigenen.
+`common_name_de` in `traits.csv` überschreibt alles (`-` = keinen deutschen Namen zeigen).
 
 **Länder** (`destinations`): Pro Region fragt die Pipeline bei GBIF ab, vor welchen Ländern welche
 Katalogarten beobachtet wurden (Ländernamen aus CLDR über `babel`). Angeboten werden Länder mit

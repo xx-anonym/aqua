@@ -860,8 +860,22 @@ def step_build() -> None:
         s["popularity"] = int(sum(s["region_counts"].values()))
         s["thumb"] = f"thumb/{s['id']}.webp"
         s["photo_rows"] = s["chosen_photos"]
-        s["description_de"], s["description_en"] = describe(s, load_json(INPUT / "regions.json"))
         out.append(s)
+    # A German name given to several species ("Nacktschnecke") is a group name: it stays with the
+    # most observed species, the others get a specific name if one is known.
+    by_name: dict[str, list[dict]] = defaultdict(list)
+    for s in out:
+        if s.get("common_name_de"):
+            by_name[s["common_name_de"]].append(s)
+    for name, group in by_name.items():
+        if len(group) < 2:
+            continue
+        for s in sorted(group, key=lambda x: -x["popularity"])[1:]:
+            alt = (auto_names.get(s["scientific_name"]) or {}).get("name") or translated.get(s["scientific_name"])
+            s["common_name_de"] = alt if alt and alt != name else None
+    regions_json = load_json(INPUT / "regions.json")
+    for s in out:
+        s["description_de"], s["description_en"] = describe(s, regions_json)
     version = datetime.now(timezone.utc).strftime("%Y.%m.%d") + "-" + hashlib.sha1(
         json.dumps([(s["id"], s["traits"]) for s in out]).encode()).hexdigest()[:6]
 
