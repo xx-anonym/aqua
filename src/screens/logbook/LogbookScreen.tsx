@@ -16,6 +16,7 @@ import { AddSightingSheet, SightingThumb } from '../sighting/AddSightingSheet';
 import { EmptyState, PageHeader, Sheet, Stars } from '../../ui/components';
 import { useFeedback } from '../../ui/feedback';
 import { Icon } from '../../ui/icons/Icon';
+import { SignInReminder } from '../../ui/SignInReminder';
 
 export default function LogbookScreen() {
   const { t } = useTranslation();
@@ -55,6 +56,7 @@ export default function LogbookScreen() {
           </>
         }
       />
+      <SignInReminder />
       <div className="stats" aria-label={t('logbook.statsLabel')}>
         <div className="stat">
           <div className="value">{stats.diveCount}</div>

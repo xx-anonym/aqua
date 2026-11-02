@@ -11,6 +11,8 @@ export type SyncStatus = 'disabled' | 'signedOut' | 'idle' | 'syncing' | 'error'
 
 interface SyncState {
   status: SyncStatus;
+  /** False until the stored session has been checked at start (avoids a "signed out" flash). */
+  authChecked: boolean;
   email: string | null;
   userId: string | null;
   lastSync: string | null;
@@ -20,6 +22,7 @@ interface SyncState {
 
 export const useSync = create<SyncState>(() => ({
   status: supabase ? 'signedOut' : 'disabled',
+  authChecked: false,
   email: null,
   userId: null,
   lastSync: null,
@@ -75,7 +78,7 @@ export function syncNow(): Promise<void> {
 function onSession(session: Session | null) {
   if (!db) return;
   if (!session) {
-    useSync.setState({ status: supabase ? 'signedOut' : 'disabled', email: null, userId: null });
+    useSync.setState({ status: supabase ? 'signedOut' : 'disabled', email: null, userId: null, authChecked: true });
     return;
   }
   const userId = session.user.id;
@@ -87,6 +90,7 @@ function onSession(session: Session | null) {
   }
   useSync.setState({
     status: 'idle',
+    authChecked: true,
     email: session.user.email ?? null,
     userId,
     lastSync: getKv(db, 'last_sync'),

@@ -26,6 +26,13 @@ const en = {
     undo: 'Undo',
     restored: 'Restored',
   },
+  signInReminder: {
+    title: 'Your data is stored on this device only',
+    text_one: 'If you delete the app or lose your phone, your entry is gone. With an account everything is backed up and kept in sync across your devices.',
+    text_other: 'If you delete the app or lose your phone, your {{count}} entries are gone. With an account everything is backed up and kept in sync across your devices.',
+    signIn: 'Sign in',
+    later: 'Later',
+  },
   boot: {
     loading: 'Loading catalog …',
     error: 'The app could not start.',
@@ -413,6 +420,10 @@ const en = {
     withProfile: 'with profile',
   },
   identify: {
+    regionLocating: 'Finding the region from your location …',
+    regionFromPhoto: 'Detected from the photo: {{region}}',
+    regionFromLocation: 'Detected from your location: {{region}}',
+    regionTip: 'Tip: choosing a region makes the identification more accurate and cheaper.',
     removePhoto: 'Do not keep the photo',
     title: 'Identify',
     photoTitle: 'Identify by photo',

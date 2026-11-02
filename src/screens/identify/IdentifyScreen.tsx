@@ -24,6 +24,8 @@ import { DestinationSelect } from '../../ui/PlaceSelect';
 import { AddSightingSheet } from '../sighting/AddSightingSheet';
 import { useObjectUrl } from '../../lib/useObjectUrl';
 import { useSessionState } from '../../lib/sessionState';
+import { photoLocation } from '../../lib/exifGps';
+import { regionForPoint } from '../../user/sites';
 
 function Suggestions({
   result,
@@ -100,6 +102,9 @@ function PhotoIdCard() {
   const [error, setError] = useSessionState<string | null>('identify.error', null);
   const [busy, setBusy] = useSessionState('identify.busy', false);
   const [, setRejected] = useSessionState<string[]>('identify.rejected', []);
+  // Where an automatically chosen region came from ('photo' = GPS in the photo, 'location' = device).
+  const [regionHint, setRegionHint] = useSessionState<'photo' | 'location' | null>('identify.regionHint', null);
+  const [locating, setLocating] = useState(false);
   const [queue, setQueue] = useState<QueuedPhoto[]>([]);
   const preview = useObjectUrl(photo);
 
@@ -148,12 +153,43 @@ function PhotoIdCard() {
     }
   };
 
+  /**
+   * The region decides which species the model may choose from (and the cost): take it from the
+   * photo's GPS position, else - if none is chosen yet - from where the phone is right now.
+   */
+  const detectRegion = async (file: File) => {
+    const pos = await photoLocation(file);
+    const fromPhoto = pos ? regionForPoint(catalog.regions, pos.lat, pos.lng) : null;
+    if (fromPhoto) {
+      setRegion(fromPhoto);
+      setRegionHint('photo');
+      return;
+    }
+    // The region shown came from an earlier photo's GPS: keep it, but don't claim it for this one.
+    if (regionHint === 'photo') setRegionHint(null);
+    if (region != null || !navigator.geolocation) return;
+    setLocating(true);
+    navigator.geolocation.getCurrentPosition(
+      (p) => {
+        const here = regionForPoint(catalog.regions, p.coords.latitude, p.coords.longitude);
+        if (here) {
+          setRegion(here);
+          setRegionHint('location');
+        }
+        setLocating(false);
+      },
+      () => setLocating(false),
+      { enableHighAccuracy: false, maximumAge: 10 * 60 * 1000, timeout: 10000 },
+    );
+  };
+
   const pick = (file: File | undefined) => {
     if (!file) return;
     setPhoto(file);
     setResult(null);
     setError(null);
     setRejected([]);
+    void detectRegion(file);
   };
 
   return (
@@ -168,18 +204,39 @@ function PhotoIdCard() {
         </div>
       </div>
       {syncStatus === 'signedOut' && <p className="notice small" style={{ margin: 0 }}>{t('identify.loginRequired')}</p>}
-      <label className="field">
-        <span>{t('identify.region')}</span>
-        <select className="input" value={region ?? ''} onChange={(e) => setRegion(e.target.value || null)}>
-          <option value="">{t('identify.anyRegion')}</option>
-          {catalog.regionTree().map((r) => (
-            <option key={r.id} value={r.id}>
-              {r.parentId ? '— ' : ''}
-              {regionName(r, lang)}
-            </option>
-          ))}
-        </select>
-      </label>
+      <div className="field">
+        <label className="field">
+          <span>{t('identify.region')}</span>
+          <select
+            className="input"
+            value={region ?? ''}
+            aria-describedby="identify-region-hint"
+            onChange={(e) => {
+              setRegion(e.target.value || null);
+              setRegionHint(null);
+            }}
+          >
+            <option value="">{t('identify.anyRegion')}</option>
+            {catalog.regionTree().map((r) => (
+              <option key={r.id} value={r.id}>
+                {r.parentId ? '— ' : ''}
+                {regionName(r, lang)}
+              </option>
+            ))}
+          </select>
+        </label>
+        <p id="identify-region-hint" className="small muted" style={{ margin: 0 }} aria-live="polite">
+          {locating
+            ? t('identify.regionLocating')
+            : regionHint && region
+              ? t(regionHint === 'photo' ? 'identify.regionFromPhoto' : 'identify.regionFromLocation', {
+                  region: regionName(catalog.regionsById.get(region)!, lang),
+                })
+              : !region
+                ? t('identify.regionTip')
+                : null}
+        </p>
+      </div>
       <div className="stack" style={{ gap: 10 }}>
         <label className="btn primary block">
           <Icon name="camera" />
@@ -194,7 +251,7 @@ function PhotoIdCard() {
       </div>
       {preview && <img className="photo-preview" src={preview} alt="" />}
       {photo && !result && (
-        <button className="btn primary block" disabled={busy} onClick={() => run(photo, region)}>
+        <button className="btn primary block" disabled={busy || locating} onClick={() => run(photo, region)}>
           {busy ? <span className="spinner" style={{ width: 22, height: 22, borderWidth: 3 }} /> : <Icon name="sparkle" />}
           {busy ? t('identify.analysing') : t('identify.analyse')}
         </button>

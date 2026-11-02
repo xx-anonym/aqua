@@ -26,6 +26,13 @@ const de = {
     undo: 'Rückgängig',
     restored: 'Wiederhergestellt',
   },
+  signInReminder: {
+    title: 'Deine Daten sind nur auf diesem Gerät gespeichert',
+    text_one: 'Löschst du die App oder verlierst du dein Handy, ist dein Eintrag weg. Mit einem Konto wird alles gesichert und auf deinen Geräten abgeglichen.',
+    text_other: 'Löschst du die App oder verlierst du dein Handy, sind deine {{count}} Einträge weg. Mit einem Konto wird alles gesichert und auf deinen Geräten abgeglichen.',
+    signIn: 'Anmelden',
+    later: 'Später',
+  },
   boot: {
     loading: 'Katalog wird geladen …',
     error: 'Die App konnte nicht starten.',
@@ -413,6 +420,10 @@ const de = {
     withProfile: 'mit Profil',
   },
   identify: {
+    regionLocating: 'Region wird über deinen Standort ermittelt …',
+    regionFromPhoto: 'Aus den Fotodaten erkannt: {{region}}',
+    regionFromLocation: 'Aus deinem Standort erkannt: {{region}}',
+    regionTip: 'Tipp: Mit einer Region ist die Bestimmung genauer und günstiger.',
     removePhoto: 'Foto nicht speichern',
     title: 'Bestimmen',
     photoTitle: 'Per Foto bestimmen',

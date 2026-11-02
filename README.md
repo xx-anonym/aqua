@@ -15,8 +15,8 @@ Sri Lanka, Südostasien & Korallendreieck, Australien & Korallenmeer, Pazifische
 | --- | --- |
 | Entdecken | Kategorien (Fische, Meerestiere, Korallen & Pflanzen), tippfehlertolerante Suche über deutsche, englische und wissenschaftliche Namen sowie Familie, Merkmalsfilter mit Icon-Chips und Live-Trefferzahl (innerhalb eines Typs ODER, zwischen Typen UND), Region oder Land (z. B. Ägypten am Roten Meer) |
 | Artenseite | Fotogalerie mit Bildnachweis pro Foto, Steckbrief, IUCN-Status, Verbreitungskarte, eigene Sichtungen, Gesehen / Gefällt mir / Zu Sammlung, ähnliche Arten und Vergleichsansicht |
-| Bestimmen | Foto-ID per Claude (Top 5 mit Konfidenz, nur Arten aus dem Regionskatalog, Warteschlange ohne Netz) und geführte Bestimmung über Merkmale |
-| Logbuch | Tauchgänge mit Basisdaten, Bedingungen, Typ, Ausrüstung (letzte übernehmen), Sichtungen, Notizen, Bewertung; Statistik; Tauchplätze mit Karte und Suche im PADI-Verzeichnis; Import (UDDF, Subsurface-XML, CSV inkl. Profil, Duplikaterkennung); Export (CSV, UDDF) |
+| Bestimmen | Foto-ID per Claude (Top 5 mit Konfidenz, nur Arten aus dem Regionskatalog, Region automatisch aus den GPS-Daten des Fotos oder dem Standort, Warteschlange ohne Netz) und geführte Bestimmung über Merkmale |
+| Logbuch | Tauchgänge mit Basisdaten, Bedingungen, Typ, Ausrüstung (letzte übernehmen), Sichtungen, Notizen, Bewertung; Statistik; Tauchplätze mit Karte und Suche im PADI-Verzeichnis; Import (UDDF, Subsurface-XML, CSV inkl. Profil, Duplikaterkennung); Export (CSV, UDDF); Hinweis zur Anmeldung, solange Daten nur auf dem Gerät liegen |
 | Sammlung | Lebensliste mit Fortschritt gesamt, pro Kategorie und Region, Animation bei Erstsichtung, Alben (teilbar per Link), Favoriten |
 | Profil | Konto & Sync, Offline-Bildpaket, Einheiten (m/ft, °C/°F, bar/psi), Hell/Dunkel, Deutsch/Englisch, Sicherung, Bildnachweise |
 
