@@ -17,7 +17,7 @@ USER_AGENT = "aqua-catalog-pipeline/0.1 (private, non-commercial dive log app)"
 
 # Minimum seconds between requests per host (iNaturalist asks for <= 1 req/s).
 RATE = {
-    "www.wikidata.org": 35.0,  # Wikimedia answers 429 with Retry-After ~30 s for this address
+    "www.wikidata.org": 20.0,  # Wikimedia answers 429 with Retry-After ~30 s for this address
     "api.inaturalist.org": 1.05,
     "www.marinespecies.org": 0.25,
     "api.gbif.org": 0.1,
@@ -234,9 +234,14 @@ def wikidata_german_names(names: list[str]) -> dict[str, dict[str, list[str]]]:
     for site in ("enwiki", "specieswiki"):
         todo = [n for n in names if n not in out]
         for i in range(0, len(todo), 50):
-            data = get_json(WIKIDATA_API, {"action": "wbgetentities", "format": "json", "sites": site, "redirects": "yes",
-                                           "titles": "|".join(todo[i : i + 50]), "props": "labels|claims|sitelinks",
-                                           "languages": "de", "sitefilter": "dewiki"})
+            try:
+                data = get_json(WIKIDATA_API, {"action": "wbgetentities", "format": "json", "sites": site, "redirects": "yes",
+                                               "titles": "|".join(todo[i : i + 50]), "props": "labels|claims|sitelinks",
+                                               "languages": "de", "sitefilter": "dewiki"}, retries=2)
+            except urllib.error.HTTPError as e:
+                # Wikimedia rate-limits shared addresses hard; keep what was fetched (and cached) so far.
+                print(f"  Wikidata {site} batch {i // 50 + 1}: HTTP {e.code}, skipped", flush=True)
+                continue
             for ent in ((data or {}).get("entities") or {}).values():
                 claims = ent.get("claims") or {}
                 taxon = [c.get("mainsnak", {}).get("datavalue", {}).get("value") for c in claims.get("P225", [])]

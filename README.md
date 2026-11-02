@@ -86,7 +86,8 @@ Lebensraum) und landen zur Prüfung in `input/traits_review.csv`. Beschreibungst
 strukturierten Daten neu formuliert, keine Texte werden übernommen.
 
 **Deutsche Namen** (`names`): Fehlt ein deutscher Name aus iNaturalist/FishBase, sucht die Stufe
-in Wikidata (Volksname, Titel des deutschen Wikipedia-Artikels) und WoRMS. Was dann noch fehlt, steht
+in Wikidata (Volksname, Titel des deutschen Wikipedia-Artikels; wird übersprungen, wenn Wikimedia
+die Anfragen drosselt) und WoRMS. Was dann noch fehlt, steht
 als Übersetzung des englischen Namens in `input/names_de.csv`. Ein Name, den mehrere Arten tragen
 (z. B. „Nacktschnecke“), bleibt bei der meistbeobachteten Art; die anderen bekommen einen eigenen.
 `common_name_de` in `traits.csv` überschreibt alles (`-` = keinen deutschen Namen zeigen).

@@ -845,7 +845,7 @@ Alopias pelagicus;;grey,blue,white;bicolor;fusiform;open-water;solitary;ki
 Callyspongia (Cladochalina) aerizusa;;violet,pink,blue;plain;tube;sessile;;ki
 Dendronephthya australis;;pink,white,red,orange;plain;soft;sessile;colony;ki
 Chelonaplysilla violacea;;violet,white;reticulated;encrusting;sessile;;ki
-Astroides calycularis;;orange,yellow;plain;massive;sessile,nocturnal;colony;ki
+Astroides calycularis;Orangefarbene Sternkoralle;orange,yellow;plain;massive;sessile,nocturnal;colony;ki
 Thuridilla lineolata;;blue,black,orange,white;stripes;slug;bottom;solitary;ki
 Felimare orsinii;;blue,white,yellow;stripes;slug;bottom;solitary;ki
 Mustelus mustelus;;grey,brown,white;plain;fusiform;bottom;solitary;ki
@@ -871,7 +871,7 @@ Facelina rubrovittata;;white,red,orange;stripes;slug;bottom;solitary;ki
 Paranemonia cinerea;;grey,white,brown;plain;anemone;sessile;;ki
 Pseudobiceros fulgor;;black,orange,yellow;bicolor;slug;bottom;solitary;ki
 Tethys fimbria;;white,brown;spots;slug;bottom,nocturnal;solitary;ki
-Pseudobiceros splendidus;;black,orange,white,yellow;stripes,spots;slug;bottom;solitary;ki
+Pseudobiceros splendidus;Prächtiger Plattwurm;black,orange,white,yellow;stripes,spots;slug;bottom;solitary;ki
 Bispira mariae;;white,brown,violet;bars;worm;sessile;group;ki
 Chrysaora chinensis;;white,brown,red;stripes;jelly;open-water;solitary;ki
 Rhabdastrella globostellata;;yellow,orange,brown;plain;massive;sessile;;ki
@@ -901,7 +901,7 @@ Halcampoides purpureus;;brown,white,violet;bars;anemone;sessile,nocturnal;;ki
 Versuriga anadyomene;;white,blue,brown;plain;jelly;open-water;group;ki
 Natator depressus;;green,grey,brown;plain;turtle;open-water,bottom;solitary;ki
 Fromia nodosa;;red,orange;plain;star;bottom,reef;solitary;ki
-Mauritia histrio;;brown,white;reticulated,spots;shell;bottom,crevice,nocturnal;solitary;ki
+Mauritia histrio;Harlekin-Kauri;brown,white;reticulated,spots;shell;bottom,crevice,nocturnal;solitary;ki
 Planocera ceratommata;;white,brown,black;spots;slug;bottom,nocturnal;solitary;ki
 Thysanoteuthis rhombus;;red,brown;plain;cephalopod;open-water,nocturnal;pair;ki
 Argonauta hians;;white,brown;plain;cephalopod;open-water;solitary;ki
@@ -923,7 +923,7 @@ Gelliodes carnosa;;pink,violet,brown;plain;branching;sessile;;ki
 Calcinus rosaceus;;red,pink,white;plain;crab;bottom,crevice;solitary;ki
 Macrorhynchia phoenicea;;brown,white,black;plain;branching;sessile;colony;ki
 Polycarpa clavata;;brown,yellow,orange;plain;tube;sessile;;ki
-Asthenosoma marisrubri;;red,orange,white;stripes,spots;spiny;bottom,symbiosis,nocturnal;solitary;ki
+Asthenosoma marisrubri;Rotmeer-Lederseeigel;red,orange,white;stripes,spots;spiny;bottom,symbiosis,nocturnal;solitary;ki
 Rhombosepion prashadi;;brown,white;spots;cephalopod;bottom,buried;solitary;ki
 Tambja affinis;;green,black,orange,blue;stripes;slug;bottom;solitary;ki
 Symplegma viride;;green,orange,white;spots;encrusting;sessile;colony;ki
