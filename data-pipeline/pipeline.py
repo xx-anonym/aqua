@@ -7,6 +7,7 @@ Builds the species catalog (catalog.sqlite + WebP photos) for the Aqua app from 
   python data-pipeline/pipeline.py traits      # writes input/traits_review.csv with suggestions to review
   python data-pipeline/pipeline.py photos      # CC0 / CC BY photos -> WebP (640 px) + thumbnails
   python data-pipeline/pipeline.py destinations # GBIF: which species were seen off which country, per region
+  python data-pipeline/pipeline.py names       # German names from Wikidata / WoRMS where the sources had none
   python data-pipeline/pipeline.py build       # public/catalog/catalog.sqlite + catalog-manifest.json
   python data-pipeline/pipeline.py all
   python data-pipeline/pipeline.py seed        # small dev catalog from src/test/fixtures (no network)
@@ -42,30 +43,30 @@ THUMB_EDGE = 320
 MAX_PHOTOS = 3
 ALLOWED_LICENSES = {"cc0", "cc-by"}
 
-# (key, iNaturalist taxon id, category, default group, top-N per region)
+# (key, iNaturalist taxon id, category, default group, top-N per region); about 1000 species in total
 GROUPS = [
-    ("fish", 47178, "fish", None, 30),
-    ("sharks_rays", 47273, "fish", None, 6),
-    ("nudibranchs", 47113, "creature", "nudibranch", 10),
-    ("sacoglossa", 47801, "creature", "sea_slug", 1),
-    ("cephalopods", 47459, "creature", "cephalopod", 3),
-    ("decapods", 47186, "creature", "crustacean", 6),
-    ("mantis_shrimps", 49796, "creature", "crustacean", 1),
-    ("echinoderms", 47549, "creature", "echinoderm", 6),
-    ("sea_turtles", 372234, "creature", "turtle", 3),
-    ("sea_snakes", 492346, "creature", "sea_snake", 1),
-    ("cetaceans", 152871, "creature", "mammal", 2),
-    ("sirenians", 46306, "creature", "mammal", 1),
-    ("cowries", 50687, "creature", "mollusc", 2),
-    ("giant_clams", 50592, "creature", "mollusc", 1),
-    ("flatworms", 52318, "creature", "flatworm", 2),
-    ("polychaetes", 47490, "creature", "worm", 2),
-    ("jellyfish", 48332, "creature", "jellyfish", 2),
-    ("anthozoa", 47533, "coral_sponge_plant", None, 10),
-    ("hydrozoa", 48921, "coral_sponge_plant", "hydrozoan", 2),
-    ("sponges", 48824, "coral_sponge_plant", "sponge", 3),
-    ("ascidians", 47811, "coral_sponge_plant", "tunicate", 2),
-    ("seagrasses", 48073, "coral_sponge_plant", "seagrass", 2),
+    ("fish", 47178, "fish", None, 60),
+    ("sharks_rays", 47273, "fish", None, 12),
+    ("nudibranchs", 47113, "creature", "nudibranch", 20),
+    ("sacoglossa", 47801, "creature", "sea_slug", 2),
+    ("cephalopods", 47459, "creature", "cephalopod", 6),
+    ("decapods", 47186, "creature", "crustacean", 12),
+    ("mantis_shrimps", 49796, "creature", "crustacean", 2),
+    ("echinoderms", 47549, "creature", "echinoderm", 12),
+    ("sea_turtles", 372234, "creature", "turtle", 6),
+    ("sea_snakes", 492346, "creature", "sea_snake", 2),
+    ("cetaceans", 152871, "creature", "mammal", 4),
+    ("sirenians", 46306, "creature", "mammal", 2),
+    ("cowries", 50687, "creature", "mollusc", 4),
+    ("giant_clams", 50592, "creature", "mollusc", 2),
+    ("flatworms", 52318, "creature", "flatworm", 4),
+    ("polychaetes", 47490, "creature", "worm", 4),
+    ("jellyfish", 48332, "creature", "jellyfish", 4),
+    ("anthozoa", 47533, "coral_sponge_plant", None, 20),
+    ("hydrozoa", 48921, "coral_sponge_plant", "hydrozoan", 4),
+    ("sponges", 48824, "coral_sponge_plant", "sponge", 6),
+    ("ascidians", 47811, "coral_sponge_plant", "tunicate", 4),
+    ("seagrasses", 48073, "coral_sponge_plant", "seagrass", 4),
 ]
 # The Mediterranean is a single region, so it gets a larger share of the catalog.
 REGION_FACTOR = {"mediterranean": 1.6}
@@ -624,6 +625,45 @@ def num(v):
         return None
 
 
+def plausible_german_name(candidate: str, scientific_name: str) -> str | None:
+    """Cleans a German name candidate; None if it is really the scientific name or empty."""
+    name = re.sub(r"\s*\((Art|Gattung|Fisch|Tier|Zoologie|Biologie|Koralle|Schnecke)\)$", "", candidate.strip())
+    if not 3 <= len(name) <= 60 or not name[0].isalpha():
+        return None
+    sci_words = {w.lower() for w in scientific_name.split()}
+    if {w.lower() for w in re.split(r"[\s-]+", name)} <= sci_words:
+        return None
+    return name[0].upper() + name[1:]
+
+
+def needs_german_name(s: dict) -> bool:
+    name = (s.get("common_name_de") or "").strip()
+    # Missing, the scientific name again, or a fragment like "gemeiner" from a source.
+    return not name or name.lower() == s["scientific_name"].lower() or (" " not in name and name[0].islower())
+
+
+def step_names() -> None:
+    """German names for species whose sources had none: Wikidata (common name, Wikipedia title, label), then WoRMS."""
+    species = load_json(CACHE / "species.json")
+    todo = [s for s in species if needs_german_name(s)]
+    wd = src.wikidata_german_names([s["scientific_name"] for s in todo])
+    out: dict[str, dict] = {}
+    for s in todo:
+        sci = s["scientific_name"]
+        w = wd.get(sci, {})
+        candidates = [("wikidata", c) for c in w.get("common", [])] + [("wikipedia", c) for c in w.get("article", [])]
+        candidates += [("wikidata", c) for c in w.get("label", [])]
+        if s.get("aphia_id"):
+            candidates += [("worms", c) for c in src.worms_german_names(s["aphia_id"])]
+        for source, c in candidates:
+            name = plausible_german_name(c, sci)
+            if name:
+                out[sci] = {"name": name, "source": source}
+                break
+    save_json(CACHE / "names_de.json", out)
+    print(f"names: {len(todo)} without German name, {len(out)} found", flush=True)
+
+
 def gbif_keys(species: list[dict]) -> dict[str, int]:
     """GBIF species key per catalog id (the matches are cached from the enrich step)."""
     key_of: dict[str, int] = {}
@@ -765,12 +805,24 @@ def write_manifest(db_path: Path, species: list[dict], version: str) -> None:
     save_json(PUBLIC / "catalog-manifest.json", manifest)
 
 
+def read_translated_names(path: Path) -> dict[str, str]:
+    """input/names_de.csv: German names translated from the English common name (no German name exists)."""
+    if not path.exists():
+        return {}
+    with path.open(newline="", encoding="utf-8") as f:
+        rows = csv.DictReader((line for line in f if not line.startswith("#")), delimiter=";")
+        return {r["scientific_name"]: r["name_de"].strip() for r in rows if (r.get("name_de") or "").strip()}
+
+
 def step_build() -> None:
     species = load_json(CACHE / "species.json")
     realm_cleanup(species)
     curated = read_traits_csv(INPUT / "traits.csv")
     skip = excluded()
     applies = {t["id"]: t["applies_to"].split(",") for t in load_json(INPUT / "traits.json")}
+    # German names: found by the "names" step, else translated from the English name (input/names_de.csv)
+    auto_names = load_json(CACHE / "names_de.json") if (CACHE / "names_de.json").exists() else {}
+    translated = read_translated_names(INPUT / "names_de.csv")
     out = []
     missing = 0
     for s in species:
@@ -787,6 +839,9 @@ def step_build() -> None:
             missing += 1
             sug = suggest_traits(s)
             traits = trait_ids({k: ",".join(v) for k, v in sug.items()})
+        if needs_german_name(s):
+            found = auto_names.get(s["scientific_name"]) or {}
+            s["common_name_de"] = found.get("name") or translated.get(s["scientific_name"]) or None
         if row and row.get("common_name_de"):
             # "-" removes a misleading name from the sources (the app then shows the English one).
             s["common_name_de"] = None if row["common_name_de"] == "-" else row["common_name_de"]
@@ -847,13 +902,14 @@ STEPS = {
     "photos": step_photos,
     "build": step_build,
     "destinations": step_destinations,
+    "names": step_names,
     "seed": step_seed,
 }
 
 if __name__ == "__main__":
     cmd = sys.argv[1] if len(sys.argv) > 1 else "all"
     if cmd == "all":
-        for name in ("candidates", "enrich", "traits", "photos", "destinations", "build"):
+        for name in ("candidates", "enrich", "traits", "photos", "destinations", "names", "build"):
             print(f"== {name}", flush=True)
             STEPS[name]()
     else:

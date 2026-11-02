@@ -17,6 +17,7 @@ USER_AGENT = "aqua-catalog-pipeline/0.1 (private, non-commercial dive log app)"
 
 # Minimum seconds between requests per host (iNaturalist asks for <= 1 req/s).
 RATE = {
+    "query.wikidata.org": 62.0,  # the query service currently allows about one request per minute
     "api.inaturalist.org": 1.05,
     "www.marinespecies.org": 0.25,
     "api.gbif.org": 0.1,
@@ -56,7 +57,9 @@ def get_json(url: str, params: dict | None = None, *, cache: bool = True, retrie
                 data = None
                 break
             if e.code in (429, 500, 502, 503, 504) and attempt < retries - 1:
-                time.sleep(2 ** (attempt + 1))
+                retry_after = e.headers.get("Retry-After") if e.headers else None
+                wait = int(retry_after) if retry_after and retry_after.isdigit() else 0
+                time.sleep(max(2 ** (attempt + 1), wait, 65 if e.code == 429 else 0))
                 continue
             if e.code == 404:
                 data = None
@@ -213,6 +216,42 @@ def gbif_facet(params: dict, species_keys: list[int], facet: str, limit: int) ->
             for c in f["counts"]:
                 counts[c["name"]] = counts.get(c["name"], 0) + c["count"]
     return counts
+
+
+# ---------------------------------------------------------------- German names (Wikidata, WoRMS)
+
+WIKIDATA_SPARQL = "https://query.wikidata.org/sparql"
+
+
+def wikidata_german_names(names: list[str]) -> dict[str, dict[str, list[str]]]:
+    """Per scientific name: German label, German common names (P1843) and the German Wikipedia title."""
+    out: dict[str, dict[str, list[str]]] = {}
+    for i in range(0, len(names), 100):
+        chunk = names[i : i + 100]
+        values = " ".join(json.dumps(n) for n in chunk)
+        query = f"""SELECT ?name ?label ?common ?article WHERE {{
+  VALUES ?name {{ {values} }}
+  ?item wdt:P225 ?name .
+  OPTIONAL {{ ?item rdfs:label ?label FILTER(LANG(?label) = "de") }}
+  OPTIONAL {{ ?item wdt:P1843 ?common FILTER(LANG(?common) = "de") }}
+  OPTIONAL {{ ?article schema:about ?item ; schema:isPartOf <https://de.wikipedia.org/> }}
+}}"""
+        data = get_json(WIKIDATA_SPARQL, {"query": query, "format": "json"})
+        for b in (data or {}).get("results", {}).get("bindings", []):
+            entry = out.setdefault(b["name"]["value"], {"label": [], "common": [], "article": []})
+            for key in ("label", "common"):
+                if key in b and b[key]["value"] not in entry[key]:
+                    entry[key].append(b[key]["value"])
+            if "article" in b:
+                title = urllib.parse.unquote(b["article"]["value"].rsplit("/", 1)[-1]).replace("_", " ")
+                if title not in entry["article"]:
+                    entry["article"].append(title)
+    return out
+
+
+def worms_german_names(aphia_id: int) -> list[str]:
+    data = get_json(f"{WORMS}/AphiaVernacularsByAphiaID/{aphia_id}")
+    return [v["vernacular"] for v in data or [] if v.get("language_code") == "deu" and v.get("vernacular")]
 
 
 # ---------------------------------------------------------------- FishBase / SeaLifeBase
