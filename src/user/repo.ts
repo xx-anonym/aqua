@@ -57,8 +57,11 @@ export function softDelete(db: AppDb, table: SyncTable, where: string, params: S
 
 /** Undoes softDelete() for the rows deleted at `deletedAt`; a newer updated_at wins on sync. */
 export function restoreDeleted(db: AppDb, table: SyncTable, deletedAt: string, where: string, params: SqlValue[]) {
+  // Must be strictly newer than the deletion, also when undone within the same millisecond.
+  const now = nowIso();
+  const at = now > deletedAt ? now : new Date(Date.parse(deletedAt) + 1).toISOString();
   db.exec(`UPDATE ${table} SET deleted_at = NULL, updated_at = ?, dirty = 1 WHERE deleted_at = ? AND (${where})`, [
-    nowIso(),
+    at,
     deletedAt,
     ...params,
   ]);

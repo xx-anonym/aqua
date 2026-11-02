@@ -119,7 +119,8 @@ Serverless-Funktionen in `api/`:
 
 - `api/keepalive.ts`: Vercel-Cronjob, hält das Supabase-Projekt im Free-Plan aktiv.
 - `api/divesites.ts`: Tauchplätze in der Nähe aus dem PADI Dive Guide für „Tauchplatz anlegen“
-  (`/api/divesites?lat=…&lng=…&km=30`). Fragt PADI nur bei Bedarf für einen Punkt ab, die Antwort
+  (`/api/divesites?lat=…&lng=…&km=30` um einen Punkt oder `?n=…&s=…&e=…&w=…` für einen
+  Kartenausschnitt bis 4° Seitenlänge). Fragt PADI nur bei Bedarf ab, die Antwort
   wird einen Tag im CDN zwischengespeichert; gespeichert wird nur der Platz, den man auswählt.
   Genutzt mit Genehmigung für dieses private, nicht-kommerzielle Projekt. PADI bietet dafür keine
   offizielle Schnittstelle, die Abfragen können sich also ändern. SSI ist nicht angebunden, weil

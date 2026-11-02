@@ -1,6 +1,7 @@
 // Nearby dive sites from the PADI Dive Guide, for "Tauchplatz anlegen" in the app.
 //
-//   GET /api/divesites?lat=27.25&lng=33.84&km=30
+//   GET /api/divesites?lat=27.25&lng=33.84&km=30          around a point (pin or current position)
+//   GET /api/divesites?n=27.6&s=26.9&e=34.2&w=33.6        inside a map area (at most MAX_SPAN_DEG wide)
 //
 // Asks PADI for the sites inside a box around the point: one request for names and details, one
 // for the coordinates (the PADI site loads them the same way). Only on demand, one point at a time;
@@ -9,7 +10,9 @@
 // Used with permission for this private, non-commercial app.
 
 const PADI = 'https://travel.padi.com/api/v2/travel/';
-const MAX_SITES = 60;
+const MAX_SITES = 100;
+/** Largest map area that can be searched, in degrees per side (roughly 450 km). */
+export const MAX_SPAN_DEG = 4;
 
 export interface DirectorySite {
   id: number;
@@ -50,6 +53,20 @@ export function boundsAround(lat: number, lng: number, km: number): { top_right:
     top_right: `${round(clampLat(lat + dLat), 4)},${round(clampLng(lng + dLng), 4)}`,
     bottom_left: `${round(clampLat(lat - dLat), 4)},${round(clampLng(lng - dLng), 4)}`,
   };
+}
+
+type Box = { top_right: string; bottom_left: string };
+
+/** Map area from the query (n, s, e, w), or a message why it cannot be searched. */
+export function areaFromQuery(q: URLSearchParams): { box: Box; lat: number; lng: number } | { error: string } | null {
+  if (!['n', 's', 'e', 'w'].some((k) => q.has(k))) return null;
+  const [n, s, e, w] = ['n', 's', 'e', 'w'].map((k) => round(Number(q.get(k) ?? NaN), 2));
+  if (![n, s, e, w].every(Number.isFinite) || n <= s || e <= w || Math.abs(n) > 85 || Math.abs(s) > 85 || Math.abs(e) > 180 || Math.abs(w) > 180) {
+    return { error: 'invalid area' };
+  }
+  // + 0.05: the app rounds the visible area outwards to 0.01°
+  if (n - s > MAX_SPAN_DEG + 0.05 || e - w > MAX_SPAN_DEG + 0.05) return { error: 'area too large' };
+  return { box: { top_right: `${n},${e}`, bottom_left: `${s},${w}` }, lat: (n + s) / 2, lng: (e + w) / 2 };
 }
 
 export function distanceKm(lat1: number, lng1: number, lat2: number, lng2: number): number {
@@ -160,21 +177,31 @@ async function padi<T>(path: string, params: Record<string, string>): Promise<T>
 
 export async function GET(request: Request): Promise<Response> {
   const q = new URL(request.url).searchParams;
-  const lat = round(Number(q.get('lat')), 2);
-  const lng = round(Number(q.get('lng')), 2);
-  const km = Math.max(2, Math.min(60, Math.round(Number(q.get('km')) || 30)));
-  if (!Number.isFinite(lat) || !Number.isFinite(lng) || Math.abs(lat) > 85 || Math.abs(lng) > 180) {
-    return Response.json({ error: 'lat/lng required' }, { status: 400 });
+  let box: Box;
+  let lat: number;
+  let lng: number;
+  const area = areaFromQuery(q);
+  if (area && 'error' in area) return Response.json(area, { status: 400 });
+  if (area) {
+    ({ box, lat, lng } = area);
+  } else {
+    lat = round(Number(q.get('lat') ?? NaN), 2);
+    lng = round(Number(q.get('lng') ?? NaN), 2);
+    const km = Math.max(2, Math.min(60, Math.round(Number(q.get('km')) || 30)));
+    if (!Number.isFinite(lat) || !Number.isFinite(lng) || Math.abs(lat) > 85 || Math.abs(lng) > 180) {
+      return Response.json({ error: 'lat/lng or n/s/e/w required' }, { status: 400 });
+    }
+    box = boundsAround(lat, lng, km);
   }
   try {
-    const box = boundsAround(lat, lng, km);
     const [list, pins] = await Promise.all([
-      padi<{ results?: PadiListItem[] }>('dive-guide/world/all/dive-sites/', { ...box, page_size: '100' }),
+      padi<{ count?: number; results?: PadiListItem[] }>('dive-guide/world/all/dive-sites/', { ...box, page_size: '100' }),
       padi<PadiPin[]>('dsl/dive-sites/map/', box),
     ]);
     const sites = mergePadi(list.results ?? [], Array.isArray(pins) ? pins : [], lat, lng);
+    // total: how many PADI lists in the area; more than shown means "zoom in for the rest".
     return Response.json(
-      { source: 'PADI', sites },
+      { source: 'PADI', sites, total: Math.max(list.count ?? 0, sites.length) },
       { headers: { 'Cache-Control': 'public, s-maxage=86400, stale-while-revalidate=604800' } },
     );
   } catch (e) {

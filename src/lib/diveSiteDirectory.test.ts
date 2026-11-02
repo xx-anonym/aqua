@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
-import { boundsAround, countryFromSlug, distanceKm, mergePadi } from '../../api/divesites';
-import { countryName, tidySiteName } from './diveSiteDirectory';
+import { areaFromQuery, boundsAround, countryFromSlug, distanceKm, mergePadi } from '../../api/divesites';
+import { areaSearchable, countryName, tidySiteName } from './diveSiteDirectory';
 
 describe('PADI dive site lookup', () => {
   it('builds a box around the point', () => {
@@ -43,5 +43,16 @@ describe('PADI dive site lookup', () => {
     expect(tidySiteName('El Mina wreck')).toBe('El Mina wreck');
     expect(countryName('EG', 'de')).toBe('Ägypten');
     expect(countryName(null, 'de')).toBe('');
+  });
+
+  it('accepts map areas up to the size limit', () => {
+    const ok = areaFromQuery(new URLSearchParams('n=27.6&s=26.9&e=34.2&w=33.6'));
+    expect(ok).toMatchObject({ box: { top_right: '27.6,34.2', bottom_left: '26.9,33.6' } });
+    expect((ok as { lat: number }).lat).toBeCloseTo(27.25, 2);
+    expect(areaFromQuery(new URLSearchParams('n=30&s=20&e=40&w=30'))).toEqual({ error: 'area too large' });
+    expect(areaFromQuery(new URLSearchParams('n=20&s=30&e=34&w=33'))).toEqual({ error: 'invalid area' });
+    expect(areaFromQuery(new URLSearchParams('lat=27&lng=33'))).toBeNull();
+    expect(areaSearchable({ north: 27.6, south: 26.9, east: 34.2, west: 33.6 })).toBe(true);
+    expect(areaSearchable({ north: 40, south: 20, east: 40, west: 30 })).toBe(false);
   });
 });

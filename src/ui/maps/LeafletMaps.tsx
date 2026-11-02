@@ -1,13 +1,17 @@
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
-import { useEffect, useMemo } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { GeoJSON, MapContainer, Marker, Popup, TileLayer, useMap, useMapEvents } from 'react-leaflet';
 import type { Region } from '../../catalog/types';
+import { areaSearchable, tidySiteName, type DirectorySite, type MapArea } from '../../lib/diveSiteDirectory';
+import { Icon } from '../icons/Icon';
 
 const TILE_URL = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
 const ATTRIBUTION = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>';
 
 const pinIcon = L.divIcon({ className: '', html: '<div class="pin"></div>', iconSize: [28, 28], iconAnchor: [14, 28] });
+const directoryIcon = L.divIcon({ className: '', html: '<div class="pin-dir"></div>', iconSize: [20, 20], iconAnchor: [10, 10] });
 
 function FitBounds({ bounds }: { bounds: L.LatLngBoundsExpression | null }) {
   const map = useMap();
@@ -98,21 +102,82 @@ function Recenter({ lat, lng }: { lat: number; lng: number }) {
   return null;
 }
 
-/** Draggable pin to place or correct a dive site; tap on the map moves it too. */
+const toArea = (b: L.LatLngBounds): MapArea => ({ north: b.getNorth(), south: b.getSouth(), east: b.getEast(), west: b.getWest() });
+
+/** "Search this area" button on top of the map; enabled once the view is small enough. */
+function AreaSearchButton({ onSearch, busy }: { onSearch: (area: MapArea) => void; busy: boolean }) {
+  const { t } = useTranslation();
+  const map = useMap();
+  const ref = useRef<HTMLDivElement>(null);
+  const [area, setArea] = useState(() => toArea(map.getBounds()));
+  // Hidden while a site's popup is open, so it never covers the popup.
+  const [popupOpen, setPopupOpen] = useState(false);
+  useMapEvents({
+    moveend: () => setArea(toArea(map.getBounds())),
+    popupopen: () => setPopupOpen(true),
+    popupclose: () => setPopupOpen(false),
+  });
+  useEffect(() => {
+    // Taps on the button must not reach the map (that would move the pin).
+    if (ref.current) {
+      L.DomEvent.disableClickPropagation(ref.current);
+      L.DomEvent.disableScrollPropagation(ref.current);
+    }
+  }, []);
+  const ok = areaSearchable(area);
+  return (
+    <div className="map-overlay" ref={ref} hidden={popupOpen}>
+      <button type="button" className={`btn small ${ok ? 'primary' : ''}`} disabled={!ok || busy} onClick={() => onSearch(area)}>
+        <Icon name="search" />
+        {busy ? t('sites.directoryLoading') : ok ? t('sites.searchArea') : t('sites.zoomInToSearch')}
+      </button>
+    </div>
+  );
+}
+
+/** Draggable pin to place or correct a dive site; tap on the map moves it too. *//** Draggable pin to place or correct a dive site; tap on the map moves it too. */
 export function LocationPicker({
   lat,
   lng,
   onChange,
+  directorySites,
+  describeSite,
+  onPickSite,
+  onSearchArea,
+  searching = false,
 }: {
   lat: number | null;
   lng: number | null;
   onChange: (lat: number, lng: number) => void;
+  /** Dive sites from the directory, shown as small rings; the popup offers to take one over. */
+  directorySites?: DirectorySite[];
+  describeSite?: (s: DirectorySite) => string;
+  onPickSite?: (s: DirectorySite) => void;
+  /** Shows the "search this area" button. */
+  onSearchArea?: (area: MapArea) => void;
+  searching?: boolean;
 }) {
+  const { t } = useTranslation();
   const has = lat != null && lng != null;
   return (
     <MapContainer className="map" center={has ? [lat, lng] : [25, 35]} zoom={has ? 11 : 2} scrollWheelZoom>
       <TileLayer url={TILE_URL} attribution={ATTRIBUTION} />
       <ClickToMove onMove={onChange} />
+      {onSearchArea && <AreaSearchButton onSearch={onSearchArea} busy={searching} />}
+      {directorySites?.map((s) => (
+        <Marker key={s.id} position={[s.lat, s.lng]} icon={directoryIcon} title={tidySiteName(s.name)}>
+          <Popup>
+            <strong>{tidySiteName(s.name)}</strong>
+            {describeSite && <div className="small">{describeSite(s)}</div>}
+            {onPickSite && (
+              <button type="button" className="btn small primary" style={{ marginTop: 8 }} onClick={() => onPickSite(s)}>
+                <Icon name="check" />
+                {t('sites.pickSite')}
+              </button>
+            )}
+          </Popup>
+        </Marker>
+      ))}
       {has && (
         <>
           <Recenter lat={lat} lng={lng} />
