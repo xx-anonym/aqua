@@ -13,7 +13,7 @@ export interface Suggestion {
   reason: string;
 }
 
-export const MAX_CANDIDATES = 800;
+export const MAX_CANDIDATES = 1500;
 export const MAX_IMAGE_BYTES = 1_500_000;
 
 /** Caps and cleans the candidate list sent by the client, so a request cannot inflate token cost. */

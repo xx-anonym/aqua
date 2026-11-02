@@ -329,6 +329,7 @@ const de = {
   sites: {
     directory: 'Tauchplätze in der Nähe (PADI)',
     directoryHint: 'Sucht im Umkreis von {{km}} km um die Kartennadel oder deinen Standort. Du kannst auch die Karte unten auf ein Gebiet schieben und dort „In diesem Ausschnitt suchen“ tippen.',
+    pinTitle: 'Position des Tauchplatzes (ziehen zum Verschieben)',
     searchArea: 'In diesem Ausschnitt suchen',
     zoomInToSearch: 'Zum Suchen näher heranzoomen',
     pickSite: 'Übernehmen',

@@ -72,7 +72,7 @@ export function SitesMap({ sites, onSelect }: { sites: MapSite[]; onSelect?: (id
     <MapContainer className="map tall" center={[25, 35]} zoom={2} scrollWheelZoom>
       <TileLayer url={TILE_URL} attribution={ATTRIBUTION} />
       {sites.map((s) => (
-        <Marker key={s.id} position={[s.lat, s.lng]} icon={pinIcon}>
+        <Marker key={s.id} position={[s.lat, s.lng]} icon={pinIcon} title={s.name}>
           <Popup>
             <strong>{s.name}</strong>
             {s.subtitle && <div>{s.subtitle}</div>}
@@ -184,6 +184,7 @@ export function LocationPicker({
           <Marker
             position={[lat, lng]}
             icon={pinIcon}
+            title={t('sites.pinTitle')}
             draggable
             eventHandlers={{
               dragend: (e) => {

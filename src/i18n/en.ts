@@ -329,6 +329,7 @@ const en = {
   sites: {
     directory: 'Nearby dive sites (PADI)',
     directoryHint: 'Searches within {{km}} km of the map pin or your location. You can also move the map below to an area and tap “Search this area” there.',
+    pinTitle: 'Dive site position (drag to move)',
     searchArea: 'Search this area',
     zoomInToSearch: 'Zoom in to search',
     pickSite: 'Use this site',

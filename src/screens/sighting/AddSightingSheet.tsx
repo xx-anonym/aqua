@@ -65,7 +65,8 @@ export function AddSightingSheet({
   const db = useDb();
   const { celebrate, toast } = useFeedback();
   const editing = !!sighting;
-  const dives = useDbQuery((d) => listDives(d).slice(0, 50));
+  // All dives: a sighting added to an older dive must still get that dive's date.
+  const dives = useDbQuery((d) => listDives(d));
   const [species, setSpecies] = useState<Species | null>(initialSpecies);
   const [via, setVia] = useState<IdentifiedBy>(sighting?.identified_by ?? identifiedBy);
   const [picking, setPicking] = useState(false);

@@ -107,7 +107,7 @@ export function SiteEditorSheet({
     setLat(s.lat);
     setLng(s.lng);
     if (s.country) setCountry(countryName(s.country, lang));
-    setDirectory({ state: 'idle' });
+    // Results stay visible, so a different site can still be chosen.
     toast(t('sites.directoryPicked'));
   };
 
