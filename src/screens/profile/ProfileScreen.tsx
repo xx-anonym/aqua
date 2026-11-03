@@ -8,7 +8,9 @@ import { formatBytes, formatDateTime } from '../../lib/format';
 import { nowIso } from '../../lib/ids';
 import {
   cachedPhotoCount,
+  cachedThumbCount,
   downloadPhotoPack,
+  downloadThumbnails,
   fetchManifest,
   removePhotoPack,
   storageEstimate,
@@ -224,12 +226,16 @@ function OfflineCard() {
   const { toast } = useFeedback();
   const [manifest, setManifest] = useState<CatalogManifest | null>(null);
   const [cached, setCached] = useState(0);
-  const [progress, setProgress] = useState<[number, number] | null>(null);
+  const [thumbsCached, setThumbsCached] = useState(0);
+  const [progress, setProgress] = useState<{ kind: 'thumbs' | 'photos'; done: number; total: number } | null>(null);
   const [storage, setStorage] = useState<{ usage: number; quota: number } | null>(null);
   const abort = useRef<AbortController | null>(null);
+  const thumbs = catalog.species.map((s) => s.thumb);
+  const thumbTotal = thumbs.filter(Boolean).length;
 
   const refresh = async (m = manifest) => {
     if (m) setCached(await cachedPhotoCount(m));
+    setThumbsCached(await cachedThumbCount(thumbs));
     setStorage(await storageEstimate());
   };
 
@@ -242,10 +248,17 @@ function OfflineCard() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  const downloadThumbs = async () => {
+    const failed = await downloadThumbnails(thumbs, (done, total) => setProgress({ kind: 'thumbs', done, total }));
+    setProgress(null);
+    await refresh();
+    toast(failed ? `${t('profile.downloaded')} (${failed} ✕)` : t('profile.downloaded'));
+  };
+
   const download = async () => {
     if (!manifest) return;
     abort.current = new AbortController();
-    const failed = await downloadPhotoPack(manifest, (d, total) => setProgress([d, total]), abort.current.signal);
+    const failed = await downloadPhotoPack(manifest, (done, total) => setProgress({ kind: 'photos', done, total }), abort.current.signal);
     setProgress(null);
     await refresh();
     toast(failed ? `${t('profile.downloaded')} (${failed} ✕)` : t('profile.downloaded'));
@@ -253,47 +266,76 @@ function OfflineCard() {
 
   const total = manifest?.photos.length ?? 0;
   const complete = total > 0 && cached >= total;
+  const thumbsComplete = thumbTotal > 0 && thumbsCached >= thumbTotal;
+  const bar = (kind: 'thumbs' | 'photos') =>
+    progress?.kind === kind && (
+      <div className="progress" role="progressbar" aria-valuemin={0} aria-valuemax={progress.total} aria-valuenow={progress.done}>
+        <div style={{ width: `${(progress.done / Math.max(1, progress.total)) * 100}%` }} />
+      </div>
+    );
   return (
     <div className="stack">
       <p className="small muted" style={{ margin: 0 }}>
         {t('profile.offlineIntro')}
       </p>
       <div className="small">{t('profile.catalogVersion', { version: catalog.meta.version, count: catalog.species.length })}</div>
-      {manifest && (
-        <div className="small">
-          {t('profile.photosStatus', { cached, total, size: formatBytes(manifest.photo_bytes, lang) })}
+
+      <div className="stack" style={{ gap: 8 }}>
+        <div>
+          <strong>{t('profile.thumbsTitle')}</strong>
+          <div className="small muted">
+            {t('profile.thumbsStatus', {
+              cached: thumbsCached,
+              total: thumbTotal,
+              size: manifest?.thumb_bytes ? formatBytes(manifest.thumb_bytes, lang) : '–',
+            })}
+          </div>
         </div>
-      )}
-      {progress && (
-        <div className="progress" role="progressbar" aria-valuemin={0} aria-valuemax={progress[1]} aria-valuenow={progress[0]}>
-          <div style={{ width: `${(progress[0] / Math.max(1, progress[1])) * 100}%` }} />
-        </div>
-      )}
-      <div className="row">
-        {manifest && total > 0 && (
-          <button className="btn primary" onClick={download} disabled={!!progress || complete || !navigator.onLine}>
+        {bar('thumbs')}
+        {!thumbsComplete && (
+          <button className="btn outline" onClick={downloadThumbs} disabled={!!progress || !navigator.onLine} style={{ alignSelf: 'flex-start' }}>
             <Icon name="offline" />
-            {progress
-              ? t('profile.downloading', { done: progress[0], total: progress[1] })
-              : cached > 0 && !complete
-                ? t('profile.update')
-                : t('profile.download', { size: formatBytes(manifest.photo_bytes, lang) })}
-          </button>
-        )}
-        {cached > 0 && !progress && (
-          <button
-            className="btn outline"
-            onClick={async () => {
-              await removePhotoPack();
-              await refresh();
-              toast(t('profile.removed'));
-            }}
-          >
-            <Icon name="trash" />
-            {t('profile.remove')}
+            {progress?.kind === 'thumbs'
+              ? t('profile.downloading', { done: progress.done, total: progress.total })
+              : t('profile.thumbsDownload')}
           </button>
         )}
       </div>
+
+      {manifest && total > 0 && (
+        <div className="stack" style={{ gap: 8 }}>
+          <div>
+            <strong>{t('profile.photosTitle')}</strong>
+            <div className="small muted">{t('profile.photosStatus', { cached, total, size: formatBytes(manifest.photo_bytes, lang) })}</div>
+          </div>
+          {bar('photos')}
+          {!complete && (
+            <button className="btn primary" onClick={download} disabled={!!progress || !navigator.onLine} style={{ alignSelf: 'flex-start' }}>
+              <Icon name="offline" />
+              {progress?.kind === 'photos'
+                ? t('profile.downloading', { done: progress.done, total: progress.total })
+                : cached > 0
+                  ? t('profile.update')
+                  : t('profile.download', { size: formatBytes(manifest.photo_bytes, lang) })}
+            </button>
+          )}
+        </div>
+      )}
+
+      {(cached > 0 || thumbsCached > 0) && !progress && (
+        <button
+          className="btn ghost"
+          style={{ alignSelf: 'flex-start' }}
+          onClick={async () => {
+            await removePhotoPack();
+            await refresh();
+            toast(t('profile.removed'));
+          }}
+        >
+          <Icon name="trash" />
+          {t('profile.remove')}
+        </button>
+      )}
       {storage && storage.quota > 0 && (
         <div className="small muted">
           {t('profile.storage', { used: formatBytes(storage.usage, lang), quota: formatBytes(storage.quota, lang) })}

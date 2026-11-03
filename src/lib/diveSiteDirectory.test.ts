@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { areaFromQuery, boundsAround, countryFromSlug, distanceKm, mergePadi } from '../../api/divesites';
+import { allowRequest, areaFromQuery, boundsAround, countryFromSlug, distanceKm, isCanonicalQuery, mergePadi, RATE_LIMIT } from '../../api/divesites';
 import { areaSearchable, countryName, tidySiteName } from './diveSiteDirectory';
 
 describe('PADI dive site lookup', () => {
@@ -54,5 +54,25 @@ describe('PADI dive site lookup', () => {
     expect(areaFromQuery(new URLSearchParams('lat=27&lng=33'))).toBeNull();
     expect(areaSearchable({ north: 27.6, south: 26.9, east: 34.2, west: 33.6 })).toBe(true);
     expect(areaSearchable({ north: 40, south: 20, east: 40, west: 30 })).toBe(false);
+  });
+
+  it('answers only the query spelling the app uses, so every request can come from the CDN cache', () => {
+    const ok = (q: string) => isCanonicalQuery(new URLSearchParams(q));
+    expect(ok('lat=27.25&lng=33.84&km=30')).toBe(true);
+    expect(ok('n=27.60&s=-26.90&e=34.20&w=-180.00')).toBe(true);
+    expect(ok('lat=27.2501&lng=33.84&km=30')).toBe(false); // more decimals
+    expect(ok('lat=27.25&lng=33.84&km=30&x=1')).toBe(false); // extra parameter
+    expect(ok('lat=27.25&lat=27.26&lng=33.84')).toBe(false); // repeated
+    expect(ok('n=27.6&s=26.9&e=34.2')).toBe(false); // incomplete area
+    expect(ok('lat=27.25&lng=33.84&km=2.5')).toBe(false);
+    expect(ok('')).toBe(false);
+  });
+
+  it('limits requests per minute and address', () => {
+    const t = 1_000_000;
+    for (let i = 0; i < RATE_LIMIT; i++) expect(allowRequest('1.2.3.4', t + i)).toBe(true);
+    expect(allowRequest('1.2.3.4', t + 100)).toBe(false);
+    expect(allowRequest('5.6.7.8', t + 100)).toBe(true);
+    expect(allowRequest('1.2.3.4', t + 60_000)).toBe(true);
   });
 });

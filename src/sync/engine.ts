@@ -79,12 +79,54 @@ export function adoptLocalRows(db: AppDb, userId: string) {
   });
 }
 
-export function forgetUser(db: AppDb) {
+const isSyncTable = (t: string): t is SyncTable => (SYNC_TABLES as readonly string[]).includes(t);
+
+/**
+ * Makes `next` (null = signed out) the account whose data this device shows, so one account
+ * never sees another's dives, sightings or albums on a shared device.
+ * Rows of the previous account leave the working tables: synced ones are on the server and come
+ * back with the next sync, unsynced ones wait in parked_row until that account signs in again.
+ * Rows recorded while signed out are adopted by the account that signs in.
+ * Returns the photo uris of removed rows, so their cached copies can be dropped as well.
+ */
+export function switchAccount(db: AppDb, next: string | null): string[] {
+  const previous = getKv(db, 'user_id');
+  if (previous === next) return [];
+  const photos: string[] = [];
   db.tx(() => {
-    setKv(db, 'user_id', null);
-    for (const t of SYNC_TABLES) setKv(db, `cursor:${t}`, null);
-    setKv(db, 'last_sync', null);
+    if (previous) {
+      photos.push(
+        ...db
+          .all<{ photo_uri: string }>("SELECT photo_uri FROM sighting WHERE user_id = ? AND photo_uri LIKE 'sb:%'", [previous])
+          .map((r) => r.photo_uri),
+      );
+      for (const t of SYNC_TABLES) {
+        for (const row of db.all<Record<string, SqlValue>>(`SELECT * FROM ${t} WHERE user_id = ? AND dirty = 1`, [previous])) {
+          db.exec('INSERT OR REPLACE INTO parked_row (tbl, id, user_id, data) VALUES (?, ?, ?, ?)', [t, row.id, previous, JSON.stringify(row)]);
+        }
+        db.exec(`DELETE FROM ${t} WHERE user_id = ?`, [previous]);
+        setKv(db, `cursor:${t}`, null);
+      }
+      setKv(db, 'last_sync', null);
+    }
+    if (next) {
+      for (const p of db.all<{ tbl: string; data: string }>('SELECT tbl, data FROM parked_row WHERE user_id = ?', [next])) {
+        if (!isSyncTable(p.tbl)) continue;
+        const known = new Set(columnsOf(db, p.tbl));
+        const row = JSON.parse(p.data) as Record<string, SqlValue>;
+        const cols = Object.keys(row).filter((c) => known.has(c));
+        db.exec(
+          `INSERT OR REPLACE INTO ${p.tbl} (${cols.join(', ')}) VALUES (${cols.map(() => '?').join(', ')})`,
+          cols.map((c) => row[c]),
+        );
+      }
+      db.exec('DELETE FROM parked_row WHERE user_id = ?', [next]);
+      for (const t of SYNC_TABLES) db.exec(`UPDATE ${t} SET user_id = ? WHERE user_id IS NULL`, [next]);
+    }
+    setKv(db, 'user_id', next);
   });
+  db.changed();
+  return photos;
 }
 
 export interface SyncResult {
@@ -94,7 +136,8 @@ export interface SyncResult {
 
 /**
  * Two-way sync. Push: every dirty row of the user. Pull: rows changed on the server since the
- * last cursor. Conflict rule: the newer updated_at wins (also enforced by a trigger on the server),
+ * last cursor. Conflict rule: the newer updated_at wins (enforced by a trigger on the server, which
+ * also caps times from the future at its own clock),
  * deletions travel as deleted_at, so offline edits on any device are never lost silently.
  */
 export async function syncOnce(db: AppDb, remote: Remote, userId: string): Promise<SyncResult> {
@@ -124,7 +167,9 @@ export async function syncOnce(db: AppDb, remote: Remote, userId: string): Promi
         for (const r of rows) {
           const local = db.get<{ updated_at: string; dirty: number }>(`SELECT updated_at, dirty FROM ${table} WHERE id = ?`, [r.id as string]);
           const remoteUpdated = iso(r.updated_at)!;
-          if (local && local.updated_at > remoteUpdated) continue; // local edit is newer; it will be pushed
+          // An unsynced local edit that is newer stays and will be pushed. Otherwise the server's
+          // row is the merged result: it also replaces local times from a clock that ran ahead.
+          if (local && local.dirty && local.updated_at > remoteUpdated) continue;
           const data = toLocal(r, columns);
           const cols = Object.keys(data);
           db.exec(

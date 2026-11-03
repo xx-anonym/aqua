@@ -5,6 +5,7 @@ import initSqlJs from 'sql.js';
 import { AppDb } from '../db/appDb';
 import { loadCatalog, loadPhotos } from './catalog';
 import { searchSpecies } from './search';
+import { parseIndex, regionCandidates } from '../../supabase/functions/identify/logic';
 
 const DIR = join(__dirname, '../../public/catalog');
 
@@ -14,6 +15,15 @@ describe('shipped catalog', async () => {
   const db = AppDb.create(SQL, new Uint8Array(readFileSync(join(DIR, 'catalog.sqlite'))));
   const catalog = loadCatalog(db);
   const isSeed = catalog.meta.version === 'seed';
+
+  it('ships the photo-ID candidate index of this catalog (scripts/photo-id-index.mjs, run before every build)', () => {
+    const index = parseIndex(JSON.parse(readFileSync(join(DIR, 'photo-id.json'), 'utf8')))!;
+    expect(index.version).toBe(catalog.meta.version);
+    expect(regionCandidates(index, null)!.map((c) => c.id)).toEqual(catalog.species.map((s) => s.id));
+    for (const r of catalog.regions) {
+      expect(regionCandidates(index, r.id)!.map((c) => c.id), r.id).toEqual(catalog.speciesInRegion(r.id).map((s) => s.id));
+    }
+  });
 
   it('has species in every category and region', () => {
     expect(catalog.species.length).toBeGreaterThan(isSeed ? 30 : 300);

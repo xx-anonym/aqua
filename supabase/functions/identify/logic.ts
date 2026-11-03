@@ -13,23 +13,39 @@ export interface Suggestion {
   reason: string;
 }
 
-export const MAX_CANDIDATES = 1500;
 export const MAX_IMAGE_BYTES = 1_500_000;
 
-/** Caps and cleans the candidate list sent by the client, so a request cannot inflate token cost. */
-export function sanitizeCandidates(input: unknown): Candidate[] {
-  if (!Array.isArray(input)) return [];
-  const clip = (v: unknown, n: number) => (typeof v === 'string' ? v.slice(0, n).replace(/[\n\r|]/g, ' ').trim() : null);
-  const seen = new Set<string>();
-  const out: Candidate[] = [];
-  for (const c of input.slice(0, MAX_CANDIDATES)) {
-    const id = clip((c as Candidate)?.id, 80);
-    const sci = clip((c as Candidate)?.sci, 80);
-    if (!id || !sci || seen.has(id) || !/^[a-z0-9-]+$/.test(id)) continue;
-    seen.add(id);
-    out.push({ id, sci, de: clip((c as Candidate).de, 60), en: clip((c as Candidate).en, 60) });
-  }
-  return out;
+/**
+ * Species the model may suggest, per region: public/catalog/photo-id.json, built from the catalog
+ * by scripts/photo-id-index.mjs. The function loads it itself; a request only names the region,
+ * so nobody can enlarge the prompt (and the cost) with a long list of their own.
+ */
+export interface CandidateIndex {
+  version: string;
+  species: [string, string][];
+  regions: Record<string, { name: string; species: number[] }>;
+}
+
+export function parseIndex(raw: unknown): CandidateIndex | null {
+  const r = raw as CandidateIndex;
+  if (!r || typeof r.version !== 'string' || !Array.isArray(r.species) || typeof r.regions !== 'object' || !r.regions) return null;
+  if (!r.species.every((s) => Array.isArray(s) && typeof s[0] === 'string' && typeof s[1] === 'string')) return null;
+  return r;
+}
+
+/** Candidates of a region (all species without one); null for a region the index does not know. */
+export function regionCandidates(index: CandidateIndex, regionId: string | null): Candidate[] | null {
+  const toCandidate = ([id, sci]: [string, string]) => ({ id, sci });
+  if (!regionId) return index.species.map(toCandidate);
+  const region = Object.hasOwn(index.regions, regionId) ? index.regions[regionId] : undefined;
+  if (!region) return null;
+  return region.species.filter((i) => index.species[i]).map((i) => toCandidate(index.species[i]));
+}
+
+/** App versions before 0.7.1 send the English region name instead of its id. */
+export function regionIdByName(index: CandidateIndex, name: unknown): string | null {
+  if (typeof name !== 'string') return null;
+  return Object.entries(index.regions).find(([, r]) => r.name === name)?.[0] ?? null;
 }
 
 /** Comparison key for scientific names; ignores case, extra spaces and a subgenus in brackets. */

@@ -5,7 +5,7 @@ import { getDive, listDives, saveDive } from '../user/dives';
 import { addSighting, deleteSighting, sightingsForDive } from '../user/sightings';
 import { favoriteIds, toggleFavorite } from '../user/collections';
 import { lifeList } from '../user/lifelist';
-import { adoptLocalRows, pendingChanges, syncOnce } from './engine';
+import { adoptLocalRows, pendingChanges, switchAccount, syncOnce } from './engine';
 import { FakeRemote } from './fakeRemote';
 
 const USER = '11111111-1111-4111-8111-111111111111';
@@ -90,6 +90,24 @@ describe('two-way sync', () => {
     expect(getDive(b, dive)!.rating).toBe(5);
   });
 
+  it('a device clock running ahead cannot block later edits', async () => {
+    const dive = saveDive(a, { dive_no: 1, date: '2026-05-01', rating: 3 } as never);
+    await sync(a);
+    await sync(b);
+    const now = Date.now();
+    vi.setSystemTime(now + 365 * 24 * 3600 * 1000); // A's clock is a year ahead
+    saveDive(a, { id: dive, dive_no: 1, date: '2026-05-01', rating: 4 } as never);
+    vi.setSystemTime(now);
+    tick();
+    await sync(a);
+    tick();
+    saveDive(b, { id: dive, dive_no: 1, date: '2026-05-01', rating: 5 } as never); // later in real time
+    await sync(b);
+    expect(getDive(b, dive)!.rating).toBe(5);
+    await sync(a);
+    expect(getDive(a, dive)!.rating).toBe(5);
+  });
+
   it('soft deletes propagate and stay deleted', async () => {
     const dive = saveDive(a, { dive_no: 1, date: '2026-05-01' } as never);
     await sync(a);
@@ -112,6 +130,41 @@ describe('two-way sync', () => {
     expect(server.tables.get('favorite')?.size).toBe(1);
     expect(favoriteIds(a).has('mobula-alfredi')).toBe(true);
     expect(favoriteIds(b).has('mobula-alfredi')).toBe(true);
+  });
+
+  it('shows only the signed-in account: A, sign out, B, back to A', async () => {
+    const OTHER = '22222222-2222-4222-8222-222222222222';
+    const synced = saveDive(a, { dive_no: 1, date: '2026-05-01' } as never);
+    addSighting(a, { dive_id: synced, species_id: 'pterois-miles' });
+    toggleFavorite(a, 'mobula-alfredi');
+    await sync(a);
+    const unsynced = saveDive(a, { dive_no: 2, date: '2026-05-02' } as never);
+
+    switchAccount(a, null); // A signs out
+    expect(listDives(a)).toHaveLength(0);
+    expect(lifeList(a).size).toBe(0);
+    expect(favoriteIds(a).size).toBe(0);
+
+    const anonymous = saveDive(a, { dive_no: 1, date: '2026-05-03' } as never);
+    switchAccount(a, OTHER); // B signs in: sees only what was recorded while signed out
+    expect(listDives(a).map((d) => d.id)).toEqual([anonymous]);
+    expect(a.get<{ user_id: string }>('SELECT user_id FROM dive WHERE id = ?', [anonymous])!.user_id).toBe(OTHER);
+
+    switchAccount(a, USER); // A again: unsynced dive is back at once, the rest comes with the sync
+    expect(listDives(a).map((d) => d.id)).toEqual([unsynced]);
+    expect(pendingChanges(a, USER)).toBe(1);
+    await sync(a);
+    expect(listDives(a).map((d) => d.id).sort()).toEqual([synced, unsynced].sort());
+    expect(lifeList(a).has('pterois-miles')).toBe(true);
+    expect(favoriteIds(a).has('mobula-alfredi')).toBe(true);
+    expect(server.tables.get('dive')?.has(unsynced)).toBe(true);
+  });
+
+  it('drops cached photos of the account that leaves', async () => {
+    addSighting(a, { species_id: 'pterois-miles', photo_uri: `sb:${USER}/x.jpg` });
+    await sync(a);
+    expect(switchAccount(a, null)).toEqual([`sb:${USER}/x.jpg`]);
+    expect(switchAccount(a, null)).toEqual([]);
   });
 
   it('adopts data recorded before signing in', async () => {

@@ -3,9 +3,9 @@ import type { Session } from '@supabase/supabase-js';
 import type { AppDb } from '../db/appDb';
 import { persistNow } from '../db/boot';
 import { nowIso } from '../lib/ids';
-import { loadPhoto, setRemotePhotoLoader, storePhoto } from '../user/photos';
+import { deletePhoto, loadPhoto, setRemotePhotoLoader, storePhoto } from '../user/photos';
 import { PHOTO_BUCKET, supabase, supabaseRemote } from './cloud';
-import { adoptLocalRows, forgetUser, getKv, pendingChanges, setKv, syncOnce } from './engine';
+import { getKv, pendingChanges, setKv, switchAccount, syncOnce } from './engine';
 
 export type SyncStatus = 'disabled' | 'signedOut' | 'idle' | 'syncing' | 'error';
 
@@ -75,19 +75,24 @@ export function syncNow(): Promise<void> {
   return running;
 }
 
-function onSession(session: Session | null) {
+/** Shows the data of `userId` (null: nobody signed in) and drops cached photos of the account before. */
+function showAccount(appDb: AppDb, userId: string | null) {
+  const photos = switchAccount(appDb, userId);
+  for (const uri of photos) void deletePhoto(uri);
+  void persistNow(appDb);
+}
+
+function onSession(session: Session | null, signedOut = false) {
   if (!db) return;
   if (!session) {
+    // Only a real sign-out hides the account's data. Starting without a usable session (e.g.
+    // offline with an expired token) must not empty the logbook of the device owner.
+    if (signedOut) showAccount(db, null);
     useSync.setState({ status: supabase ? 'signedOut' : 'disabled', email: null, userId: null, authChecked: true });
     return;
   }
   const userId = session.user.id;
-  const previous = getKv(db, 'user_id');
-  if (previous !== userId) {
-    // A different account on this device: its rows stay local, cursors restart for the new user.
-    if (previous) forgetUser(db);
-    adoptLocalRows(db, userId);
-  }
+  if (getKv(db, 'user_id') !== userId) showAccount(db, userId);
   useSync.setState({
     status: 'idle',
     authChecked: true,
@@ -110,7 +115,7 @@ export function initCloud(appDb: AppDb) {
   });
   void client.auth.getSession().then(({ data }) => onSession(data.session));
   client.auth.onAuthStateChange((event, session) => {
-    if (event === 'SIGNED_IN' || event === 'SIGNED_OUT' || event === 'USER_UPDATED') onSession(session);
+    if (event === 'SIGNED_IN' || event === 'SIGNED_OUT' || event === 'USER_UPDATED') onSession(session, event === 'SIGNED_OUT');
   });
   appDb.subscribe(() => {
     const { userId, status } = useSync.getState();
@@ -153,7 +158,8 @@ export async function signInWithProvider(provider: 'google' | 'apple') {
 export async function signOut() {
   if (!supabase || !db) return;
   await syncNow().catch(() => undefined);
-  await supabase.auth.signOut();
+  // Local scope: signs out this device only (also offline) and keeps other devices signed in.
+  await supabase.auth.signOut({ scope: 'local' });
   setKv(db, 'last_sync', null);
 }
 

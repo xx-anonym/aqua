@@ -1,6 +1,8 @@
-// Photo identification: image + regional candidate list -> top-5 catalog species with confidence.
+// Photo identification: image + region -> top-5 catalog species with confidence.
 // Secrets: ANTHROPIC_API_KEY (required), PHOTO_ID_MODEL (default claude-sonnet-5-5,
-// e.g. claude-haiku-5-5 for lower cost), PHOTO_ID_MONTHLY_LIMIT (default 50).
+// e.g. claude-haiku-5-5 for lower cost), PHOTO_ID_MONTHLY_LIMIT (per user, default 50),
+// PHOTO_ID_GLOBAL_MONTHLY_LIMIT (all users together, default 500: cost ceiling),
+// PHOTO_ID_INDEX_URL (candidate list per region, default: the one published with the app).
 import Anthropic from 'npm:@anthropic-ai/sdk@1.2.0';
 import { createClient } from 'npm:@supabase/supabase-js@2.47.10';
 import {
@@ -8,8 +10,11 @@ import {
   cleanSuggestions,
   MAX_IMAGE_BYTES,
   OUTPUT_SCHEMA,
-  sanitizeCandidates,
+  parseIndex,
+  regionCandidates,
+  regionIdByName,
   SYSTEM_PROMPT,
+  type CandidateIndex,
   usageSummary,
 } from './logic.ts';
 
@@ -24,9 +29,25 @@ const json = (body: unknown, status = 200) =>
 
 const MODEL = Deno.env.get('PHOTO_ID_MODEL') || 'claude-sonnet-5-5';
 const LIMIT = Number(Deno.env.get('PHOTO_ID_MONTHLY_LIMIT') || 50);
+const GLOBAL_LIMIT = Number(Deno.env.get('PHOTO_ID_GLOBAL_MONTHLY_LIMIT') || 500);
+const INDEX_URL = Deno.env.get('PHOTO_ID_INDEX_URL') || 'https://aqua-tauchlog.vercel.app/catalog/photo-id.json';
 const apiKey = Deno.env.get('ANTHROPIC_API_KEY');
 const anthropic = apiKey ? new Anthropic({ apiKey }) : null;
 const admin = createClient(Deno.env.get('SUPABASE_URL')!, Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!);
+
+// The candidate index changes only with a catalog update: keep it for an hour per instance.
+let cachedIndex: { index: CandidateIndex; at: number } | null = null;
+async function loadIndex(): Promise<CandidateIndex | null> {
+  if (cachedIndex && Date.now() - cachedIndex.at < 60 * 60 * 1000) return cachedIndex.index;
+  try {
+    const res = await fetch(INDEX_URL);
+    const index = res.ok ? parseIndex(await res.json()) : null;
+    if (index) cachedIndex = { index, at: Date.now() };
+  } catch {
+    // Keep serving the last good index.
+  }
+  return cachedIndex?.index ?? null;
+}
 
 Deno.serve(async (req) => {
   if (req.method === 'OPTIONS') return new Response('ok', { headers: CORS });
@@ -40,7 +61,7 @@ Deno.serve(async (req) => {
   if (!user) return json({ error: 'unauthorized' }, 401);
   if (!anthropic) return json({ error: 'not_configured' }, 503);
 
-  let body: { image?: string; media_type?: string; candidates?: unknown; region?: string };
+  let body: { image?: string; media_type?: string; region_id?: unknown; region?: unknown };
   try {
     body = await req.json();
   } catch {
@@ -48,13 +69,23 @@ Deno.serve(async (req) => {
   }
   const image = typeof body.image === 'string' ? body.image : '';
   const mediaType = body.media_type === 'image/png' || body.media_type === 'image/webp' ? body.media_type : 'image/jpeg';
-  const candidates = sanitizeCandidates(body.candidates);
   if (!image || image.length * 0.75 > MAX_IMAGE_BYTES) return json({ error: 'image_too_large' }, 413);
-  if (!candidates.length) return json({ error: 'no_candidates' }, 400);
+  const index = await loadIndex();
+  if (!index) return json({ error: 'busy' }, 503);
+  // Only the region comes from the app; any candidate list it sends is ignored.
+  const regionId = typeof body.region_id === 'string' ? body.region_id : regionIdByName(index, body.region);
+  const candidates = regionCandidates(index, regionId);
+  if (!candidates?.length) return json({ error: 'unknown_region' }, 400);
+  const regionName = regionId ? index.regions[regionId].name : 'unknown';
 
-  const { data: used, error: quotaError } = await admin.rpc('consume_photo_id_quota', { p_user: user.id, p_limit: LIMIT });
+  const { data: used, error: quotaError } = await admin.rpc('consume_photo_id_quota', {
+    p_user: user.id,
+    p_limit: LIMIT,
+    p_global_limit: GLOBAL_LIMIT,
+  });
   if (quotaError) return json({ error: 'quota_error' }, 500);
   if (used === -1) return json({ error: 'quota_exceeded', limit: LIMIT }, 429);
+  if (used === -2) return json({ error: 'budget_exhausted' }, 429);
 
   try {
     // Fallbacks: if a safety classifier declines, the API retries on its recommended model.
@@ -73,7 +104,7 @@ Deno.serve(async (req) => {
           role: 'user',
           content: [
             { type: 'image', source: { type: 'base64', media_type: mediaType, data: image } },
-            { type: 'text', text: `Region: ${String(body.region ?? 'unknown').slice(0, 60)}. Which candidate species is shown? Answer the reasons in German.` },
+            { type: 'text', text: `Region: ${regionName}. Which candidate species is shown? Answer the reasons in German.` },
           ],
         },
       ],

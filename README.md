@@ -27,12 +27,21 @@ Sri Lanka, Südostasien & Korallendreieck, Australien & Korallenmeer, Pazifische
   IndexedDB gesichert; der Katalog (`public/catalog/catalog.sqlite`) wird per `ATTACH` eingebunden.
   Migrationen: `src/db/migrations.ts`.
 - **Katalog als Paket**: versionierte SQLite-Datei plus WebP-Fotos; App-Shell, Katalog und
-  Vorschaubilder werden vom Service Worker vorgehalten, große Fotos per „Offline-Paket“.
+  angesehene Bilder werden vom Service Worker vorgehalten. Alle Vorschaubilder (~9 MB) und die großen
+  Fotos lädt man vor einer Reise im Profil unter „Offline-Paket“, nie ungefragt.
 - **Sync** (`src/sync`): Zwei-Wege-Sync mit Supabase. Jede Nutzertabelle hat `updated_at`,
   `deleted_at` (Soft Delete) und serverseitig `synced_at`; die neueste Änderung gewinnt
-  (zusätzlich per Trigger auf dem Server abgesichert). Row Level Security: nur eigene Zeilen.
+  (zusätzlich per Trigger auf dem Server abgesichert, der Zeitstempel aus der Zukunft auf die
+  Serverzeit kappt). Row Level Security: nur eigene Zeilen.
+- **Konten auf einem Gerät**: Die App zeigt nur die Daten des angemeldeten Kontos. Beim Abmelden
+  oder Kontowechsel verlassen dessen Zeilen die lokale Datenbank (noch nicht hochgeladene warten in
+  `parked_row`, bis das Konto sich wieder anmeldet); ohne Anmeldung erfasste Daten übernimmt das
+  nächste Konto (`switchAccount` in `src/sync/engine.ts`).
 - **Foto-ID** (`supabase/functions/identify`): Edge Function ruft Claude mit dem Foto und der
-  Kandidatenliste der Region auf und liefert bis zu 5 Vorschläge mit Konfidenz; Monatskontingent pro Nutzer.
+  Kandidatenliste der Region auf und liefert bis zu 5 Vorschläge mit Konfidenz. Die Liste baut
+  `scripts/photo-id-index.mjs` vor jedem Build aus dem Katalog (`public/catalog/photo-id.json`); die
+  Funktion lädt sie selbst, die App schickt nur die Region. Monatskontingent pro Nutzer und eine
+  Obergrenze für alle zusammen.
 - **Sammelfortschritt** wird immer aus den Sichtungen berechnet, nicht gespeichert (`src/user/lifelist.ts`).
 
 ## Entwicklung
@@ -116,7 +125,9 @@ Seabook oder anderen kommerziellen Apps verwendet.
   Google Cloud Console mit der Weiterleitungs-URI `https://kkppnegmlvplxpvcuhkn.supabase.co/auth/v1/callback`.
 - **Foto-ID**: unter *Edge Functions → Secrets* `ANTHROPIC_API_KEY` eintragen. Optional
   `PHOTO_ID_MODEL` (Standard `claude-sonnet-5-5`, günstiger: `claude-haiku-5-5`) und
-  `PHOTO_ID_MONTHLY_LIMIT` (Standard 50 Fotos pro Nutzer und Monat).
+  `PHOTO_ID_MONTHLY_LIMIT` (Standard 50 Fotos pro Nutzer und Monat),
+  `PHOTO_ID_GLOBAL_MONTHLY_LIMIT` (Standard 500 Fotos pro Monat für alle zusammen, Kostendeckel) und
+  `PHOTO_ID_INDEX_URL` (Standard: die mit der App veröffentlichte Kandidatenliste).
 
 ## Deployment
 
@@ -124,11 +135,16 @@ Vercel baut aus diesem Repository (`vercel.json`: Vite-Build, SPA-Rewrites, Cach
 
 Serverless-Funktionen in `api/`:
 
-- `api/keepalive.ts`: Vercel-Cronjob, hält das Supabase-Projekt im Free-Plan aktiv.
+- `api/keepalive.ts`: Vercel-Cronjob, hält das Supabase-Projekt im Free-Plan aktiv. Optional
+  `CRON_SECRET` in den Vercel-Umgebungsvariablen setzen: dann antwortet er nur noch dem Cronjob.
+  Ohne Secret pingt er höchstens alle 10 Minuten, Wiederholungen beantwortet das CDN.
 - `api/divesites.ts`: Tauchplätze in der Nähe aus dem PADI Dive Guide für „Tauchplatz anlegen“
   (`/api/divesites?lat=…&lng=…&km=30` um einen Punkt oder `?n=…&s=…&e=…&w=…` für einen
   Kartenausschnitt bis 4° Seitenlänge). Fragt PADI nur bei Bedarf ab, die Antwort
   wird einen Tag im CDN zwischengespeichert; gespeichert wird nur der Platz, den man auswählt.
+  Gegen Missbrauch als offener PADI-Proxy: nur die Abfrageform der App (sonst würde der CDN-Cache
+  umgangen), keine Aufrufe von fremden Webseiten, höchstens 30 nicht gecachte Abfragen pro Minute
+  und IP je Server-Instanz.
   Genutzt mit Genehmigung für dieses private, nicht-kommerzielle Projekt. PADI bietet dafür keine
   offizielle Schnittstelle, die Abfragen können sich also ändern. SSI ist nicht angebunden, weil
   deren Karte einen Zugangsschlüssel ihrer eigenen Webseite voraussetzt.

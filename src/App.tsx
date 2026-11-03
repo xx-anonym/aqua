@@ -10,8 +10,6 @@ import { UpdateBanner } from './ui/UpdateBanner';
 import { hideSplash } from './ui/splash';
 import { router } from './router';
 import { initCloud } from './sync/syncManager';
-import { getCatalog } from './catalog/useCatalog';
-import { warmThumbnails } from './lib/offline';
 
 function useApplySettings() {
   const theme = useSettings((s) => s.theme);
@@ -39,8 +37,6 @@ export function App() {
       .then((d) => {
         initCloud(d);
         setDb(d);
-        // Background: make species grids work offline (thumbnails are not precached).
-        setTimeout(() => void warmThumbnails(getCatalog(d).species.map((s) => s.thumb)).catch(() => undefined), 4000);
       })
       .catch((e: unknown) => setError(e instanceof Error ? e.message : String(e)));
   }, []);

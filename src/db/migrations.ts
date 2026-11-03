@@ -90,6 +90,16 @@ export const MIGRATIONS: string[] = [
   );
   CREATE TABLE kv (key TEXT PRIMARY KEY, value TEXT);
   `,
+  // Unsynced rows of an account that is not signed in on this device (see switchAccount).
+  `
+  CREATE TABLE parked_row (
+    tbl TEXT NOT NULL,
+    id TEXT NOT NULL,
+    user_id TEXT NOT NULL,
+    data TEXT NOT NULL,
+    PRIMARY KEY (tbl, id)
+  );
+  `,
 ];
 
 /** Tables that take part in cloud sync, in dependency order (parents first). */

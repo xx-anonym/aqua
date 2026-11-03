@@ -7,6 +7,9 @@
 // for the coordinates (the PADI site loads them the same way). Only on demand, one point at a time;
 // the app stores just the site the user picks. Responses are cached by the CDN for a day, and the
 // input is rounded to about 1 km so neighbouring requests share the cache.
+// Protection against misuse as a free PADI proxy: only the app's own query spelling is answered
+// (any other spelling would miss the CDN cache), requests from other websites are refused, and
+// each server instance answers at most RATE_LIMIT uncached requests per minute and IP.
 // Used with permission for this private, non-commercial app.
 
 const PADI = 'https://travel.padi.com/api/v2/travel/';
@@ -42,6 +45,30 @@ interface PadiPin {
 }
 
 const round = (v: number, digits: number) => Math.round(v * 10 ** digits) / 10 ** digits;
+
+const NUMBER_2 = /^-?\d{1,3}(\.\d{1,2})?$/;
+/** True for the exact query forms the app sends (lat/lng/km or n/s/e/w, at most 2 decimals). */
+export function isCanonicalQuery(q: URLSearchParams): boolean {
+  const keys = [...q.keys()];
+  if (!keys.length || new Set(keys).size !== keys.length) return false;
+  const point = keys.every((k) => k === 'lat' || k === 'lng' || k === 'km') && q.has('lat') && q.has('lng');
+  const area = keys.length === 4 && ['n', 's', 'e', 'w'].every((k) => q.has(k));
+  if (!point && !area) return false;
+  return keys.every((k) => (k === 'km' ? /^\d{1,2}$/.test(q.get(k)!) : NUMBER_2.test(q.get(k)!)));
+}
+
+export const RATE_LIMIT = 30;
+const hits = new Map<string, { start: number; count: number }>();
+/** Simple per-instance limiter: at most `limit` requests per minute and key. */
+export function allowRequest(key: string, now = Date.now(), limit = RATE_LIMIT): boolean {
+  const h = hits.get(key);
+  if (!h || now - h.start >= 60_000) {
+    if (hits.size > 5000) hits.clear();
+    hits.set(key, { start: now, count: 1 });
+    return true;
+  }
+  return ++h.count <= limit;
+}
 
 /** Box of ±km around a point, as PADI expects it ("lat,lng"). */
 export function boundsAround(lat: number, lng: number, km: number): { top_right: string; bottom_left: string } {
@@ -177,6 +204,11 @@ async function padi<T>(path: string, params: Record<string, string>): Promise<T>
 
 export async function GET(request: Request): Promise<Response> {
   const q = new URL(request.url).searchParams;
+  // Browsers say where a request comes from; other websites may not use this endpoint.
+  if (request.headers.get('sec-fetch-site') === 'cross-site') return Response.json({ error: 'forbidden' }, { status: 403 });
+  if (!isCanonicalQuery(q)) return Response.json({ error: 'lat/lng(/km) or n/s/e/w with at most 2 decimals required' }, { status: 400 });
+  const ip = (request.headers.get('x-forwarded-for') ?? '').split(',')[0].trim() || 'unknown';
+  if (!allowRequest(ip)) return Response.json({ error: 'too many requests' }, { status: 429, headers: { 'Retry-After': '60' } });
   let box: Box;
   let lat: number;
   let lng: number;

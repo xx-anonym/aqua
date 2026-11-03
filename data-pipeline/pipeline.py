@@ -801,6 +801,8 @@ def write_manifest(db_path: Path, species: list[dict], version: str) -> None:
         "database_bytes": db_path.stat().st_size,
         "photos": [{"file": p["file"], "bytes": p.get("bytes", 0)} for p in photos],
         "photo_bytes": sum(p.get("bytes", 0) for p in photos),
+        # Grid thumbnails: loaded when viewed, or ahead of a trip from the profile.
+        "thumb_bytes": sum((PUBLIC / s["thumb"]).stat().st_size for s in species if s.get("thumb") and (PUBLIC / s["thumb"]).exists()),
     }
     save_json(PUBLIC / "catalog-manifest.json", manifest)
 

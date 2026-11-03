@@ -1,4 +1,3 @@
-import type { Catalog } from '../catalog/catalog';
 import { idb } from '../db/idb';
 import { newId } from '../lib/ids';
 import { accessToken } from '../sync/syncManager';
@@ -18,16 +17,11 @@ export interface IdentifyResult {
 
 export class PhotoIdError extends Error {
   constructor(
-    readonly code: 'offline' | 'login' | 'not_configured' | 'quota' | 'failed',
+    readonly code: 'offline' | 'login' | 'not_configured' | 'quota' | 'budget' | 'failed',
     message = code,
   ) {
     super(message);
   }
-}
-
-/** Candidates for the model: the catalog species of the region (all species if unknown). */
-export function candidatesFor(catalog: Catalog, regionId: string | null) {
-  return catalog.speciesInRegion(regionId).map((s) => ({ id: s.id, sci: s.scientificName, de: s.nameDe, en: s.nameEn }));
 }
 
 async function toBase64(blob: Blob): Promise<string> {
@@ -37,7 +31,8 @@ async function toBase64(blob: Blob): Promise<string> {
   return btoa(bin);
 }
 
-export async function identifyPhoto(catalog: Catalog, photo: Blob, regionId: string | null): Promise<IdentifyResult> {
+/** The server picks the candidate species of the region itself (all species without one). */
+export async function identifyPhoto(photo: Blob, regionId: string | null): Promise<IdentifyResult> {
   if (!navigator.onLine) throw new PhotoIdError('offline');
   const token = await accessToken();
   if (!token) throw new PhotoIdError('login');
@@ -46,14 +41,13 @@ export async function identifyPhoto(catalog: Catalog, photo: Blob, regionId: str
   if (!url || !key) throw new PhotoIdError('not_configured');
   // ~1024 px is enough detail for the model and keeps the cost per photo low.
   const image = await toBase64(await downscale(photo, 1024, 0.85));
-  const region = regionId ? catalog.regionsById.get(regionId)?.nameEn : null;
   const res = await fetch(`${url}/functions/v1/identify`, {
     method: 'POST',
     headers: { Authorization: `Bearer ${token}`, apikey: key, 'Content-Type': 'application/json' },
-    body: JSON.stringify({ image, media_type: 'image/jpeg', region, candidates: candidatesFor(catalog, regionId) }),
+    body: JSON.stringify({ image, media_type: 'image/jpeg', region_id: regionId }),
   });
   const body = await res.json().catch(() => ({}));
-  if (res.status === 429) throw new PhotoIdError('quota');
+  if (res.status === 429) throw new PhotoIdError(body.error === 'budget_exhausted' ? 'budget' : 'quota');
   if (res.status === 401) throw new PhotoIdError('login');
   if (res.status === 503 && body.error === 'not_configured') throw new PhotoIdError('not_configured');
   if (!res.ok) throw new PhotoIdError('failed', body.message || body.error || `HTTP ${res.status}`);

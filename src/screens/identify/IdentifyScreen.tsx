@@ -116,6 +116,7 @@ function PhotoIdCard() {
       if (e.code === 'login') return t('identify.loginRequired');
       if (e.code === 'not_configured') return t('identify.notConfigured');
       if (e.code === 'quota') return t('identify.quotaExceeded');
+      if (e.code === 'budget') return t('identify.budgetExhausted');
       if (e.code === 'offline') return t('identify.offlineQueued');
       return t('identify.error', { message: e.message });
     }
@@ -128,7 +129,7 @@ function PhotoIdCard() {
     setResult(null);
     setRejected([]);
     try {
-      setResult(await identifyPhoto(catalog, blob, regionId));
+      setResult(await identifyPhoto(blob, regionId));
       return true;
     } catch (e) {
       if (e instanceof PhotoIdError && e.code === 'offline') {

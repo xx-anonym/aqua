@@ -1,10 +1,11 @@
 {
   "name": "aqua",
   "private": true,
-  "version": "0.7.0",
+  "version": "0.7.1",
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "prebuild": "node scripts/photo-id-index.mjs",
     "build": "tsc -b && vite build",
     "preview": "vite preview",
     "lint": "eslint .",
