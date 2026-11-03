@@ -348,13 +348,14 @@ def cmd_report(_: argparse.Namespace) -> None:
 
 # ---------------------------------------------------------------- apply
 
-HABITAT_TRAITS = {"shape-plant", "behav-buried", "behav-open-water", "behav-reef", "behav-bottom"}
+# Traits that override FishBase's DemersPelag in the build's habitat rule (pipeline.habitat_of).
+HABITAT_TRAITS = {"shape-plant", "behav-buried", "behav-open-water"}
 
 
 def habitat_for(category: str, old: set[str], new: set[str], current: str | None) -> str | None:
-    """The build's habitat rule (pipeline.habitat_of), applied only when a trait it reads changed.
-    The build also reads FishBase's DemersPelag, which is not available here: without a deciding
-    trait the habitat falls back to reef or bottom."""
+    """The build's habitat rule, applied only when one of its deciding traits changed. FishBase's
+    DemersPelag (read by the build) is not available here: when a deciding trait is removed, the
+    habitat falls back to reef, or bottom for species seen on the bottom but not on the reef."""
     if old & HABITAT_TRAITS == new & HABITAT_TRAITS:
         return current
     if category == "coral_sponge_plant":
@@ -363,11 +364,7 @@ def habitat_for(category: str, old: set[str], new: set[str], current: str | None
         return "sand"
     if "behav-open-water" in new:
         return "open_water"
-    if "behav-reef" in new:
-        return "reef"
-    if "behav-bottom" in new:
-        return "bottom"
-    return current if current not in ("sand", "open_water") else "reef"
+    return "bottom" if "behav-bottom" in new and "behav-reef" not in new else "reef"
 
 
 def lifestyle_for(traits: set[str]) -> str:
