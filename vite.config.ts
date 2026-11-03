@@ -16,14 +16,25 @@ function buildId(): string {
   }
 }
 
+const BUILD = { version: pkg.version, build: buildId(), built_at: new Date().toISOString() };
+
 export default defineConfig({
   define: {
-    __APP_VERSION__: JSON.stringify(pkg.version),
-    __APP_BUILD__: JSON.stringify(buildId()),
-    __APP_BUILT_AT__: JSON.stringify(new Date().toISOString()),
+    __APP_VERSION__: JSON.stringify(BUILD.version),
+    __APP_BUILD__: JSON.stringify(BUILD.build),
+    __APP_BUILT_AT__: JSON.stringify(BUILD.built_at),
   },
   plugins: [
     react(),
+    // /version.json names the deployed build, so "Nach Updates suchen" can ask the server directly
+    // instead of relying only on the service worker (Safari reports a new worker late).
+    {
+      name: 'aqua-version-file',
+      apply: 'build',
+      generateBundle() {
+        this.emitFile({ type: 'asset', fileName: 'version.json', source: JSON.stringify(BUILD) });
+      },
+    },
     VitePWA({
       // The app shows an update banner (src/ui/UpdateBanner.tsx) instead of reloading by itself.
       registerType: 'prompt',
@@ -46,8 +57,8 @@ export default defineConfig({
       },
       workbox: {
         // App shell and the catalog database are precached, so catalog, search, filter, logbook
-        // and collection work offline right after install. Thumbnails are warmed in parallel by
-        // the app after start (src/lib/offline.ts), which is much faster than precaching 500 files.
+        // and collection work offline right after install. Thumbnails and photos are cached when
+        // viewed, or ahead of a trip from the profile (src/lib/offline.ts).
         globPatterns: ['**/*.{js,css,html,svg,png,wasm,sqlite}', 'catalog/catalog-manifest.json'],
         // iOS startup images: fetched by iOS itself, only the one matching the device.
         globIgnores: ['splash/**'],

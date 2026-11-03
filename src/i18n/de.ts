@@ -3,6 +3,10 @@ const de = {
   update: {
     check: 'Nach Updates suchen',
     current: 'Du hast die neueste Version.',
+    checking: 'Suche nach Updates …',
+    pending: 'Version {{version}} wird geladen – gleich erscheint „Aktualisieren“.',
+    force: 'Neu laden erzwingen',
+    forceHint: 'Falls das Update nicht ankommt: lädt die App frisch vom Server. Deine Daten bleiben erhalten.',
     offline: 'Keine Verbindung – Update-Prüfung nicht möglich.',
     unsupported: 'Updates werden in diesem Browser nicht unterstützt.',
     available: 'Neue Version verfügbar',

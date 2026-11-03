@@ -25,7 +25,7 @@ import { exportUddf } from '../../user/io/uddf';
 import { Field, PageHeader } from '../../ui/components';
 import { useFeedback } from '../../ui/feedback';
 import { Icon } from '../../ui/icons/Icon';
-import { checkForUpdate } from '../../ui/UpdateBanner';
+import { checkForUpdate, forceReload } from '../../ui/UpdateBanner';
 import { PlaceSelect } from '../../ui/PlaceSelect';
 
 function Segmented<T extends string>({ value, options, onChange, label }: { value: T; options: [T, string][]; onChange: (v: T) => void; label: string }) {
@@ -350,6 +350,8 @@ export default function ProfileScreen() {
   const lang = useLang();
   const db = useDb();
   const catalog = useCatalog();
+  const [checking, setChecking] = useState(false);
+  const [updatePending, setUpdatePending] = useState(false);
   const { toast } = useFeedback();
   const settings = useSettings();
   const restoreInput = useRef<HTMLInputElement>(null);
@@ -458,14 +460,30 @@ export default function ProfileScreen() {
         </Link>
         <button
           className="list-item"
+          disabled={checking}
           onClick={async () => {
-            const result = await checkForUpdate();
-            toast(t(`update.${result}`));
+            setChecking(true);
+            try {
+              const { result, version } = await checkForUpdate();
+              setUpdatePending(result === 'pending');
+              toast(t(`update.${result}`, { version: version ?? '' }));
+            } finally {
+              setChecking(false);
+            }
           }}
         >
           <Icon name="sync" />
-          <div className="grow title">{t('update.check')}</div>
+          <div className="grow title">{checking ? t('update.checking') : t('update.check')}</div>
         </button>
+        {updatePending && (
+          <button className="list-item" onClick={() => void forceReload()}>
+            <Icon name="download" />
+            <div className="grow">
+              <div className="title">{t('update.force')}</div>
+              <div className="sub">{t('update.forceHint')}</div>
+            </div>
+          </button>
+        )}
       </div>
       <p className="small muted">
         {t('profile.aboutText')} {t('profile.version', { version: __APP_VERSION__ })} ·{' '}

@@ -3,6 +3,10 @@ const en = {
   update: {
     check: 'Check for updates',
     current: 'You have the latest version.',
+    checking: 'Checking for updates …',
+    pending: 'Version {{version}} is downloading – “Update” appears in a moment.',
+    force: 'Force a fresh reload',
+    forceHint: 'If the update does not arrive: loads the app fresh from the server. Your data stays.',
     offline: 'No connection – cannot check for updates.',
     unsupported: 'Updates are not supported in this browser.',
     available: 'New version available',

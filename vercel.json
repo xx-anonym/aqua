@@ -5,7 +5,7 @@
   "outputDirectory": "dist",
   "rewrites": [
     {
-      "source": "/((?!api/|assets/|catalog/|icons/|sw\\.js|workbox-|manifest\\.webmanifest|registerSW\\.js).*)",
+      "source": "/((?!api/|assets/|catalog/|icons/|sw\\.js|workbox-|manifest\\.webmanifest|registerSW\\.js|version\\.json).*)",
       "destination": "/index.html"
     }
   ],
@@ -29,7 +29,7 @@
       ]
     },
     {
-      "source": "/(sw\\.js|registerSW\\.js|manifest\\.webmanifest|catalog/catalog\\.sqlite|catalog/catalog-manifest\\.json)",
+      "source": "/(sw\\.js|registerSW\\.js|manifest\\.webmanifest|version\\.json|catalog/catalog\\.sqlite|catalog/catalog-manifest\\.json)",
       "headers": [
         {
           "key": "Cache-Control",
