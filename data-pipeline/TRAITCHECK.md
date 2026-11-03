@@ -35,11 +35,6 @@ tatsächlichen Token-Verbrauch und hält vor `--budget` an (Standard 6,50 $, Res
    - Die Entscheidungen des ersten Laufs (November 2026) stehen in `review/decisions.py`:
      Ergänzungen übernommen außer `REJECT_ADD`, Entfernungen nur aus `ACCEPT_REMOVE`, „einfarbig“
      ersetzt durch ein Muster oder Verhalten; Farben von Jungtieren und Varianten bleiben.
-
-**Ergebnis November 2026** (gpt-6.1-sol, 2 Fotos je Art, 4,89 $): 935 Arten geprüft, 418 korrigiert
-(alle 146 Fische ohne Körperform ergänzt), 66 Teilvorschläge verworfen. Fragliche Fotos:
-*Phestilla sibogae* (zeigt eine andere Fadenschnecke), *Todarodes sagittatus* (historische
-Zeichnungen), *Seriola dumerili* (tote Fische, schwache Fotos).
 6. **Übernehmen**: erst `python data-pipeline/traitcheck.py apply --dry-run`, dann ohne
    `--dry-run`. Das schreibt `input/traits.csv` (geprüfte Arten: `reviewed=ki-geprüft`), patcht
    `public/catalog/catalog.sqlite` (Merkmale, Lebensraum, Lebensweise, neue Katalogversion), das
@@ -47,3 +42,10 @@ Zeichnungen), *Seriola dumerili* (tote Fische, schwache Fotos).
 7. `npm test` und `npm run build`, Version in `package.json` erhöhen, committen, auf den
    Entwicklungszweig pushen. Ergebnis auf Deutsch zusammenfassen: Kosten, Zahl der geprüften Arten,
    Korrekturen je Merkmalsart, fragliche Fotos.
+
+## Ergebnis November 2026
+
+gpt-6.1-sol, 2 Fotos je Art, 4,89 $: 935 Arten geprüft, 418 korrigiert (alle 146 Fische ohne
+Körperform ergänzt), 66 Teilvorschläge verworfen. Fragliche Fotos: *Phestilla sibogae* (zeigt eine
+andere Fadenschnecke), *Todarodes sagittatus* (historische Zeichnungen), *Seriola dumerili* (tote
+Fische, schwache Fotos).
