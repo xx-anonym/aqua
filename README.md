@@ -92,7 +92,9 @@ Entwicklungskatalog ohne Netz). Antworten der Quellen werden in `data-pipeline/c
 `data-pipeline/input/traits.csv`: ein KI-Vorschlag pro Art, Spalte `reviewed` für die manuelle
 Prüfung. Arten ohne Eintrag bekommen automatische Vorschläge (Körperform aus FishBase/Familie,
 Lebensraum) und landen zur Prüfung in `input/traits_review.csv`. Beschreibungstexte werden aus den
-strukturierten Daten neu formuliert, keine Texte werden übernommen.
+strukturierten Daten neu formuliert, keine Texte werden übernommen. Eine zweite Meinung per
+OpenAI-Bildmodell holt `data-pipeline/traitcheck.py` (Ablauf in `data-pipeline/TRAITCHECK.md`):
+Meldungen werden geprüft und dann direkt in `traits.csv` und den fertigen Katalog übernommen.
 
 **Deutsche Namen** (`names`): Fehlt ein deutscher Name aus iNaturalist/FishBase, sucht die Stufe
 in Wikidata (Volksname, Titel des deutschen Wikipedia-Artikels; wird übersprungen, wenn Wikimedia
