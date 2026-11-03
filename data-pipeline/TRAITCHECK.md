@@ -46,6 +46,7 @@ tatsächlichen Token-Verbrauch und hält vor `--budget` an (Standard 6,50 $, Res
 ## Ergebnis November 2026
 
 gpt-6.1-sol, 2 Fotos je Art, 4,89 $: 935 Arten geprüft, 418 korrigiert (alle 146 Fische ohne
-Körperform ergänzt), 66 Teilvorschläge verworfen. Fragliche Fotos: *Phestilla sibogae* (zeigt eine
-andere Fadenschnecke), *Todarodes sagittatus* (historische Zeichnungen), *Seriola dumerili* (tote
-Fische, schwache Fotos).
+Körperform ergänzt), 66 Teilvorschläge verworfen. Fragliche Fotos: *Todarodes sagittatus* (historische
+Zeichnungen) und *Seriola dumerili* (gefangene Fische) haben neue Fotos (`input/photo_overrides.json`).
+*Phestilla sibogae* war ein Fehlalarm: Die farbige Fadenschnecke (früher *Cuthona*/*Trinchesia
+sibogae*) ist laut WoRMS genau diese Art, die Fotos stimmen.

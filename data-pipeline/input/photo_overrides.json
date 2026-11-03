@@ -1,0 +1,11 @@
+{
+  "_comment": "Photos chosen by hand where the automatic choice is wrong or poor. Each entry lists iNaturalist observations (first photo used) or iNaturalist photo ids from the taxon's own photos, in display order; only CC0 / CC BY. Run: python data-pipeline/pipeline.py photos \"<scientific name>\" ... then build.",
+  "Seriola dumerili": {
+    "photos": [{"observation": 246904262}, {"observation": 14520217}, {"observation": 400270960}],
+    "note": "Automatic choice showed caught fish on a plate and in a hand; these are underwater photos."
+  },
+  "Todarodes sagittatus": {
+    "photos": [{"observation": 149417347}, {"photo": 13563618}],
+    "note": "Pelagic squid, no openly licensed underwater photos: a stranded animal (research grade) and the coloured historical plate; the anatomical plates are dropped."
+  }
+}

@@ -1,8 +1,8 @@
 {
- "version": "2026.11.03-1303d1",
- "built_at": "2026-11-03T22:51:24+00:00",
+ "version": "2026.11.03-dd8606",
+ "built_at": "2026-11-03T23:03:26+00:00",
  "species": 935,
- "database_bytes": 3112960,
+ "database_bytes": 3141632,
  "photos": [
   {
    "file": "img/chelonia-mydas-1.webp",
@@ -4578,15 +4578,15 @@
   },
   {
    "file": "img/seriola-dumerili-1.webp",
-   "bytes": 18410
+   "bytes": 4540
   },
   {
    "file": "img/seriola-dumerili-2.webp",
-   "bytes": 21386
+   "bytes": 3060
   },
   {
    "file": "img/seriola-dumerili-3.webp",
-   "bytes": 16272
+   "bytes": 2616
   },
   {
    "file": "img/hypselodoris-bennetti-1.webp",
@@ -10966,15 +10966,11 @@
   },
   {
    "file": "img/todarodes-sagittatus-1.webp",
-   "bytes": 10750
+   "bytes": 50158
   },
   {
    "file": "img/todarodes-sagittatus-2.webp",
-   "bytes": 14060
-  },
-  {
-   "file": "img/todarodes-sagittatus-3.webp",
-   "bytes": 11678
+   "bytes": 10750
   },
   {
    "file": "img/hemimycale-arabica-1.webp",
@@ -11077,6 +11073,6 @@
    "bytes": 14982
   }
  ],
- "photo_bytes": 84496904,
- "thumb_bytes": 9133436
+ "photo_bytes": 84475472,
+ "thumb_bytes": 9147788
 }

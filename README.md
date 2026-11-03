@@ -80,6 +80,8 @@ python data-pipeline/pipeline.py all
 
 Schritte einzeln: `candidates` → `enrich` → `traits` → `photos` → `destinations` → `names` → `build` (`seed` baut den kleinen
 Entwicklungskatalog ohne Netz). Antworten der Quellen werden in `data-pipeline/cache` gespeichert.
+Falsche oder schwache Fotos einer Art ersetzt man in `input/photo_overrides.json` (iNaturalist-Beobachtungen,
+nur CC0/CC BY) und baut sie mit `python data-pipeline/pipeline.py photos "<Art>"`, danach `build`.
 
 | Quelle | Verwendung | Lizenz / Hinweis |
 | --- | --- | --- |

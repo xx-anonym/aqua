@@ -548,17 +548,57 @@ def more_photos(s: dict) -> list[dict]:
     return out
 
 
-def step_photos() -> None:
+def override_photos(s: dict, entries: list[dict]) -> list[dict]:
+    """Hand-picked photos (input/photo_overrides.json): iNaturalist observations or taxon photo ids."""
+    taxon_photos = {p["id"]: p for p in s["photos"]}
+    out = []
+    for e in entries:
+        if "photo" in e:
+            p = taxon_photos.get(e["photo"])
+            if not p:
+                sys.exit(f"photo_overrides: photo {e['photo']} is not a taxon photo of {s['scientific_name']}")
+            out.append(p)
+            continue
+        data = src.get_json(f"{src.INAT}/observations/{e['observation']}")
+        obs = ((data or {}).get("results") or [None])[0]
+        p = (obs or {}).get("photos", [None])[0] if obs else None
+        if not p or p.get("license_code") not in ALLOWED_LICENSES:
+            sys.exit(f"photo_overrides: observation {e['observation']} has no CC0 / CC BY photo")
+        out.append({
+            "id": p["id"], "url": p.get("url"), "license": p["license_code"],
+            "author": p.get("attribution_name") or (obs.get("user") or {}).get("login") or p.get("attribution"),
+            "attribution": p.get("attribution"),
+            "source": f"https://www.inaturalist.org/observations/{obs['id']}",
+        })
+    return out
+
+
+def step_photos(only: list[str] | None = None) -> None:
+    """Chooses and converts up to MAX_PHOTOS photos per species; `only` limits it to these names."""
     from PIL import Image, ImageOps
 
     species = load_json(CACHE / "species.json")
     raw_dir = CACHE / "photos-raw"
     out_dir = CACHE / "photos"
+    overrides_path = INPUT / "photo_overrides.json"
+    overrides = {k: v for k, v in (load_json(overrides_path) if overrides_path.exists() else {}).items() if not k.startswith("_")}
+    if only:
+        unknown = set(only) - {s["scientific_name"] for s in species}
+        if unknown:
+            sys.exit(f"photos: unknown species {sorted(unknown)}")
     for i, s in enumerate(species):
-        photos = list(s["photos"])
-        if len(photos) < MAX_PHOTOS:
-            seen = {p["id"] for p in photos}
-            photos += [p for p in more_photos(s) if p["id"] not in seen]
+        if only and s["scientific_name"] not in only:
+            continue
+        if s["scientific_name"] in overrides:
+            photos = override_photos(s, overrides[s["scientific_name"]]["photos"])
+            # Files of the previous choice must not linger (a species may now have fewer photos).
+            for old in (out_dir / "img").glob(f"{s['id']}-*.webp"):
+                old.unlink()
+        else:
+            photos = list(s["photos"])
+            if len(photos) < MAX_PHOTOS:
+                seen = {p["id"] for p in photos}
+                photos += [p for p in more_photos(s) if p["id"] not in seen]
         chosen = []
         for p in photos:
             if len(chosen) >= MAX_PHOTOS or not p.get("url"):
@@ -608,7 +648,8 @@ def habitat_of(s: dict, traits: list[str]) -> str:
         return "seagrass" if "shape-plant" in traits else "reef"
     if "behav-buried" in traits:
         return "sand"
-    if "pelagic" in dp or "behav-open-water" in traits:
+    # FishBase: "pelagic-neritic"/"pelagic-oceanic" are open water; "benthopelagic" lives near the bottom.
+    if dp.startswith("pelagic") or "behav-open-water" in traits:
         return "open_water"
     if "reef" in dp or "behav-reef" in traits:
         return "reef"
@@ -928,5 +969,7 @@ if __name__ == "__main__":
         for name in ("candidates", "enrich", "traits", "photos", "destinations", "names", "build"):
             print(f"== {name}", flush=True)
             STEPS[name]()
+    elif cmd == "photos":
+        step_photos(sys.argv[2:] or None)
     else:
         STEPS[cmd]()
