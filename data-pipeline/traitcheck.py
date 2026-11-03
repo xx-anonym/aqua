@@ -14,7 +14,8 @@ applied (see TRAITCHECK.md).
       Applies the accepted fixes in input/trait_fixes.csv to input/traits.csv and patches
       public/catalog/catalog.sqlite (traits, habitat, lifestyle, version) without a full rebuild.
 
-Needs OPENAI_API_KEY in the environment for `check`. Standard library and Pillow only.
+`check` needs OPENAI_API_KEY in the environment, or a network secret that the environment's proxy
+adds to requests to api.openai.com. Standard library only.
 """
 
 from __future__ import annotations
@@ -173,13 +174,18 @@ def image_part(file: str, detail: str) -> dict:
     return {"type": "image_url", "image_url": {"url": f"data:{mime};base64,{data}", "detail": detail}}
 
 
-def call_openai(payload: dict, key: str) -> dict:
+def auth_headers(key: str | None) -> dict:
+    # Without a key in the environment the proxy may add a stored network secret itself.
+    return {"Authorization": f"Bearer {key}"} if key else {}
+
+
+def call_openai(payload: dict, key: str | None) -> dict:
     body = json.dumps(payload).encode()
     for attempt in range(6):
         req = urllib.request.Request(
             "https://api.openai.com/v1/chat/completions",
             data=body,
-            headers={"Authorization": f"Bearer {key}", "Content-Type": "application/json"},
+            headers={**auth_headers(key), "Content-Type": "application/json"},
         )
         try:
             with urllib.request.urlopen(req, timeout=120) as res:
@@ -207,9 +213,14 @@ def load_results() -> dict[str, dict]:
 
 
 def cmd_check(args: argparse.Namespace) -> None:
-    key = os.environ.get("OPENAI_API_KEY")
-    if not key:
-        sys.exit("OPENAI_API_KEY is not set (add it in the environment settings and start a new session).")
+    key = os.environ.get("OPENAI_API_KEY") or None
+    try:
+        with urllib.request.urlopen(urllib.request.Request("https://api.openai.com/v1/models", headers=auth_headers(key)), timeout=30) as res:
+            models = {m["id"] for m in json.loads(res.read()).get("data", [])}
+    except urllib.error.HTTPError as e:
+        sys.exit(f"OpenAI rejects the credentials ({e.code}). Store OPENAI_API_KEY in the environment settings and start a new session.")
+    if args.model not in models:
+        sys.exit(f"Model {args.model} is not available for this key. Available: {', '.join(sorted(models))}")
     vocab = vocabulary()
     trait_ids = [t["id"] for t in vocab]
     schema = output_schema(trait_ids)
