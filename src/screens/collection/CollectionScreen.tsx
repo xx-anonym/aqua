@@ -44,6 +44,9 @@ export default function CollectionScreen() {
     [catalog, region, category, show, seen],
   );
   const regionLabel = region ? regionName(catalog.regionsById.get(region)!, lang) : t('filter.allRegions');
+  const overallShare = report.overall.total ? (report.overall.seen / report.overall.total) * 100 : 0;
+  // "<1 %" rather than "0 %" once the first species is seen.
+  const overallPct = report.overall.seen > 0 && overallShare < 1 ? '<1' : String(Math.round(overallShare));
 
   return (
     <div className="page">
@@ -72,11 +75,26 @@ export default function CollectionScreen() {
                 ))}
               </select>
             </label>
-            <ProgressBar
-              seen={report.overall.seen}
-              total={report.overall.total}
-              label={t('collection.progressRegion', { seen: report.overall.seen, total: report.overall.total, region: regionLabel })}
-            />
+            <div>
+              <div className="life-hero">
+                <span className="count">{report.overall.seen}</span>
+                <span className="of">/ {report.overall.total}</span>
+                <span className="pct">{overallPct} %</span>
+              </div>
+              <div className="small muted" style={{ marginBottom: 8 }}>
+                {t('collection.heroLabel', { region: regionLabel })}
+              </div>
+              <div
+                className="progress big"
+                role="progressbar"
+                aria-valuemin={0}
+                aria-valuemax={report.overall.total}
+                aria-valuenow={report.overall.seen}
+                aria-label={t('collection.progressRegion', { seen: report.overall.seen, total: report.overall.total, region: regionLabel })}
+              >
+                <div style={{ width: `${overallShare}%` }} />
+              </div>
+            </div>
             {CATEGORIES.map((c) => (
               <ProgressBar key={c} seen={report.byCategory[c].seen} total={report.byCategory[c].total} label={t(`category.${c}`)} />
             ))}
@@ -97,17 +115,17 @@ export default function CollectionScreen() {
             </details>
           )}
 
-          <div className="segmented" role="tablist" aria-label={t('discover.categories')} style={{ marginTop: 16 }}>
+          <div className="segmented fit" role="tablist" aria-label={t('discover.categories')} style={{ marginTop: 16 }}>
             <button role="tab" aria-selected={category === null} onClick={() => setCategory(null)}>
               {t('category.all')}
             </button>
             {CATEGORIES.map((c) => (
-              <button key={c} role="tab" aria-selected={category === c} onClick={() => setCategory(c)}>
-                {t(`category.${c}`)}
+              <button key={c} role="tab" aria-selected={category === c} onClick={() => setCategory(c)} aria-label={t(`category.${c}`)}>
+                {t(`categoryShort.${c}`)}
               </button>
             ))}
           </div>
-          <div className="segmented" role="radiogroup" aria-label={t('collection.show')} style={{ margin: '8px 0 12px' }}>
+          <div className="segmented fit" role="radiogroup" aria-label={t('collection.show')} style={{ margin: '8px 0 12px' }}>
             {(['all', 'seen', 'missing'] as Show[]).map((x) => (
               <button key={x} role="radio" aria-checked={show === x} onClick={() => setShow(x)}>
                 {t(`collection.show${x === 'all' ? 'All' : x === 'seen' ? 'Seen' : 'Missing'}`)}

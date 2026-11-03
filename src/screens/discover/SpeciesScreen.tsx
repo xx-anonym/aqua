@@ -130,7 +130,7 @@ export default function SpeciesScreen() {
       <div className="actions-bar">
         <button className="btn primary" onClick={() => setSheet('sighting')}>
           <Icon name="eye" />
-          {t('species.markSeen')}
+          {seen.has(species.id) ? t('species.markSeenAgain') : t('species.markSeen')}
         </button>
         <button className="btn" aria-pressed={favorite} onClick={() => toggleFavorite(db, species.id)}>
           <Icon name={favorite ? 'heartFilled' : 'heart'} style={{ color: favorite ? 'var(--accent)' : undefined }} />

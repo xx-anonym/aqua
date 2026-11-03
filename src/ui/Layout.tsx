@@ -33,7 +33,9 @@ export function Layout() {
           {TABS.map((tab) =>
             tab ? (
               <NavLink key={tab.key} to={tab.to} className={({ isActive }) => `tab${isActive ? ' active' : ''}`}>
-                <Icon name={tab.icon} />
+                <span className="tab-icon">
+                  <Icon name={tab.icon} />
+                </span>
                 <span>{t(`tabs.${tab.key}`)}</span>
               </NavLink>
             ) : (
@@ -62,6 +64,14 @@ export function Layout() {
               <div className="grow">
                 <div className="title">{t('plus.quickSighting')}</div>
                 <div className="sub">{t('plus.quickSightingHint')}</div>
+              </div>
+              <Icon name="chevron" />
+            </button>
+            <button className="list-item" onClick={() => go('/identify')}>
+              <Icon name="camera" />
+              <div className="grow">
+                <div className="title">{t('plus.identify')}</div>
+                <div className="sub">{t('plus.identifyHint')}</div>
               </div>
               <Icon name="chevron" />
             </button>

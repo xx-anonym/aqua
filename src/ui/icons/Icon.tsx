@@ -153,6 +153,13 @@ const icons: Record<string, ReactNode> = {
   logout: <path d="M14.5 4.5h4a1.5 1.5 0 0 1 1.5 1.5v12a1.5 1.5 0 0 1-1.5 1.5h-4M10 16.5 14.5 12 10 7.5M14 12H4" />,
   ruler: <path d="m3.5 16.5 13-13 4 4-13 13zM7 13l2 2M10 10l2 2M13 7l2 2" />,
   sparkle: <path d="M12 3.5 13.8 10l6.7 2-6.7 2L12 20.5 10.2 14l-6.7-2 6.7-2z" />,
+  more: (
+    <>
+      <circle cx="5.5" cy="12" r="1.7" fill="currentColor" stroke="none" />
+      <circle cx="12" cy="12" r="1.7" fill="currentColor" stroke="none" />
+      <circle cx="18.5" cy="12" r="1.7" fill="currentColor" stroke="none" />
+    </>
+  ),
 
   // Patterns
   'pattern-plain': <circle cx="12" cy="12" r="8" fill="currentColor" />,

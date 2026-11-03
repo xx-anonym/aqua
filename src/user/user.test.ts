@@ -223,7 +223,7 @@ describe('dive sites and statistics', () => {
     addSighting(db, { species_id: 'pterois-miles' });
     addSighting(db, { species_id: 'pterois-miles' });
     addSighting(db, { species_id: 'mobula-alfredi' });
-    expect(logStats(db)).toEqual({ diveCount: 3, totalMinutes: 156, deepestM: 31.2, countries: 2, speciesCount: 2 });
+    expect(logStats(db)).toEqual({ diveCount: 3, totalMinutes: 156, deepestM: 31.2, countries: 2, sites: 3, speciesCount: 2 });
     expect(listSites(db).find((s) => s.id === a)?.dive_count).toBe(1);
   });
 });

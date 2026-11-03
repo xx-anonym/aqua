@@ -92,13 +92,13 @@ export function SpeciesBrowser({
 
       {!query.trim() && (
         <>
-          <div className="segmented" role="tablist" aria-label={t('discover.categories')}>
+          <div className="segmented fit" role="tablist" aria-label={t('discover.categories')}>
             <button role="tab" aria-selected={filter.category === null} onClick={() => setCategory(null)}>
               {t('category.all')}
             </button>
             {CATEGORIES.map((c) => (
-              <button key={c} role="tab" aria-selected={filter.category === c} onClick={() => setCategory(c)}>
-                {t(`category.${c}`)}
+              <button key={c} role="tab" aria-selected={filter.category === c} onClick={() => setCategory(c)} aria-label={t(`category.${c}`)}>
+                {t(`categoryShort.${c}`)}
               </button>
             ))}
           </div>

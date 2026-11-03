@@ -47,7 +47,7 @@ export function FilterSheet({
       onClose={onClose}
       footer={
         <>
-          <button className="btn outline" onClick={() => onChange({ ...emptyFilter(filter.category) })}>
+          <button className="btn ghost" onClick={() => onChange({ ...emptyFilter(filter.category) })}>
             {t('filter.reset')}
           </button>
           <button className="btn primary block" onClick={onClose}>

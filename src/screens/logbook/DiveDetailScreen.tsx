@@ -224,17 +224,6 @@ export default function DiveDetailScreen() {
         </>
       )}
 
-      <div className="row" style={{ marginTop: 28 }}>
-        <Link className="btn outline" to={`/logbook/${dive.id}/edit`}>
-          <Icon name="edit" />
-          {t('common.edit')}
-        </Link>
-        <button className="btn danger" onClick={remove}>
-          <Icon name="trash" />
-          {t('common.delete')}
-        </button>
-      </div>
-
       {picking && (
         <SpeciesPickerSheet
           onClose={() => setPicking(false)}

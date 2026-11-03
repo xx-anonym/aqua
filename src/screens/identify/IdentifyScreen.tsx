@@ -203,7 +203,14 @@ function PhotoIdCard() {
           </p>
         </div>
       </div>
-      {syncStatus === 'signedOut' && <p className="notice small" style={{ margin: 0 }}>{t('identify.loginRequired')}</p>}
+      {syncStatus === 'signedOut' && (
+        <div className="notice small row spread" style={{ flexWrap: 'nowrap' }}>
+          <span>{t('identify.loginRequired')}</span>
+          <Link className="btn small primary" to="/profile" style={{ flex: 'none' }}>
+            {t('signInReminder.signIn')}
+          </Link>
+        </div>
+      )}
       <div className="field">
         <label className="field">
           <span>{t('identify.region')}</span>
@@ -395,19 +402,31 @@ function TraitWizard() {
         <strong aria-live="polite">{t('identify.matches', { count: matches.length })}</strong>
       </div>
       {body}
-      <div className="row">
+      <div className="wizard-nav">
         <button className="btn outline" onClick={() => setStep(Math.max(0, step - 1))} disabled={step === 0}>
+          <Icon name="back" />
           {t('identify.prev')}
         </button>
-        {step < total - 1 && (
+        {step < total - 1 ? (
           <button className="btn primary" onClick={() => setStep(step + 1)}>
             {t('identify.next')}
+            <Icon name="chevron" />
+          </button>
+        ) : (
+          <button className="btn primary" onClick={() => setShowResults(true)} disabled={!matches.length}>
+            {t('identify.resultsCount', { count: matches.length })}
           </button>
         )}
-        <button className="btn outline" onClick={() => setShowResults(true)} disabled={!matches.length}>
-          {t('identify.results')}
-        </button>
-        <button className="btn outline" onClick={restart}>
+      </div>
+      <div className="row spread">
+        {step < total - 1 ? (
+          <button className="btn small ghost" onClick={() => setShowResults(true)} disabled={!matches.length}>
+            {t('identify.results')}
+          </button>
+        ) : (
+          <span />
+        )}
+        <button className="btn small ghost" onClick={restart}>
           {t('identify.restart')}
         </button>
       </div>

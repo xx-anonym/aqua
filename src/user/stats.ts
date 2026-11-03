@@ -6,12 +6,13 @@ export interface LogStats {
   totalMinutes: number;
   deepestM: number | null;
   countries: number;
+  sites: number;
   speciesCount: number;
 }
 
 export function logStats(db: AppDb): LogStats {
-  const d = db.get<{ n: number; minutes: number | null; deepest: number | null }>(
-    `SELECT COUNT(*) AS n, SUM(duration_min) AS minutes, MAX(max_depth_m) AS deepest
+  const d = db.get<{ n: number; minutes: number | null; deepest: number | null; sites: number }>(
+    `SELECT COUNT(*) AS n, SUM(duration_min) AS minutes, MAX(max_depth_m) AS deepest, COUNT(DISTINCT site_id) AS sites
      FROM dive WHERE deleted_at IS NULL`,
   );
   // SQLite's LOWER() only folds ASCII, so country names are normalised here ("Ägypten" = "ägypten").
@@ -32,6 +33,7 @@ export function logStats(db: AppDb): LogStats {
     totalMinutes: d?.minutes ?? 0,
     deepestM: d?.deepest ?? null,
     countries: countries.size,
+    sites: d?.sites ?? 0,
     speciesCount: sp?.n ?? 0,
   };
 }

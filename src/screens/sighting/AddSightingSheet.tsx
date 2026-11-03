@@ -205,19 +205,22 @@ export function AddSightingSheet({
                   {t('sighting.removePhoto')}
                 </button>
               ) : (
-                <input
-                  className="input"
-                  type="file"
-                  accept="image/*"
-                  aria-label={t('sighting.photo')}
-                  onChange={(e) => {
-                    const file = e.target.files?.[0] ?? null;
-                    if (file) {
-                      setNewPhoto(file);
-                      setKeepStored(false);
-                    }
-                  }}
-                />
+                <label className="btn outline">
+                  <Icon name="image" />
+                  {t('sighting.addPhoto')}
+                  <input
+                    className="sr-only"
+                    type="file"
+                    accept="image/*"
+                    onChange={(e) => {
+                      const file = e.target.files?.[0] ?? null;
+                      if (file) {
+                        setNewPhoto(file);
+                        setKeepStored(false);
+                      }
+                    }}
+                  />
+                </label>
               )}
             </div>
           </Field>

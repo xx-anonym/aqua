@@ -46,18 +46,20 @@ export function SignInReminder() {
   };
 
   return (
-    <div className="notice warn stack" role="note" style={{ gap: 8, marginBottom: 16 }}>
-      <strong>{t('signInReminder.title')}</strong>
-      <span>{t('signInReminder.text', { count: entries })}</span>
-      <div className="row">
-        <Link className="btn small primary" to="/profile">
-          <Icon name="cloud" />
+    <div className="notice warn reminder" role="note">
+      <Icon name="cloud" />
+      <div className="grow stack" style={{ gap: 8 }}>
+        <div>
+          <strong>{t('signInReminder.title')}</strong>
+          <div>{t('signInReminder.text', { count: entries })}</div>
+        </div>
+        <Link className="btn small primary" to="/profile" style={{ alignSelf: 'flex-start' }}>
           {t('signInReminder.signIn')}
         </Link>
-        <button type="button" className="btn small outline" onClick={snooze}>
-          {t('signInReminder.later')}
-        </button>
       </div>
+      <button type="button" className="icon-btn" onClick={snooze} aria-label={t('signInReminder.later')} title={t('signInReminder.later')}>
+        <Icon name="close" />
+      </button>
     </div>
   );
 }
