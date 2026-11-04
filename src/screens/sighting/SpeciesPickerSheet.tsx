@@ -8,7 +8,7 @@ import { SpeciesBrowser } from '../discover/SpeciesBrowser';
 export function UnknownSpeciesButton({ onClick }: { onClick: () => void }) {
   const { t } = useTranslation();
   return (
-    <button type="button" className="btn outline block" onClick={onClick} style={{ marginBottom: 12 }}>
+    <button type="button" className="btn outline block" onClick={onClick} style={{ marginBottom: 12 }} data-haptic>
       <Icon name="eye" />
       {t('sighting.unknownSpecies')}
     </button>

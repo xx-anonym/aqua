@@ -10,7 +10,6 @@ import {
 } from '../../user/collections';
 import { Sheet } from '../../ui/components';
 import { Icon } from '../../ui/icons/Icon';
-import { Haptic } from '../../ui/haptics';
 
 /** Toggle a species in any album, or create a new album on the spot. */
 export function AlbumPickerSheet({ speciesId, onClose }: { speciesId: string; onClose: () => void }) {
@@ -48,7 +47,6 @@ export function AlbumPickerSheet({ speciesId, onClose }: { speciesId: string; on
                     <div className="title">{a.name}</div>
                     <div className="sub">{t('album.speciesCount', { count: a.item_count })}</div>
                   </div>
-                  <Haptic />
                 </button>
               );
             })}

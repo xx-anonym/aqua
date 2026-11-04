@@ -5,7 +5,6 @@ import type { Species, Trait } from '../catalog/types';
 import { catalogAssetUrl } from '../catalog/catalog';
 import { speciesName, traitLabel, useLang } from '../catalog/useCatalog';
 import { COLOR_SWATCHES, Icon } from './icons/Icon';
-import { Haptic } from './haptics';
 import { ProfileButton } from './ProfileButton';
 
 export function PageHeader({ title, back, actions }: { title: string; back?: boolean | string; actions?: ReactNode }) {
@@ -91,7 +90,7 @@ export function SpeciesCard({
     );
   }
   return (
-    <button type="button" className={cls} onClick={onClick}>
+    <button type="button" className={cls} onClick={onClick} data-haptic>
       {body}
     </button>
   );
@@ -252,7 +251,6 @@ export function Stars({ value, onChange }: { value: number | null; onChange?: (v
           data-haptic
         >
           <Icon name="star" />
-          <Haptic />
         </button>
       ))}
     </div>

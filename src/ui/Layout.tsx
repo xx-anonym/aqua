@@ -51,7 +51,7 @@ export function Layout() {
       {plusOpen && (
         <Sheet title={t('plus.label')} onClose={() => setPlusOpen(false)}>
           <div className="list">
-            <button className="list-item" onClick={() => go('/logbook/new')}>
+            <button className="list-item" data-haptic onClick={() => go('/logbook/new')}>
               <Icon name="logbook" />
               <div className="grow">
                 <div className="title">{t('plus.newDive')}</div>
@@ -59,7 +59,7 @@ export function Layout() {
               </div>
               <Icon name="chevron" />
             </button>
-            <button className="list-item" onClick={() => go('/sighting/new')}>
+            <button className="list-item" data-haptic onClick={() => go('/sighting/new')}>
               <Icon name="eye" />
               <div className="grow">
                 <div className="title">{t('plus.quickSighting')}</div>
@@ -67,7 +67,7 @@ export function Layout() {
               </div>
               <Icon name="chevron" />
             </button>
-            <button className="list-item" onClick={() => go('/identify')}>
+            <button className="list-item" data-haptic onClick={() => go('/identify')}>
               <Icon name="camera" />
               <div className="grow">
                 <div className="title">{t('plus.identify')}</div>

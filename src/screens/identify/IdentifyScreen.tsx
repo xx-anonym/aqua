@@ -66,11 +66,11 @@ function Suggestions({
               <div className="small">{t('identify.confidence', { value: pct })}</div>
               {s.reason && <div className="small muted">{s.reason}</div>}
               <div className="row" style={{ marginTop: 6 }}>
-                <button className="btn small primary" onClick={() => setConfirmed(sp)}>
+                <button className="btn small primary" onClick={() => setConfirmed(sp)} data-haptic>
                   <Icon name="check" />
                   {t('identify.confirm')}
                 </button>
-                <button className="btn small outline" onClick={() => setRejected((r) => [...r, s.species_id])}>
+                <button className="btn small outline" onClick={() => setRejected((r) => [...r, s.species_id])} data-haptic>
                   {t('identify.reject')}
                 </button>
               </div>
@@ -259,7 +259,7 @@ function PhotoIdCard() {
       </div>
       {preview && <img className="photo-preview" src={preview} alt="" />}
       {photo && !result && (
-        <button className="btn primary block" disabled={busy || locating} onClick={() => run(photo, region)}>
+        <button className="btn primary block" disabled={busy || locating} onClick={() => run(photo, region)} data-haptic>
           {busy ? <span className="spinner" style={{ width: 22, height: 22, borderWidth: 3 }} /> : <Icon name="sparkle" />}
           {busy ? t('identify.analysing') : t('identify.analyse')}
         </button>
@@ -277,7 +277,7 @@ function PhotoIdCard() {
           </div>
           <div className="row">
             {queue.map((q) => (
-              <button key={q.id} className="btn small outline" disabled={busy || !navigator.onLine} onClick={() => runQueued(q)}>
+              <button key={q.id} className="btn small outline" disabled={busy || !navigator.onLine} onClick={() => runQueued(q)} data-haptic>
                 <Icon name="sparkle" />
                 {t('identify.queueRun')} · {new Date(q.createdAt).toLocaleTimeString(lang, { hour: '2-digit', minute: '2-digit' })}
               </button>
@@ -404,30 +404,30 @@ function TraitWizard() {
       </div>
       {body}
       <div className="wizard-nav">
-        <button className="btn outline" onClick={() => setStep(Math.max(0, step - 1))} disabled={step === 0}>
+        <button className="btn outline" onClick={() => setStep(Math.max(0, step - 1))} disabled={step === 0} data-haptic>
           <Icon name="back" />
           {t('identify.prev')}
         </button>
         {step < total - 1 ? (
-          <button className="btn primary" onClick={() => setStep(step + 1)}>
+          <button className="btn primary" onClick={() => setStep(step + 1)} data-haptic>
             {t('identify.next')}
             <Icon name="chevron" />
           </button>
         ) : (
-          <button className="btn primary" onClick={() => setShowResults(true)} disabled={!matches.length}>
+          <button className="btn primary" onClick={() => setShowResults(true)} disabled={!matches.length} data-haptic>
             {t('identify.resultsCount', { count: matches.length })}
           </button>
         )}
       </div>
       <div className="row spread">
         {step < total - 1 ? (
-          <button className="btn small ghost" onClick={() => setShowResults(true)} disabled={!matches.length}>
+          <button className="btn small ghost" onClick={() => setShowResults(true)} disabled={!matches.length} data-haptic>
             {t('identify.results')}
           </button>
         ) : (
           <span />
         )}
-        <button className="btn small ghost" onClick={restart}>
+        <button className="btn small ghost" onClick={restart} data-haptic>
           {t('identify.restart')}
         </button>
       </div>

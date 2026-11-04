@@ -13,7 +13,6 @@ import { addSighting, hasSighting, UNIDENTIFIED, updateSighting, type Identified
 import { Field, Sheet, SpeciesThumb } from '../../ui/components';
 import { useFeedback } from '../../ui/feedback';
 import { Icon } from '../../ui/icons/Icon';
-import { Haptic } from '../../ui/haptics';
 import { SpeciesPickerSheet } from './SpeciesPickerSheet';
 
 const pad = (n: number) => String(n).padStart(2, '0');
@@ -136,7 +135,6 @@ export function AddSightingSheet({
           >
             <Icon name="check" />
             {t('sighting.save')}
-            <Haptic />
           </button>
         }
       >

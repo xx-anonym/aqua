@@ -80,6 +80,7 @@ export default function SitesScreen() {
                 <button
                   className="icon-btn"
                   aria-label={t('common.delete')}
+                  data-haptic
                   onClick={() => {
                     if (!confirm(t('sites.confirmDelete'))) return;
                     deleteSite(db, s.id);

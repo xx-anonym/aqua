@@ -41,6 +41,7 @@ export function FeedbackProvider({ children }: { children: ReactNode }) {
           <span>{toastMsg.text}</span>
           {toastMsg.action && (
             <button
+              data-haptic
               className="toast-action"
               onClick={() => {
                 // Clear first: the action may show its own toast.

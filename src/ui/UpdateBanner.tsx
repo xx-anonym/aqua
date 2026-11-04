@@ -130,6 +130,7 @@ export function UpdateBanner() {
       <span>{t('update.available')}</span>
       <button
         className="btn small primary"
+        data-haptic
         onClick={() => {
           // Activate the waiting worker directly (works even if workbox-window missed it).
           if (activateWaiting(registrationRef)) return;

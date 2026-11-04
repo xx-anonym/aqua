@@ -15,7 +15,6 @@ import { sightingsForSpecies, type Sighting } from '../../user/sightings';
 import { useDeleteSighting } from '../sighting/useDeleteSighting';
 import { EmptyState, IucnBadge, PageHeader, SpeciesCard, TraitIcon } from '../../ui/components';
 import { Icon } from '../../ui/icons/Icon';
-import { Haptic } from '../../ui/haptics';
 import { RegionMap } from '../../ui/maps';
 import { AlbumPickerSheet } from '../collection/AlbumPickerSheet';
 import { AddSightingSheet } from '../sighting/AddSightingSheet';
@@ -129,16 +128,15 @@ export default function SpeciesScreen() {
       </div>
 
       <div className="actions-bar">
-        <button className="btn primary" onClick={() => setSheet('sighting')}>
+        <button className="btn primary" onClick={() => setSheet('sighting')} data-haptic>
           <Icon name="eye" />
           {seen.has(species.id) ? t('species.markSeenAgain') : t('species.markSeen')}
         </button>
         <button className="btn" aria-pressed={favorite} onClick={() => toggleFavorite(db, species.id)} data-haptic>
           <Icon name={favorite ? 'heartFilled' : 'heart'} style={{ color: favorite ? 'var(--accent)' : undefined }} />
           {favorite ? t('species.liked') : t('species.like')}
-          <Haptic />
         </button>
-        <button className="btn" onClick={() => setSheet('album')}>
+        <button className="btn" onClick={() => setSheet('album')} data-haptic>
           <Icon name="album" />
           {t('species.addToAlbum')}
         </button>
@@ -209,7 +207,7 @@ export default function SpeciesScreen() {
                 <button className="icon-btn" aria-label={t('sighting.edit')} title={t('sighting.edit')} onClick={() => setEditing(s)}>
                   <Icon name="edit" />
                 </button>
-                <button className="icon-btn" aria-label={t('sighting.delete')} title={t('sighting.delete')} onClick={() => removeSighting(s.id)}>
+                <button className="icon-btn" aria-label={t('sighting.delete')} title={t('sighting.delete')} onClick={() => removeSighting(s.id)} data-haptic>
                   <Icon name="trash" />
                 </button>
               </div>

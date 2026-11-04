@@ -128,6 +128,7 @@ export default function AlbumScreen() {
             <>
               <button
                 className="btn danger"
+                data-haptic
                 onClick={() => {
                   if (!confirm(t('album.confirmDelete'))) return;
                   deleteCollection(db, album.id);

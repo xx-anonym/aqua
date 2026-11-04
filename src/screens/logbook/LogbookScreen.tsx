@@ -86,7 +86,7 @@ export default function LogbookScreen() {
       )}
 
       <div className="row" style={{ margin: '16px 0' }}>
-        <Link className="btn primary" to="/logbook/new">
+        <Link className="btn primary" to="/logbook/new" data-haptic>
           <Icon name="plus" />
           {t('logbook.newDive')}
         </Link>

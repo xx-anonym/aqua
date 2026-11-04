@@ -38,7 +38,6 @@ import { listSites } from '../../user/sites';
 import { Accordion, Chip, EmptyState, Field, PageHeader, SpeciesThumb, Stars } from '../../ui/components';
 import { useFeedback } from '../../ui/feedback';
 import { Icon } from '../../ui/icons/Icon';
-import { Haptic } from '../../ui/haptics';
 import { SpeciesPickerSheet } from '../sighting/SpeciesPickerSheet';
 import { SiteEditorSheet } from './SiteEditorSheet';
 
@@ -270,7 +269,6 @@ export default function DiveEditorScreen() {
         actions={
           <button className="btn small primary" type="submit" data-haptic>
             {t('common.save')}
-            <Haptic />
           </button>
         }
       />
@@ -385,6 +383,7 @@ export default function DiveEditorScreen() {
                     type="button"
                     className="icon-btn"
                     aria-label={t('sighting.delete')}
+                    data-haptic
                     onClick={() => setSightings((l) => l.filter((y) => y.key !== x.key))}
                   >
                     <Icon name="trash" />
@@ -412,7 +411,6 @@ export default function DiveEditorScreen() {
       <button className="btn primary block" type="submit" style={{ marginTop: 8 }} data-haptic>
         <Icon name="check" />
         {t('common.save')}
-        <Haptic />
       </button>
 
       {picking && <SpeciesPickerSheet onPick={addSpecies} onClose={() => setPicking(false)} />}

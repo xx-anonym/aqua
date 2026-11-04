@@ -1542,9 +1542,9 @@ label.btn:has(input:focus-visible) {
   }
 }
 
-/* ---------- Haptics (src/ui/haptics.tsx) ---------- */
+/* ---------- Haptics (src/ui/haptics.ts) ---------- */
 
-[data-haptic] {
+:is([data-haptic], .segmented > button, .chip, .tabbar .tab, .tab-plus > button) {
   position: relative;
 }
 
@@ -1571,7 +1571,7 @@ label.btn:has(input:focus-visible) {
 }
 
 /* A disabled button gives no click and no feedback. */
-[data-haptic]:disabled > .haptic-surface {
+:disabled > .haptic-surface {
   pointer-events: none;
 }
 

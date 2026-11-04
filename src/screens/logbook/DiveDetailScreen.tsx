@@ -107,7 +107,7 @@ export default function DiveDetailScreen() {
             <Link className="icon-btn" to={`/logbook/${dive.id}/edit`} aria-label={t('common.edit')} title={t('common.edit')}>
               <Icon name="edit" />
             </Link>
-            <button className="icon-btn" onClick={remove} aria-label={t('dive.delete')} title={t('dive.delete')}>
+            <button className="icon-btn" onClick={remove} aria-label={t('dive.delete')} title={t('dive.delete')} data-haptic>
               <Icon name="trash" />
             </button>
           </>
@@ -164,7 +164,7 @@ export default function DiveDetailScreen() {
         <h3 className="section-title">
           {t('dive.sightings')} ({sightings.length})
         </h3>
-        <button className="btn small primary" onClick={() => setPicking(true)}>
+        <button className="btn small primary" onClick={() => setPicking(true)} data-haptic>
           <Icon name="plus" />
           {t('dive.addSighting')}
         </button>
@@ -208,6 +208,7 @@ export default function DiveDetailScreen() {
                   aria-label={t('sighting.delete')}
                   title={t('sighting.delete')}
                   onClick={() => removeSighting(s.id)}
+                  data-haptic
                 >
                   <Icon name="trash" />
                 </button>

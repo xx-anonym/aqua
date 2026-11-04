@@ -43,9 +43,10 @@ Sri Lanka, Südostasien & Korallendreieck, Australien & Korallenmeer, Pazifische
   Funktion lädt sie selbst, die App schickt nur die Region. Monatskontingent pro Nutzer und eine
   Obergrenze für alle zusammen.
 - **Sammelfortschritt** wird immer aus den Sichtungen berechnet, nicht gespeichert (`src/user/lifelist.ts`).
-- **Haptisches Feedback** (`src/ui/haptics.tsx`) bei Bestätigungen (Sichtung/Tauchgang/Tauchplatz speichern,
-  Gefällt mir, Album, Bewertung): Android vibriert kurz; auf dem iPhone liegt ein unsichtbarer iOS-Schalter
-  auf dem Knopf, der bei Berührung haptisch klickt (wie in OpernLog).
+- **Haptisches Feedback** (`src/ui/haptics.ts`) beim Auswählen und Bestätigen: +-Knopf und Tab-Leiste,
+  Umschalter und Filter-Chips, Speichern, Löschen, Gefällt mir, Alben, Bewertung, Foto-ID und Bestimmung
+  (Elemente mit `data-haptic` bzw. `HAPTIC_SELECTOR`). Android vibriert kurz; auf dem iPhone legt die App
+  einen unsichtbaren iOS-Schalter auf das Element, der bei Berührung haptisch klickt (wie in OpernLog).
 
 ## Entwicklung
 

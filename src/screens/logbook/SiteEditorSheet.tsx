@@ -18,7 +18,6 @@ import { regionForPoint, saveSite, type DiveSite } from '../../user/sites';
 import { Field, Sheet } from '../../ui/components';
 import { useFeedback } from '../../ui/feedback';
 import { Icon } from '../../ui/icons/Icon';
-import { Haptic } from '../../ui/haptics';
 import { LocationPicker } from '../../ui/maps';
 
 type SearchMode = 'near' | 'area';
@@ -145,7 +144,6 @@ export function SiteEditorSheet({
         <button className="btn primary block" onClick={save} disabled={!name.trim()} data-haptic>
           <Icon name="check" />
           {t('common.save')}
-          <Haptic />
         </button>
       }
     >
