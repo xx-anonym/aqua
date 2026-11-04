@@ -18,6 +18,8 @@
   --tabbar-h: 68px;
   --header-h: 56px;
   --touch: 48px;
+  /* Clearance below the status bar, see "iOS 26 edge blur" below. */
+  --edge-ramp: 0px;
   --iucn-lc: #15803d;
   --iucn-nt: #65a30d;
   --iucn-vu: #ca8a04;
@@ -136,7 +138,7 @@ img {
   align-items: center;
   gap: 8px;
   min-height: var(--header-h);
-  padding: env(safe-area-inset-top) 8px 0 16px;
+  padding: calc(env(safe-area-inset-top) + var(--edge-ramp)) 8px 0 16px;
   margin: 0 -16px 12px;
   background: color-mix(in srgb, var(--bg) 92%, transparent);
   backdrop-filter: blur(10px);
@@ -763,7 +765,7 @@ textarea.input {
 .sheet {
   width: 100%;
   max-width: 760px;
-  max-height: 88dvh;
+  max-height: min(88dvh, calc(100dvh - env(safe-area-inset-top) - var(--edge-ramp) - 8px));
   display: flex;
   flex-direction: column;
   background: var(--bg);
@@ -1539,6 +1541,30 @@ label.btn:has(input:focus-visible) {
   to {
     transform: translateY(-115vh);
     opacity: 0;
+  }
+}
+
+/* ---------- iOS 26 edge blur ---------- */
+
+/* In the installed iPhone app (status bar "black-translucent"), iOS 26 draws a soft blur over the
+   top ~45pt below the status bar, which made the page title and profile button look cut off.
+   Measured on an iPhone screenshot: blurred up to ~46pt below the safe area, sharp below. The
+   header content moves below that zone; the header is opaque there, which reportedly lets iOS
+   treat it as a solid bar. Browser tabs and landscape are not affected. */
+@media (display-mode: standalone) and (orientation: portrait) {
+  @supports (-webkit-touch-callout: none) {
+    :root {
+      --edge-ramp: 44px;
+    }
+    .header {
+      background: var(--bg);
+      backdrop-filter: none;
+    }
+    /* Large title, as iOS apps have in this place. */
+    .header h1 {
+      font-size: 1.6rem;
+      font-weight: 800;
+    }
   }
 }
 
