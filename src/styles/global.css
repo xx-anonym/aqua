@@ -1542,6 +1542,39 @@ label.btn:has(input:focus-visible) {
   }
 }
 
+/* ---------- Haptics (src/ui/haptics.tsx) ---------- */
+
+[data-haptic] {
+  position: relative;
+}
+
+/* Invisible switch surface over the whole button: the iPhone clicks when it is touched. */
+.haptic-surface {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  margin: 0;
+  opacity: 0.011;
+  cursor: inherit;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.haptic-surface input {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 1px;
+  height: 1px;
+  margin: 0;
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* A disabled button gives no click and no feedback. */
+[data-haptic]:disabled > .haptic-surface {
+  pointer-events: none;
+}
+
 /* ---------- Motion ---------- */
 
 .btn,

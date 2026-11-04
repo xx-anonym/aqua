@@ -38,6 +38,7 @@ import { listSites } from '../../user/sites';
 import { Accordion, Chip, EmptyState, Field, PageHeader, SpeciesThumb, Stars } from '../../ui/components';
 import { useFeedback } from '../../ui/feedback';
 import { Icon } from '../../ui/icons/Icon';
+import { Haptic } from '../../ui/haptics';
 import { SpeciesPickerSheet } from '../sighting/SpeciesPickerSheet';
 import { SiteEditorSheet } from './SiteEditorSheet';
 
@@ -267,8 +268,9 @@ export default function DiveEditorScreen() {
         title={existing ? t('dive.editTitle') : t('dive.newTitle')}
         back
         actions={
-          <button className="btn small primary" type="submit">
+          <button className="btn small primary" type="submit" data-haptic>
             {t('common.save')}
+            <Haptic />
           </button>
         }
       />
@@ -407,9 +409,10 @@ export default function DiveEditorScreen() {
         <Stars value={form.rating} onChange={(v) => set('rating', v)} />
       </Accordion>
 
-      <button className="btn primary block" type="submit" style={{ marginTop: 8 }}>
+      <button className="btn primary block" type="submit" style={{ marginTop: 8 }} data-haptic>
         <Icon name="check" />
         {t('common.save')}
+        <Haptic />
       </button>
 
       {picking && <SpeciesPickerSheet onPick={addSpecies} onClose={() => setPicking(false)} />}

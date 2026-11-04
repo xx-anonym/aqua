@@ -5,6 +5,7 @@ import type { Species, Trait } from '../catalog/types';
 import { catalogAssetUrl } from '../catalog/catalog';
 import { speciesName, traitLabel, useLang } from '../catalog/useCatalog';
 import { COLOR_SWATCHES, Icon } from './icons/Icon';
+import { Haptic } from './haptics';
 import { ProfileButton } from './ProfileButton';
 
 export function PageHeader({ title, back, actions }: { title: string; back?: boolean | string; actions?: ReactNode }) {
@@ -248,8 +249,10 @@ export function Stars({ value, onChange }: { value: number | null; onChange?: (v
           aria-label={t('dive.ratingValue', { count: i })}
           className={value && i <= value ? 'on' : ''}
           onClick={() => onChange(value === i ? null : i)}
+          data-haptic
         >
           <Icon name="star" />
+          <Haptic />
         </button>
       ))}
     </div>
