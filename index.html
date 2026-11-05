@@ -43,21 +43,23 @@
         gap: 14px;
         /* Under the gradient: the app's own background once its stylesheet is loaded. */
         background: var(--bg, #05333a);
-        transition: opacity 0.25s ease 0.2s;
+        transition: opacity 0.35s ease;
       }
       #splash::before {
         content: '';
         position: absolute;
         inset: 0;
         background: radial-gradient(130% 90% at 50% 35%, #0e7f87 0%, #08464d 55%, #04252b 100%);
-        transition: opacity 0.25s ease;
+        transition: opacity 0.3s ease;
       }
       #splash > * {
         position: relative;
         transition: opacity 0.2s ease, transform 0.25s ease-in;
       }
-      /* Leaving: the fish swims off and the gradient gives way to the app's background colour,
-         then the (now plain) layer fades. No tinted half-transparent overlay over the app. */
+      /* Leaving: one continuous cross-fade into the app. The fish swims off while the gradient
+         gives way to the app's background colour and the whole layer fades at the same time,
+         so there is no empty moment between start screen and app (seen on iOS before 0.7.8,
+         when the plain layer only faded after the fish had gone). */
       #splash[data-state='leaving'] {
         opacity: 0;
         pointer-events: none;
