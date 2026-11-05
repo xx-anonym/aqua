@@ -1,8 +1,8 @@
 {
- "version": "2026.11.03-dd8606",
- "built_at": "2026-11-03T23:03:26+00:00",
+ "version": "2026.11.05-dd8606",
+ "built_at": "2026-11-05T16:39:04+00:00",
  "species": 935,
- "database_bytes": 3141632,
+ "database_bytes": 3112960,
  "photos": [
   {
    "file": "img/chelonia-mydas-1.webp",
@@ -10,10 +10,6 @@
   },
   {
    "file": "img/chelonia-mydas-2.webp",
-   "bytes": 17156
-  },
-  {
-   "file": "img/chelonia-mydas-3.webp",
    "bytes": 13200
   },
   {
@@ -30,15 +26,15 @@
   },
   {
    "file": "img/callinectes-sapidus-1.webp",
-   "bytes": 17022
+   "bytes": 46302
   },
   {
    "file": "img/callinectes-sapidus-2.webp",
-   "bytes": 72788
+   "bytes": 6338
   },
   {
    "file": "img/callinectes-sapidus-3.webp",
-   "bytes": 36424
+   "bytes": 22680
   },
   {
    "file": "img/tursiops-truncatus-1.webp",
@@ -78,15 +74,15 @@
   },
   {
    "file": "img/actinia-equina-1.webp",
-   "bytes": 33810
-  },
-  {
-   "file": "img/actinia-equina-2.webp",
    "bytes": 42268
   },
   {
-   "file": "img/actinia-equina-3.webp",
+   "file": "img/actinia-equina-2.webp",
    "bytes": 38532
+  },
+  {
+   "file": "img/actinia-equina-3.webp",
+   "bytes": 33810
   },
   {
    "file": "img/anemonia-viridis-1.webp",
@@ -186,19 +182,19 @@
   },
   {
    "file": "img/thalassoma-pavo-1.webp",
-   "bytes": 40740
-  },
-  {
-   "file": "img/thalassoma-pavo-2.webp",
    "bytes": 39204
   },
   {
+   "file": "img/thalassoma-pavo-2.webp",
+   "bytes": 15028
+  },
+  {
    "file": "img/thalassoma-pavo-3.webp",
-   "bytes": 53182
+   "bytes": 40740
   },
   {
    "file": "img/eretmochelys-imbricata-1.webp",
-   "bytes": 30528
+   "bytes": 22006
   },
   {
    "file": "img/eretmochelys-imbricata-2.webp",
@@ -206,7 +202,7 @@
   },
   {
    "file": "img/eretmochelys-imbricata-3.webp",
-   "bytes": 11594
+   "bytes": 27840
   },
   {
    "file": "img/caretta-caretta-1.webp",
@@ -238,11 +234,11 @@
   },
   {
    "file": "img/diplodus-sargus-2.webp",
-   "bytes": 17352
+   "bytes": 20932
   },
   {
    "file": "img/diplodus-sargus-3.webp",
-   "bytes": 19268
+   "bytes": 51272
   },
   {
    "file": "img/fistularia-commersonii-1.webp",
@@ -262,11 +258,11 @@
   },
   {
    "file": "img/pterois-volitans-2.webp",
-   "bytes": 33044
+   "bytes": 98388
   },
   {
    "file": "img/pterois-volitans-3.webp",
-   "bytes": 23498
+   "bytes": 21434
   },
   {
    "file": "img/abudefduf-vaigiensis-1.webp",
@@ -286,23 +282,15 @@
   },
   {
    "file": "img/diodon-hystrix-2.webp",
-   "bytes": 97700
-  },
-  {
-   "file": "img/diodon-hystrix-3.webp",
    "bytes": 45410
   },
   {
    "file": "img/coris-julis-1.webp",
-   "bytes": 25242
-  },
-  {
-   "file": "img/coris-julis-2.webp",
    "bytes": 47156
   },
   {
-   "file": "img/coris-julis-3.webp",
-   "bytes": 36480
+   "file": "img/coris-julis-2.webp",
+   "bytes": 25242
   },
   {
    "file": "img/palaemon-elegans-1.webp",
@@ -318,39 +306,31 @@
   },
   {
    "file": "img/serranus-scriba-1.webp",
-   "bytes": 18860
-  },
-  {
-   "file": "img/serranus-scriba-2.webp",
-   "bytes": 15884
-  },
-  {
-   "file": "img/serranus-scriba-3.webp",
    "bytes": 56796
   },
   {
-   "file": "img/chaetodon-auriga-1.webp",
-   "bytes": 28358
+   "file": "img/serranus-scriba-2.webp",
+   "bytes": 18860
   },
   {
-   "file": "img/chaetodon-auriga-2.webp",
+   "file": "img/chaetodon-auriga-1.webp",
    "bytes": 7706
   },
   {
-   "file": "img/chaetodon-auriga-3.webp",
-   "bytes": 17444
+   "file": "img/chaetodon-auriga-2.webp",
+   "bytes": 28358
   },
   {
    "file": "img/chromis-chromis-1.webp",
-   "bytes": 47862
-  },
-  {
-   "file": "img/chromis-chromis-2.webp",
    "bytes": 56774
   },
   {
-   "file": "img/chromis-chromis-3.webp",
+   "file": "img/chromis-chromis-2.webp",
    "bytes": 23532
+  },
+  {
+   "file": "img/chromis-chromis-3.webp",
+   "bytes": 47862
   },
   {
    "file": "img/coscinasterias-muricata-1.webp",
@@ -378,43 +358,35 @@
   },
   {
    "file": "img/paracentrotus-lividus-1.webp",
-   "bytes": 14804
-  },
-  {
-   "file": "img/paracentrotus-lividus-2.webp",
    "bytes": 54094
   },
   {
-   "file": "img/paracentrotus-lividus-3.webp",
+   "file": "img/paracentrotus-lividus-2.webp",
    "bytes": 50936
   },
   {
    "file": "img/oblada-melanurus-1.webp",
-   "bytes": 14554
+   "bytes": 68178
   },
   {
    "file": "img/oblada-melanurus-2.webp",
-   "bytes": 2004
+   "bytes": 42526
   },
   {
    "file": "img/oblada-melanurus-3.webp",
-   "bytes": 28814
+   "bytes": 5720
   },
   {
    "file": "img/symphodus-tinca-1.webp",
-   "bytes": 9430
-  },
-  {
-   "file": "img/symphodus-tinca-2.webp",
    "bytes": 36254
   },
   {
-   "file": "img/symphodus-tinca-3.webp",
+   "file": "img/symphodus-tinca-2.webp",
    "bytes": 71968
   },
   {
    "file": "img/echinometra-mathaei-1.webp",
-   "bytes": 9888
+   "bytes": 40252
   },
   {
    "file": "img/echinometra-mathaei-2.webp",
@@ -422,19 +394,19 @@
   },
   {
    "file": "img/echinometra-mathaei-3.webp",
-   "bytes": 14628
+   "bytes": 24782
   },
   {
    "file": "img/arothron-hispidus-1.webp",
-   "bytes": 5018
-  },
-  {
-   "file": "img/arothron-hispidus-2.webp",
    "bytes": 88920
   },
   {
-   "file": "img/arothron-hispidus-3.webp",
+   "file": "img/arothron-hispidus-2.webp",
    "bytes": 49830
+  },
+  {
+   "file": "img/arothron-hispidus-3.webp",
+   "bytes": 5018
   },
   {
    "file": "img/triaenodon-obesus-1.webp",
@@ -442,11 +414,11 @@
   },
   {
    "file": "img/triaenodon-obesus-2.webp",
-   "bytes": 25626
+   "bytes": 15560
   },
   {
    "file": "img/triaenodon-obesus-3.webp",
-   "bytes": 21362
+   "bytes": 40122
   },
   {
    "file": "img/epinephelus-marginatus-1.webp",
@@ -474,38 +446,26 @@
   },
   {
    "file": "img/labroides-dimidiatus-1.webp",
-   "bytes": 8582
-  },
-  {
-   "file": "img/labroides-dimidiatus-2.webp",
-   "bytes": 29020
-  },
-  {
-   "file": "img/labroides-dimidiatus-3.webp",
    "bytes": 8806
   },
   {
-   "file": "img/diodon-nicthemerus-1.webp",
-   "bytes": 26306
+   "file": "img/labroides-dimidiatus-2.webp",
+   "bytes": 19708
   },
   {
-   "file": "img/diodon-nicthemerus-2.webp",
+   "file": "img/labroides-dimidiatus-3.webp",
+   "bytes": 75176
+  },
+  {
+   "file": "img/diodon-nicthemerus-1.webp",
    "bytes": 22136
   },
   {
-   "file": "img/diodon-nicthemerus-3.webp",
+   "file": "img/diodon-nicthemerus-2.webp",
    "bytes": 12696
   },
   {
    "file": "img/lepidochelys-olivacea-1.webp",
-   "bytes": 10926
-  },
-  {
-   "file": "img/lepidochelys-olivacea-2.webp",
-   "bytes": 18436
-  },
-  {
-   "file": "img/lepidochelys-olivacea-3.webp",
    "bytes": 13410
   },
   {
@@ -529,56 +489,52 @@
    "bytes": 42594
   },
   {
-   "file": "img/pelagia-noctiluca-3.webp",
-   "bytes": 65140
-  },
-  {
    "file": "img/amphiprion-clarkii-1.webp",
-   "bytes": 21610
-  },
-  {
-   "file": "img/amphiprion-clarkii-2.webp",
    "bytes": 22864
   },
   {
-   "file": "img/amphiprion-clarkii-3.webp",
+   "file": "img/amphiprion-clarkii-2.webp",
    "bytes": 50932
   },
   {
+   "file": "img/amphiprion-clarkii-3.webp",
+   "bytes": 21610
+  },
+  {
    "file": "img/posidonia-oceanica-1.webp",
-   "bytes": 25512
+   "bytes": 41914
   },
   {
    "file": "img/posidonia-oceanica-2.webp",
-   "bytes": 53140
+   "bytes": 25512
   },
   {
    "file": "img/posidonia-oceanica-3.webp",
-   "bytes": 11332
+   "bytes": 12556
   },
   {
    "file": "img/mullus-surmuletus-1.webp",
-   "bytes": 17572
+   "bytes": 27184
   },
   {
    "file": "img/mullus-surmuletus-2.webp",
-   "bytes": 73380
+   "bytes": 47546
   },
   {
    "file": "img/mullus-surmuletus-3.webp",
-   "bytes": 42738
+   "bytes": 49314
   },
   {
    "file": "img/stenopus-hispidus-1.webp",
-   "bytes": 37476
+   "bytes": 37312
   },
   {
    "file": "img/stenopus-hispidus-2.webp",
-   "bytes": 43184
+   "bytes": 44716
   },
   {
    "file": "img/stenopus-hispidus-3.webp",
-   "bytes": 44716
+   "bytes": 24072
   },
   {
    "file": "img/linckia-laevigata-1.webp",
@@ -673,10 +629,6 @@
    "bytes": 14814
   },
   {
-   "file": "img/clibanarius-erythropus-3.webp",
-   "bytes": 6722
-  },
-  {
    "file": "img/scarus-ghobban-1.webp",
    "bytes": 32534
   },
@@ -721,20 +673,8 @@
    "bytes": 71962
   },
   {
-   "file": "img/echinaster-echinaster-sepositus-3.webp",
-   "bytes": 33962
-  },
-  {
    "file": "img/scyliorhinus-canicula-1.webp",
-   "bytes": 28510
-  },
-  {
-   "file": "img/scyliorhinus-canicula-2.webp",
-   "bytes": 47968
-  },
-  {
-   "file": "img/scyliorhinus-canicula-3.webp",
-   "bytes": 16390
+   "bytes": 13632
   },
   {
    "file": "img/chlorurus-spilurus-1.webp",
@@ -790,11 +730,7 @@
   },
   {
    "file": "img/porpita-porpita-2.webp",
-   "bytes": 83528
-  },
-  {
-   "file": "img/porpita-porpita-3.webp",
-   "bytes": 86376
+   "bytes": 73102
   },
   {
    "file": "img/physalia-utriculus-1.webp",
@@ -802,10 +738,6 @@
   },
   {
    "file": "img/physalia-utriculus-2.webp",
-   "bytes": 12868
-  },
-  {
-   "file": "img/physalia-utriculus-3.webp",
    "bytes": 6704
   },
   {
@@ -817,20 +749,16 @@
    "bytes": 34054
   },
   {
-   "file": "img/arbacia-lixula-3.webp",
-   "bytes": 19282
-  },
-  {
    "file": "img/amphiprion-ocellaris-1.webp",
-   "bytes": 22874
+   "bytes": 9506
   },
   {
    "file": "img/amphiprion-ocellaris-2.webp",
-   "bytes": 29908
+   "bytes": 39044
   },
   {
    "file": "img/amphiprion-ocellaris-3.webp",
-   "bytes": 39044
+   "bytes": 26880
   },
   {
    "file": "img/sparisoma-cretense-1.webp",
@@ -862,10 +790,6 @@
   },
   {
    "file": "img/octopus-cyanea-2.webp",
-   "bytes": 7242
-  },
-  {
-   "file": "img/octopus-cyanea-3.webp",
    "bytes": 36632
   },
   {
@@ -966,15 +890,11 @@
   },
   {
    "file": "img/hermodice-carunculata-1.webp",
-   "bytes": 13810
+   "bytes": 22520
   },
   {
    "file": "img/hermodice-carunculata-2.webp",
    "bytes": 37640
-  },
-  {
-   "file": "img/hermodice-carunculata-3.webp",
-   "bytes": 22520
   },
   {
    "file": "img/chaetodon-lunula-1.webp",
@@ -1002,14 +922,10 @@
   },
   {
    "file": "img/muraena-helena-1.webp",
-   "bytes": 7506
-  },
-  {
-   "file": "img/muraena-helena-2.webp",
    "bytes": 11932
   },
   {
-   "file": "img/muraena-helena-3.webp",
+   "file": "img/muraena-helena-2.webp",
    "bytes": 53748
   },
   {
@@ -1026,15 +942,15 @@
   },
   {
    "file": "img/scobinichthys-granulatus-1.webp",
-   "bytes": 68472
+   "bytes": 35036
   },
   {
    "file": "img/scobinichthys-granulatus-2.webp",
-   "bytes": 94908
+   "bytes": 14154
   },
   {
    "file": "img/scobinichthys-granulatus-3.webp",
-   "bytes": 30914
+   "bytes": 26124
   },
   {
    "file": "img/halichoeres-hortulanus-1.webp",
@@ -1050,15 +966,15 @@
   },
   {
    "file": "img/heterodontus-portusjacksoni-1.webp",
-   "bytes": 20496
+   "bytes": 28020
   },
   {
    "file": "img/heterodontus-portusjacksoni-2.webp",
-   "bytes": 77044
+   "bytes": 21098
   },
   {
    "file": "img/heterodontus-portusjacksoni-3.webp",
-   "bytes": 13864
+   "bytes": 20496
   },
   {
    "file": "img/pterois-miles-1.webp",
@@ -1090,19 +1006,15 @@
   },
   {
    "file": "img/phyllopteryx-taeniolatus-2.webp",
-   "bytes": 73236
-  },
-  {
-   "file": "img/phyllopteryx-taeniolatus-3.webp",
    "bytes": 36412
   },
   {
    "file": "img/balaenoptera-physalus-1.webp",
-   "bytes": 28370
+   "bytes": 27832
   },
   {
    "file": "img/balaenoptera-physalus-2.webp",
-   "bytes": 7730
+   "bytes": 23510
   },
   {
    "file": "img/balaenoptera-physalus-3.webp",
@@ -1174,35 +1086,27 @@
   },
   {
    "file": "img/gomphosus-varius-2.webp",
-   "bytes": 13444
-  },
-  {
-   "file": "img/gomphosus-varius-3.webp",
    "bytes": 19088
   },
   {
    "file": "img/parvulastra-exigua-1.webp",
-   "bytes": 16062
-  },
-  {
-   "file": "img/parvulastra-exigua-2.webp",
    "bytes": 35492
   },
   {
-   "file": "img/parvulastra-exigua-3.webp",
+   "file": "img/parvulastra-exigua-2.webp",
    "bytes": 23538
   },
   {
    "file": "img/physeter-macrocephalus-1.webp",
-   "bytes": 30580
+   "bytes": 11848
   },
   {
    "file": "img/physeter-macrocephalus-2.webp",
-   "bytes": 9860
+   "bytes": 30580
   },
   {
    "file": "img/physeter-macrocephalus-3.webp",
-   "bytes": 81266
+   "bytes": 38782
   },
   {
    "file": "img/actinia-mediterranea-1.webp",
@@ -1223,10 +1127,6 @@
   {
    "file": "img/aracana-ornata-2.webp",
    "bytes": 36900
-  },
-  {
-   "file": "img/aracana-ornata-3.webp",
-   "bytes": 88386
   },
   {
    "file": "img/diadema-setosum-1.webp",
@@ -1270,11 +1170,11 @@
   },
   {
    "file": "img/enoplosus-armatus-2.webp",
-   "bytes": 66746
+   "bytes": 14286
   },
   {
    "file": "img/enoplosus-armatus-3.webp",
-   "bytes": 2688
+   "bytes": 42396
   },
   {
    "file": "img/rhinecanthus-aculeatus-1.webp",
@@ -1434,15 +1334,11 @@
   },
   {
    "file": "img/rhizostoma-pulmo-1.webp",
-   "bytes": 69336
+   "bytes": 30992
   },
   {
    "file": "img/rhizostoma-pulmo-2.webp",
-   "bytes": 50980
-  },
-  {
-   "file": "img/rhizostoma-pulmo-3.webp",
-   "bytes": 30992
+   "bytes": 12104
   },
   {
    "file": "img/pygoplites-diacanthus-1.webp",
@@ -1458,26 +1354,18 @@
   },
   {
    "file": "img/tripneustes-gratilla-1.webp",
-   "bytes": 26168
-  },
-  {
-   "file": "img/tripneustes-gratilla-2.webp",
    "bytes": 47504
   },
   {
-   "file": "img/tripneustes-gratilla-3.webp",
-   "bytes": 87382
+   "file": "img/tripneustes-gratilla-2.webp",
+   "bytes": 26168
   },
   {
    "file": "img/guinusia-chabrus-1.webp",
-   "bytes": 16618
-  },
-  {
-   "file": "img/guinusia-chabrus-2.webp",
    "bytes": 56408
   },
   {
-   "file": "img/guinusia-chabrus-3.webp",
+   "file": "img/guinusia-chabrus-2.webp",
    "bytes": 37478
   },
   {
@@ -1510,10 +1398,6 @@
   },
   {
    "file": "img/porcellana-platycheles-2.webp",
-   "bytes": 7022
-  },
-  {
-   "file": "img/porcellana-platycheles-3.webp",
    "bytes": 57072
   },
   {
@@ -1534,11 +1418,11 @@
   },
   {
    "file": "img/tetractenos-glaber-2.webp",
-   "bytes": 27170
+   "bytes": 8708
   },
   {
    "file": "img/tetractenos-glaber-3.webp",
-   "bytes": 28538
+   "bytes": 4098
   },
   {
    "file": "img/pomacentrus-moluccensis-1.webp",
@@ -1554,27 +1438,19 @@
   },
   {
    "file": "img/trygonorrhina-dumerilii-1.webp",
-   "bytes": 3738
+   "bytes": 33812
   },
   {
    "file": "img/trygonorrhina-dumerilii-2.webp",
-   "bytes": 96600
-  },
-  {
-   "file": "img/trygonorrhina-dumerilii-3.webp",
-   "bytes": 60018
+   "bytes": 3738
   },
   {
    "file": "img/canthigaster-valentini-1.webp",
-   "bytes": 37064
+   "bytes": 28898
   },
   {
    "file": "img/canthigaster-valentini-2.webp",
-   "bytes": 23032
-  },
-  {
-   "file": "img/canthigaster-valentini-3.webp",
-   "bytes": 28898
+   "bytes": 37064
   },
   {
    "file": "img/parupeneus-multifasciatus-1.webp",
@@ -1594,11 +1470,11 @@
   },
   {
    "file": "img/sparus-aurata-2.webp",
-   "bytes": 18016
+   "bytes": 15346
   },
   {
    "file": "img/sparus-aurata-3.webp",
-   "bytes": 19610
+   "bytes": 3772
   },
   {
    "file": "img/aplysina-aerophoba-1.webp",
@@ -1618,10 +1494,6 @@
   },
   {
    "file": "img/acanthopagrus-australis-2.webp",
-   "bytes": 11068
-  },
-  {
-   "file": "img/acanthopagrus-australis-3.webp",
    "bytes": 7368
   },
   {
@@ -1630,11 +1502,11 @@
   },
   {
    "file": "img/sabella-spallanzanii-2.webp",
-   "bytes": 10188
+   "bytes": 19474
   },
   {
    "file": "img/sabella-spallanzanii-3.webp",
-   "bytes": 80938
+   "bytes": 12450
   },
   {
    "file": "img/parablennius-sanguinolentus-1.webp",
@@ -1669,10 +1541,6 @@
    "bytes": 43354
   },
   {
-   "file": "img/chaetodon-vagabundus-3.webp",
-   "bytes": 15268
-  },
-  {
    "file": "img/ophiothrix-fragilis-1.webp",
    "bytes": 40272
   },
@@ -1693,20 +1561,16 @@
    "bytes": 29918
   },
   {
-   "file": "img/ascarosepion-apama-3.webp",
-   "bytes": 14774
-  },
-  {
    "file": "img/scorpaena-porcus-1.webp",
    "bytes": 33740
   },
   {
    "file": "img/scorpaena-porcus-2.webp",
-   "bytes": 58128
+   "bytes": 52298
   },
   {
    "file": "img/scorpaena-porcus-3.webp",
-   "bytes": 57178
+   "bytes": 36482
   },
   {
    "file": "img/scolopsis-bilineata-1.webp",
@@ -1734,7 +1598,7 @@
   },
   {
    "file": "img/hemigymnus-melapterus-1.webp",
-   "bytes": 23934
+   "bytes": 54900
   },
   {
    "file": "img/hemigymnus-melapterus-2.webp",
@@ -1742,7 +1606,7 @@
   },
   {
    "file": "img/hemigymnus-melapterus-3.webp",
-   "bytes": 54900
+   "bytes": 23934
   },
   {
    "file": "img/entacmaea-quadricolor-1.webp",
@@ -1830,15 +1694,11 @@
   },
   {
    "file": "img/platax-teira-1.webp",
-   "bytes": 28644
-  },
-  {
-   "file": "img/platax-teira-2.webp",
    "bytes": 18824
   },
   {
-   "file": "img/platax-teira-3.webp",
-   "bytes": 9464
+   "file": "img/platax-teira-2.webp",
+   "bytes": 28644
   },
   {
    "file": "img/dicentrarchus-labrax-1.webp",
@@ -1846,10 +1706,6 @@
   },
   {
    "file": "img/dicentrarchus-labrax-2.webp",
-   "bytes": 5628
-  },
-  {
-   "file": "img/dicentrarchus-labrax-3.webp",
    "bytes": 25870
   },
   {
@@ -1883,10 +1739,6 @@
   {
    "file": "img/heliocidaris-erythrogramma-2.webp",
    "bytes": 21830
-  },
-  {
-   "file": "img/heliocidaris-erythrogramma-3.webp",
-   "bytes": 23080
   },
   {
    "file": "img/stenella-longirostris-1.webp",
@@ -1962,27 +1814,27 @@
   },
   {
    "file": "img/melichthys-niger-1.webp",
-   "bytes": 82070
+   "bytes": 22044
   },
   {
    "file": "img/melichthys-niger-2.webp",
-   "bytes": 19650
-  },
-  {
-   "file": "img/melichthys-niger-3.webp",
    "bytes": 21354
   },
   {
+   "file": "img/melichthys-niger-3.webp",
+   "bytes": 7552
+  },
+  {
    "file": "img/myliobatis-tenuicaudatus-1.webp",
-   "bytes": 72786
+   "bytes": 39408
   },
   {
    "file": "img/myliobatis-tenuicaudatus-2.webp",
-   "bytes": 89564
+   "bytes": 33378
   },
   {
    "file": "img/myliobatis-tenuicaudatus-3.webp",
-   "bytes": 33602
+   "bytes": 23408
   },
   {
    "file": "img/ceratosoma-amoenum-1.webp",
@@ -2010,27 +1862,19 @@
   },
   {
    "file": "img/epinephelus-merra-1.webp",
-   "bytes": 16254
-  },
-  {
-   "file": "img/epinephelus-merra-2.webp",
    "bytes": 44990
   },
   {
-   "file": "img/epinephelus-merra-3.webp",
+   "file": "img/epinephelus-merra-2.webp",
    "bytes": 41658
   },
   {
    "file": "img/portunus-armatus-1.webp",
-   "bytes": 44828
-  },
-  {
-   "file": "img/portunus-armatus-2.webp",
    "bytes": 37124
   },
   {
-   "file": "img/portunus-armatus-3.webp",
-   "bytes": 8302
+   "file": "img/portunus-armatus-2.webp",
+   "bytes": 44828
   },
   {
    "file": "img/chaetodon-kleinii-1.webp",
@@ -2050,11 +1894,11 @@
   },
   {
    "file": "img/monacanthus-chinensis-2.webp",
-   "bytes": 9292
+   "bytes": 54358
   },
   {
    "file": "img/monacanthus-chinensis-3.webp",
-   "bytes": 74200
+   "bytes": 23618
   },
   {
    "file": "img/apogon-imberbis-1.webp",
@@ -2130,15 +1974,11 @@
   },
   {
    "file": "img/monetaria-caputserpentis-1.webp",
-   "bytes": 10224
+   "bytes": 80036
   },
   {
    "file": "img/monetaria-caputserpentis-2.webp",
    "bytes": 36716
-  },
-  {
-   "file": "img/monetaria-caputserpentis-3.webp",
-   "bytes": 68512
   },
   {
    "file": "img/scarus-psittacus-1.webp",
@@ -2238,15 +2078,15 @@
   },
   {
    "file": "img/monetaria-annulus-1.webp",
-   "bytes": 4058
+   "bytes": 30988
   },
   {
    "file": "img/monetaria-annulus-2.webp",
-   "bytes": 17860
+   "bytes": 25824
   },
   {
    "file": "img/monetaria-annulus-3.webp",
-   "bytes": 30988
+   "bytes": 40824
   },
   {
    "file": "img/edmundsella-pedata-1.webp",
@@ -2266,11 +2106,11 @@
   },
   {
    "file": "img/rhincodon-typus-2.webp",
-   "bytes": 32042
+   "bytes": 11638
   },
   {
    "file": "img/rhincodon-typus-3.webp",
-   "bytes": 22038
+   "bytes": 16332
   },
   {
    "file": "img/cephalopholis-miniata-1.webp",
@@ -2302,10 +2142,6 @@
   },
   {
    "file": "img/ceratosoma-brevicaudatum-2.webp",
-   "bytes": 12072
-  },
-  {
-   "file": "img/ceratosoma-brevicaudatum-3.webp",
    "bytes": 18942
   },
   {
@@ -2326,23 +2162,15 @@
   },
   {
    "file": "img/haletta-semifasciata-2.webp",
-   "bytes": 48122
+   "bytes": 12400
   },
   {
    "file": "img/haletta-semifasciata-3.webp",
-   "bytes": 10218
+   "bytes": 38500
   },
   {
    "file": "img/physalia-megalista-1.webp",
-   "bytes": 41898
-  },
-  {
-   "file": "img/physalia-megalista-2.webp",
-   "bytes": 26906
-  },
-  {
-   "file": "img/physalia-megalista-3.webp",
-   "bytes": 52214
+   "bytes": 12326
   },
   {
    "file": "img/cassiopea-andromeda-1.webp",
@@ -2370,15 +2198,15 @@
   },
   {
    "file": "img/bathytoshia-brevicaudata-1.webp",
-   "bytes": 25634
-  },
-  {
-   "file": "img/bathytoshia-brevicaudata-2.webp",
    "bytes": 10872
   },
   {
+   "file": "img/bathytoshia-brevicaudata-2.webp",
+   "bytes": 5306
+  },
+  {
    "file": "img/bathytoshia-brevicaudata-3.webp",
-   "bytes": 4448
+   "bytes": 25634
   },
   {
    "file": "img/bothus-podas-1.webp",
@@ -2394,27 +2222,27 @@
   },
   {
    "file": "img/cypraea-tigris-1.webp",
-   "bytes": 29684
+   "bytes": 36012
   },
   {
    "file": "img/cypraea-tigris-2.webp",
-   "bytes": 12272
+   "bytes": 29684
   },
   {
    "file": "img/cypraea-tigris-3.webp",
-   "bytes": 8612
+   "bytes": 21994
   },
   {
    "file": "img/carcharias-taurus-1.webp",
-   "bytes": 26766
+   "bytes": 10142
   },
   {
    "file": "img/carcharias-taurus-2.webp",
-   "bytes": 10096
+   "bytes": 12482
   },
   {
    "file": "img/carcharias-taurus-3.webp",
-   "bytes": 4706
+   "bytes": 11918
   },
   {
    "file": "img/ophiocoma-scolopendrina-1.webp",
@@ -2442,11 +2270,11 @@
   },
   {
    "file": "img/sphaerechinus-granularis-1.webp",
-   "bytes": 32550
+   "bytes": 34810
   },
   {
    "file": "img/sphaerechinus-granularis-2.webp",
-   "bytes": 19240
+   "bytes": 43804
   },
   {
    "file": "img/sphaerechinus-granularis-3.webp",
@@ -2490,7 +2318,7 @@
   },
   {
    "file": "img/chelon-labrosus-1.webp",
-   "bytes": 6248
+   "bytes": 15648
   },
   {
    "file": "img/chelon-labrosus-2.webp",
@@ -2498,7 +2326,7 @@
   },
   {
    "file": "img/chelon-labrosus-3.webp",
-   "bytes": 49866
+   "bytes": 3362
   },
   {
    "file": "img/gobius-paganellus-1.webp",
@@ -2538,15 +2366,15 @@
   },
   {
    "file": "img/abudefduf-bengalensis-1.webp",
-   "bytes": 10322
+   "bytes": 24094
   },
   {
    "file": "img/abudefduf-bengalensis-2.webp",
-   "bytes": 24366
+   "bytes": 13936
   },
   {
    "file": "img/abudefduf-bengalensis-3.webp",
-   "bytes": 3916
+   "bytes": 16454
   },
   {
    "file": "img/actinopyga-varians-1.webp",
@@ -2586,15 +2414,11 @@
   },
   {
    "file": "img/microcanthus-joyceae-1.webp",
-   "bytes": 47998
-  },
-  {
-   "file": "img/microcanthus-joyceae-2.webp",
    "bytes": 53538
   },
   {
-   "file": "img/microcanthus-joyceae-3.webp",
-   "bytes": 10742
+   "file": "img/microcanthus-joyceae-2.webp",
+   "bytes": 47998
   },
   {
    "file": "img/chlorurus-sordidus-1.webp",
@@ -2634,15 +2458,15 @@
   },
   {
    "file": "img/hippocampus-hippocampus-1.webp",
-   "bytes": 22630
+   "bytes": 48254
   },
   {
    "file": "img/hippocampus-hippocampus-2.webp",
-   "bytes": 14438
+   "bytes": 50882
   },
   {
    "file": "img/hippocampus-hippocampus-3.webp",
-   "bytes": 42334
+   "bytes": 45440
   },
   {
    "file": "img/dascyllus-reticulatus-1.webp",
@@ -2694,27 +2518,27 @@
   },
   {
    "file": "img/zebrasoma-scopas-1.webp",
-   "bytes": 34514
-  },
-  {
-   "file": "img/zebrasoma-scopas-2.webp",
    "bytes": 23830
   },
   {
+   "file": "img/zebrasoma-scopas-2.webp",
+   "bytes": 45954
+  },
+  {
    "file": "img/zebrasoma-scopas-3.webp",
-   "bytes": 10244
+   "bytes": 34514
   },
   {
    "file": "img/rhinecanthus-rectangulus-1.webp",
-   "bytes": 5462
-  },
-  {
-   "file": "img/rhinecanthus-rectangulus-2.webp",
    "bytes": 49006
   },
   {
+   "file": "img/rhinecanthus-rectangulus-2.webp",
+   "bytes": 17584
+  },
+  {
    "file": "img/rhinecanthus-rectangulus-3.webp",
-   "bytes": 5214
+   "bytes": 28264
   },
   {
    "file": "img/gymnothorax-meleagris-1.webp",
@@ -2730,15 +2554,11 @@
   },
   {
    "file": "img/naria-erosa-1.webp",
-   "bytes": 4686
+   "bytes": 37732
   },
   {
    "file": "img/naria-erosa-2.webp",
-   "bytes": 6388
-  },
-  {
-   "file": "img/naria-erosa-3.webp",
-   "bytes": 15702
+   "bytes": 16850
   },
   {
    "file": "img/taenianotus-triacanthus-1.webp",
@@ -2766,15 +2586,15 @@
   },
   {
    "file": "img/lutjanus-kasmira-1.webp",
-   "bytes": 9708
-  },
-  {
-   "file": "img/lutjanus-kasmira-2.webp",
    "bytes": 16392
   },
   {
-   "file": "img/lutjanus-kasmira-3.webp",
+   "file": "img/lutjanus-kasmira-2.webp",
    "bytes": 27484
+  },
+  {
+   "file": "img/lutjanus-kasmira-3.webp",
+   "bytes": 9708
   },
   {
    "file": "img/symphodus-roissali-1.webp",
@@ -2826,15 +2646,15 @@
   },
   {
    "file": "img/portunus-pelagicus-1.webp",
-   "bytes": 29012
+   "bytes": 24958
   },
   {
    "file": "img/portunus-pelagicus-2.webp",
-   "bytes": 18096
+   "bytes": 40806
   },
   {
    "file": "img/portunus-pelagicus-3.webp",
-   "bytes": 40806
+   "bytes": 47720
   },
   {
    "file": "img/coscinasterias-tenuispina-1.webp",
@@ -2842,10 +2662,6 @@
   },
   {
    "file": "img/coscinasterias-tenuispina-2.webp",
-   "bytes": 15246
-  },
-  {
-   "file": "img/coscinasterias-tenuispina-3.webp",
    "bytes": 88332
   },
   {
@@ -2914,11 +2730,7 @@
   },
   {
    "file": "img/catostylus-mosaicus-2.webp",
-   "bytes": 61928
-  },
-  {
-   "file": "img/catostylus-mosaicus-3.webp",
-   "bytes": 13698
+   "bytes": 11544
   },
   {
    "file": "img/chaetodon-citrinellus-1.webp",
@@ -3010,11 +2822,11 @@
   },
   {
    "file": "img/girella-tricuspidata-2.webp",
-   "bytes": 19516
+   "bytes": 13952
   },
   {
    "file": "img/girella-tricuspidata-3.webp",
-   "bytes": 18262
+   "bytes": 19516
   },
   {
    "file": "img/phyllidia-ocellata-1.webp",
@@ -3030,15 +2842,15 @@
   },
   {
    "file": "img/cereus-pedunculatus-1.webp",
-   "bytes": 28890
-  },
-  {
-   "file": "img/cereus-pedunculatus-2.webp",
    "bytes": 44492
   },
   {
-   "file": "img/cereus-pedunculatus-3.webp",
+   "file": "img/cereus-pedunculatus-2.webp",
    "bytes": 26586
+  },
+  {
+   "file": "img/cereus-pedunculatus-3.webp",
+   "bytes": 28890
   },
   {
    "file": "img/caranx-crysos-1.webp",
@@ -3046,10 +2858,6 @@
   },
   {
    "file": "img/caranx-crysos-2.webp",
-   "bytes": 9430
-  },
-  {
-   "file": "img/caranx-crysos-3.webp",
    "bytes": 2848
   },
   {
@@ -3070,7 +2878,7 @@
   },
   {
    "file": "img/meuschenia-freycineti-2.webp",
-   "bytes": 67156
+   "bytes": 31294
   },
   {
    "file": "img/meuschenia-freycineti-3.webp",
@@ -3114,14 +2922,10 @@
   },
   {
    "file": "img/odonus-niger-1.webp",
-   "bytes": 16472
-  },
-  {
-   "file": "img/odonus-niger-2.webp",
    "bytes": 37470
   },
   {
-   "file": "img/odonus-niger-3.webp",
+   "file": "img/odonus-niger-2.webp",
    "bytes": 10406
   },
   {
@@ -3155,10 +2959,6 @@
   {
    "file": "img/balaenoptera-musculus-2.webp",
    "bytes": 16574
-  },
-  {
-   "file": "img/balaenoptera-musculus-3.webp",
-   "bytes": 34126
   },
   {
    "file": "img/aulactinia-veratra-1.webp",
@@ -3226,11 +3026,11 @@
   },
   {
    "file": "img/boops-boops-2.webp",
-   "bytes": 34226
+   "bytes": 12986
   },
   {
    "file": "img/boops-boops-3.webp",
-   "bytes": 5494
+   "bytes": 6994
   },
   {
    "file": "img/brachaluteres-jacksonianus-1.webp",
@@ -3322,11 +3122,11 @@
   },
   {
    "file": "img/hippocampus-whitei-2.webp",
-   "bytes": 11354
+   "bytes": 25006
   },
   {
    "file": "img/hippocampus-whitei-3.webp",
-   "bytes": 8812
+   "bytes": 49270
   },
   {
    "file": "img/thalassoma-lutescens-1.webp",
@@ -3438,15 +3238,15 @@
   },
   {
    "file": "img/styela-plicata-1.webp",
-   "bytes": 27834
+   "bytes": 13308
   },
   {
    "file": "img/styela-plicata-2.webp",
-   "bytes": 10606
+   "bytes": 13466
   },
   {
    "file": "img/styela-plicata-3.webp",
-   "bytes": 11680
+   "bytes": 64006
   },
   {
    "file": "img/palythoa-tuberculosa-1.webp",
@@ -3510,15 +3310,15 @@
   },
   {
    "file": "img/siganus-rivulatus-1.webp",
-   "bytes": 29934
-  },
-  {
-   "file": "img/siganus-rivulatus-2.webp",
    "bytes": 12936
   },
   {
-   "file": "img/siganus-rivulatus-3.webp",
+   "file": "img/siganus-rivulatus-2.webp",
    "bytes": 26242
+  },
+  {
+   "file": "img/siganus-rivulatus-3.webp",
+   "bytes": 29934
   },
   {
    "file": "img/felimare-tricolor-1.webp",
@@ -3534,11 +3334,11 @@
   },
   {
    "file": "img/salaria-pavo-1.webp",
-   "bytes": 11434
+   "bytes": 45880
   },
   {
    "file": "img/salaria-pavo-2.webp",
-   "bytes": 23366
+   "bytes": 20816
   },
   {
    "file": "img/salaria-pavo-3.webp",
@@ -3582,15 +3382,11 @@
   },
   {
    "file": "img/carcharhinus-limbatus-1.webp",
-   "bytes": 66364
+   "bytes": 4614
   },
   {
    "file": "img/carcharhinus-limbatus-2.webp",
    "bytes": 6074
-  },
-  {
-   "file": "img/carcharhinus-limbatus-3.webp",
-   "bytes": 4614
   },
   {
    "file": "img/dactylophora-nigricans-1.webp",
@@ -3598,11 +3394,11 @@
   },
   {
    "file": "img/dactylophora-nigricans-2.webp",
-   "bytes": 22004
+   "bytes": 28598
   },
   {
    "file": "img/dactylophora-nigricans-3.webp",
-   "bytes": 63176
+   "bytes": 18762
   },
   {
    "file": "img/parazoanthus-axinellae-1.webp",
@@ -3618,15 +3414,15 @@
   },
   {
    "file": "img/scorpis-lineolata-1.webp",
-   "bytes": 2710
-  },
-  {
-   "file": "img/scorpis-lineolata-2.webp",
    "bytes": 5840
   },
   {
+   "file": "img/scorpis-lineolata-2.webp",
+   "bytes": 13466
+  },
+  {
    "file": "img/scorpis-lineolata-3.webp",
-   "bytes": 2626
+   "bytes": 2710
   },
   {
    "file": "img/priacanthus-hamrur-1.webp",
@@ -3642,27 +3438,19 @@
   },
   {
    "file": "img/dermochelys-coriacea-1.webp",
-   "bytes": 39510
-  },
-  {
-   "file": "img/dermochelys-coriacea-2.webp",
    "bytes": 57138
   },
   {
-   "file": "img/dermochelys-coriacea-3.webp",
-   "bytes": 65182
-  },
-  {
    "file": "img/pseudogoniistius-nigripes-1.webp",
-   "bytes": 14538
-  },
-  {
-   "file": "img/pseudogoniistius-nigripes-2.webp",
    "bytes": 9592
   },
   {
-   "file": "img/pseudogoniistius-nigripes-3.webp",
+   "file": "img/pseudogoniistius-nigripes-2.webp",
    "bytes": 6414
+  },
+  {
+   "file": "img/pseudogoniistius-nigripes-3.webp",
+   "bytes": 14538
   },
   {
    "file": "img/linckia-multifora-1.webp",
@@ -3702,15 +3490,11 @@
   },
   {
    "file": "img/pomacanthus-semicirculatus-1.webp",
-   "bytes": 84880
+   "bytes": 23748
   },
   {
    "file": "img/pomacanthus-semicirculatus-2.webp",
    "bytes": 9336
-  },
-  {
-   "file": "img/pomacanthus-semicirculatus-3.webp",
-   "bytes": 23748
   },
   {
    "file": "img/thor-amboinensis-1.webp",
@@ -3786,27 +3570,27 @@
   },
   {
    "file": "img/lutjanus-fulvus-1.webp",
-   "bytes": 73470
+   "bytes": 31684
   },
   {
    "file": "img/lutjanus-fulvus-2.webp",
-   "bytes": 21194
-  },
-  {
-   "file": "img/lutjanus-fulvus-3.webp",
    "bytes": 24422
   },
   {
+   "file": "img/lutjanus-fulvus-3.webp",
+   "bytes": 14426
+  },
+  {
    "file": "img/sufflamen-bursa-1.webp",
-   "bytes": 15924
+   "bytes": 30332
   },
   {
    "file": "img/sufflamen-bursa-2.webp",
-   "bytes": 12150
+   "bytes": 22426
   },
   {
    "file": "img/sufflamen-bursa-3.webp",
-   "bytes": 13420
+   "bytes": 15924
   },
   {
    "file": "img/sphyraena-viridensis-1.webp",
@@ -3817,32 +3601,24 @@
    "bytes": 3188
   },
   {
-   "file": "img/sphyraena-viridensis-3.webp",
-   "bytes": 28958
-  },
-  {
    "file": "img/cheilinus-fasciatus-1.webp",
    "bytes": 15420
   },
   {
    "file": "img/cheilinus-fasciatus-2.webp",
-   "bytes": 48036
-  },
-  {
-   "file": "img/cheilinus-fasciatus-3.webp",
    "bytes": 55600
   },
   {
    "file": "img/trachurus-novaezelandiae-1.webp",
-   "bytes": 5314
+   "bytes": 7534
   },
   {
    "file": "img/trachurus-novaezelandiae-2.webp",
-   "bytes": 35946
+   "bytes": 12526
   },
   {
    "file": "img/trachurus-novaezelandiae-3.webp",
-   "bytes": 2946
+   "bytes": 13032
   },
   {
    "file": "img/ascarosepion-latimanus-1.webp",
@@ -3858,43 +3634,43 @@
   },
   {
    "file": "img/goniobranchus-splendidus-1.webp",
-   "bytes": 41586
-  },
-  {
-   "file": "img/goniobranchus-splendidus-2.webp",
    "bytes": 40106
   },
   {
-   "file": "img/goniobranchus-splendidus-3.webp",
+   "file": "img/goniobranchus-splendidus-2.webp",
    "bytes": 43140
   },
   {
-   "file": "img/halichoeres-trimaculatus-1.webp",
-   "bytes": 31340
+   "file": "img/goniobranchus-splendidus-3.webp",
+   "bytes": 41586
   },
   {
-   "file": "img/halichoeres-trimaculatus-2.webp",
+   "file": "img/halichoeres-trimaculatus-1.webp",
    "bytes": 69622
   },
   {
+   "file": "img/halichoeres-trimaculatus-2.webp",
+   "bytes": 20228
+  },
+  {
    "file": "img/halichoeres-trimaculatus-3.webp",
-   "bytes": 49166
+   "bytes": 38832
   },
   {
    "file": "img/torquigener-pleurogramma-1.webp",
-   "bytes": 31834
-  },
-  {
-   "file": "img/torquigener-pleurogramma-2.webp",
-   "bytes": 25686
-  },
-  {
-   "file": "img/torquigener-pleurogramma-3.webp",
    "bytes": 5440
   },
   {
+   "file": "img/torquigener-pleurogramma-2.webp",
+   "bytes": 18904
+  },
+  {
+   "file": "img/torquigener-pleurogramma-3.webp",
+   "bytes": 31834
+  },
+  {
    "file": "img/naso-brevirostris-1.webp",
-   "bytes": 2696
+   "bytes": 7014
   },
   {
    "file": "img/naso-brevirostris-2.webp",
@@ -3902,19 +3678,19 @@
   },
   {
    "file": "img/naso-brevirostris-3.webp",
-   "bytes": 19098
+   "bytes": 17148
   },
   {
    "file": "img/acanthaluteres-brownii-1.webp",
-   "bytes": 67682
+   "bytes": 14334
   },
   {
    "file": "img/acanthaluteres-brownii-2.webp",
-   "bytes": 67570
+   "bytes": 21240
   },
   {
    "file": "img/acanthaluteres-brownii-3.webp",
-   "bytes": 21240
+   "bytes": 11438
   },
   {
    "file": "img/platycephalus-fuscus-1.webp",
@@ -3922,10 +3698,6 @@
   },
   {
    "file": "img/platycephalus-fuscus-2.webp",
-   "bytes": 69922
-  },
-  {
-   "file": "img/platycephalus-fuscus-3.webp",
    "bytes": 35918
   },
   {
@@ -3966,15 +3738,15 @@
   },
   {
    "file": "img/upeneichthys-lineatus-1.webp",
-   "bytes": 56226
-  },
-  {
-   "file": "img/upeneichthys-lineatus-2.webp",
    "bytes": 41274
   },
   {
-   "file": "img/upeneichthys-lineatus-3.webp",
+   "file": "img/upeneichthys-lineatus-2.webp",
    "bytes": 31466
+  },
+  {
+   "file": "img/upeneichthys-lineatus-3.webp",
+   "bytes": 56226
   },
   {
    "file": "img/upeneichthys-vlamingii-1.webp",
@@ -4014,15 +3786,15 @@
   },
   {
    "file": "img/carcharhinus-leucas-1.webp",
-   "bytes": 40178
+   "bytes": 9046
   },
   {
    "file": "img/carcharhinus-leucas-2.webp",
-   "bytes": 32548
+   "bytes": 9686
   },
   {
    "file": "img/carcharhinus-leucas-3.webp",
-   "bytes": 9618
+   "bytes": 33936
   },
   {
    "file": "img/scorpaena-scrofa-1.webp",
@@ -4038,15 +3810,15 @@
   },
   {
    "file": "img/ophthalmolepis-lineolata-1.webp",
-   "bytes": 22910
-  },
-  {
-   "file": "img/ophthalmolepis-lineolata-2.webp",
    "bytes": 78562
   },
   {
-   "file": "img/ophthalmolepis-lineolata-3.webp",
+   "file": "img/ophthalmolepis-lineolata-2.webp",
    "bytes": 44070
+  },
+  {
+   "file": "img/ophthalmolepis-lineolata-3.webp",
+   "bytes": 22910
   },
   {
    "file": "img/amphiprion-bicinctus-1.webp",
@@ -4074,15 +3846,15 @@
   },
   {
    "file": "img/aracana-aurita-1.webp",
-   "bytes": 33644
-  },
-  {
-   "file": "img/aracana-aurita-2.webp",
    "bytes": 22126
   },
   {
+   "file": "img/aracana-aurita-2.webp",
+   "bytes": 17298
+  },
+  {
    "file": "img/aracana-aurita-3.webp",
-   "bytes": 54048
+   "bytes": 37824
   },
   {
    "file": "img/balistoides-conspicillum-1.webp",
@@ -4099,14 +3871,6 @@
   {
    "file": "img/sphyrna-lewini-1.webp",
    "bytes": 7582
-  },
-  {
-   "file": "img/sphyrna-lewini-2.webp",
-   "bytes": 13766
-  },
-  {
-   "file": "img/sphyrna-lewini-3.webp",
-   "bytes": 15080
   },
   {
    "file": "img/elysia-timida-1.webp",
@@ -4127,10 +3891,6 @@
   {
    "file": "img/palaemon-serratus-2.webp",
    "bytes": 21488
-  },
-  {
-   "file": "img/palaemon-serratus-3.webp",
-   "bytes": 38016
   },
   {
    "file": "img/canthigaster-jactator-1.webp",
@@ -4194,15 +3954,15 @@
   },
   {
    "file": "img/coris-aygula-1.webp",
-   "bytes": 19872
+   "bytes": 13094
   },
   {
    "file": "img/coris-aygula-2.webp",
-   "bytes": 21646
+   "bytes": 18440
   },
   {
    "file": "img/coris-aygula-3.webp",
-   "bytes": 23524
+   "bytes": 13482
   },
   {
    "file": "img/pocillopora-damicornis-1.webp",
@@ -4218,15 +3978,15 @@
   },
   {
    "file": "img/labrus-merula-1.webp",
-   "bytes": 72590
+   "bytes": 17602
   },
   {
    "file": "img/labrus-merula-2.webp",
-   "bytes": 32112
+   "bytes": 72590
   },
   {
    "file": "img/labrus-merula-3.webp",
-   "bytes": 21262
+   "bytes": 13996
   },
   {
    "file": "img/didemnum-molle-1.webp",
@@ -4266,15 +4026,15 @@
   },
   {
    "file": "img/cnidoglanis-macrocephalus-1.webp",
-   "bytes": 2376
+   "bytes": 46104
   },
   {
    "file": "img/cnidoglanis-macrocephalus-2.webp",
-   "bytes": 35316
+   "bytes": 29060
   },
   {
    "file": "img/cnidoglanis-macrocephalus-3.webp",
-   "bytes": 4846
+   "bytes": 2376
   },
   {
    "file": "img/chromodoris-lochi-1.webp",
@@ -4290,27 +4050,23 @@
   },
   {
    "file": "img/dendrodoris-nigra-1.webp",
-   "bytes": 29702
-  },
-  {
-   "file": "img/dendrodoris-nigra-2.webp",
    "bytes": 21094
   },
   {
-   "file": "img/dendrodoris-nigra-3.webp",
+   "file": "img/dendrodoris-nigra-2.webp",
    "bytes": 36998
   },
   {
-   "file": "img/ancylocaris-brevicarpalis-1.webp",
-   "bytes": 15548
+   "file": "img/dendrodoris-nigra-3.webp",
+   "bytes": 29702
   },
   {
-   "file": "img/ancylocaris-brevicarpalis-2.webp",
+   "file": "img/ancylocaris-brevicarpalis-1.webp",
    "bytes": 23182
   },
   {
-   "file": "img/ancylocaris-brevicarpalis-3.webp",
-   "bytes": 19136
+   "file": "img/ancylocaris-brevicarpalis-2.webp",
+   "bytes": 15548
   },
   {
    "file": "img/amphibolis-antarctica-1.webp",
@@ -4318,11 +4074,11 @@
   },
   {
    "file": "img/amphibolis-antarctica-2.webp",
-   "bytes": 22258
+   "bytes": 21816
   },
   {
    "file": "img/amphibolis-antarctica-3.webp",
-   "bytes": 9302
+   "bytes": 67090
   },
   {
    "file": "img/goniobranchus-geometricus-1.webp",
@@ -4342,11 +4098,11 @@
   },
   {
    "file": "img/sepioteuthis-australis-2.webp",
-   "bytes": 2898
+   "bytes": 9330
   },
   {
    "file": "img/sepioteuthis-australis-3.webp",
-   "bytes": 9660
+   "bytes": 2898
   },
   {
    "file": "img/ostorhinchus-limenus-1.webp",
@@ -4374,27 +4130,27 @@
   },
   {
    "file": "img/thalassoma-trilobatum-1.webp",
-   "bytes": 28172
-  },
-  {
-   "file": "img/thalassoma-trilobatum-2.webp",
    "bytes": 16448
   },
   {
-   "file": "img/thalassoma-trilobatum-3.webp",
+   "file": "img/thalassoma-trilobatum-2.webp",
    "bytes": 9036
   },
   {
-   "file": "img/chaetodon-ulietensis-1.webp",
-   "bytes": 5658
+   "file": "img/thalassoma-trilobatum-3.webp",
+   "bytes": 28172
   },
   {
-   "file": "img/chaetodon-ulietensis-2.webp",
+   "file": "img/chaetodon-ulietensis-1.webp",
    "bytes": 15760
   },
   {
+   "file": "img/chaetodon-ulietensis-2.webp",
+   "bytes": 37406
+  },
+  {
    "file": "img/chaetodon-ulietensis-3.webp",
-   "bytes": 22852
+   "bytes": 10524
   },
   {
    "file": "img/phlyctenactis-tuberculosa-1.webp",
@@ -4422,14 +4178,10 @@
   },
   {
    "file": "img/stichopus-chloronotus-1.webp",
-   "bytes": 3554
-  },
-  {
-   "file": "img/stichopus-chloronotus-2.webp",
    "bytes": 34334
   },
   {
-   "file": "img/stichopus-chloronotus-3.webp",
+   "file": "img/stichopus-chloronotus-2.webp",
    "bytes": 33300
   },
   {
@@ -4477,32 +4229,20 @@
    "bytes": 35150
   },
   {
-   "file": "img/istiblennius-zebra-3.webp",
-   "bytes": 14190
-  },
-  {
    "file": "img/elysia-viridis-1.webp",
-   "bytes": 5342
-  },
-  {
-   "file": "img/elysia-viridis-2.webp",
-   "bytes": 6664
-  },
-  {
-   "file": "img/elysia-viridis-3.webp",
    "bytes": 3168
   },
   {
    "file": "img/hippocampus-histrix-1.webp",
-   "bytes": 19224
-  },
-  {
-   "file": "img/hippocampus-histrix-2.webp",
    "bytes": 18894
   },
   {
-   "file": "img/hippocampus-histrix-3.webp",
+   "file": "img/hippocampus-histrix-2.webp",
    "bytes": 25928
+  },
+  {
+   "file": "img/hippocampus-histrix-3.webp",
+   "bytes": 19224
   },
   {
    "file": "img/rhabdosargus-sarba-1.webp",
@@ -4510,23 +4250,23 @@
   },
   {
    "file": "img/rhabdosargus-sarba-2.webp",
-   "bytes": 29136
+   "bytes": 13292
   },
   {
    "file": "img/rhabdosargus-sarba-3.webp",
-   "bytes": 16454
+   "bytes": 9488
   },
   {
    "file": "img/pelates-octolineatus-1.webp",
-   "bytes": 18236
-  },
-  {
-   "file": "img/pelates-octolineatus-2.webp",
    "bytes": 8836
   },
   {
+   "file": "img/pelates-octolineatus-2.webp",
+   "bytes": 19230
+  },
+  {
    "file": "img/pelates-octolineatus-3.webp",
-   "bytes": 64598
+   "bytes": 39250
   },
   {
    "file": "img/zoanthus-sansibaricus-1.webp",
@@ -4678,11 +4418,11 @@
   },
   {
    "file": "img/dardanus-megistos-2.webp",
-   "bytes": 15680
+   "bytes": 36246
   },
   {
    "file": "img/dardanus-megistos-3.webp",
-   "bytes": 18126
+   "bytes": 33156
   },
   {
    "file": "img/oedalechilus-labeo-1.webp",
@@ -4713,14 +4453,6 @@
    "bytes": 21918
   },
   {
-   "file": "img/pocillopora-meandrina-2.webp",
-   "bytes": 34748
-  },
-  {
-   "file": "img/pocillopora-meandrina-3.webp",
-   "bytes": 68574
-  },
-  {
    "file": "img/diplodus-cervinus-1.webp",
    "bytes": 58434
   },
@@ -4738,10 +4470,6 @@
   },
   {
    "file": "img/bohadschia-argus-2.webp",
-   "bytes": 10012
-  },
-  {
-   "file": "img/bohadschia-argus-3.webp",
    "bytes": 35192
   },
   {
@@ -4758,31 +4486,23 @@
   },
   {
    "file": "img/notolabrus-parilus-1.webp",
-   "bytes": 71650
-  },
-  {
-   "file": "img/notolabrus-parilus-2.webp",
    "bytes": 34508
   },
   {
-   "file": "img/notolabrus-parilus-3.webp",
+   "file": "img/notolabrus-parilus-2.webp",
    "bytes": 28352
   },
   {
    "file": "img/dicotylichthys-punctulatus-1.webp",
-   "bytes": 20978
-  },
-  {
-   "file": "img/dicotylichthys-punctulatus-2.webp",
    "bytes": 12454
   },
   {
-   "file": "img/dicotylichthys-punctulatus-3.webp",
-   "bytes": 48498
+   "file": "img/dicotylichthys-punctulatus-2.webp",
+   "bytes": 20978
   },
   {
    "file": "img/xestospongia-testudinaria-1.webp",
-   "bytes": 13472
+   "bytes": 36228
   },
   {
    "file": "img/xestospongia-testudinaria-2.webp",
@@ -4790,7 +4510,7 @@
   },
   {
    "file": "img/xestospongia-testudinaria-3.webp",
-   "bytes": 36228
+   "bytes": 13472
   },
   {
    "file": "img/neopetrolisthes-maculatus-1.webp",
@@ -4854,39 +4574,39 @@
   },
   {
    "file": "img/pempheris-klunzingeri-1.webp",
-   "bytes": 13860
+   "bytes": 5106
   },
   {
    "file": "img/pempheris-klunzingeri-2.webp",
-   "bytes": 13734
-  },
-  {
-   "file": "img/pempheris-klunzingeri-3.webp",
    "bytes": 27218
   },
   {
+   "file": "img/pempheris-klunzingeri-3.webp",
+   "bytes": 29564
+  },
+  {
    "file": "img/monetaria-moneta-1.webp",
-   "bytes": 18492
-  },
-  {
-   "file": "img/monetaria-moneta-2.webp",
-   "bytes": 10716
-  },
-  {
-   "file": "img/monetaria-moneta-3.webp",
    "bytes": 21856
   },
   {
-   "file": "img/chelmonops-curiosus-1.webp",
-   "bytes": 42236
+   "file": "img/monetaria-moneta-2.webp",
+   "bytes": 28056
   },
   {
-   "file": "img/chelmonops-curiosus-2.webp",
+   "file": "img/monetaria-moneta-3.webp",
+   "bytes": 24976
+  },
+  {
+   "file": "img/chelmonops-curiosus-1.webp",
    "bytes": 21026
   },
   {
+   "file": "img/chelmonops-curiosus-2.webp",
+   "bytes": 17188
+  },
+  {
    "file": "img/chelmonops-curiosus-3.webp",
-   "bytes": 47888
+   "bytes": 42236
   },
   {
    "file": "img/cladocora-caespitosa-1.webp",
@@ -4914,27 +4634,27 @@
   },
   {
    "file": "img/heniochus-varius-1.webp",
-   "bytes": 21506
+   "bytes": 9920
   },
   {
    "file": "img/heniochus-varius-2.webp",
-   "bytes": 6766
+   "bytes": 36944
   },
   {
    "file": "img/heniochus-varius-3.webp",
-   "bytes": 16072
+   "bytes": 24770
   },
   {
    "file": "img/goniistius-vestitus-1.webp",
-   "bytes": 30632
+   "bytes": 27352
   },
   {
    "file": "img/goniistius-vestitus-2.webp",
-   "bytes": 50866
+   "bytes": 16256
   },
   {
    "file": "img/goniistius-vestitus-3.webp",
-   "bytes": 27352
+   "bytes": 5926
   },
   {
    "file": "img/thalassoma-rueppellii-1.webp",
@@ -4950,7 +4670,7 @@
   },
   {
    "file": "img/balanophyllia-balanophyllia-europaea-1.webp",
-   "bytes": 23258
+   "bytes": 58896
   },
   {
    "file": "img/balanophyllia-balanophyllia-europaea-2.webp",
@@ -4958,19 +4678,19 @@
   },
   {
    "file": "img/balanophyllia-balanophyllia-europaea-3.webp",
-   "bytes": 58896
+   "bytes": 23258
   },
   {
    "file": "img/trachinotus-ovatus-1.webp",
-   "bytes": 5070
+   "bytes": 5794
   },
   {
    "file": "img/trachinotus-ovatus-2.webp",
-   "bytes": 4490
+   "bytes": 12802
   },
   {
    "file": "img/trachinotus-ovatus-3.webp",
-   "bytes": 5794
+   "bytes": 14734
   },
   {
    "file": "img/macolor-macularis-1.webp",
@@ -4986,39 +4706,35 @@
   },
   {
    "file": "img/calcinus-laevimanus-1.webp",
-   "bytes": 19758
-  },
-  {
-   "file": "img/calcinus-laevimanus-2.webp",
    "bytes": 16968
   },
   {
+   "file": "img/calcinus-laevimanus-2.webp",
+   "bytes": 46766
+  },
+  {
    "file": "img/calcinus-laevimanus-3.webp",
-   "bytes": 11100
+   "bytes": 59588
   },
   {
    "file": "img/diodon-liturosus-1.webp",
-   "bytes": 17118
-  },
-  {
-   "file": "img/diodon-liturosus-2.webp",
    "bytes": 29030
   },
   {
-   "file": "img/diodon-liturosus-3.webp",
+   "file": "img/diodon-liturosus-2.webp",
    "bytes": 50016
   },
   {
-   "file": "img/caloria-indica-1.webp",
-   "bytes": 25614
+   "file": "img/diodon-liturosus-3.webp",
+   "bytes": 17118
   },
   {
-   "file": "img/caloria-indica-2.webp",
+   "file": "img/caloria-indica-1.webp",
    "bytes": 26588
   },
   {
-   "file": "img/caloria-indica-3.webp",
-   "bytes": 11318
+   "file": "img/caloria-indica-2.webp",
+   "bytes": 25614
   },
   {
    "file": "img/samla-bicolor-1.webp",
@@ -5178,15 +4894,11 @@
   },
   {
    "file": "img/stenella-coeruleoalba-1.webp",
-   "bytes": 42432
+   "bytes": 13686
   },
   {
    "file": "img/stenella-coeruleoalba-2.webp",
    "bytes": 29946
-  },
-  {
-   "file": "img/stenella-coeruleoalba-3.webp",
-   "bytes": 13686
   },
   {
    "file": "img/taeniurops-meyeni-1.webp",
@@ -5197,10 +4909,6 @@
    "bytes": 27838
   },
   {
-   "file": "img/taeniurops-meyeni-3.webp",
-   "bytes": 28566
-  },
-  {
    "file": "img/pastinachus-ater-1.webp",
    "bytes": 6778
   },
@@ -5209,19 +4917,11 @@
    "bytes": 32468
   },
   {
-   "file": "img/pastinachus-ater-3.webp",
-   "bytes": 1458
-  },
-  {
    "file": "img/dactylopterus-volitans-1.webp",
-   "bytes": 6346
-  },
-  {
-   "file": "img/dactylopterus-volitans-2.webp",
    "bytes": 30064
   },
   {
-   "file": "img/dactylopterus-volitans-3.webp",
+   "file": "img/dactylopterus-volitans-2.webp",
    "bytes": 23412
   },
   {
@@ -5230,47 +4930,43 @@
   },
   {
    "file": "img/spondyliosoma-cantharus-2.webp",
-   "bytes": 31428
-  },
-  {
-   "file": "img/spondyliosoma-cantharus-3.webp",
    "bytes": 19234
   },
   {
    "file": "img/parupeneus-forsskali-1.webp",
-   "bytes": 17174
-  },
-  {
-   "file": "img/parupeneus-forsskali-2.webp",
    "bytes": 33868
   },
   {
+   "file": "img/parupeneus-forsskali-2.webp",
+   "bytes": 25350
+  },
+  {
    "file": "img/parupeneus-forsskali-3.webp",
-   "bytes": 60854
+   "bytes": 16952
   },
   {
    "file": "img/holothuria-platyperona-sanctori-1.webp",
-   "bytes": 40178
-  },
-  {
-   "file": "img/holothuria-platyperona-sanctori-2.webp",
    "bytes": 66010
   },
   {
-   "file": "img/holothuria-platyperona-sanctori-3.webp",
+   "file": "img/holothuria-platyperona-sanctori-2.webp",
    "bytes": 29596
   },
   {
+   "file": "img/holothuria-platyperona-sanctori-3.webp",
+   "bytes": 40178
+  },
+  {
    "file": "img/cymodocea-nodosa-1.webp",
-   "bytes": 6096
+   "bytes": 44136
   },
   {
    "file": "img/cymodocea-nodosa-2.webp",
-   "bytes": 44834
+   "bytes": 39244
   },
   {
    "file": "img/cymodocea-nodosa-3.webp",
-   "bytes": 50728
+   "bytes": 28302
   },
   {
    "file": "img/gnathodentex-aureolineatus-1.webp",
@@ -5298,15 +4994,15 @@
   },
   {
    "file": "img/latropiscis-purpurissatus-1.webp",
-   "bytes": 22134
-  },
-  {
-   "file": "img/latropiscis-purpurissatus-2.webp",
    "bytes": 41504
   },
   {
-   "file": "img/latropiscis-purpurissatus-3.webp",
+   "file": "img/latropiscis-purpurissatus-2.webp",
    "bytes": 63226
+  },
+  {
+   "file": "img/latropiscis-purpurissatus-3.webp",
+   "bytes": 22134
   },
   {
    "file": "img/naso-elegans-1.webp",
@@ -5334,15 +5030,15 @@
   },
   {
    "file": "img/ascarosepion-plangon-1.webp",
-   "bytes": 2794
+   "bytes": 14122
   },
   {
    "file": "img/ascarosepion-plangon-2.webp",
-   "bytes": 4692
+   "bytes": 42016
   },
   {
    "file": "img/ascarosepion-plangon-3.webp",
-   "bytes": 7810
+   "bytes": 49540
   },
   {
    "file": "img/dascyllus-abudafur-1.webp",
@@ -5406,27 +5102,23 @@
   },
   {
    "file": "img/hypoplectrodes-maccullochi-1.webp",
-   "bytes": 23600
-  },
-  {
-   "file": "img/hypoplectrodes-maccullochi-2.webp",
    "bytes": 37440
   },
   {
-   "file": "img/hypoplectrodes-maccullochi-3.webp",
+   "file": "img/hypoplectrodes-maccullochi-2.webp",
    "bytes": 21364
   },
   {
-   "file": "img/myripristis-murdjan-1.webp",
-   "bytes": 35174
+   "file": "img/hypoplectrodes-maccullochi-3.webp",
+   "bytes": 23600
   },
   {
-   "file": "img/myripristis-murdjan-2.webp",
+   "file": "img/myripristis-murdjan-1.webp",
    "bytes": 31830
   },
   {
-   "file": "img/myripristis-murdjan-3.webp",
-   "bytes": 19786
+   "file": "img/myripristis-murdjan-2.webp",
+   "bytes": 35174
   },
   {
    "file": "img/monotaxis-heterodon-1.webp",
@@ -5454,15 +5146,15 @@
   },
   {
    "file": "img/hippocampus-guttulatus-1.webp",
-   "bytes": 18892
+   "bytes": 51878
   },
   {
    "file": "img/hippocampus-guttulatus-2.webp",
-   "bytes": 14352
+   "bytes": 7458
   },
   {
    "file": "img/hippocampus-guttulatus-3.webp",
-   "bytes": 10040
+   "bytes": 42968
   },
   {
    "file": "img/sciaena-umbra-1.webp",
@@ -5533,20 +5225,12 @@
    "bytes": 19888
   },
   {
-   "file": "img/facelina-auriculata-3.webp",
-   "bytes": 13798
-  },
-  {
    "file": "img/glaucus-atlanticus-1.webp",
-   "bytes": 38774
+   "bytes": 15806
   },
   {
    "file": "img/glaucus-atlanticus-2.webp",
-   "bytes": 15348
-  },
-  {
-   "file": "img/glaucus-atlanticus-3.webp",
-   "bytes": 58142
+   "bytes": 20686
   },
   {
    "file": "img/dardanus-calidus-1.webp",
@@ -5554,10 +5238,6 @@
   },
   {
    "file": "img/dardanus-calidus-2.webp",
-   "bytes": 15152
-  },
-  {
-   "file": "img/dardanus-calidus-3.webp",
    "bytes": 23838
   },
   {
@@ -5634,15 +5314,11 @@
   },
   {
    "file": "img/hypselodoris-obscura-1.webp",
-   "bytes": 22774
-  },
-  {
-   "file": "img/hypselodoris-obscura-2.webp",
    "bytes": 30150
   },
   {
-   "file": "img/hypselodoris-obscura-3.webp",
-   "bytes": 6426
+   "file": "img/hypselodoris-obscura-2.webp",
+   "bytes": 22774
   },
   {
    "file": "img/arothron-diadematus-1.webp",
@@ -5706,15 +5382,15 @@
   },
   {
    "file": "img/raja-undulata-1.webp",
-   "bytes": 16846
+   "bytes": 46596
   },
   {
    "file": "img/raja-undulata-2.webp",
-   "bytes": 67856
+   "bytes": 64332
   },
   {
    "file": "img/raja-undulata-3.webp",
-   "bytes": 17176
+   "bytes": 22074
   },
   {
    "file": "img/pagurus-anachoretus-1.webp",
@@ -5730,15 +5406,15 @@
   },
   {
    "file": "img/aphelodoris-varia-1.webp",
-   "bytes": 49764
-  },
-  {
-   "file": "img/aphelodoris-varia-2.webp",
    "bytes": 20008
   },
   {
-   "file": "img/aphelodoris-varia-3.webp",
+   "file": "img/aphelodoris-varia-2.webp",
    "bytes": 17206
+  },
+  {
+   "file": "img/aphelodoris-varia-3.webp",
+   "bytes": 49764
   },
   {
    "file": "img/annella-mollis-1.webp",
@@ -5850,15 +5526,7 @@
   },
   {
    "file": "img/xantho-poressa-1.webp",
-   "bytes": 79476
-  },
-  {
-   "file": "img/xantho-poressa-2.webp",
    "bytes": 16746
-  },
-  {
-   "file": "img/xantho-poressa-3.webp",
-   "bytes": 10992
   },
   {
    "file": "img/porites-rus-1.webp",
@@ -5874,19 +5542,11 @@
   },
   {
    "file": "img/lyncina-carneola-1.webp",
-   "bytes": 10018
-  },
-  {
-   "file": "img/lyncina-carneola-2.webp",
-   "bytes": 21314
-  },
-  {
-   "file": "img/lyncina-carneola-3.webp",
-   "bytes": 10038
+   "bytes": 35094
   },
   {
    "file": "img/heteractis-aurora-1.webp",
-   "bytes": 7982
+   "bytes": 53326
   },
   {
    "file": "img/heteractis-aurora-2.webp",
@@ -5894,7 +5554,7 @@
   },
   {
    "file": "img/heteractis-aurora-3.webp",
-   "bytes": 53326
+   "bytes": 7982
   },
   {
    "file": "img/hippocampus-bargibanti-1.webp",
@@ -5934,27 +5594,23 @@
   },
   {
    "file": "img/clibanarius-infraspinatus-1.webp",
-   "bytes": 13766
+   "bytes": 32548
   },
   {
    "file": "img/clibanarius-infraspinatus-2.webp",
    "bytes": 26996
   },
   {
-   "file": "img/clibanarius-infraspinatus-3.webp",
-   "bytes": 32548
-  },
-  {
    "file": "img/ozius-truncatus-1.webp",
-   "bytes": 14760
-  },
-  {
-   "file": "img/ozius-truncatus-2.webp",
    "bytes": 36910
   },
   {
+   "file": "img/ozius-truncatus-2.webp",
+   "bytes": 55378
+  },
+  {
    "file": "img/ozius-truncatus-3.webp",
-   "bytes": 69458
+   "bytes": 37002
   },
   {
    "file": "img/polycera-capensis-1.webp",
@@ -6042,19 +5698,19 @@
   },
   {
    "file": "img/dardanus-lagopodes-1.webp",
-   "bytes": 29468
-  },
-  {
-   "file": "img/dardanus-lagopodes-2.webp",
    "bytes": 42310
   },
   {
+   "file": "img/dardanus-lagopodes-2.webp",
+   "bytes": 22566
+  },
+  {
    "file": "img/dardanus-lagopodes-3.webp",
-   "bytes": 56048
+   "bytes": 25946
   },
   {
    "file": "img/glossodoris-rufomarginata-1.webp",
-   "bytes": 14586
+   "bytes": 19712
   },
   {
    "file": "img/glossodoris-rufomarginata-2.webp",
@@ -6062,7 +5718,7 @@
   },
   {
    "file": "img/glossodoris-rufomarginata-3.webp",
-   "bytes": 51258
+   "bytes": 34408
   },
   {
    "file": "img/phestilla-sibogae-1.webp",
@@ -6083,10 +5739,6 @@
   {
    "file": "img/globicephala-melas-2.webp",
    "bytes": 15718
-  },
-  {
-   "file": "img/globicephala-melas-3.webp",
-   "bytes": 98576
   },
   {
    "file": "img/eunicella-cavolini-1.webp",
@@ -6138,15 +5790,15 @@
   },
   {
    "file": "img/calcinus-seurati-1.webp",
-   "bytes": 18974
+   "bytes": 21730
   },
   {
    "file": "img/calcinus-seurati-2.webp",
-   "bytes": 8472
+   "bytes": 18974
   },
   {
    "file": "img/calcinus-seurati-3.webp",
-   "bytes": 10946
+   "bytes": 8472
   },
   {
    "file": "img/phorbas-tenacior-1.webp",
@@ -6253,10 +5905,6 @@
    "bytes": 10332
   },
   {
-   "file": "img/phyllorhiza-punctata-3.webp",
-   "bytes": 59912
-  },
-  {
    "file": "img/naxia-aurita-1.webp",
    "bytes": 47528
   },
@@ -6282,7 +5930,7 @@
   },
   {
    "file": "img/parapercis-hexophtalma-1.webp",
-   "bytes": 11758
+   "bytes": 65750
   },
   {
    "file": "img/parapercis-hexophtalma-2.webp",
@@ -6290,19 +5938,11 @@
   },
   {
    "file": "img/parapercis-hexophtalma-3.webp",
-   "bytes": 3280
+   "bytes": 30456
   },
   {
    "file": "img/plesiastrea-versipora-1.webp",
    "bytes": 16058
-  },
-  {
-   "file": "img/plesiastrea-versipora-2.webp",
-   "bytes": 28330
-  },
-  {
-   "file": "img/plesiastrea-versipora-3.webp",
-   "bytes": 29208
   },
   {
    "file": "img/pomatoschistus-marmoratus-1.webp",
@@ -6370,11 +6010,11 @@
   },
   {
    "file": "img/monetaria-caputophidii-2.webp",
-   "bytes": 9110
+   "bytes": 24194
   },
   {
    "file": "img/monetaria-caputophidii-3.webp",
-   "bytes": 12982
+   "bytes": 58436
   },
   {
    "file": "img/scarus-ferrugineus-1.webp",
@@ -6405,14 +6045,6 @@
    "bytes": 5336
   },
   {
-   "file": "img/prionace-glauca-2.webp",
-   "bytes": 21748
-  },
-  {
-   "file": "img/prionace-glauca-3.webp",
-   "bytes": 22232
-  },
-  {
    "file": "img/leptogorgia-sarmentosa-1.webp",
    "bytes": 26310
   },
@@ -6438,15 +6070,11 @@
   },
   {
    "file": "img/acanthosepion-pharaonis-1.webp",
-   "bytes": 23072
-  },
-  {
-   "file": "img/acanthosepion-pharaonis-2.webp",
    "bytes": 57564
   },
   {
-   "file": "img/acanthosepion-pharaonis-3.webp",
-   "bytes": 55900
+   "file": "img/acanthosepion-pharaonis-2.webp",
+   "bytes": 23072
   },
   {
    "file": "img/chaetodon-semilarvatus-1.webp",
@@ -6466,10 +6094,6 @@
   },
   {
    "file": "img/pseudorhiza-haeckeli-2.webp",
-   "bytes": 97408
-  },
-  {
-   "file": "img/pseudorhiza-haeckeli-3.webp",
    "bytes": 18362
   },
   {
@@ -6481,19 +6105,11 @@
    "bytes": 16338
   },
   {
-   "file": "img/dascyllus-albisella-3.webp",
-   "bytes": 10666
-  },
-  {
    "file": "img/zebrasoma-xanthurum-1.webp",
    "bytes": 17570
   },
   {
    "file": "img/zebrasoma-xanthurum-2.webp",
-   "bytes": 20084
-  },
-  {
-   "file": "img/zebrasoma-xanthurum-3.webp",
    "bytes": 16548
   },
   {
@@ -6502,10 +6118,6 @@
   },
   {
    "file": "img/nebrius-ferrugineus-2.webp",
-   "bytes": 12406
-  },
-  {
-   "file": "img/nebrius-ferrugineus-3.webp",
    "bytes": 34222
   },
   {
@@ -6582,27 +6194,27 @@
   },
   {
    "file": "img/loligo-vulgaris-1.webp",
-   "bytes": 21818
+   "bytes": 5580
   },
   {
    "file": "img/loligo-vulgaris-2.webp",
-   "bytes": 15398
+   "bytes": 7386
   },
   {
    "file": "img/loligo-vulgaris-3.webp",
-   "bytes": 82156
+   "bytes": 8640
   },
   {
    "file": "img/torpedo-marmorata-1.webp",
-   "bytes": 9274
-  },
-  {
-   "file": "img/torpedo-marmorata-2.webp",
    "bytes": 73016
   },
   {
-   "file": "img/torpedo-marmorata-3.webp",
+   "file": "img/torpedo-marmorata-2.webp",
    "bytes": 22264
+  },
+  {
+   "file": "img/torpedo-marmorata-3.webp",
+   "bytes": 9274
   },
   {
    "file": "img/dasyatis-pastinaca-1.webp",
@@ -6670,10 +6282,6 @@
   },
   {
    "file": "img/meridiastra-gunnii-2.webp",
-   "bytes": 13544
-  },
-  {
-   "file": "img/meridiastra-gunnii-3.webp",
    "bytes": 29084
   },
   {
@@ -6683,10 +6291,6 @@
   {
    "file": "img/scyliorhinus-stellaris-2.webp",
    "bytes": 40138
-  },
-  {
-   "file": "img/scyliorhinus-stellaris-3.webp",
-   "bytes": 15086
   },
   {
    "file": "img/linckia-guildingi-1.webp",
@@ -6726,14 +6330,10 @@
   },
   {
    "file": "img/stomopneustes-variolaris-1.webp",
-   "bytes": 33930
-  },
-  {
-   "file": "img/stomopneustes-variolaris-2.webp",
    "bytes": 23610
   },
   {
-   "file": "img/stomopneustes-variolaris-3.webp",
+   "file": "img/stomopneustes-variolaris-2.webp",
    "bytes": 30098
   },
   {
@@ -6762,15 +6362,15 @@
   },
   {
    "file": "img/dentex-dentex-1.webp",
-   "bytes": 63694
+   "bytes": 12458
   },
   {
    "file": "img/dentex-dentex-2.webp",
-   "bytes": 25760
+   "bytes": 28154
   },
   {
    "file": "img/dentex-dentex-3.webp",
-   "bytes": 12588
+   "bytes": 25760
   },
   {
    "file": "img/antiopella-cristata-1.webp",
@@ -6798,15 +6398,11 @@
   },
   {
    "file": "img/mauritia-mauritiana-1.webp",
-   "bytes": 19872
-  },
-  {
-   "file": "img/mauritia-mauritiana-2.webp",
    "bytes": 28206
   },
   {
-   "file": "img/mauritia-mauritiana-3.webp",
-   "bytes": 15870
+   "file": "img/mauritia-mauritiana-2.webp",
+   "bytes": 19872
   },
   {
    "file": "img/pateobatis-fai-1.webp",
@@ -6846,15 +6442,11 @@
   },
   {
    "file": "img/mullus-barbatus-1.webp",
-   "bytes": 23840
+   "bytes": 16786
   },
   {
    "file": "img/mullus-barbatus-2.webp",
-   "bytes": 17086
-  },
-  {
-   "file": "img/mullus-barbatus-3.webp",
-   "bytes": 16786
+   "bytes": 23840
   },
   {
    "file": "img/plocamopherus-imperialis-1.webp",
@@ -6930,23 +6522,19 @@
   },
   {
    "file": "img/calcinus-latens-1.webp",
-   "bytes": 7922
-  },
-  {
-   "file": "img/calcinus-latens-2.webp",
    "bytes": 14834
   },
   {
-   "file": "img/calcinus-latens-3.webp",
+   "file": "img/calcinus-latens-2.webp",
    "bytes": 32662
   },
   {
    "file": "img/chaetodon-meyeri-1.webp",
-   "bytes": 14994
+   "bytes": 11086
   },
   {
    "file": "img/chaetodon-meyeri-2.webp",
-   "bytes": 11086
+   "bytes": 14994
   },
   {
    "file": "img/chaetodon-meyeri-3.webp",
@@ -7014,15 +6602,15 @@
   },
   {
    "file": "img/hydrophis-platurus-1.webp",
-   "bytes": 73898
+   "bytes": 24168
   },
   {
    "file": "img/hydrophis-platurus-2.webp",
-   "bytes": 42890
+   "bytes": 14748
   },
   {
    "file": "img/hydrophis-platurus-3.webp",
-   "bytes": 75708
+   "bytes": 3890
   },
   {
    "file": "img/turbinaria-reniformis-1.webp",
@@ -7050,15 +6638,15 @@
   },
   {
    "file": "img/herdmania-grandis-1.webp",
-   "bytes": 10962
-  },
-  {
-   "file": "img/herdmania-grandis-2.webp",
    "bytes": 40566
   },
   {
-   "file": "img/herdmania-grandis-3.webp",
+   "file": "img/herdmania-grandis-2.webp",
    "bytes": 24572
+  },
+  {
+   "file": "img/herdmania-grandis-3.webp",
+   "bytes": 10962
   },
   {
    "file": "img/cercodemas-anceps-1.webp",
@@ -7254,15 +6842,11 @@
   },
   {
    "file": "img/torquigener-flavimaculosus-1.webp",
-   "bytes": 13704
+   "bytes": 23384
   },
   {
    "file": "img/torquigener-flavimaculosus-2.webp",
    "bytes": 46592
-  },
-  {
-   "file": "img/torquigener-flavimaculosus-3.webp",
-   "bytes": 23384
   },
   {
    "file": "img/goniobranchus-daphne-1.webp",
@@ -7274,10 +6858,6 @@
   },
   {
    "file": "img/portunus-sanguinolentus-2.webp",
-   "bytes": 17830
-  },
-  {
-   "file": "img/portunus-sanguinolentus-3.webp",
    "bytes": 47360
   },
   {
@@ -7373,10 +6953,6 @@
    "bytes": 26240
   },
   {
-   "file": "img/porites-cylindrica-3.webp",
-   "bytes": 11814
-  },
-  {
    "file": "img/thysanozoon-nigropapillosum-1.webp",
    "bytes": 26204
   },
@@ -7390,15 +6966,15 @@
   },
   {
    "file": "img/gomphosus-caeruleus-1.webp",
-   "bytes": 29558
+   "bytes": 33868
   },
   {
    "file": "img/gomphosus-caeruleus-2.webp",
-   "bytes": 15806
+   "bytes": 29558
   },
   {
    "file": "img/gomphosus-caeruleus-3.webp",
-   "bytes": 33868
+   "bytes": 15806
   },
   {
    "file": "img/nembrotha-chamberlaini-1.webp",
@@ -7462,15 +7038,11 @@
   },
   {
    "file": "img/naria-helvola-1.webp",
-   "bytes": 18636
+   "bytes": 29976
   },
   {
    "file": "img/naria-helvola-2.webp",
-   "bytes": 11066
-  },
-  {
-   "file": "img/naria-helvola-3.webp",
-   "bytes": 9462
+   "bytes": 27640
   },
   {
    "file": "img/candiella-odhneri-1.webp",
@@ -7486,15 +7058,15 @@
   },
   {
    "file": "img/hypselodoris-imperialis-1.webp",
-   "bytes": 27292
-  },
-  {
-   "file": "img/hypselodoris-imperialis-2.webp",
    "bytes": 21972
   },
   {
-   "file": "img/hypselodoris-imperialis-3.webp",
+   "file": "img/hypselodoris-imperialis-2.webp",
    "bytes": 21372
+  },
+  {
+   "file": "img/hypselodoris-imperialis-3.webp",
+   "bytes": 27292
   },
   {
    "file": "img/protoreaster-lincki-1.webp",
@@ -7503,10 +7075,6 @@
   {
    "file": "img/protoreaster-lincki-2.webp",
    "bytes": 48874
-  },
-  {
-   "file": "img/protoreaster-lincki-3.webp",
-   "bytes": 12054
   },
   {
    "file": "img/chaetodon-paucifasciatus-1.webp",
@@ -7570,15 +7138,7 @@
   },
   {
    "file": "img/luria-lurida-1.webp",
-   "bytes": 14058
-  },
-  {
-   "file": "img/luria-lurida-2.webp",
    "bytes": 22994
-  },
-  {
-   "file": "img/luria-lurida-3.webp",
-   "bytes": 11286
   },
   {
    "file": "img/diaphorodoris-alba-1.webp",
@@ -7702,14 +7262,6 @@
   },
   {
    "file": "img/ascarosepion-mestus-1.webp",
-   "bytes": 9642
-  },
-  {
-   "file": "img/ascarosepion-mestus-2.webp",
-   "bytes": 20794
-  },
-  {
-   "file": "img/ascarosepion-mestus-3.webp",
    "bytes": 31664
   },
   {
@@ -7813,24 +7365,8 @@
    "bytes": 21562
   },
   {
-   "file": "img/chiloscyllium-punctatum-2.webp",
-   "bytes": 21402
-  },
-  {
-   "file": "img/chiloscyllium-punctatum-3.webp",
-   "bytes": 97552
-  },
-  {
    "file": "img/holopsamma-laminaefavosa-1.webp",
    "bytes": 16538
-  },
-  {
-   "file": "img/holopsamma-laminaefavosa-2.webp",
-   "bytes": 80400
-  },
-  {
-   "file": "img/holopsamma-laminaefavosa-3.webp",
-   "bytes": 57276
   },
   {
    "file": "img/dromia-personata-1.webp",
@@ -7850,10 +7386,6 @@
   },
   {
    "file": "img/diaphorodoris-papillata-2.webp",
-   "bytes": 9062
-  },
-  {
-   "file": "img/diaphorodoris-papillata-3.webp",
    "bytes": 18694
   },
   {
@@ -7862,10 +7394,6 @@
   },
   {
    "file": "img/pomacanthus-maculosus-2.webp",
-   "bytes": 5878
-  },
-  {
-   "file": "img/pomacanthus-maculosus-3.webp",
    "bytes": 12678
   },
   {
@@ -7911,10 +7439,6 @@
   {
    "file": "img/amphioctopus-marginatus-2.webp",
    "bytes": 48192
-  },
-  {
-   "file": "img/amphioctopus-marginatus-3.webp",
-   "bytes": 23906
   },
   {
    "file": "img/acropora-gemmifera-1.webp",
@@ -7966,15 +7490,15 @@
   },
   {
    "file": "img/ariosoma-balearicum-1.webp",
-   "bytes": 72504
-  },
-  {
-   "file": "img/ariosoma-balearicum-2.webp",
    "bytes": 36936
   },
   {
-   "file": "img/ariosoma-balearicum-3.webp",
+   "file": "img/ariosoma-balearicum-2.webp",
    "bytes": 24026
+  },
+  {
+   "file": "img/ariosoma-balearicum-3.webp",
+   "bytes": 72504
   },
   {
    "file": "img/physogyra-lichtensteini-1.webp",
@@ -8098,26 +7622,22 @@
   },
   {
    "file": "img/amphiprion-nigripes-1.webp",
-   "bytes": 54022
-  },
-  {
-   "file": "img/amphiprion-nigripes-2.webp",
-   "bytes": 41716
-  },
-  {
-   "file": "img/amphiprion-nigripes-3.webp",
    "bytes": 34630
   },
   {
-   "file": "img/aeolidiella-alderi-1.webp",
-   "bytes": 9638
+   "file": "img/amphiprion-nigripes-2.webp",
+   "bytes": 54022
   },
   {
-   "file": "img/aeolidiella-alderi-2.webp",
+   "file": "img/amphiprion-nigripes-3.webp",
+   "bytes": 41716
+  },
+  {
+   "file": "img/aeolidiella-alderi-1.webp",
    "bytes": 13620
   },
   {
-   "file": "img/aeolidiella-alderi-3.webp",
+   "file": "img/aeolidiella-alderi-2.webp",
    "bytes": 24276
   },
   {
@@ -8194,15 +7714,15 @@
   },
   {
    "file": "img/doris-chrysoderma-1.webp",
-   "bytes": 63690
+   "bytes": 27984
   },
   {
    "file": "img/doris-chrysoderma-2.webp",
-   "bytes": 53010
+   "bytes": 21660
   },
   {
    "file": "img/doris-chrysoderma-3.webp",
-   "bytes": 51684
+   "bytes": 41796
   },
   {
    "file": "img/rostanga-arbutus-1.webp",
@@ -8225,10 +7745,6 @@
    "bytes": 47732
   },
   {
-   "file": "img/astrospartus-mediterraneus-3.webp",
-   "bytes": 15670
-  },
-  {
    "file": "img/eucrossorhinus-dasypogon-1.webp",
    "bytes": 41868
   },
@@ -8242,19 +7758,15 @@
   },
   {
    "file": "img/astropecten-platyacanthus-1.webp",
-   "bytes": 25308
-  },
-  {
-   "file": "img/astropecten-platyacanthus-2.webp",
    "bytes": 60602
   },
   {
-   "file": "img/astropecten-platyacanthus-3.webp",
+   "file": "img/astropecten-platyacanthus-2.webp",
    "bytes": 5526
   },
   {
    "file": "img/thorunna-daniellae-1.webp",
-   "bytes": 18112
+   "bytes": 33936
   },
   {
    "file": "img/thorunna-daniellae-2.webp",
@@ -8262,7 +7774,7 @@
   },
   {
    "file": "img/thorunna-daniellae-3.webp",
-   "bytes": 33936
+   "bytes": 18112
   },
   {
    "file": "img/nemesignis-banyulensis-1.webp",
@@ -8278,15 +7790,15 @@
   },
   {
    "file": "img/phyllodoce-novaehollandiae-1.webp",
-   "bytes": 38210
-  },
-  {
-   "file": "img/phyllodoce-novaehollandiae-2.webp",
    "bytes": 51498
   },
   {
-   "file": "img/phyllodoce-novaehollandiae-3.webp",
+   "file": "img/phyllodoce-novaehollandiae-2.webp",
    "bytes": 21456
+  },
+  {
+   "file": "img/phyllodoce-novaehollandiae-3.webp",
+   "bytes": 38210
   },
   {
    "file": "img/goniastrea-pectinata-1.webp",
@@ -8302,11 +7814,11 @@
   },
   {
    "file": "img/scyllarus-arctus-1.webp",
-   "bytes": 44718
+   "bytes": 41230
   },
   {
    "file": "img/scyllarus-arctus-2.webp",
-   "bytes": 41230
+   "bytes": 44718
   },
   {
    "file": "img/scyllarus-arctus-3.webp",
@@ -8353,14 +7865,6 @@
    "bytes": 21630
   },
   {
-   "file": "img/raja-asterias-2.webp",
-   "bytes": 11112
-  },
-  {
-   "file": "img/raja-asterias-3.webp",
-   "bytes": 13726
-  },
-  {
    "file": "img/caryophyllia-caryophyllia-inornata-1.webp",
    "bytes": 43248
   },
@@ -8389,14 +7893,6 @@
    "bytes": 31680
   },
   {
-   "file": "img/brissus-unicolor-2.webp",
-   "bytes": 10970
-  },
-  {
-   "file": "img/brissus-unicolor-3.webp",
-   "bytes": 20832
-  },
-  {
    "file": "img/amphiprion-akallopisos-1.webp",
    "bytes": 22788
   },
@@ -8422,27 +7918,15 @@
   },
   {
    "file": "img/dendrodoris-limbata-1.webp",
-   "bytes": 15680
-  },
-  {
-   "file": "img/dendrodoris-limbata-2.webp",
-   "bytes": 27014
-  },
-  {
-   "file": "img/dendrodoris-limbata-3.webp",
    "bytes": 48468
   },
   {
    "file": "img/lysmata-seticaudata-1.webp",
-   "bytes": 34176
+   "bytes": 22758
   },
   {
    "file": "img/lysmata-seticaudata-2.webp",
    "bytes": 23086
-  },
-  {
-   "file": "img/lysmata-seticaudata-3.webp",
-   "bytes": 22758
   },
   {
    "file": "img/alcyonium-coralloides-1.webp",
@@ -8465,19 +7949,11 @@
    "bytes": 76148
   },
   {
-   "file": "img/isurus-oxyrinchus-3.webp",
-   "bytes": 10052
-  },
-  {
    "file": "img/veretillum-cynomorium-1.webp",
-   "bytes": 57932
-  },
-  {
-   "file": "img/veretillum-cynomorium-2.webp",
    "bytes": 8268
   },
   {
-   "file": "img/veretillum-cynomorium-3.webp",
+   "file": "img/veretillum-cynomorium-2.webp",
    "bytes": 46690
   },
   {
@@ -8506,39 +7982,35 @@
   },
   {
    "file": "img/cephalopholis-hemistiktos-1.webp",
-   "bytes": 20206
-  },
-  {
-   "file": "img/cephalopholis-hemistiktos-2.webp",
    "bytes": 23690
   },
   {
-   "file": "img/cephalopholis-hemistiktos-3.webp",
+   "file": "img/cephalopholis-hemistiktos-2.webp",
    "bytes": 15300
   },
   {
+   "file": "img/cephalopholis-hemistiktos-3.webp",
+   "bytes": 20206
+  },
+  {
    "file": "img/naria-turdus-1.webp",
-   "bytes": 39918
+   "bytes": 22100
   },
   {
    "file": "img/naria-turdus-2.webp",
-   "bytes": 28682
-  },
-  {
-   "file": "img/naria-turdus-3.webp",
-   "bytes": 18644
+   "bytes": 30368
   },
   {
    "file": "img/flabellina-cavolini-1.webp",
-   "bytes": 42454
+   "bytes": 27294
   },
   {
    "file": "img/flabellina-cavolini-2.webp",
-   "bytes": 20668
+   "bytes": 30338
   },
   {
    "file": "img/flabellina-cavolini-3.webp",
-   "bytes": 34642
+   "bytes": 18930
   },
   {
    "file": "img/phyllidiella-zeylanica-1.webp",
@@ -8566,15 +8038,15 @@
   },
   {
    "file": "img/hemitaurichthys-zoster-1.webp",
-   "bytes": 22838
+   "bytes": 4870
   },
   {
    "file": "img/hemitaurichthys-zoster-2.webp",
-   "bytes": 5896
+   "bytes": 15252
   },
   {
    "file": "img/hemitaurichthys-zoster-3.webp",
-   "bytes": 3362
+   "bytes": 24342
   },
   {
    "file": "img/millepora-tenera-1.webp",
@@ -8590,15 +8062,15 @@
   },
   {
    "file": "img/chaetodon-xanthocephalus-1.webp",
-   "bytes": 13164
+   "bytes": 3798
   },
   {
    "file": "img/chaetodon-xanthocephalus-2.webp",
-   "bytes": 22942
+   "bytes": 13164
   },
   {
    "file": "img/chaetodon-xanthocephalus-3.webp",
-   "bytes": 3798
+   "bytes": 22942
   },
   {
    "file": "img/thalassoma-hebraicum-1.webp",
@@ -8614,14 +8086,10 @@
   },
   {
    "file": "img/pseudobiceros-hancockanus-1.webp",
-   "bytes": 24770
-  },
-  {
-   "file": "img/pseudobiceros-hancockanus-2.webp",
    "bytes": 32346
   },
   {
-   "file": "img/pseudobiceros-hancockanus-3.webp",
+   "file": "img/pseudobiceros-hancockanus-2.webp",
    "bytes": 18946
   },
   {
@@ -8654,10 +8122,6 @@
   },
   {
    "file": "img/thalassia-hemprichii-2.webp",
-   "bytes": 48394
-  },
-  {
-   "file": "img/thalassia-hemprichii-3.webp",
    "bytes": 23974
   },
   {
@@ -8686,15 +8150,11 @@
   },
   {
    "file": "img/sousa-chinensis-1.webp",
-   "bytes": 11080
+   "bytes": 23872
   },
   {
    "file": "img/sousa-chinensis-2.webp",
    "bytes": 11914
-  },
-  {
-   "file": "img/sousa-chinensis-3.webp",
-   "bytes": 23872
   },
   {
    "file": "img/protula-bispiralis-1.webp",
@@ -8770,14 +8230,10 @@
   },
   {
    "file": "img/lysiosquilla-lisa-1.webp",
-   "bytes": 45842
-  },
-  {
-   "file": "img/lysiosquilla-lisa-2.webp",
    "bytes": 38804
   },
   {
-   "file": "img/lysiosquilla-lisa-3.webp",
+   "file": "img/lysiosquilla-lisa-2.webp",
    "bytes": 97240
   },
   {
@@ -8818,14 +8274,6 @@
   },
   {
    "file": "img/halophila-stipulacea-1.webp",
-   "bytes": 39082
-  },
-  {
-   "file": "img/halophila-stipulacea-2.webp",
-   "bytes": 37874
-  },
-  {
-   "file": "img/halophila-stipulacea-3.webp",
    "bytes": 31620
   },
   {
@@ -8902,27 +8350,19 @@
   },
   {
    "file": "img/urogymnus-granulatus-1.webp",
-   "bytes": 11704
-  },
-  {
-   "file": "img/urogymnus-granulatus-2.webp",
-   "bytes": 4306
-  },
-  {
-   "file": "img/urogymnus-granulatus-3.webp",
    "bytes": 12362
   },
   {
    "file": "img/pseudoceros-indicus-1.webp",
-   "bytes": 15676
-  },
-  {
-   "file": "img/pseudoceros-indicus-2.webp",
    "bytes": 36728
   },
   {
-   "file": "img/pseudoceros-indicus-3.webp",
+   "file": "img/pseudoceros-indicus-2.webp",
    "bytes": 38038
+  },
+  {
+   "file": "img/pseudoceros-indicus-3.webp",
+   "bytes": 15676
   },
   {
    "file": "img/urogymnus-asperrimus-1.webp",
@@ -9026,27 +8466,19 @@
   },
   {
    "file": "img/gobius-fallax-1.webp",
-   "bytes": 43778
+   "bytes": 32200
   },
   {
    "file": "img/gobius-fallax-2.webp",
-   "bytes": 18816
+   "bytes": 43778
   },
   {
    "file": "img/gobius-fallax-3.webp",
-   "bytes": 32200
+   "bytes": 18816
   },
   {
    "file": "img/cyanea-barkeri-1.webp",
    "bytes": 21636
-  },
-  {
-   "file": "img/cyanea-barkeri-2.webp",
-   "bytes": 59646
-  },
-  {
-   "file": "img/cyanea-barkeri-3.webp",
-   "bytes": 24376
   },
   {
    "file": "img/melichthys-indicus-1.webp",
@@ -9078,10 +8510,6 @@
   },
   {
    "file": "img/calcinus-pictus-2.webp",
-   "bytes": 14630
-  },
-  {
-   "file": "img/calcinus-pictus-3.webp",
    "bytes": 14508
   },
   {
@@ -9098,15 +8526,15 @@
   },
   {
    "file": "img/carcharhinus-falciformis-1.webp",
-   "bytes": 24430
+   "bytes": 7888
   },
   {
    "file": "img/carcharhinus-falciformis-2.webp",
-   "bytes": 38940
+   "bytes": 11132
   },
   {
    "file": "img/carcharhinus-falciformis-3.webp",
-   "bytes": 45466
+   "bytes": 982
   },
   {
    "file": "img/amplexidiscus-fenestrafer-1.webp",
@@ -9194,11 +8622,11 @@
   },
   {
    "file": "img/sousa-sahulensis-1.webp",
-   "bytes": 11468
+   "bytes": 11010
   },
   {
    "file": "img/sousa-sahulensis-2.webp",
-   "bytes": 11010
+   "bytes": 11468
   },
   {
    "file": "img/sousa-sahulensis-3.webp",
@@ -9206,14 +8634,10 @@
   },
   {
    "file": "img/acromitus-flagellatus-1.webp",
-   "bytes": 1686
-  },
-  {
-   "file": "img/acromitus-flagellatus-2.webp",
    "bytes": 2984
   },
   {
-   "file": "img/acromitus-flagellatus-3.webp",
+   "file": "img/acromitus-flagellatus-2.webp",
    "bytes": 19238
   },
   {
@@ -9253,20 +8677,12 @@
    "bytes": 20432
   },
   {
-   "file": "img/prostheceraeus-moseleyi-3.webp",
-   "bytes": 10702
-  },
-  {
    "file": "img/alopias-pelagicus-1.webp",
-   "bytes": 23760
+   "bytes": 3892
   },
   {
    "file": "img/alopias-pelagicus-2.webp",
    "bytes": 52030
-  },
-  {
-   "file": "img/alopias-pelagicus-3.webp",
-   "bytes": 3892
   },
   {
    "file": "img/favites-vasta-1.webp",
@@ -9306,15 +8722,11 @@
   },
   {
    "file": "img/rhopilema-hispidum-1.webp",
-   "bytes": 52938
+   "bytes": 13782
   },
   {
    "file": "img/rhopilema-hispidum-2.webp",
-   "bytes": 44738
-  },
-  {
-   "file": "img/rhopilema-hispidum-3.webp",
-   "bytes": 14158
+   "bytes": 39050
   },
   {
    "file": "img/chelonaplysilla-violacea-1.webp",
@@ -9397,10 +8809,6 @@
    "bytes": 6654
   },
   {
-   "file": "img/mustelus-mustelus-3.webp",
-   "bytes": 87178
-  },
-  {
    "file": "img/ardeadoris-tomsmithi-1.webp",
    "bytes": 19140
   },
@@ -9414,10 +8822,6 @@
   },
   {
    "file": "img/mobula-mobular-2.webp",
-   "bytes": 22684
-  },
-  {
-   "file": "img/mobula-mobular-3.webp",
    "bytes": 16700
   },
   {
@@ -9434,15 +8838,15 @@
   },
   {
    "file": "img/rhopilema-nomadica-1.webp",
-   "bytes": 60948
+   "bytes": 2374
   },
   {
    "file": "img/rhopilema-nomadica-2.webp",
-   "bytes": 58322
+   "bytes": 9358
   },
   {
    "file": "img/rhopilema-nomadica-3.webp",
-   "bytes": 1286
+   "bytes": 74632
   },
   {
    "file": "img/pseudoceros-paralaticlavus-1.webp",
@@ -9470,14 +8874,10 @@
   },
   {
    "file": "img/goniobranchus-annulatus-1.webp",
-   "bytes": 21002
-  },
-  {
-   "file": "img/goniobranchus-annulatus-2.webp",
    "bytes": 24358
   },
   {
-   "file": "img/goniobranchus-annulatus-3.webp",
+   "file": "img/goniobranchus-annulatus-2.webp",
    "bytes": 14142
   },
   {
@@ -9606,14 +9006,10 @@
   },
   {
    "file": "img/lysiosquilla-maculata-1.webp",
-   "bytes": 45842
-  },
-  {
-   "file": "img/lysiosquilla-maculata-2.webp",
    "bytes": 113322
   },
   {
-   "file": "img/lysiosquilla-maculata-3.webp",
+   "file": "img/lysiosquilla-maculata-2.webp",
    "bytes": 53502
   },
   {
@@ -9673,10 +9069,6 @@
    "bytes": 6278
   },
   {
-   "file": "img/abudefduf-sparoides-3.webp",
-   "bytes": 3738
-  },
-  {
    "file": "img/neotrygon-caeruleopunctata-1.webp",
    "bytes": 49112
   },
@@ -9714,15 +9106,15 @@
   },
   {
    "file": "img/clavularia-crassa-1.webp",
-   "bytes": 9082
+   "bytes": 31092
   },
   {
    "file": "img/clavularia-crassa-2.webp",
-   "bytes": 34584
+   "bytes": 9082
   },
   {
    "file": "img/clavularia-crassa-3.webp",
-   "bytes": 25136
+   "bytes": 34584
   },
   {
    "file": "img/facelina-rubrovittata-1.webp",
@@ -9738,11 +9130,11 @@
   },
   {
    "file": "img/paranemonia-cinerea-1.webp",
-   "bytes": 6376
+   "bytes": 17792
   },
   {
    "file": "img/paranemonia-cinerea-2.webp",
-   "bytes": 17792
+   "bytes": 6376
   },
   {
    "file": "img/paranemonia-cinerea-3.webp",
@@ -9785,10 +9177,6 @@
    "bytes": 39494
   },
   {
-   "file": "img/torpedo-torpedo-3.webp",
-   "bytes": 18762
-  },
-  {
    "file": "img/bispira-mariae-1.webp",
    "bytes": 47600
   },
@@ -9805,14 +9193,6 @@
    "bytes": 6246
   },
   {
-   "file": "img/chrysaora-chinensis-2.webp",
-   "bytes": 68158
-  },
-  {
-   "file": "img/chrysaora-chinensis-3.webp",
-   "bytes": 64290
-  },
-  {
    "file": "img/rhabdastrella-globostellata-1.webp",
    "bytes": 33632
   },
@@ -9826,27 +9206,27 @@
   },
   {
    "file": "img/chloeia-flava-1.webp",
-   "bytes": 69638
+   "bytes": 43406
   },
   {
    "file": "img/chloeia-flava-2.webp",
-   "bytes": 83432
+   "bytes": 23396
   },
   {
    "file": "img/chloeia-flava-3.webp",
-   "bytes": 21772
+   "bytes": 86474
   },
   {
    "file": "img/gomophia-egyptiaca-1.webp",
-   "bytes": 37850
-  },
-  {
-   "file": "img/gomophia-egyptiaca-2.webp",
    "bytes": 34046
   },
   {
-   "file": "img/gomophia-egyptiaca-3.webp",
+   "file": "img/gomophia-egyptiaca-2.webp",
    "bytes": 72454
+  },
+  {
+   "file": "img/gomophia-egyptiaca-3.webp",
+   "bytes": 37850
   },
   {
    "file": "img/pherecardia-striata-1.webp",
@@ -9922,15 +9302,11 @@
   },
   {
    "file": "img/squilla-mantis-1.webp",
-   "bytes": 32438
+   "bytes": 34200
   },
   {
    "file": "img/squilla-mantis-2.webp",
    "bytes": 10928
-  },
-  {
-   "file": "img/squilla-mantis-3.webp",
-   "bytes": 34200
   },
   {
    "file": "img/halgerda-wasinensis-1.webp",
@@ -9982,15 +9358,15 @@
   },
   {
    "file": "img/hydrophis-schistosus-1.webp",
-   "bytes": 82570
+   "bytes": 71586
   },
   {
    "file": "img/hydrophis-schistosus-2.webp",
-   "bytes": 37914
+   "bytes": 29394
   },
   {
    "file": "img/hydrophis-schistosus-3.webp",
-   "bytes": 48276
+   "bytes": 39558
   },
   {
    "file": "img/hydrophis-major-1.webp",
@@ -10054,10 +9430,6 @@
   },
   {
    "file": "img/homophyllia-australis-2.webp",
-   "bytes": 31554
-  },
-  {
-   "file": "img/homophyllia-australis-3.webp",
    "bytes": 64448
   },
   {
@@ -10074,15 +9446,11 @@
   },
   {
    "file": "img/pteroplatytrygon-violacea-1.webp",
-   "bytes": 26226
+   "bytes": 7302
   },
   {
    "file": "img/pteroplatytrygon-violacea-2.webp",
    "bytes": 5694
-  },
-  {
-   "file": "img/pteroplatytrygon-violacea-3.webp",
-   "bytes": 7302
   },
   {
    "file": "img/phyllidia-marindica-1.webp",
@@ -10134,14 +9502,6 @@
   },
   {
    "file": "img/glaucostegus-halavi-1.webp",
-   "bytes": 3848
-  },
-  {
-   "file": "img/glaucostegus-halavi-2.webp",
-   "bytes": 3598
-  },
-  {
-   "file": "img/glaucostegus-halavi-3.webp",
    "bytes": 12786
   },
   {
@@ -10162,23 +9522,15 @@
   },
   {
    "file": "img/neotrygon-indica-2.webp",
-   "bytes": 40382
-  },
-  {
-   "file": "img/neotrygon-indica-3.webp",
    "bytes": 35714
   },
   {
    "file": "img/carcharhinus-longimanus-1.webp",
-   "bytes": 20372
-  },
-  {
-   "file": "img/carcharhinus-longimanus-2.webp",
    "bytes": 13586
   },
   {
-   "file": "img/carcharhinus-longimanus-3.webp",
-   "bytes": 1628
+   "file": "img/carcharhinus-longimanus-2.webp",
+   "bytes": 20372
   },
   {
    "file": "img/trapezia-tigrina-1.webp",
@@ -10314,14 +9666,6 @@
   },
   {
    "file": "img/sepiella-inermis-1.webp",
-   "bytes": 20458
-  },
-  {
-   "file": "img/sepiella-inermis-2.webp",
-   "bytes": 103710
-  },
-  {
-   "file": "img/sepiella-inermis-3.webp",
    "bytes": 29138
   },
   {
@@ -10338,15 +9682,15 @@
   },
   {
    "file": "img/versuriga-anadyomene-1.webp",
-   "bytes": 4156
-  },
-  {
-   "file": "img/versuriga-anadyomene-2.webp",
    "bytes": 7842
   },
   {
-   "file": "img/versuriga-anadyomene-3.webp",
+   "file": "img/versuriga-anadyomene-2.webp",
    "bytes": 9148
+  },
+  {
+   "file": "img/versuriga-anadyomene-3.webp",
+   "bytes": 4156
   },
   {
    "file": "img/hyrtios-erectus-1.webp",
@@ -10374,15 +9718,15 @@
   },
   {
    "file": "img/natator-depressus-1.webp",
-   "bytes": 7288
+   "bytes": 38756
   },
   {
    "file": "img/natator-depressus-2.webp",
-   "bytes": 5532
+   "bytes": 41988
   },
   {
    "file": "img/natator-depressus-3.webp",
-   "bytes": 45482
+   "bytes": 5532
   },
   {
    "file": "img/fromia-nodosa-1.webp",
@@ -10450,10 +9794,6 @@
   },
   {
    "file": "img/clibanarius-signatus-2.webp",
-   "bytes": 30636
-  },
-  {
-   "file": "img/clibanarius-signatus-3.webp",
    "bytes": 23122
   },
   {
@@ -10510,10 +9850,6 @@
   },
   {
    "file": "img/pseudoceros-gamblei-2.webp",
-   "bytes": 28672
-  },
-  {
-   "file": "img/pseudoceros-gamblei-3.webp",
    "bytes": 50274
   },
   {
@@ -10530,15 +9866,11 @@
   },
   {
    "file": "img/thysanoteuthis-rhombus-1.webp",
-   "bytes": 7488
+   "bytes": 5482
   },
   {
    "file": "img/thysanoteuthis-rhombus-2.webp",
-   "bytes": 25394
-  },
-  {
-   "file": "img/thysanoteuthis-rhombus-3.webp",
-   "bytes": 5482
+   "bytes": 7488
   },
   {
    "file": "img/chromodoris-hamiltoni-1.webp",
@@ -10575,10 +9907,6 @@
   {
    "file": "img/argonauta-hians-2.webp",
    "bytes": 15862
-  },
-  {
-   "file": "img/argonauta-hians-3.webp",
-   "bytes": 16398
   },
   {
    "file": "img/pastinachus-sephen-1.webp",
@@ -10630,19 +9958,19 @@
   },
   {
    "file": "img/thalassodendron-ciliatum-1.webp",
-   "bytes": 12182
+   "bytes": 70452
   },
   {
    "file": "img/thalassodendron-ciliatum-2.webp",
-   "bytes": 11228
+   "bytes": 30276
   },
   {
    "file": "img/thalassodendron-ciliatum-3.webp",
-   "bytes": 12214
+   "bytes": 15184
   },
   {
    "file": "img/phyllidia-rueppelii-1.webp",
-   "bytes": 16314
+   "bytes": 34136
   },
   {
    "file": "img/phyllidia-rueppelii-2.webp",
@@ -10650,19 +9978,11 @@
   },
   {
    "file": "img/phyllidia-rueppelii-3.webp",
-   "bytes": 34136
+   "bytes": 16314
   },
   {
    "file": "img/raja-radula-1.webp",
    "bytes": 30438
-  },
-  {
-   "file": "img/raja-radula-2.webp",
-   "bytes": 11412
-  },
-  {
-   "file": "img/raja-radula-3.webp",
-   "bytes": 37214
   },
   {
    "file": "img/millepora-exaesa-1.webp",
@@ -10702,15 +10022,15 @@
   },
   {
    "file": "img/ancylomenes-longicarpus-1.webp",
-   "bytes": 19192
-  },
-  {
-   "file": "img/ancylomenes-longicarpus-2.webp",
    "bytes": 10700
   },
   {
-   "file": "img/ancylomenes-longicarpus-3.webp",
+   "file": "img/ancylomenes-longicarpus-2.webp",
    "bytes": 10858
+  },
+  {
+   "file": "img/ancylomenes-longicarpus-3.webp",
+   "bytes": 19192
   },
   {
    "file": "img/goniobranchus-gleniei-1.webp",
@@ -10881,20 +10201,8 @@
    "bytes": 6700
   },
   {
-   "file": "img/crambionella-stuhlmanni-2.webp",
-   "bytes": 22430
-  },
-  {
-   "file": "img/crambionella-stuhlmanni-3.webp",
-   "bytes": 9314
-  },
-  {
    "file": "img/zonaria-pyrum-1.webp",
    "bytes": 40332
-  },
-  {
-   "file": "img/zonaria-pyrum-2.webp",
-   "bytes": 42402
   },
   {
    "file": "img/asthenosoma-marisrubri-1.webp",
@@ -10922,10 +10230,6 @@
   },
   {
    "file": "img/mauritia-grayana-1.webp",
-   "bytes": 9384
-  },
-  {
-   "file": "img/mauritia-grayana-2.webp",
    "bytes": 37084
   },
   {
@@ -10986,10 +10290,6 @@
   },
   {
    "file": "img/oceana-serrulata-1.webp",
-   "bytes": 11160
-  },
-  {
-   "file": "img/oceana-serrulata-2.webp",
    "bytes": 31756
   },
   {
@@ -11053,10 +10353,6 @@
    "bytes": 30324
   },
   {
-   "file": "img/crambionella-orsini-3.webp",
-   "bytes": 29430
-  },
-  {
    "file": "img/sepia-gibba-1.webp",
    "bytes": 70700
   },
@@ -11073,6 +10369,6 @@
    "bytes": 14982
   }
  ],
- "photo_bytes": 84475472,
- "thumb_bytes": 9147788
+ "photo_bytes": 78924736,
+ "thumb_bytes": 9388312
 }
