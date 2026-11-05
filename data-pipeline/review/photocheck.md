@@ -1,0 +1,312 @@
+# Fotoprüfung (Bildmodell)
+
+935 Arten geprüft, 288 mit neuer Fotoauswahl, 15 ohne gutes Foto. Kosten: $2.05.
+
+## Neue Fotoauswahl
+
+- *Abudefduf bengalensis*: vorher live_underwater, live_underwater, live_underwater; jetzt 3 gute Fotos
+- *Abudefduf sparoides*: vorher live_underwater, live_underwater, live_underwater; jetzt 2 gute Fotos
+- *Acanthaluteres brownii*: vorher dead_or_stranded, dead_or_stranded, live_underwater; jetzt 3 gute Fotos
+- *Acanthopagrus australis*: vorher live_underwater, live_underwater, live_underwater; jetzt 2 gute Fotos
+- *Acanthosepion pharaonis*: vorher live_underwater, live_underwater, dead_or_stranded; jetzt 2 gute Fotos
+- *Acromitus flagellatus*: vorher live_underwater, live_underwater, live_surface_or_shore; jetzt 2 gute Fotos
+- *Actinia equina*: vorher live_underwater, live_surface_or_shore, live_surface_or_shore; jetzt 3 gute Fotos
+- *Aeolidiella alderi*: vorher caught_or_in_hand, live_underwater, live_underwater; jetzt 2 gute Fotos
+- *Alopias pelagicus*: vorher dead_or_stranded, live_surface_or_shore, live_underwater; jetzt 2 gute Fotos
+- *Amphibolis antarctica*: vorher live_underwater, caught_or_in_hand, caught_or_in_hand; jetzt 3 gute Fotos
+- *Amphioctopus marginatus*: vorher live_underwater, live_underwater, other; jetzt 2 gute Fotos
+- *Amphiprion clarkii*: vorher live_underwater, live_underwater, live_underwater; jetzt 3 gute Fotos
+- *Amphiprion nigripes*: vorher live_underwater, live_underwater, live_underwater; jetzt 3 gute Fotos
+- *Amphiprion ocellaris*: vorher live_underwater, live_underwater, live_underwater; jetzt 3 gute Fotos
+- *Ancylocaris brevicarpalis*: vorher live_underwater, live_underwater, caught_or_in_hand; jetzt 2 gute Fotos
+- *Ancylomenes longicarpus*: vorher live_underwater, live_underwater, live_underwater; jetzt 3 gute Fotos
+- *Aphelodoris varia*: vorher live_underwater, live_underwater, live_underwater; jetzt 3 gute Fotos
+- *Aracana aurita*: vorher caught_or_in_hand, live_underwater, dead_or_stranded; jetzt 3 gute Fotos
+- *Aracana ornata*: vorher live_underwater, live_underwater, dead_or_stranded; jetzt 2 gute Fotos
+- *Arbacia lixula*: vorher live_underwater, live_underwater, dead_or_stranded; jetzt 2 gute Fotos
+- *Argonauta hians*: vorher live_underwater, live_underwater, caught_or_in_hand; jetzt 2 gute Fotos
+- *Ariosoma balearicum*: vorher live_underwater, live_underwater, live_underwater; jetzt 3 gute Fotos
+- *Arothron hispidus*: vorher live_underwater, live_underwater, live_underwater; jetzt 3 gute Fotos
+- *Ascarosepion apama*: vorher live_underwater, live_underwater, caught_or_in_hand; jetzt 2 gute Fotos
+- *Ascarosepion mestus*: vorher caught_or_in_hand, dead_or_stranded, live_underwater; jetzt 1 gute Fotos
+- *Ascarosepion plangon*: vorher live_underwater, live_underwater, live_underwater; jetzt 3 gute Fotos
+- *Astropecten platyacanthus*: vorher caught_or_in_hand, live_underwater, live_underwater; jetzt 2 gute Fotos
+- *Astrospartus mediterraneus*: vorher live_underwater, live_underwater, dead_or_stranded; jetzt 2 gute Fotos
+- *Balaenoptera musculus*: vorher live_surface_or_shore, live_surface_or_shore, dead_or_stranded; jetzt 2 gute Fotos
+- *Balaenoptera physalus*: vorher dead_or_stranded, illustration, live_surface_or_shore; jetzt 3 gute Fotos
+- *Balanophyllia (Balanophyllia) europaea*: vorher live_underwater, live_underwater, live_underwater; jetzt 3 gute Fotos
+- *Bathytoshia brevicaudata*: vorher live_underwater, live_surface_or_shore, live_underwater; jetzt 3 gute Fotos
+- *Bohadschia argus*: vorher live_underwater, other, live_underwater; jetzt 2 gute Fotos
+- *Boops boops*: vorher live_underwater, caught_or_in_hand, live_underwater; jetzt 3 gute Fotos
+- *Brissus unicolor*: vorher live_underwater, dead_or_stranded, dead_or_stranded; jetzt 1 gute Fotos
+- *Calcinus laevimanus*: vorher live_underwater, live_surface_or_shore, caught_or_in_hand; jetzt 3 gute Fotos
+- *Calcinus latens*: vorher caught_or_in_hand, live_underwater, live_underwater; jetzt 2 gute Fotos
+- *Calcinus pictus*: vorher live_underwater, caught_or_in_hand, live_underwater; jetzt 2 gute Fotos
+- *Calcinus seurati*: vorher live_surface_or_shore, live_underwater, caught_or_in_hand; jetzt 3 gute Fotos
+- *Callinectes sapidus*: vorher caught_or_in_hand, caught_or_in_hand, other; jetzt 3 gute Fotos
+- *Caloria indica*: vorher live_underwater, live_underwater, caught_or_in_hand; jetzt 2 gute Fotos
+- *Canthigaster valentini*: vorher live_underwater, caught_or_in_hand, live_underwater; jetzt 2 gute Fotos
+- *Caranx crysos*: vorher live_underwater, caught_or_in_hand, live_underwater; jetzt 2 gute Fotos
+- *Carcharhinus falciformis*: vorher dead_or_stranded, caught_or_in_hand, caught_or_in_hand; jetzt 3 gute Fotos
+- *Carcharhinus leucas*: vorher dead_or_stranded, caught_or_in_hand, live_surface_or_shore; jetzt 3 gute Fotos
+- *Carcharhinus limbatus*: vorher dead_or_stranded, live_underwater, live_underwater; jetzt 2 gute Fotos
+- *Carcharhinus longimanus*: vorher live_underwater, live_underwater, live_underwater; jetzt 2 gute Fotos
+- *Carcharias taurus*: vorher dead_or_stranded, live_underwater, live_underwater; jetzt 3 gute Fotos
+- *Catostylus mosaicus*: vorher live_surface_or_shore, dead_or_stranded, dead_or_stranded; jetzt 2 gute Fotos
+- *Cephalopholis hemistiktos*: vorher live_underwater, live_underwater, live_underwater; jetzt 3 gute Fotos
+- *Ceratosoma brevicaudatum*: vorher live_underwater, caught_or_in_hand, live_underwater; jetzt 2 gute Fotos
+- *Cereus pedunculatus*: vorher live_surface_or_shore, live_underwater, live_underwater; jetzt 3 gute Fotos
+- *Chaetodon auriga*: vorher live_underwater, live_underwater, caught_or_in_hand; jetzt 2 gute Fotos
+- *Chaetodon meyeri*: vorher live_underwater, live_underwater, live_underwater; jetzt 3 gute Fotos
+- *Chaetodon ulietensis*: vorher live_underwater, live_underwater, live_underwater; jetzt 3 gute Fotos
+- *Chaetodon vagabundus*: vorher live_underwater, live_underwater, caught_or_in_hand; jetzt 2 gute Fotos
+- *Chaetodon xanthocephalus*: vorher live_underwater, live_underwater, live_underwater; jetzt 3 gute Fotos
+- *Cheilinus fasciatus*: vorher live_underwater, caught_or_in_hand, live_underwater; jetzt 2 gute Fotos
+- *Chelmonops curiosus*: vorher live_underwater, live_underwater, live_underwater; jetzt 3 gute Fotos
+- *Chelon labrosus*: vorher live_underwater, live_surface_or_shore, dead_or_stranded; jetzt 3 gute Fotos
+- *Chelonia mydas*: vorher live_underwater, caught_or_in_hand, live_underwater; jetzt 2 gute Fotos
+- *Chiloscyllium punctatum*: vorher live_surface_or_shore, caught_or_in_hand, dead_or_stranded; jetzt 1 gute Fotos
+- *Chloeia flava*: vorher dead_or_stranded, dead_or_stranded, caught_or_in_hand; jetzt 3 gute Fotos
+- *Chromis chromis*: vorher live_underwater, live_underwater, live_underwater; jetzt 3 gute Fotos
+- *Chrysaora chinensis*: vorher live_underwater, dead_or_stranded, dead_or_stranded; jetzt 1 gute Fotos
+- *Clavularia crassa*: vorher live_underwater, live_underwater, live_underwater; jetzt 3 gute Fotos
+- *Clibanarius erythropus*: vorher live_underwater, live_surface_or_shore, caught_or_in_hand; jetzt 2 gute Fotos
+- *Clibanarius infraspinatus*: vorher caught_or_in_hand, live_surface_or_shore, live_surface_or_shore; jetzt 2 gute Fotos
+- *Clibanarius signatus*: vorher live_surface_or_shore, caught_or_in_hand, live_surface_or_shore; jetzt 2 gute Fotos
+- *Cnidoglanis macrocephalus*: vorher live_underwater, live_underwater, live_underwater; jetzt 3 gute Fotos
+- *Coris aygula*: vorher live_underwater, live_underwater, live_underwater; jetzt 3 gute Fotos
+- *Coris julis*: vorher live_underwater, live_underwater, caught_or_in_hand; jetzt 2 gute Fotos
+- *Coscinasterias tenuispina*: vorher live_underwater, caught_or_in_hand, live_underwater; jetzt 2 gute Fotos
+- *Crambionella orsini*: vorher live_surface_or_shore, live_surface_or_shore, dead_or_stranded; jetzt 2 gute Fotos
+- *Crambionella stuhlmanni*: vorher live_underwater, dead_or_stranded, caught_or_in_hand; jetzt 1 gute Fotos
+- *Cyanea barkeri*: vorher live_underwater, dead_or_stranded, dead_or_stranded; jetzt 1 gute Fotos
+- *Cymodocea nodosa*: vorher caught_or_in_hand, dead_or_stranded, live_surface_or_shore; jetzt 3 gute Fotos
+- *Cypraea tigris*: vorher live_underwater, caught_or_in_hand, caught_or_in_hand; jetzt 3 gute Fotos
+- *Dactylophora nigricans*: vorher live_underwater, live_underwater, dead_or_stranded; jetzt 3 gute Fotos
+- *Dactylopterus volitans*: vorher caught_or_in_hand, live_underwater, live_underwater; jetzt 2 gute Fotos
+- *Dardanus calidus*: vorher live_underwater, caught_or_in_hand, live_underwater; jetzt 2 gute Fotos
+- *Dardanus lagopodes*: vorher live_underwater, live_underwater, live_underwater; jetzt 3 gute Fotos
+- *Dardanus megistos*: vorher live_underwater, caught_or_in_hand, caught_or_in_hand; jetzt 3 gute Fotos
+- *Dascyllus albisella*: vorher live_underwater, live_underwater, live_underwater; jetzt 2 gute Fotos
+- *Dendrodoris limbata*: vorher caught_or_in_hand, aquarium, live_underwater; jetzt 1 gute Fotos
+- *Dendrodoris nigra*: vorher live_underwater, live_underwater, live_underwater; jetzt 3 gute Fotos
+- *Dentex dentex*: vorher dead_or_stranded, live_underwater, caught_or_in_hand; jetzt 3 gute Fotos
+- *Dermochelys coriacea*: vorher caught_or_in_hand, live_surface_or_shore, dead_or_stranded; jetzt 1 gute Fotos
+- *Diaphorodoris papillata*: vorher live_underwater, live_underwater, live_underwater; jetzt 2 gute Fotos
+- *Dicentrarchus labrax*: vorher live_underwater, caught_or_in_hand, live_underwater; jetzt 2 gute Fotos
+- *Dicotylichthys punctulatus*: vorher live_underwater, live_underwater, dead_or_stranded; jetzt 2 gute Fotos
+- *Diodon hystrix*: vorher live_underwater, dead_or_stranded, live_underwater; jetzt 2 gute Fotos
+- *Diodon liturosus*: vorher live_underwater, live_underwater, live_underwater; jetzt 3 gute Fotos
+- *Diodon nicthemerus*: vorher dead_or_stranded, live_underwater, live_underwater; jetzt 2 gute Fotos
+- *Diplodus sargus*: vorher live_underwater, live_underwater, live_underwater; jetzt 3 gute Fotos
+- *Doris chrysoderma*: vorher live_underwater, live_underwater, live_underwater; jetzt 3 gute Fotos
+- *Echinaster (Echinaster) sepositus*: vorher live_underwater, live_underwater, caught_or_in_hand; jetzt 2 gute Fotos
+- *Echinometra mathaei*: vorher dead_or_stranded, live_underwater, caught_or_in_hand; jetzt 3 gute Fotos
+- *Elysia viridis*: vorher aquarium, caught_or_in_hand, live_underwater; jetzt 1 gute Fotos
+- *Enoplosus armatus*: vorher live_underwater, dead_or_stranded, live_underwater; jetzt 3 gute Fotos
+- *Epinephelus merra*: vorher caught_or_in_hand, live_underwater, live_underwater; jetzt 2 gute Fotos
+- *Eretmochelys imbricata*: vorher caught_or_in_hand, live_surface_or_shore, caught_or_in_hand; jetzt 3 gute Fotos
+- *Facelina auriculata*: vorher live_underwater, live_underwater, other; jetzt 2 gute Fotos
+- *Flabellina cavolini*: vorher live_underwater, live_underwater, live_underwater; jetzt 3 gute Fotos
+- *Girella tricuspidata*: vorher live_underwater, live_underwater, live_underwater; jetzt 3 gute Fotos
+- *Glaucostegus halavi*: vorher live_underwater, other, live_underwater; jetzt 1 gute Fotos
+- *Glaucus atlanticus*: vorher dead_or_stranded, dead_or_stranded, dead_or_stranded; jetzt 2 gute Fotos
+- *Globicephala melas*: vorher live_surface_or_shore, live_surface_or_shore, dead_or_stranded; jetzt 2 gute Fotos
+- *Glossodoris rufomarginata*: vorher other, live_underwater, live_underwater; jetzt 3 gute Fotos
+- *Gobius fallax*: vorher live_underwater, live_underwater, live_underwater; jetzt 3 gute Fotos
+- *Gomophia egyptiaca*: vorher live_underwater, live_underwater, live_underwater; jetzt 3 gute Fotos
+- *Gomphosus caeruleus*: vorher live_underwater, live_underwater, live_underwater; jetzt 3 gute Fotos
+- *Gomphosus varius*: vorher live_underwater, caught_or_in_hand, live_underwater; jetzt 2 gute Fotos
+- *Goniistius vestitus*: vorher live_underwater, live_underwater, live_underwater; jetzt 3 gute Fotos
+- *Goniobranchus annulatus*: vorher caught_or_in_hand, live_underwater, live_underwater; jetzt 2 gute Fotos
+- *Goniobranchus splendidus*: vorher live_underwater, live_underwater, live_underwater; jetzt 3 gute Fotos
+- *Guinusia chabrus*: vorher caught_or_in_hand, live_surface_or_shore, live_underwater; jetzt 2 gute Fotos
+- *Haletta semifasciata*: vorher live_underwater, caught_or_in_hand, caught_or_in_hand; jetzt 3 gute Fotos
+- *Halichoeres trimaculatus*: vorher live_underwater, live_underwater, live_underwater; jetzt 3 gute Fotos
+- *Halophila stipulacea*: vorher caught_or_in_hand, dead_or_stranded, live_underwater; jetzt 1 gute Fotos
+- *Heliocidaris erythrogramma*: vorher live_underwater, live_underwater, dead_or_stranded; jetzt 2 gute Fotos
+- *Hemigymnus melapterus*: vorher live_underwater, live_underwater, live_underwater; jetzt 3 gute Fotos
+- *Hemitaurichthys zoster*: vorher live_underwater, live_underwater, live_underwater; jetzt 3 gute Fotos
+- *Heniochus varius*: vorher live_underwater, live_underwater, live_underwater; jetzt 3 gute Fotos
+- *Herdmania grandis*: vorher live_underwater, live_underwater, live_underwater; jetzt 3 gute Fotos
+- *Hermodice carunculata*: vorher caught_or_in_hand, live_underwater, live_underwater; jetzt 2 gute Fotos
+- *Heteractis aurora*: vorher live_underwater, live_underwater, live_underwater; jetzt 3 gute Fotos
+- *Heterodontus portusjacksoni*: vorher live_underwater, dead_or_stranded, caught_or_in_hand; jetzt 3 gute Fotos
+- *Hippocampus guttulatus*: vorher caught_or_in_hand, caught_or_in_hand, caught_or_in_hand; jetzt 3 gute Fotos
+- *Hippocampus hippocampus*: vorher other, caught_or_in_hand, caught_or_in_hand; jetzt 3 gute Fotos
+- *Hippocampus histrix*: vorher live_underwater, live_underwater, live_underwater; jetzt 3 gute Fotos
+- *Hippocampus whitei*: vorher live_underwater, caught_or_in_hand, live_underwater; jetzt 3 gute Fotos
+- *Holopsamma laminaefavosa*: vorher live_underwater, dead_or_stranded, dead_or_stranded; jetzt 1 gute Fotos
+- *Holothuria (Platyperona) sanctori*: vorher live_underwater, live_underwater, live_underwater; jetzt 3 gute Fotos
+- *Homophyllia australis*: vorher live_underwater, live_underwater, live_underwater; jetzt 2 gute Fotos
+- *Hydrophis platurus*: vorher dead_or_stranded, dead_or_stranded, dead_or_stranded; jetzt 3 gute Fotos
+- *Hydrophis schistosus*: vorher dead_or_stranded, dead_or_stranded, dead_or_stranded; jetzt 3 gute Fotos
+- *Hypoplectrodes maccullochi*: vorher live_underwater, live_underwater, live_underwater; jetzt 3 gute Fotos
+- *Hypselodoris imperialis*: vorher live_underwater, live_underwater, live_underwater; jetzt 3 gute Fotos
+- *Hypselodoris obscura*: vorher live_underwater, live_underwater, caught_or_in_hand; jetzt 2 gute Fotos
+- *Istiblennius zebra*: vorher live_underwater, live_underwater, caught_or_in_hand; jetzt 2 gute Fotos
+- *Isurus oxyrinchus*: vorher live_underwater, live_surface_or_shore, caught_or_in_hand; jetzt 2 gute Fotos
+- *Labroides dimidiatus*: vorher caught_or_in_hand, live_underwater, live_underwater; jetzt 3 gute Fotos
+- *Labrus merula*: vorher live_underwater, caught_or_in_hand, live_underwater; jetzt 3 gute Fotos
+- *Latropiscis purpurissatus*: vorher live_underwater, live_underwater, live_underwater; jetzt 3 gute Fotos
+- *Lepidochelys olivacea*: vorher caught_or_in_hand, caught_or_in_hand, live_surface_or_shore; jetzt 1 gute Fotos
+- *Loligo vulgaris*: vorher caught_or_in_hand, live_underwater, dead_or_stranded; jetzt 3 gute Fotos
+- *Luria lurida*: vorher caught_or_in_hand, live_underwater, caught_or_in_hand; jetzt 1 gute Fotos
+- *Lutjanus fulvus*: vorher dead_or_stranded, caught_or_in_hand, live_underwater; jetzt 3 gute Fotos
+- *Lutjanus kasmira*: vorher live_underwater, live_underwater, live_underwater; jetzt 3 gute Fotos
+- *Lyncina carneola*: vorher dead_or_stranded, other, other; jetzt 1 gute Fotos
+- *Lysiosquilla lisa*: vorher caught_or_in_hand, live_underwater, live_underwater; jetzt 2 gute Fotos
+- *Lysiosquilla maculata*: vorher caught_or_in_hand, live_underwater, live_underwater; jetzt 2 gute Fotos
+- *Lysmata seticaudata*: vorher live_underwater, live_underwater, live_underwater; jetzt 2 gute Fotos
+- *Mauritia grayana*: vorher caught_or_in_hand, live_surface_or_shore; jetzt 1 gute Fotos
+- *Mauritia mauritiana*: vorher live_underwater, live_underwater, caught_or_in_hand; jetzt 2 gute Fotos
+- *Melichthys niger*: vorher dead_or_stranded, caught_or_in_hand, live_underwater; jetzt 3 gute Fotos
+- *Meridiastra gunnii*: vorher live_underwater, caught_or_in_hand, live_underwater; jetzt 2 gute Fotos
+- *Meuschenia freycineti*: vorher live_underwater, dead_or_stranded, live_underwater; jetzt 3 gute Fotos
+- *Microcanthus joyceae*: vorher live_underwater, live_underwater, aquarium; jetzt 2 gute Fotos
+- *Mobula mobular*: vorher live_underwater, caught_or_in_hand, live_surface_or_shore; jetzt 2 gute Fotos
+- *Monacanthus chinensis*: vorher live_underwater, live_underwater, dead_or_stranded; jetzt 3 gute Fotos
+- *Monetaria annulus*: vorher specimen_or_museum, dead_or_stranded, live_underwater; jetzt 3 gute Fotos
+- *Monetaria caputophidii*: vorher live_underwater, caught_or_in_hand, caught_or_in_hand; jetzt 3 gute Fotos
+- *Monetaria caputserpentis*: vorher caught_or_in_hand, live_surface_or_shore, dead_or_stranded; jetzt 2 gute Fotos
+- *Monetaria moneta*: vorher dead_or_stranded, dead_or_stranded, live_underwater; jetzt 3 gute Fotos
+- *Mullus barbatus*: vorher live_underwater, caught_or_in_hand, live_underwater; jetzt 2 gute Fotos
+- *Mullus surmuletus*: vorher live_underwater, caught_or_in_hand, live_underwater; jetzt 3 gute Fotos
+- *Muraena helena*: vorher other, live_underwater, live_underwater; jetzt 2 gute Fotos
+- *Mustelus mustelus*: vorher live_underwater, live_underwater, dead_or_stranded; jetzt 2 gute Fotos
+- *Myliobatis tenuicaudatus*: vorher caught_or_in_hand, dead_or_stranded, dead_or_stranded; jetzt 3 gute Fotos
+- *Myripristis murdjan*: vorher live_underwater, live_underwater, live_underwater; jetzt 2 gute Fotos
+- *Naria erosa*: vorher dead_or_stranded, dead_or_stranded, dead_or_stranded; jetzt 2 gute Fotos
+- *Naria helvola*: vorher dead_or_stranded, caught_or_in_hand, caught_or_in_hand; jetzt 2 gute Fotos
+- *Naria turdus*: vorher caught_or_in_hand, other, caught_or_in_hand; jetzt 2 gute Fotos
+- *Naso brevirostris*: vorher live_underwater, live_underwater, live_underwater; jetzt 3 gute Fotos
+- *Natator depressus*: vorher caught_or_in_hand, live_surface_or_shore, other; jetzt 3 gute Fotos
+- *Nebrius ferrugineus*: vorher live_underwater, caught_or_in_hand, live_underwater; jetzt 2 gute Fotos
+- *Neotrygon indica*: vorher live_underwater, caught_or_in_hand, live_underwater; jetzt 2 gute Fotos
+- *Notolabrus parilus*: vorher caught_or_in_hand, live_underwater, live_underwater; jetzt 2 gute Fotos
+- *Oblada melanurus*: vorher live_underwater, live_underwater, live_surface_or_shore; jetzt 3 gute Fotos
+- *Oceana serrulata*: vorher caught_or_in_hand, live_underwater; jetzt 1 gute Fotos
+- *Octopus cyanea*: vorher live_underwater, caught_or_in_hand, live_underwater; jetzt 2 gute Fotos
+- *Odonus niger*: vorher dead_or_stranded, live_underwater, live_underwater; jetzt 2 gute Fotos
+- *Ophthalmolepis lineolata*: vorher live_underwater, live_underwater, live_underwater; jetzt 3 gute Fotos
+- *Ozius truncatus*: vorher caught_or_in_hand, live_underwater, dead_or_stranded; jetzt 3 gute Fotos
+- *Palaemon serratus*: vorher live_underwater, live_surface_or_shore, caught_or_in_hand; jetzt 2 gute Fotos
+- *Paracentrotus lividus*: vorher dead_or_stranded, live_underwater, live_underwater; jetzt 2 gute Fotos
+- *Paranemonia cinerea*: vorher live_underwater, live_underwater, live_underwater; jetzt 3 gute Fotos
+- *Parapercis hexophtalma*: vorher live_underwater, live_underwater, live_underwater; jetzt 3 gute Fotos
+- *Parupeneus forsskali*: vorher live_underwater, live_underwater, live_underwater; jetzt 3 gute Fotos
+- *Parvulastra exigua*: vorher caught_or_in_hand, live_surface_or_shore, live_surface_or_shore; jetzt 2 gute Fotos
+- *Pastinachus ater*: vorher live_underwater, live_surface_or_shore, live_underwater; jetzt 2 gute Fotos
+- *Pelagia noctiluca*: vorher live_underwater, live_surface_or_shore, dead_or_stranded; jetzt 2 gute Fotos
+- *Pelates octolineatus*: vorher live_underwater, live_underwater, dead_or_stranded; jetzt 3 gute Fotos
+- *Pempheris klunzingeri*: vorher live_underwater, live_underwater, live_underwater; jetzt 3 gute Fotos
+- *Phyllidia rueppelii*: vorher live_underwater, live_underwater, live_underwater; jetzt 3 gute Fotos
+- *Phyllodoce novaehollandiae*: vorher live_surface_or_shore, live_surface_or_shore, live_surface_or_shore; jetzt 3 gute Fotos
+- *Phyllopteryx taeniolatus*: vorher live_underwater, dead_or_stranded, live_underwater; jetzt 2 gute Fotos
+- *Phyllorhiza punctata*: vorher live_underwater, live_underwater, dead_or_stranded; jetzt 2 gute Fotos
+- *Physalia megalista*: vorher dead_or_stranded, dead_or_stranded, dead_or_stranded; jetzt 1 gute Fotos
+- *Physalia utriculus*: vorher live_underwater, dead_or_stranded, live_underwater; jetzt 2 gute Fotos
+- *Physeter macrocephalus*: vorher live_surface_or_shore, dead_or_stranded, other; jetzt 3 gute Fotos
+- *Platax teira*: vorher live_underwater, live_underwater, live_underwater; jetzt 2 gute Fotos
+- *Platycephalus fuscus*: vorher live_underwater, dead_or_stranded, live_underwater; jetzt 2 gute Fotos
+- *Plesiastrea versipora*: vorher live_underwater, dead_or_stranded, dead_or_stranded; jetzt 1 gute Fotos
+- *Pocillopora meandrina*: vorher live_underwater, caught_or_in_hand, dead_or_stranded; jetzt 1 gute Fotos
+- *Pomacanthus maculosus*: vorher live_underwater, live_underwater, live_underwater; jetzt 2 gute Fotos
+- *Pomacanthus semicirculatus*: vorher dead_or_stranded, live_underwater, live_underwater; jetzt 2 gute Fotos
+- *Porcellana platycheles*: vorher live_underwater, caught_or_in_hand, live_surface_or_shore; jetzt 2 gute Fotos
+- *Porites cylindrica*: vorher live_underwater, live_underwater, specimen_or_museum; jetzt 2 gute Fotos
+- *Porpita porpita*: vorher live_underwater, dead_or_stranded, dead_or_stranded; jetzt 2 gute Fotos
+- *Portunus armatus*: vorher live_underwater, live_underwater, dead_or_stranded; jetzt 2 gute Fotos
+- *Portunus pelagicus*: vorher caught_or_in_hand, caught_or_in_hand, live_surface_or_shore; jetzt 3 gute Fotos
+- *Portunus sanguinolentus*: vorher live_surface_or_shore, caught_or_in_hand, live_surface_or_shore; jetzt 2 gute Fotos
+- *Posidonia oceanica*: vorher live_underwater, specimen_or_museum, caught_or_in_hand; jetzt 3 gute Fotos
+- *Prionace glauca*: vorher live_underwater, dead_or_stranded, caught_or_in_hand; jetzt 1 gute Fotos
+- *Prostheceraeus moseleyi*: vorher live_underwater, live_underwater, caught_or_in_hand; jetzt 2 gute Fotos
+- *Protoreaster lincki*: vorher live_underwater, live_underwater, caught_or_in_hand; jetzt 2 gute Fotos
+- *Pseudobiceros hancockanus*: vorher caught_or_in_hand, live_underwater, live_underwater; jetzt 2 gute Fotos
+- *Pseudoceros gamblei*: vorher live_underwater, caught_or_in_hand, live_underwater; jetzt 2 gute Fotos
+- *Pseudoceros indicus*: vorher live_surface_or_shore, live_underwater, live_surface_or_shore; jetzt 3 gute Fotos
+- *Pseudogoniistius nigripes*: vorher live_underwater, live_underwater, live_underwater; jetzt 3 gute Fotos
+- *Pseudorhiza haeckeli*: vorher live_underwater, dead_or_stranded, live_underwater; jetzt 2 gute Fotos
+- *Pterois volitans*: vorher live_underwater, caught_or_in_hand, live_underwater; jetzt 3 gute Fotos
+- *Pteroplatytrygon violacea*: vorher caught_or_in_hand, live_surface_or_shore, live_underwater; jetzt 2 gute Fotos
+- *Raja asterias*: vorher live_underwater, caught_or_in_hand, caught_or_in_hand; jetzt 1 gute Fotos
+- *Raja radula*: vorher live_underwater, caught_or_in_hand, caught_or_in_hand; jetzt 1 gute Fotos
+- *Raja undulata*: vorher caught_or_in_hand, other, caught_or_in_hand; jetzt 3 gute Fotos
+- *Rhabdosargus sarba*: vorher live_underwater, caught_or_in_hand, live_underwater; jetzt 3 gute Fotos
+- *Rhincodon typus*: vorher live_underwater, dead_or_stranded, dead_or_stranded; jetzt 3 gute Fotos
+- *Rhinecanthus rectangulus*: vorher live_underwater, live_underwater, live_underwater; jetzt 3 gute Fotos
+- *Rhizostoma pulmo*: vorher dead_or_stranded, dead_or_stranded, live_underwater; jetzt 2 gute Fotos
+- *Rhopilema hispidum*: vorher dead_or_stranded, dead_or_stranded, dead_or_stranded; jetzt 2 gute Fotos
+- *Rhopilema nomadica*: vorher dead_or_stranded, dead_or_stranded, live_underwater; jetzt 3 gute Fotos
+- *Sabella spallanzanii*: vorher live_underwater, live_underwater, dead_or_stranded; jetzt 3 gute Fotos
+- *Salaria pavo*: vorher caught_or_in_hand, live_surface_or_shore, live_underwater; jetzt 3 gute Fotos
+- *Scobinichthys granulatus*: vorher dead_or_stranded, dead_or_stranded, live_underwater; jetzt 3 gute Fotos
+- *Scorpaena porcus*: vorher live_underwater, live_underwater, dead_or_stranded; jetzt 3 gute Fotos
+- *Scorpis lineolata*: vorher live_underwater, live_underwater, live_underwater; jetzt 3 gute Fotos
+- *Scyliorhinus canicula*: vorher dead_or_stranded, other, caught_or_in_hand; jetzt 1 gute Fotos
+- *Scyliorhinus stellaris*: vorher live_underwater, live_underwater, caught_or_in_hand; jetzt 2 gute Fotos
+- *Scyllarus arctus*: vorher live_underwater, live_underwater, live_underwater; jetzt 3 gute Fotos
+- *Sepiella inermis*: vorher caught_or_in_hand, dead_or_stranded, live_surface_or_shore; jetzt 1 gute Fotos
+- *Sepioteuthis australis*: vorher live_underwater, live_underwater, live_underwater; jetzt 3 gute Fotos
+- *Serranus scriba*: vorher live_underwater, caught_or_in_hand, live_underwater; jetzt 2 gute Fotos
+- *Siganus rivulatus*: vorher live_underwater, live_underwater, live_underwater; jetzt 3 gute Fotos
+- *Sousa chinensis*: vorher live_surface_or_shore, live_surface_or_shore, live_surface_or_shore; jetzt 2 gute Fotos
+- *Sousa sahulensis*: vorher live_surface_or_shore, live_surface_or_shore, live_surface_or_shore; jetzt 3 gute Fotos
+- *Sparus aurata*: vorher live_underwater, caught_or_in_hand, caught_or_in_hand; jetzt 3 gute Fotos
+- *Sphaerechinus granularis*: vorher dead_or_stranded, dead_or_stranded, live_underwater; jetzt 3 gute Fotos
+- *Sphyraena viridensis*: vorher live_underwater, live_underwater, caught_or_in_hand; jetzt 2 gute Fotos
+- *Sphyrna lewini*: vorher live_underwater, caught_or_in_hand, caught_or_in_hand; jetzt 1 gute Fotos
+- *Spondyliosoma cantharus*: vorher live_underwater, caught_or_in_hand, live_underwater; jetzt 2 gute Fotos
+- *Squilla mantis*: vorher caught_or_in_hand, live_underwater, live_surface_or_shore; jetzt 2 gute Fotos
+- *Stenella coeruleoalba*: vorher dead_or_stranded, live_surface_or_shore, live_surface_or_shore; jetzt 2 gute Fotos
+- *Stenopus hispidus*: vorher live_underwater, live_underwater, live_underwater; jetzt 3 gute Fotos
+- *Stichopus chloronotus*: vorher other, live_underwater, live_underwater; jetzt 2 gute Fotos
+- *Stomopneustes variolaris*: vorher dead_or_stranded, live_surface_or_shore, live_underwater; jetzt 2 gute Fotos
+- *Styela plicata*: vorher caught_or_in_hand, live_underwater, caught_or_in_hand; jetzt 3 gute Fotos
+- *Sufflamen bursa*: vorher live_underwater, caught_or_in_hand, live_underwater; jetzt 3 gute Fotos
+- *Symphodus tinca*: vorher caught_or_in_hand, live_underwater, live_underwater; jetzt 2 gute Fotos
+- *Taeniurops meyeni*: vorher live_underwater, live_underwater, live_underwater; jetzt 2 gute Fotos
+- *Tetractenos glaber*: vorher live_underwater, caught_or_in_hand, caught_or_in_hand; jetzt 3 gute Fotos
+- *Thalassia hemprichii*: vorher live_underwater, dead_or_stranded, live_underwater; jetzt 2 gute Fotos
+- *Thalassodendron ciliatum*: vorher caught_or_in_hand, caught_or_in_hand, live_underwater; jetzt 3 gute Fotos
+- *Thalassoma pavo*: vorher live_underwater, live_underwater, live_underwater; jetzt 3 gute Fotos
+- *Thalassoma trilobatum*: vorher live_underwater, live_underwater, live_underwater; jetzt 3 gute Fotos
+- *Thorunna daniellae*: vorher live_underwater, live_underwater, live_underwater; jetzt 3 gute Fotos
+- *Thysanoteuthis rhombus*: vorher live_underwater, other, live_underwater; jetzt 2 gute Fotos
+- *Torpedo marmorata*: vorher live_underwater, live_underwater, live_underwater; jetzt 3 gute Fotos
+- *Torpedo torpedo*: vorher live_underwater, live_underwater, caught_or_in_hand; jetzt 2 gute Fotos
+- *Torquigener flavimaculosus*: vorher live_underwater, live_underwater, live_underwater; jetzt 2 gute Fotos
+- *Torquigener pleurogramma*: vorher live_underwater, live_underwater, live_underwater; jetzt 3 gute Fotos
+- *Trachinotus ovatus*: vorher live_underwater, live_underwater, live_underwater; jetzt 3 gute Fotos
+- *Trachurus novaezelandiae*: vorher caught_or_in_hand, dead_or_stranded, live_underwater; jetzt 3 gute Fotos
+- *Triaenodon obesus*: vorher live_underwater, live_surface_or_shore, other; jetzt 3 gute Fotos
+- *Tripneustes gratilla*: vorher live_underwater, live_underwater, dead_or_stranded; jetzt 2 gute Fotos
+- *Trygonorrhina dumerilii*: vorher live_underwater, dead_or_stranded, dead_or_stranded; jetzt 2 gute Fotos
+- *Upeneichthys lineatus*: vorher live_underwater, live_underwater, live_underwater; jetzt 3 gute Fotos
+- *Urogymnus granulatus*: vorher live_surface_or_shore, live_underwater, live_underwater; jetzt 1 gute Fotos
+- *Veretillum cynomorium*: vorher dead_or_stranded, live_underwater, live_underwater; jetzt 2 gute Fotos
+- *Versuriga anadyomene*: vorher live_underwater, live_underwater, live_underwater; jetzt 3 gute Fotos
+- *Xantho poressa*: vorher dead_or_stranded, live_surface_or_shore, caught_or_in_hand; jetzt 1 gute Fotos
+- *Xestospongia testudinaria*: vorher live_underwater, live_underwater, live_underwater; jetzt 3 gute Fotos
+- *Zebrasoma scopas*: vorher live_underwater, live_underwater, live_underwater; jetzt 3 gute Fotos
+- *Zebrasoma xanthurum*: vorher live_underwater, live_surface_or_shore, live_underwater; jetzt 2 gute Fotos
+- *Zonaria pyrum*: vorher live_surface_or_shore, dead_or_stranded; jetzt 1 gute Fotos
+
+## Ohne gutes Foto (bleiben vorerst)
+
+- *Argonauta argo*: caught_or_in_hand, dead_or_stranded, dead_or_stranded
+- *Callyspongia (Cavochalina) bilamellata*: dead_or_stranded, dead_or_stranded, dead_or_stranded
+- *Hexanchus griseus*: live_underwater, caught_or_in_hand, dead_or_stranded
+- *Hypselodoris peasei*: live_underwater
+- *Mauritia histrio*: other, dead_or_stranded, other
+- *Naria nebrites*: caught_or_in_hand
+- *Naria spurca*: other, other, specimen_or_museum
+- *Nautilus pompilius*: dead_or_stranded, dead_or_stranded, dead_or_stranded
+- *Ovalipes australiensis*: caught_or_in_hand, dead_or_stranded, dead_or_stranded
+- *Purpuradusta gracilis*: dead_or_stranded, dead_or_stranded, dead_or_stranded
+- *Raja clavata*: dead_or_stranded, dead_or_stranded, caught_or_in_hand
+- *Rhombosepion orbignyanum*: caught_or_in_hand, dead_or_stranded, caught_or_in_hand
+- *Sepia gibba*: dead_or_stranded, dead_or_stranded, caught_or_in_hand
+- *Thamnaconus degeni*: dead_or_stranded, dead_or_stranded, dead_or_stranded
+- *Velella velella*: dead_or_stranded, dead_or_stranded, dead_or_stranded

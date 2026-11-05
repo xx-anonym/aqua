@@ -1,11 +1,3523 @@
 {
   "_comment": "Photos chosen by hand where the automatic choice is wrong or poor. Each entry lists iNaturalist observations (first photo used) or iNaturalist photo ids from the taxon's own photos, in display order; only CC0 / CC BY. Run: python data-pipeline/pipeline.py photos \"<scientific name>\" ... then build.",
   "Seriola dumerili": {
-    "photos": [{"observation": 246904262}, {"observation": 14520217}, {"observation": 400270960}],
+    "photos": [
+      {
+        "observation": 246904262
+      },
+      {
+        "observation": 14520217
+      },
+      {
+        "observation": 400270960
+      }
+    ],
     "note": "Automatic choice showed caught fish on a plate and in a hand; these are underwater photos."
   },
   "Todarodes sagittatus": {
-    "photos": [{"observation": 149417347}, {"photo": 13563618}],
+    "photos": [
+      {
+        "observation": 149417347
+      },
+      {
+        "photo": 13563618
+      }
+    ],
     "note": "Pelagic squid, no openly licensed underwater photos: a stranded animal (research grade) and the coloured historical plate; the anatomical plates are dropped."
+  },
+  "Abudefduf bengalensis": {
+    "photos": [
+      {
+        "observation": 96810419
+      },
+      {
+        "observation": 337759484
+      },
+      {
+        "observation": 321013048
+      }
+    ],
+    "note": "photocheck: live_underwater q2, live_underwater q3, live_underwater q2 -> good photos first"
+  },
+  "Abudefduf sparoides": {
+    "photos": [
+      {
+        "observation": 142749909
+      },
+      {
+        "observation": 338671280
+      }
+    ],
+    "note": "photocheck: live_underwater q4, live_underwater q3, live_underwater q1 -> good photos first"
+  },
+  "Acanthaluteres brownii": {
+    "photos": [
+      {
+        "observation": 274477801
+      },
+      {
+        "observation": 151686197
+      },
+      {
+        "observation": 151267387
+      }
+    ],
+    "note": "photocheck: dead_or_stranded q4, dead_or_stranded q3, live_underwater q2 -> good photos first"
+  },
+  "Acanthopagrus australis": {
+    "photos": [
+      {
+        "observation": 197879969
+      },
+      {
+        "observation": 383289278
+      }
+    ],
+    "note": "photocheck: live_underwater q3, live_underwater q1, live_underwater q3 -> good photos first"
+  },
+  "Acanthosepion pharaonis": {
+    "photos": [
+      {
+        "observation": 54506878
+      },
+      {
+        "observation": 292257432
+      }
+    ],
+    "note": "photocheck: live_underwater q3, live_underwater q5, dead_or_stranded q3 -> good photos first"
+  },
+  "Acromitus flagellatus": {
+    "photos": [
+      {
+        "observation": 106422608
+      },
+      {
+        "observation": 61452635
+      }
+    ],
+    "note": "photocheck: live_underwater q1, live_underwater q3, live_surface_or_shore q2 -> good photos first"
+  },
+  "Actinia equina": {
+    "photos": [
+      {
+        "photo": 53579247
+      },
+      {
+        "observation": 60206396
+      },
+      {
+        "photo": 96249119
+      }
+    ],
+    "note": "photocheck: live_underwater q2, live_surface_or_shore q4, live_surface_or_shore q3 -> good photos first"
+  },
+  "Aeolidiella alderi": {
+    "photos": [
+      {
+        "observation": 238229648
+      },
+      {
+        "observation": 197717469
+      }
+    ],
+    "note": "photocheck: caught_or_in_hand q3, live_underwater q4, live_underwater q3 -> good photos first"
+  },
+  "Alopias pelagicus": {
+    "photos": [
+      {
+        "observation": 327336174
+      },
+      {
+        "observation": 266508619
+      }
+    ],
+    "note": "photocheck: dead_or_stranded q3, live_surface_or_shore q3, live_underwater q4 -> good photos first"
+  },
+  "Amphibolis antarctica": {
+    "photos": [
+      {
+        "observation": 46876487
+      },
+      {
+        "photo": 74342387
+      },
+      {
+        "observation": 405389868
+      }
+    ],
+    "note": "photocheck: live_underwater q3, caught_or_in_hand q3, caught_or_in_hand q3 -> good photos first"
+  },
+  "Amphioctopus marginatus": {
+    "photos": [
+      {
+        "photo": 119030401
+      },
+      {
+        "observation": 45271358
+      }
+    ],
+    "note": "photocheck: live_underwater q4, live_underwater q4, other q1 -> good photos first"
+  },
+  "Amphiprion clarkii": {
+    "photos": [
+      {
+        "observation": 201371789
+      },
+      {
+        "observation": 382706216
+      },
+      {
+        "observation": 388157458
+      }
+    ],
+    "note": "photocheck: live_underwater q2, live_underwater q3, live_underwater q3 -> good photos first"
+  },
+  "Amphiprion nigripes": {
+    "photos": [
+      {
+        "observation": 134830548
+      },
+      {
+        "observation": 206641240
+      },
+      {
+        "observation": 151508953
+      }
+    ],
+    "note": "photocheck: live_underwater q2, live_underwater q2, live_underwater q3 -> good photos first"
+  },
+  "Amphiprion ocellaris": {
+    "photos": [
+      {
+        "observation": 1531121
+      },
+      {
+        "observation": 186386610
+      },
+      {
+        "observation": 302589833
+      }
+    ],
+    "note": "photocheck: live_underwater q2, live_underwater q2, live_underwater q4 -> good photos first"
+  },
+  "Ancylocaris brevicarpalis": {
+    "photos": [
+      {
+        "observation": 174239848
+      },
+      {
+        "observation": 394918212
+      }
+    ],
+    "note": "photocheck: live_underwater q3, live_underwater q4, caught_or_in_hand q3 -> good photos first"
+  },
+  "Ancylomenes longicarpus": {
+    "photos": [
+      {
+        "photo": 167951837
+      },
+      {
+        "observation": 100614070
+      },
+      {
+        "photo": 3204666
+      }
+    ],
+    "note": "photocheck: live_underwater q2, live_underwater q3, live_underwater q3 -> good photos first"
+  },
+  "Aphelodoris varia": {
+    "photos": [
+      {
+        "observation": 144474416
+      },
+      {
+        "observation": 144474412
+      },
+      {
+        "observation": 105468687
+      }
+    ],
+    "note": "photocheck: live_underwater q2, live_underwater q3, live_underwater q3 -> good photos first"
+  },
+  "Aracana aurita": {
+    "photos": [
+      {
+        "observation": 152783057
+      },
+      {
+        "observation": 71198157
+      },
+      {
+        "observation": 202771037
+      }
+    ],
+    "note": "photocheck: caught_or_in_hand q3, live_underwater q4, dead_or_stranded q3 -> good photos first"
+  },
+  "Aracana ornata": {
+    "photos": [
+      {
+        "photo": 32265371
+      },
+      {
+        "observation": 20907634
+      }
+    ],
+    "note": "photocheck: live_underwater q5, live_underwater q4, dead_or_stranded q3 -> good photos first"
+  },
+  "Arbacia lixula": {
+    "photos": [
+      {
+        "photo": 53183622
+      },
+      {
+        "photo": 49915206
+      }
+    ],
+    "note": "photocheck: live_underwater q3, live_underwater q3, dead_or_stranded q3 -> good photos first"
+  },
+  "Argonauta hians": {
+    "photos": [
+      {
+        "photo": 485717818
+      },
+      {
+        "observation": 387634172
+      }
+    ],
+    "note": "photocheck: live_underwater q5, live_underwater q4, caught_or_in_hand q2 -> good photos first"
+  },
+  "Ariosoma balearicum": {
+    "photos": [
+      {
+        "observation": 179139064
+      },
+      {
+        "observation": 85266928
+      },
+      {
+        "observation": 254198353
+      }
+    ],
+    "note": "photocheck: live_underwater q2, live_underwater q3, live_underwater q3 -> good photos first"
+  },
+  "Arothron hispidus": {
+    "photos": [
+      {
+        "observation": 307248625
+      },
+      {
+        "observation": 347995386
+      },
+      {
+        "observation": 338756738
+      }
+    ],
+    "note": "photocheck: live_underwater q2, live_underwater q5, live_underwater q4 -> good photos first"
+  },
+  "Ascarosepion apama": {
+    "photos": [
+      {
+        "observation": 121861822
+      },
+      {
+        "observation": 68312906
+      }
+    ],
+    "note": "photocheck: live_underwater q4, live_underwater q4, caught_or_in_hand q2 -> good photos first"
+  },
+  "Ascarosepion mestus": {
+    "photos": [
+      {
+        "observation": 195998899
+      }
+    ],
+    "note": "photocheck: caught_or_in_hand q2, dead_or_stranded q2, live_underwater q4 -> good photos first"
+  },
+  "Ascarosepion plangon": {
+    "photos": [
+      {
+        "observation": 313784351
+      },
+      {
+        "observation": 213621545
+      },
+      {
+        "observation": 147998426
+      }
+    ],
+    "note": "photocheck: live_underwater q2, live_underwater q2, live_underwater q1 -> good photos first"
+  },
+  "Astropecten platyacanthus": {
+    "photos": [
+      {
+        "observation": 86727735
+      },
+      {
+        "observation": 313160100
+      }
+    ],
+    "note": "photocheck: caught_or_in_hand q4, live_underwater q4, live_underwater q3 -> good photos first"
+  },
+  "Astrospartus mediterraneus": {
+    "photos": [
+      {
+        "observation": 354760622
+      },
+      {
+        "observation": 271742522
+      }
+    ],
+    "note": "photocheck: live_underwater q4, live_underwater q4, dead_or_stranded q2 -> good photos first"
+  },
+  "Balaenoptera musculus": {
+    "photos": [
+      {
+        "photo": 184281545
+      },
+      {
+        "observation": 338634606
+      }
+    ],
+    "note": "photocheck: live_surface_or_shore q3, live_surface_or_shore q2, dead_or_stranded q3 -> good photos first"
+  },
+  "Balaenoptera physalus": {
+    "photos": [
+      {
+        "observation": 106817091
+      },
+      {
+        "observation": 249992997
+      },
+      {
+        "observation": 70414905
+      }
+    ],
+    "note": "photocheck: dead_or_stranded q2, illustration q1, live_surface_or_shore q2 -> good photos first"
+  },
+  "Balanophyllia (Balanophyllia) europaea": {
+    "photos": [
+      {
+        "observation": 274619064
+      },
+      {
+        "observation": 324897347
+      },
+      {
+        "observation": 55531654
+      }
+    ],
+    "note": "photocheck: live_underwater q2, live_underwater q3, live_underwater q4 -> good photos first"
+  },
+  "Bathytoshia brevicaudata": {
+    "photos": [
+      {
+        "observation": 189741502
+      },
+      {
+        "observation": 191411265
+      },
+      {
+        "observation": 43518614
+      }
+    ],
+    "note": "photocheck: live_underwater q2, live_surface_or_shore q3, live_underwater q2 -> good photos first"
+  },
+  "Bohadschia argus": {
+    "photos": [
+      {
+        "photo": 42214534
+      },
+      {
+        "observation": 372357555
+      }
+    ],
+    "note": "photocheck: live_underwater q5, other q3, live_underwater q4 -> good photos first"
+  },
+  "Boops boops": {
+    "photos": [
+      {
+        "photo": 23623877
+      },
+      {
+        "observation": 255705110
+      },
+      {
+        "observation": 182093050
+      }
+    ],
+    "note": "photocheck: live_underwater q4, caught_or_in_hand q2, live_underwater q2 -> good photos first"
+  },
+  "Brissus unicolor": {
+    "photos": [
+      {
+        "photo": 243026764
+      }
+    ],
+    "note": "photocheck: live_underwater q4, dead_or_stranded q3, dead_or_stranded q3 -> good photos first"
+  },
+  "Calcinus laevimanus": {
+    "photos": [
+      {
+        "photo": 1848140
+      },
+      {
+        "observation": 378671180
+      },
+      {
+        "observation": 343592266
+      }
+    ],
+    "note": "photocheck: live_underwater q2, live_surface_or_shore q4, caught_or_in_hand q4 -> good photos first"
+  },
+  "Calcinus latens": {
+    "photos": [
+      {
+        "observation": 234461915
+      },
+      {
+        "observation": 343278398
+      }
+    ],
+    "note": "photocheck: caught_or_in_hand q4, live_underwater q4, live_underwater q3 -> good photos first"
+  },
+  "Calcinus pictus": {
+    "photos": [
+      {
+        "photo": 419672293
+      },
+      {
+        "observation": 327181533
+      }
+    ],
+    "note": "photocheck: live_underwater q4, caught_or_in_hand q3, live_underwater q3 -> good photos first"
+  },
+  "Calcinus seurati": {
+    "photos": [
+      {
+        "observation": 58801198
+      },
+      {
+        "observation": 340673571
+      },
+      {
+        "observation": 2732650
+      }
+    ],
+    "note": "photocheck: live_surface_or_shore q3, live_underwater q2, caught_or_in_hand q3 -> good photos first"
+  },
+  "Callinectes sapidus": {
+    "photos": [
+      {
+        "observation": 193723834
+      },
+      {
+        "observation": 127607088
+      },
+      {
+        "observation": 98553445
+      }
+    ],
+    "note": "photocheck: caught_or_in_hand q3, caught_or_in_hand q3, other q2 -> good photos first"
+  },
+  "Caloria indica": {
+    "photos": [
+      {
+        "photo": 181051815
+      },
+      {
+        "photo": 1345235
+      }
+    ],
+    "note": "photocheck: live_underwater q3, live_underwater q4, caught_or_in_hand q3 -> good photos first"
+  },
+  "Canthigaster valentini": {
+    "photos": [
+      {
+        "observation": 280739993
+      },
+      {
+        "observation": 155614367
+      }
+    ],
+    "note": "photocheck: live_underwater q3, caught_or_in_hand q4, live_underwater q4 -> good photos first"
+  },
+  "Caranx crysos": {
+    "photos": [
+      {
+        "photo": 137450
+      },
+      {
+        "observation": 400272520
+      }
+    ],
+    "note": "photocheck: live_underwater q4, caught_or_in_hand q3, live_underwater q3 -> good photos first"
+  },
+  "Carcharhinus falciformis": {
+    "photos": [
+      {
+        "observation": 341698953
+      },
+      {
+        "observation": 333997667
+      },
+      {
+        "observation": 383412383
+      }
+    ],
+    "note": "photocheck: dead_or_stranded q1, caught_or_in_hand q2, caught_or_in_hand q3 -> good photos first"
+  },
+  "Carcharhinus leucas": {
+    "photos": [
+      {
+        "observation": 67139963
+      },
+      {
+        "observation": 63722838
+      },
+      {
+        "observation": 12982758
+      }
+    ],
+    "note": "photocheck: dead_or_stranded q3, caught_or_in_hand q3, live_surface_or_shore q1 -> good photos first"
+  },
+  "Carcharhinus limbatus": {
+    "photos": [
+      {
+        "observation": 331044405
+      },
+      {
+        "observation": 80359201
+      }
+    ],
+    "note": "photocheck: dead_or_stranded q3, live_underwater q2, live_underwater q3 -> good photos first"
+  },
+  "Carcharhinus longimanus": {
+    "photos": [
+      {
+        "observation": 383413756
+      },
+      {
+        "observation": 190719734
+      }
+    ],
+    "note": "photocheck: live_underwater q2, live_underwater q4, live_underwater q1 -> good photos first"
+  },
+  "Carcharias taurus": {
+    "photos": [
+      {
+        "observation": 265526559
+      },
+      {
+        "observation": 144321416
+      },
+      {
+        "observation": 144319301
+      }
+    ],
+    "note": "photocheck: dead_or_stranded q2, live_underwater q3, live_underwater q2 -> good photos first"
+  },
+  "Catostylus mosaicus": {
+    "photos": [
+      {
+        "photo": 4707420
+      },
+      {
+        "observation": 129624971
+      }
+    ],
+    "note": "photocheck: live_surface_or_shore q3, dead_or_stranded q3, dead_or_stranded q2 -> good photos first"
+  },
+  "Cephalopholis hemistiktos": {
+    "photos": [
+      {
+        "observation": 91505239
+      },
+      {
+        "observation": 90525530
+      },
+      {
+        "observation": 400469831
+      }
+    ],
+    "note": "photocheck: live_underwater q2, live_underwater q3, live_underwater q3 -> good photos first"
+  },
+  "Ceratosoma brevicaudatum": {
+    "photos": [
+      {
+        "observation": 9280896
+      },
+      {
+        "observation": 107624490
+      }
+    ],
+    "note": "photocheck: live_underwater q4, caught_or_in_hand q2, live_underwater q4 -> good photos first"
+  },
+  "Cereus pedunculatus": {
+    "photos": [
+      {
+        "observation": 155383611
+      },
+      {
+        "observation": 332700154
+      },
+      {
+        "observation": 231480477
+      }
+    ],
+    "note": "photocheck: live_surface_or_shore q2, live_underwater q5, live_underwater q3 -> good photos first"
+  },
+  "Chaetodon auriga": {
+    "photos": [
+      {
+        "observation": 10060498
+      },
+      {
+        "observation": 309867071
+      }
+    ],
+    "note": "photocheck: live_underwater q3, live_underwater q4, caught_or_in_hand q4 -> good photos first"
+  },
+  "Chaetodon meyeri": {
+    "photos": [
+      {
+        "observation": 270220557
+      },
+      {
+        "observation": 303142278
+      },
+      {
+        "observation": 6903585
+      }
+    ],
+    "note": "photocheck: live_underwater q2, live_underwater q3, live_underwater q2 -> good photos first"
+  },
+  "Chaetodon ulietensis": {
+    "photos": [
+      {
+        "observation": 131005859
+      },
+      {
+        "observation": 268485811
+      },
+      {
+        "observation": 271159086
+      }
+    ],
+    "note": "photocheck: live_underwater q2, live_underwater q4, live_underwater q2 -> good photos first"
+  },
+  "Chaetodon vagabundus": {
+    "photos": [
+      {
+        "photo": 370078474
+      },
+      {
+        "observation": 123662657
+      }
+    ],
+    "note": "photocheck: live_underwater q4, live_underwater q3, caught_or_in_hand q4 -> good photos first"
+  },
+  "Chaetodon xanthocephalus": {
+    "photos": [
+      {
+        "observation": 193968469
+      },
+      {
+        "observation": 268427018
+      },
+      {
+        "observation": 11135681
+      }
+    ],
+    "note": "photocheck: live_underwater q2, live_underwater q2, live_underwater q3 -> good photos first"
+  },
+  "Cheilinus fasciatus": {
+    "photos": [
+      {
+        "photo": 32218546
+      },
+      {
+        "observation": 106443919
+      }
+    ],
+    "note": "photocheck: live_underwater q4, caught_or_in_hand q4, live_underwater q3 -> good photos first"
+  },
+  "Chelmonops curiosus": {
+    "photos": [
+      {
+        "observation": 341675027
+      },
+      {
+        "observation": 332994117
+      },
+      {
+        "observation": 388720714
+      }
+    ],
+    "note": "photocheck: live_underwater q2, live_underwater q3, live_underwater q2 -> good photos first"
+  },
+  "Chelon labrosus": {
+    "photos": [
+      {
+        "observation": 117555776
+      },
+      {
+        "observation": 118146589
+      },
+      {
+        "observation": 186840117
+      }
+    ],
+    "note": "photocheck: live_underwater q2, live_surface_or_shore q3, dead_or_stranded q2 -> good photos first"
+  },
+  "Chelonia mydas": {
+    "photos": [
+      {
+        "photo": 160686955
+      },
+      {
+        "observation": 133239640
+      }
+    ],
+    "note": "photocheck: live_underwater q5, caught_or_in_hand q3, live_underwater q3 -> good photos first"
+  },
+  "Chiloscyllium punctatum": {
+    "photos": [
+      {
+        "observation": 147035924
+      }
+    ],
+    "note": "photocheck: live_surface_or_shore q3, caught_or_in_hand q3, dead_or_stranded q3 -> good photos first"
+  },
+  "Chloeia flava": {
+    "photos": [
+      {
+        "observation": 82814221
+      },
+      {
+        "observation": 207078776
+      },
+      {
+        "observation": 90987641
+      }
+    ],
+    "note": "photocheck: dead_or_stranded q4, dead_or_stranded q2, caught_or_in_hand q3 -> good photos first"
+  },
+  "Chromis chromis": {
+    "photos": [
+      {
+        "observation": 155020802
+      },
+      {
+        "observation": 375197070
+      },
+      {
+        "observation": 85320605
+      }
+    ],
+    "note": "photocheck: live_underwater q2, live_underwater q4, live_underwater q3 -> good photos first"
+  },
+  "Chrysaora chinensis": {
+    "photos": [
+      {
+        "observation": 355340003
+      }
+    ],
+    "note": "photocheck: live_underwater q3, dead_or_stranded q2, dead_or_stranded q2 -> good photos first"
+  },
+  "Clavularia crassa": {
+    "photos": [
+      {
+        "observation": 57912694
+      },
+      {
+        "observation": 90457893
+      },
+      {
+        "observation": 284242295
+      }
+    ],
+    "note": "photocheck: live_underwater q2, live_underwater q2, live_underwater q2 -> good photos first"
+  },
+  "Clibanarius erythropus": {
+    "photos": [
+      {
+        "observation": 326917082
+      },
+      {
+        "observation": 302082756
+      }
+    ],
+    "note": "photocheck: live_underwater q4, live_surface_or_shore q4, caught_or_in_hand q2 -> good photos first"
+  },
+  "Clibanarius infraspinatus": {
+    "photos": [
+      {
+        "observation": 328334331
+      },
+      {
+        "observation": 161803050
+      }
+    ],
+    "note": "photocheck: caught_or_in_hand q3, live_surface_or_shore q2, live_surface_or_shore q3 -> good photos first"
+  },
+  "Clibanarius signatus": {
+    "photos": [
+      {
+        "observation": 103947399
+      },
+      {
+        "observation": 175370884
+      }
+    ],
+    "note": "photocheck: live_surface_or_shore q4, caught_or_in_hand q1, live_surface_or_shore q3 -> good photos first"
+  },
+  "Cnidoglanis macrocephalus": {
+    "photos": [
+      {
+        "observation": 254800225
+      },
+      {
+        "observation": 259959757
+      },
+      {
+        "observation": 101381146
+      }
+    ],
+    "note": "photocheck: live_underwater q2, live_underwater q2, live_underwater q2 -> good photos first"
+  },
+  "Coris aygula": {
+    "photos": [
+      {
+        "observation": 185953135
+      },
+      {
+        "observation": 185935795
+      },
+      {
+        "observation": 90376705
+      }
+    ],
+    "note": "photocheck: live_underwater q2, live_underwater q1, live_underwater q2 -> good photos first"
+  },
+  "Coris julis": {
+    "photos": [
+      {
+        "photo": 72755005
+      },
+      {
+        "photo": 387911791
+      }
+    ],
+    "note": "photocheck: live_underwater q4, live_underwater q5, caught_or_in_hand q3 -> good photos first"
+  },
+  "Coscinasterias tenuispina": {
+    "photos": [
+      {
+        "photo": 20070529
+      },
+      {
+        "observation": 313258758
+      }
+    ],
+    "note": "photocheck: live_underwater q4, caught_or_in_hand q2, live_underwater q3 -> good photos first"
+  },
+  "Crambionella orsini": {
+    "photos": [
+      {
+        "photo": 64661723
+      },
+      {
+        "photo": 64661778
+      }
+    ],
+    "note": "photocheck: live_surface_or_shore q4, live_surface_or_shore q2, dead_or_stranded q3 -> good photos first"
+  },
+  "Crambionella stuhlmanni": {
+    "photos": [
+      {
+        "photo": 354934635
+      }
+    ],
+    "note": "photocheck: live_underwater q3, dead_or_stranded q4, caught_or_in_hand q3 -> good photos first"
+  },
+  "Cyanea barkeri": {
+    "photos": [
+      {
+        "photo": 462039004
+      }
+    ],
+    "note": "photocheck: live_underwater q4, dead_or_stranded q3, dead_or_stranded q3 -> good photos first"
+  },
+  "Cymodocea nodosa": {
+    "photos": [
+      {
+        "observation": 320489833
+      },
+      {
+        "observation": 249218664
+      },
+      {
+        "observation": 304705291
+      }
+    ],
+    "note": "photocheck: caught_or_in_hand q3, dead_or_stranded q2, live_surface_or_shore q2 -> good photos first"
+  },
+  "Cypraea tigris": {
+    "photos": [
+      {
+        "observation": 31285236
+      },
+      {
+        "photo": 70887576
+      },
+      {
+        "observation": 29578429
+      }
+    ],
+    "note": "photocheck: live_underwater q4, caught_or_in_hand q3, caught_or_in_hand q3 -> good photos first"
+  },
+  "Dactylophora nigricans": {
+    "photos": [
+      {
+        "observation": 9400353
+      },
+      {
+        "observation": 346254303
+      },
+      {
+        "observation": 388733827
+      }
+    ],
+    "note": "photocheck: live_underwater q4, live_underwater q2, dead_or_stranded q3 -> good photos first"
+  },
+  "Dactylopterus volitans": {
+    "photos": [
+      {
+        "observation": 230873029
+      },
+      {
+        "observation": 249902215
+      }
+    ],
+    "note": "photocheck: caught_or_in_hand q2, live_underwater q4, live_underwater q3 -> good photos first"
+  },
+  "Dardanus calidus": {
+    "photos": [
+      {
+        "observation": 151321555
+      },
+      {
+        "observation": 15805159
+      }
+    ],
+    "note": "photocheck: live_underwater q4, caught_or_in_hand q3, live_underwater q4 -> good photos first"
+  },
+  "Dardanus lagopodes": {
+    "photos": [
+      {
+        "observation": 252582948
+      },
+      {
+        "observation": 312589182
+      },
+      {
+        "observation": 305144421
+      }
+    ],
+    "note": "photocheck: live_underwater q2, live_underwater q4, live_underwater q2 -> good photos first"
+  },
+  "Dardanus megistos": {
+    "photos": [
+      {
+        "photo": 66601489
+      },
+      {
+        "observation": 27315418
+      },
+      {
+        "observation": 241214653
+      }
+    ],
+    "note": "photocheck: live_underwater q5, caught_or_in_hand q4, caught_or_in_hand q3 -> good photos first"
+  },
+  "Dascyllus albisella": {
+    "photos": [
+      {
+        "observation": 254319292
+      },
+      {
+        "observation": 7740707
+      }
+    ],
+    "note": "photocheck: live_underwater q3, live_underwater q3, live_underwater q1 -> good photos first"
+  },
+  "Dendrodoris limbata": {
+    "photos": [
+      {
+        "observation": 293738472
+      }
+    ],
+    "note": "photocheck: caught_or_in_hand q4, aquarium q3, live_underwater q5 -> good photos first"
+  },
+  "Dendrodoris nigra": {
+    "photos": [
+      {
+        "observation": 132928863
+      },
+      {
+        "observation": 102589884
+      },
+      {
+        "observation": 63453239
+      }
+    ],
+    "note": "photocheck: live_underwater q2, live_underwater q4, live_underwater q4 -> good photos first"
+  },
+  "Dentex dentex": {
+    "photos": [
+      {
+        "observation": 202401779
+      },
+      {
+        "observation": 170423964
+      },
+      {
+        "observation": 246958951
+      }
+    ],
+    "note": "photocheck: dead_or_stranded q2, live_underwater q3, caught_or_in_hand q2 -> good photos first"
+  },
+  "Dermochelys coriacea": {
+    "photos": [
+      {
+        "photo": 23833432
+      }
+    ],
+    "note": "photocheck: caught_or_in_hand q4, live_surface_or_shore q4, dead_or_stranded q2 -> good photos first"
+  },
+  "Diaphorodoris papillata": {
+    "photos": [
+      {
+        "observation": 78025489
+      },
+      {
+        "observation": 121309049
+      }
+    ],
+    "note": "photocheck: live_underwater q4, live_underwater q1, live_underwater q2 -> good photos first"
+  },
+  "Dicentrarchus labrax": {
+    "photos": [
+      {
+        "photo": 177025102
+      },
+      {
+        "observation": 255705142
+      }
+    ],
+    "note": "photocheck: live_underwater q4, caught_or_in_hand q3, live_underwater q3 -> good photos first"
+  },
+  "Dicotylichthys punctulatus": {
+    "photos": [
+      {
+        "observation": 266345761
+      },
+      {
+        "observation": 65273754
+      }
+    ],
+    "note": "photocheck: live_underwater q3, live_underwater q4, dead_or_stranded q4 -> good photos first"
+  },
+  "Diodon hystrix": {
+    "photos": [
+      {
+        "photo": 320141124
+      },
+      {
+        "observation": 241550632
+      }
+    ],
+    "note": "photocheck: live_underwater q4, dead_or_stranded q2, live_underwater q4 -> good photos first"
+  },
+  "Diodon liturosus": {
+    "photos": [
+      {
+        "observation": 194512717
+      },
+      {
+        "observation": 262393910
+      },
+      {
+        "observation": 254101088
+      }
+    ],
+    "note": "photocheck: live_underwater q2, live_underwater q4, live_underwater q3 -> good photos first"
+  },
+  "Diodon nicthemerus": {
+    "photos": [
+      {
+        "observation": 333452616
+      },
+      {
+        "observation": 339717471
+      }
+    ],
+    "note": "photocheck: dead_or_stranded q2, live_underwater q4, live_underwater q4 -> good photos first"
+  },
+  "Diplodus sargus": {
+    "photos": [
+      {
+        "photo": 359029699
+      },
+      {
+        "observation": 236869419
+      },
+      {
+        "observation": 91103288
+      }
+    ],
+    "note": "photocheck: live_underwater q4, live_underwater q2, live_underwater q1 -> good photos first"
+  },
+  "Doris chrysoderma": {
+    "photos": [
+      {
+        "observation": 266345828
+      },
+      {
+        "observation": 73729506
+      },
+      {
+        "observation": 37416601
+      }
+    ],
+    "note": "photocheck: live_underwater q1, live_underwater q2, live_underwater q2 -> good photos first"
+  },
+  "Echinaster (Echinaster) sepositus": {
+    "photos": [
+      {
+        "photo": 4086344
+      },
+      {
+        "observation": 239338520
+      }
+    ],
+    "note": "photocheck: live_underwater q5, live_underwater q4, caught_or_in_hand q4 -> good photos first"
+  },
+  "Echinometra mathaei": {
+    "photos": [
+      {
+        "observation": 341494303
+      },
+      {
+        "observation": 399637428
+      },
+      {
+        "observation": 174593335
+      }
+    ],
+    "note": "photocheck: dead_or_stranded q2, live_underwater q4, caught_or_in_hand q2 -> good photos first"
+  },
+  "Elysia viridis": {
+    "photos": [
+      {
+        "observation": 329133501
+      }
+    ],
+    "note": "photocheck: aquarium q3, caught_or_in_hand q3, live_underwater q3 -> good photos first"
+  },
+  "Enoplosus armatus": {
+    "photos": [
+      {
+        "observation": 257469298
+      },
+      {
+        "observation": 202787701
+      },
+      {
+        "observation": 143260250
+      }
+    ],
+    "note": "photocheck: live_underwater q4, dead_or_stranded q3, live_underwater q2 -> good photos first"
+  },
+  "Epinephelus merra": {
+    "photos": [
+      {
+        "observation": 187920700
+      },
+      {
+        "observation": 195896982
+      }
+    ],
+    "note": "photocheck: caught_or_in_hand q4, live_underwater q3, live_underwater q3 -> good photos first"
+  },
+  "Eretmochelys imbricata": {
+    "photos": [
+      {
+        "observation": 134590177
+      },
+      {
+        "observation": 1094777
+      },
+      {
+        "observation": 196092172
+      }
+    ],
+    "note": "photocheck: caught_or_in_hand q3, live_surface_or_shore q4, caught_or_in_hand q4 -> good photos first"
+  },
+  "Facelina auriculata": {
+    "photos": [
+      {
+        "photo": 396630857
+      },
+      {
+        "observation": 39723524
+      }
+    ],
+    "note": "photocheck: live_underwater q4, live_underwater q4, other q1 -> good photos first"
+  },
+  "Flabellina cavolini": {
+    "photos": [
+      {
+        "observation": 131773793
+      },
+      {
+        "observation": 50079246
+      },
+      {
+        "observation": 365780507
+      }
+    ],
+    "note": "photocheck: live_underwater q2, live_underwater q2, live_underwater q2 -> good photos first"
+  },
+  "Girella tricuspidata": {
+    "photos": [
+      {
+        "observation": 9636809
+      },
+      {
+        "observation": 210147243
+      },
+      {
+        "observation": 145156049
+      }
+    ],
+    "note": "photocheck: live_underwater q3, live_underwater q2, live_underwater q1 -> good photos first"
+  },
+  "Glaucostegus halavi": {
+    "photos": [
+      {
+        "observation": 178351102
+      }
+    ],
+    "note": "photocheck: live_underwater q1, other q1, live_underwater q3 -> good photos first"
+  },
+  "Glaucus atlanticus": {
+    "photos": [
+      {
+        "observation": 244788109
+      },
+      {
+        "observation": 252082916
+      }
+    ],
+    "note": "photocheck: dead_or_stranded q4, dead_or_stranded q3, dead_or_stranded q2 -> good photos first"
+  },
+  "Globicephala melas": {
+    "photos": [
+      {
+        "photo": 215548393
+      },
+      {
+        "photo": 84563153
+      }
+    ],
+    "note": "photocheck: live_surface_or_shore q4, live_surface_or_shore q3, dead_or_stranded q2 -> good photos first"
+  },
+  "Glossodoris rufomarginata": {
+    "photos": [
+      {
+        "observation": 395991914
+      },
+      {
+        "observation": 45298640
+      },
+      {
+        "observation": 147495247
+      }
+    ],
+    "note": "photocheck: other q2, live_underwater q4, live_underwater q2 -> good photos first"
+  },
+  "Gobius fallax": {
+    "photos": [
+      {
+        "observation": 380352980
+      },
+      {
+        "observation": 90457886
+      },
+      {
+        "observation": 369665949
+      }
+    ],
+    "note": "photocheck: live_underwater q2, live_underwater q2, live_underwater q5 -> good photos first"
+  },
+  "Gomophia egyptiaca": {
+    "photos": [
+      {
+        "observation": 73519028
+      },
+      {
+        "observation": 335809819
+      },
+      {
+        "observation": 408644550
+      }
+    ],
+    "note": "photocheck: live_underwater q2, live_underwater q4, live_underwater q3 -> good photos first"
+  },
+  "Gomphosus caeruleus": {
+    "photos": [
+      {
+        "observation": 263902347
+      },
+      {
+        "observation": 6904698
+      },
+      {
+        "observation": 16110900
+      }
+    ],
+    "note": "photocheck: live_underwater q2, live_underwater q2, live_underwater q4 -> good photos first"
+  },
+  "Gomphosus varius": {
+    "photos": [
+      {
+        "photo": 411366587
+      },
+      {
+        "observation": 248567768
+      }
+    ],
+    "note": "photocheck: live_underwater q4, caught_or_in_hand q3, live_underwater q3 -> good photos first"
+  },
+  "Goniistius vestitus": {
+    "photos": [
+      {
+        "observation": 124527573
+      },
+      {
+        "observation": 269203176
+      },
+      {
+        "observation": 383342960
+      }
+    ],
+    "note": "photocheck: live_underwater q2, live_underwater q2, live_underwater q4 -> good photos first"
+  },
+  "Goniobranchus annulatus": {
+    "photos": [
+      {
+        "observation": 105419519
+      },
+      {
+        "observation": 300243881
+      }
+    ],
+    "note": "photocheck: caught_or_in_hand q4, live_underwater q4, live_underwater q2 -> good photos first"
+  },
+  "Goniobranchus splendidus": {
+    "photos": [
+      {
+        "observation": 37418651
+      },
+      {
+        "observation": 37418724
+      },
+      {
+        "observation": 67131252
+      }
+    ],
+    "note": "photocheck: live_underwater q2, live_underwater q4, live_underwater q4 -> good photos first"
+  },
+  "Guinusia chabrus": {
+    "photos": [
+      {
+        "photo": 163401
+      },
+      {
+        "photo": 30717589
+      }
+    ],
+    "note": "photocheck: caught_or_in_hand q2, live_surface_or_shore q4, live_underwater q4 -> good photos first"
+  },
+  "Haletta semifasciata": {
+    "photos": [
+      {
+        "photo": 32265361
+      },
+      {
+        "observation": 253843573
+      },
+      {
+        "observation": 258362232
+      }
+    ],
+    "note": "photocheck: live_underwater q4, caught_or_in_hand q3, caught_or_in_hand q3 -> good photos first"
+  },
+  "Halichoeres trimaculatus": {
+    "photos": [
+      {
+        "observation": 108164560
+      },
+      {
+        "observation": 205339286
+      },
+      {
+        "observation": 98693852
+      }
+    ],
+    "note": "photocheck: live_underwater q2, live_underwater q5, live_underwater q2 -> good photos first"
+  },
+  "Halophila stipulacea": {
+    "photos": [
+      {
+        "observation": 122028856
+      }
+    ],
+    "note": "photocheck: caught_or_in_hand q4, dead_or_stranded q3, live_underwater q3 -> good photos first"
+  },
+  "Heliocidaris erythrogramma": {
+    "photos": [
+      {
+        "photo": 32265290
+      },
+      {
+        "observation": 57198314
+      }
+    ],
+    "note": "photocheck: live_underwater q4, live_underwater q4, dead_or_stranded q2 -> good photos first"
+  },
+  "Hemigymnus melapterus": {
+    "photos": [
+      {
+        "observation": 97680084
+      },
+      {
+        "observation": 176059001
+      },
+      {
+        "observation": 173206232
+      }
+    ],
+    "note": "photocheck: live_underwater q2, live_underwater q3, live_underwater q4 -> good photos first"
+  },
+  "Hemitaurichthys zoster": {
+    "photos": [
+      {
+        "observation": 269772907
+      },
+      {
+        "observation": 50807019
+      },
+      {
+        "observation": 193355718
+      }
+    ],
+    "note": "photocheck: live_underwater q2, live_underwater q2, live_underwater q2 -> good photos first"
+  },
+  "Heniochus varius": {
+    "photos": [
+      {
+        "observation": 278432688
+      },
+      {
+        "observation": 181015838
+      },
+      {
+        "observation": 282554914
+      }
+    ],
+    "note": "photocheck: live_underwater q2, live_underwater q2, live_underwater q2 -> good photos first"
+  },
+  "Herdmania grandis": {
+    "photos": [
+      {
+        "observation": 410671772
+      },
+      {
+        "observation": 264757592
+      },
+      {
+        "observation": 208398999
+      }
+    ],
+    "note": "photocheck: live_underwater q2, live_underwater q4, live_underwater q3 -> good photos first"
+  },
+  "Hermodice carunculata": {
+    "photos": [
+      {
+        "observation": 137573149
+      },
+      {
+        "observation": 24614464
+      }
+    ],
+    "note": "photocheck: caught_or_in_hand q3, live_underwater q3, live_underwater q4 -> good photos first"
+  },
+  "Heteractis aurora": {
+    "photos": [
+      {
+        "observation": 261723049
+      },
+      {
+        "observation": 188982192
+      },
+      {
+        "observation": 152928610
+      }
+    ],
+    "note": "photocheck: live_underwater q2, live_underwater q4, live_underwater q5 -> good photos first"
+  },
+  "Heterodontus portusjacksoni": {
+    "photos": [
+      {
+        "observation": 300867365
+      },
+      {
+        "observation": 299794742
+      },
+      {
+        "observation": 306716933
+      }
+    ],
+    "note": "photocheck: live_underwater q4, dead_or_stranded q2, caught_or_in_hand q2 -> good photos first"
+  },
+  "Hippocampus guttulatus": {
+    "photos": [
+      {
+        "observation": 377201891
+      },
+      {
+        "observation": 396954623
+      },
+      {
+        "observation": 39723536
+      }
+    ],
+    "note": "photocheck: caught_or_in_hand q4, caught_or_in_hand q2, caught_or_in_hand q3 -> good photos first"
+  },
+  "Hippocampus hippocampus": {
+    "photos": [
+      {
+        "observation": 254707692
+      },
+      {
+        "observation": 254714953
+      },
+      {
+        "observation": 254707693
+      }
+    ],
+    "note": "photocheck: other q1, caught_or_in_hand q3, caught_or_in_hand q2 -> good photos first"
+  },
+  "Hippocampus histrix": {
+    "photos": [
+      {
+        "observation": 306175138
+      },
+      {
+        "observation": 345122
+      },
+      {
+        "observation": 1459420
+      }
+    ],
+    "note": "photocheck: live_underwater q2, live_underwater q4, live_underwater q4 -> good photos first"
+  },
+  "Hippocampus whitei": {
+    "photos": [
+      {
+        "observation": 206238641
+      },
+      {
+        "observation": 253714622
+      },
+      {
+        "observation": 105471280
+      }
+    ],
+    "note": "photocheck: live_underwater q4, caught_or_in_hand q3, live_underwater q2 -> good photos first"
+  },
+  "Holopsamma laminaefavosa": {
+    "photos": [
+      {
+        "photo": 108942966
+      }
+    ],
+    "note": "photocheck: live_underwater q4, dead_or_stranded q3, dead_or_stranded q2 -> good photos first"
+  },
+  "Holothuria (Platyperona) sanctori": {
+    "photos": [
+      {
+        "observation": 112031270
+      },
+      {
+        "observation": 204380056
+      },
+      {
+        "observation": 175738293
+      }
+    ],
+    "note": "photocheck: live_underwater q2, live_underwater q4, live_underwater q3 -> good photos first"
+  },
+  "Homophyllia australis": {
+    "photos": [
+      {
+        "photo": 267746568
+      },
+      {
+        "observation": 309658365
+      }
+    ],
+    "note": "photocheck: live_underwater q4, live_underwater q1, live_underwater q4 -> good photos first"
+  },
+  "Hydrophis platurus": {
+    "photos": [
+      {
+        "observation": 195064098
+      },
+      {
+        "observation": 200106900
+      },
+      {
+        "observation": 72895012
+      }
+    ],
+    "note": "photocheck: dead_or_stranded q4, dead_or_stranded q2, dead_or_stranded q4 -> good photos first"
+  },
+  "Hydrophis schistosus": {
+    "photos": [
+      {
+        "observation": 265033786
+      },
+      {
+        "observation": 329724794
+      },
+      {
+        "observation": 405436005
+      }
+    ],
+    "note": "photocheck: dead_or_stranded q4, dead_or_stranded q4, dead_or_stranded q3 -> good photos first"
+  },
+  "Hypoplectrodes maccullochi": {
+    "photos": [
+      {
+        "observation": 144474435
+      },
+      {
+        "observation": 391369254
+      },
+      {
+        "observation": 381251763
+      }
+    ],
+    "note": "photocheck: live_underwater q2, live_underwater q3, live_underwater q3 -> good photos first"
+  },
+  "Hypselodoris imperialis": {
+    "photos": [
+      {
+        "observation": 266691819
+      },
+      {
+        "observation": 257280569
+      },
+      {
+        "observation": 45298604
+      }
+    ],
+    "note": "photocheck: live_underwater q2, live_underwater q5, live_underwater q4 -> good photos first"
+  },
+  "Hypselodoris obscura": {
+    "photos": [
+      {
+        "observation": 319343493
+      },
+      {
+        "observation": 61367013
+      }
+    ],
+    "note": "photocheck: live_underwater q3, live_underwater q4, caught_or_in_hand q2 -> good photos first"
+  },
+  "Istiblennius zebra": {
+    "photos": [
+      {
+        "photo": 265312010
+      },
+      {
+        "photo": 181935821
+      }
+    ],
+    "note": "photocheck: live_underwater q4, live_underwater q4, caught_or_in_hand q3 -> good photos first"
+  },
+  "Isurus oxyrinchus": {
+    "photos": [
+      {
+        "photo": 74638241
+      },
+      {
+        "photo": 30369448
+      }
+    ],
+    "note": "photocheck: live_underwater q5, live_surface_or_shore q3, caught_or_in_hand q3 -> good photos first"
+  },
+  "Labroides dimidiatus": {
+    "photos": [
+      {
+        "observation": 171443049
+      },
+      {
+        "observation": 198711382
+      },
+      {
+        "observation": 175896588
+      }
+    ],
+    "note": "photocheck: caught_or_in_hand q3, live_underwater q2, live_underwater q4 -> good photos first"
+  },
+  "Labrus merula": {
+    "photos": [
+      {
+        "observation": 80453322
+      },
+      {
+        "observation": 154460466
+      },
+      {
+        "observation": 27594241
+      }
+    ],
+    "note": "photocheck: live_underwater q4, caught_or_in_hand q3, live_underwater q2 -> good photos first"
+  },
+  "Latropiscis purpurissatus": {
+    "photos": [
+      {
+        "observation": 4514267
+      },
+      {
+        "observation": 146738502
+      },
+      {
+        "observation": 279877229
+      }
+    ],
+    "note": "photocheck: live_underwater q2, live_underwater q4, live_underwater q4 -> good photos first"
+  },
+  "Lepidochelys olivacea": {
+    "photos": [
+      {
+        "observation": 258655742
+      }
+    ],
+    "note": "photocheck: caught_or_in_hand q3, caught_or_in_hand q2, live_surface_or_shore q3 -> good photos first"
+  },
+  "Loligo vulgaris": {
+    "photos": [
+      {
+        "observation": 323736567
+      },
+      {
+        "observation": 197382922
+      },
+      {
+        "observation": 106810761
+      }
+    ],
+    "note": "photocheck: caught_or_in_hand q2, live_underwater q2, dead_or_stranded q3 -> good photos first"
+  },
+  "Luria lurida": {
+    "photos": [
+      {
+        "observation": 28830814
+      }
+    ],
+    "note": "photocheck: caught_or_in_hand q4, live_underwater q3, caught_or_in_hand q3 -> good photos first"
+  },
+  "Lutjanus fulvus": {
+    "photos": [
+      {
+        "observation": 258341339
+      },
+      {
+        "observation": 170992492
+      },
+      {
+        "observation": 191672534
+      }
+    ],
+    "note": "photocheck: dead_or_stranded q3, caught_or_in_hand q4, live_underwater q3 -> good photos first"
+  },
+  "Lutjanus kasmira": {
+    "photos": [
+      {
+        "observation": 128580628
+      },
+      {
+        "observation": 257901844
+      },
+      {
+        "observation": 120269152
+      }
+    ],
+    "note": "photocheck: live_underwater q2, live_underwater q3, live_underwater q3 -> good photos first"
+  },
+  "Lyncina carneola": {
+    "photos": [
+      {
+        "observation": 275776522
+      }
+    ],
+    "note": "photocheck: dead_or_stranded q3, other q3, other q2 -> good photos first"
+  },
+  "Lysiosquilla lisa": {
+    "photos": [
+      {
+        "observation": 167936739
+      },
+      {
+        "observation": 391275678
+      }
+    ],
+    "note": "photocheck: caught_or_in_hand q3, live_underwater q4, live_underwater q4 -> good photos first"
+  },
+  "Lysiosquilla maculata": {
+    "photos": [
+      {
+        "observation": 406028706
+      },
+      {
+        "observation": 175540180
+      }
+    ],
+    "note": "photocheck: caught_or_in_hand q3, live_underwater q4, live_underwater q3 -> good photos first"
+  },
+  "Lysmata seticaudata": {
+    "photos": [
+      {
+        "observation": 194091827
+      },
+      {
+        "observation": 388225898
+      }
+    ],
+    "note": "photocheck: live_underwater q1, live_underwater q2, live_underwater q3 -> good photos first"
+  },
+  "Mauritia grayana": {
+    "photos": [
+      {
+        "observation": 241272334
+      }
+    ],
+    "note": "photocheck: caught_or_in_hand q3, live_surface_or_shore q4 -> good photos first"
+  },
+  "Mauritia mauritiana": {
+    "photos": [
+      {
+        "observation": 5400877
+      },
+      {
+        "observation": 18486431
+      }
+    ],
+    "note": "photocheck: live_underwater q3, live_underwater q4, caught_or_in_hand q4 -> good photos first"
+  },
+  "Melichthys niger": {
+    "photos": [
+      {
+        "observation": 47335724
+      },
+      {
+        "observation": 120259981
+      },
+      {
+        "observation": 34815964
+      }
+    ],
+    "note": "photocheck: dead_or_stranded q3, caught_or_in_hand q4, live_underwater q3 -> good photos first"
+  },
+  "Meridiastra gunnii": {
+    "photos": [
+      {
+        "photo": 104592234
+      },
+      {
+        "observation": 182011168
+      }
+    ],
+    "note": "photocheck: live_underwater q3, caught_or_in_hand q3, live_underwater q3 -> good photos first"
+  },
+  "Meuschenia freycineti": {
+    "photos": [
+      {
+        "observation": 24760253
+      },
+      {
+        "observation": 64845503
+      },
+      {
+        "observation": 202771064
+      }
+    ],
+    "note": "photocheck: live_underwater q4, dead_or_stranded q3, live_underwater q2 -> good photos first"
+  },
+  "Microcanthus joyceae": {
+    "photos": [
+      {
+        "photo": 120508232
+      },
+      {
+        "photo": 120508218
+      }
+    ],
+    "note": "photocheck: live_underwater q4, live_underwater q5, aquarium q3 -> good photos first"
+  },
+  "Mobula mobular": {
+    "photos": [
+      {
+        "observation": 130747017
+      },
+      {
+        "observation": 263470631
+      }
+    ],
+    "note": "photocheck: live_underwater q4, caught_or_in_hand q2, live_surface_or_shore q2 -> good photos first"
+  },
+  "Monacanthus chinensis": {
+    "photos": [
+      {
+        "observation": 143757299
+      },
+      {
+        "observation": 152704871
+      },
+      {
+        "observation": 18124574
+      }
+    ],
+    "note": "photocheck: live_underwater q4, live_underwater q2, dead_or_stranded q2 -> good photos first"
+  },
+  "Monetaria annulus": {
+    "photos": [
+      {
+        "observation": 31238392
+      },
+      {
+        "observation": 31238391
+      },
+      {
+        "observation": 103640068
+      }
+    ],
+    "note": "photocheck: specimen_or_museum q3, dead_or_stranded q4, live_underwater q4 -> good photos first"
+  },
+  "Monetaria caputophidii": {
+    "photos": [
+      {
+        "observation": 107420765
+      },
+      {
+        "photo": 180665210
+      },
+      {
+        "observation": 140133032
+      }
+    ],
+    "note": "photocheck: live_underwater q4, caught_or_in_hand q3, caught_or_in_hand q3 -> good photos first"
+  },
+  "Monetaria caputserpentis": {
+    "photos": [
+      {
+        "observation": 81476622
+      },
+      {
+        "observation": 283863746
+      }
+    ],
+    "note": "photocheck: caught_or_in_hand q4, live_surface_or_shore q3, dead_or_stranded q3 -> good photos first"
+  },
+  "Monetaria moneta": {
+    "photos": [
+      {
+        "observation": 326282812
+      },
+      {
+        "observation": 330797276
+      },
+      {
+        "observation": 188635248
+      }
+    ],
+    "note": "photocheck: dead_or_stranded q3, dead_or_stranded q3, live_underwater q4 -> good photos first"
+  },
+  "Mullus barbatus": {
+    "photos": [
+      {
+        "observation": 50422180
+      },
+      {
+        "photo": 80055542
+      }
+    ],
+    "note": "photocheck: live_underwater q3, caught_or_in_hand q2, live_underwater q4 -> good photos first"
+  },
+  "Mullus surmuletus": {
+    "photos": [
+      {
+        "observation": 68641746
+      },
+      {
+        "observation": 4042432
+      },
+      {
+        "observation": 150834277
+      }
+    ],
+    "note": "photocheck: live_underwater q2, caught_or_in_hand q4, live_underwater q2 -> good photos first"
+  },
+  "Muraena helena": {
+    "photos": [
+      {
+        "observation": 132025399
+      },
+      {
+        "observation": 82676285
+      }
+    ],
+    "note": "photocheck: other q1, live_underwater q4, live_underwater q4 -> good photos first"
+  },
+  "Mustelus mustelus": {
+    "photos": [
+      {
+        "photo": 348484330
+      },
+      {
+        "observation": 301667401
+      }
+    ],
+    "note": "photocheck: live_underwater q3, live_underwater q2, dead_or_stranded q2 -> good photos first"
+  },
+  "Myliobatis tenuicaudatus": {
+    "photos": [
+      {
+        "observation": 144558721
+      },
+      {
+        "observation": 194325797
+      },
+      {
+        "observation": 5902539
+      }
+    ],
+    "note": "photocheck: caught_or_in_hand q3, dead_or_stranded q2, dead_or_stranded q1 -> good photos first"
+  },
+  "Myripristis murdjan": {
+    "photos": [
+      {
+        "photo": 455902664
+      },
+      {
+        "photo": 455902651
+      }
+    ],
+    "note": "photocheck: live_underwater q4, live_underwater q5, live_underwater q1 -> good photos first"
+  },
+  "Naria erosa": {
+    "photos": [
+      {
+        "observation": 243548213
+      },
+      {
+        "observation": 35239429
+      }
+    ],
+    "note": "photocheck: dead_or_stranded q3, dead_or_stranded q3, dead_or_stranded q2 -> good photos first"
+  },
+  "Naria helvola": {
+    "photos": [
+      {
+        "observation": 216590622
+      },
+      {
+        "observation": 30494995
+      }
+    ],
+    "note": "photocheck: dead_or_stranded q3, caught_or_in_hand q3, caught_or_in_hand q2 -> good photos first"
+  },
+  "Naria turdus": {
+    "photos": [
+      {
+        "observation": 242015619
+      },
+      {
+        "observation": 196220536
+      }
+    ],
+    "note": "photocheck: caught_or_in_hand q3, other q2, caught_or_in_hand q4 -> good photos first"
+  },
+  "Naso brevirostris": {
+    "photos": [
+      {
+        "observation": 301159408
+      },
+      {
+        "observation": 200365377
+      },
+      {
+        "observation": 51066081
+      }
+    ],
+    "note": "photocheck: live_underwater q2, live_underwater q3, live_underwater q2 -> good photos first"
+  },
+  "Natator depressus": {
+    "photos": [
+      {
+        "observation": 256018555
+      },
+      {
+        "observation": 298353931
+      },
+      {
+        "observation": 242591764
+      }
+    ],
+    "note": "photocheck: caught_or_in_hand q3, live_surface_or_shore q2, other q1 -> good photos first"
+  },
+  "Nebrius ferrugineus": {
+    "photos": [
+      {
+        "photo": 229382183
+      },
+      {
+        "observation": 161702907
+      }
+    ],
+    "note": "photocheck: live_underwater q4, caught_or_in_hand q2, live_underwater q3 -> good photos first"
+  },
+  "Neotrygon indica": {
+    "photos": [
+      {
+        "observation": 81605555
+      },
+      {
+        "observation": 274742147
+      }
+    ],
+    "note": "photocheck: live_underwater q3, caught_or_in_hand q4, live_underwater q3 -> good photos first"
+  },
+  "Notolabrus parilus": {
+    "photos": [
+      {
+        "observation": 257999035
+      },
+      {
+        "observation": 260587028
+      }
+    ],
+    "note": "photocheck: caught_or_in_hand q4, live_underwater q3, live_underwater q3 -> good photos first"
+  },
+  "Oblada melanurus": {
+    "photos": [
+      {
+        "observation": 171834784
+      },
+      {
+        "observation": 116848083
+      },
+      {
+        "observation": 19016864
+      }
+    ],
+    "note": "photocheck: live_underwater q2, live_underwater q2, live_surface_or_shore q2 -> good photos first"
+  },
+  "Oceana serrulata": {
+    "photos": [
+      {
+        "observation": 251643954
+      }
+    ],
+    "note": "photocheck: caught_or_in_hand q3, live_underwater q4 -> good photos first"
+  },
+  "Octopus cyanea": {
+    "photos": [
+      {
+        "observation": 151112387
+      },
+      {
+        "observation": 196528101
+      }
+    ],
+    "note": "photocheck: live_underwater q4, caught_or_in_hand q2, live_underwater q4 -> good photos first"
+  },
+  "Odonus niger": {
+    "photos": [
+      {
+        "observation": 253846525
+      },
+      {
+        "observation": 198882347
+      }
+    ],
+    "note": "photocheck: dead_or_stranded q2, live_underwater q5, live_underwater q3 -> good photos first"
+  },
+  "Ophthalmolepis lineolata": {
+    "photos": [
+      {
+        "observation": 143350183
+      },
+      {
+        "observation": 110651263
+      },
+      {
+        "observation": 391351378
+      }
+    ],
+    "note": "photocheck: live_underwater q2, live_underwater q4, live_underwater q3 -> good photos first"
+  },
+  "Ozius truncatus": {
+    "photos": [
+      {
+        "observation": 264502041
+      },
+      {
+        "observation": 151004661
+      },
+      {
+        "observation": 358192903
+      }
+    ],
+    "note": "photocheck: caught_or_in_hand q2, live_underwater q5, dead_or_stranded q2 -> good photos first"
+  },
+  "Palaemon serratus": {
+    "photos": [
+      {
+        "observation": 336599429
+      },
+      {
+        "observation": 339420908
+      }
+    ],
+    "note": "photocheck: live_underwater q3, live_surface_or_shore q2, caught_or_in_hand q3 -> good photos first"
+  },
+  "Paracentrotus lividus": {
+    "photos": [
+      {
+        "observation": 289606213
+      },
+      {
+        "observation": 290678231
+      }
+    ],
+    "note": "photocheck: dead_or_stranded q2, live_underwater q4, live_underwater q3 -> good photos first"
+  },
+  "Paranemonia cinerea": {
+    "photos": [
+      {
+        "observation": 28019291
+      },
+      {
+        "observation": 200659019
+      },
+      {
+        "observation": 106211656
+      }
+    ],
+    "note": "photocheck: live_underwater q2, live_underwater q4, live_underwater q2 -> good photos first"
+  },
+  "Parapercis hexophtalma": {
+    "photos": [
+      {
+        "observation": 347075468
+      },
+      {
+        "observation": 177727844
+      },
+      {
+        "observation": 270819044
+      }
+    ],
+    "note": "photocheck: live_underwater q2, live_underwater q4, live_underwater q2 -> good photos first"
+  },
+  "Parupeneus forsskali": {
+    "photos": [
+      {
+        "observation": 347770541
+      },
+      {
+        "observation": 260350518
+      },
+      {
+        "observation": 143089484
+      }
+    ],
+    "note": "photocheck: live_underwater q2, live_underwater q5, live_underwater q2 -> good photos first"
+  },
+  "Parvulastra exigua": {
+    "photos": [
+      {
+        "observation": 402371452
+      },
+      {
+        "observation": 401152412
+      }
+    ],
+    "note": "photocheck: caught_or_in_hand q4, live_surface_or_shore q4, live_surface_or_shore q4 -> good photos first"
+  },
+  "Pastinachus ater": {
+    "photos": [
+      {
+        "photo": 67036863
+      },
+      {
+        "observation": 152634219
+      }
+    ],
+    "note": "photocheck: live_underwater q4, live_surface_or_shore q4, live_underwater q1 -> good photos first"
+  },
+  "Pelagia noctiluca": {
+    "photos": [
+      {
+        "observation": 187033189
+      },
+      {
+        "observation": 22382538
+      }
+    ],
+    "note": "photocheck: live_underwater q3, live_surface_or_shore q3, dead_or_stranded q3 -> good photos first"
+  },
+  "Pelates octolineatus": {
+    "photos": [
+      {
+        "observation": 332847154
+      },
+      {
+        "observation": 330718687
+      },
+      {
+        "observation": 261722925
+      }
+    ],
+    "note": "photocheck: live_underwater q2, live_underwater q4, dead_or_stranded q3 -> good photos first"
+  },
+  "Pempheris klunzingeri": {
+    "photos": [
+      {
+        "observation": 18259134
+      },
+      {
+        "observation": 260475967
+      },
+      {
+        "observation": 333827806
+      }
+    ],
+    "note": "photocheck: live_underwater q2, live_underwater q2, live_underwater q4 -> good photos first"
+  },
+  "Phyllidia rueppelii": {
+    "photos": [
+      {
+        "observation": 190717304
+      },
+      {
+        "observation": 134478238
+      },
+      {
+        "observation": 300110444
+      }
+    ],
+    "note": "photocheck: live_underwater q2, live_underwater q4, live_underwater q5 -> good photos first"
+  },
+  "Phyllodoce novaehollandiae": {
+    "photos": [
+      {
+        "observation": 34476600
+      },
+      {
+        "observation": 61090757
+      },
+      {
+        "observation": 58581758
+      }
+    ],
+    "note": "photocheck: live_surface_or_shore q2, live_surface_or_shore q4, live_surface_or_shore q3 -> good photos first"
+  },
+  "Phyllopteryx taeniolatus": {
+    "photos": [
+      {
+        "observation": 37463914
+      },
+      {
+        "observation": 315691645
+      }
+    ],
+    "note": "photocheck: live_underwater q4, dead_or_stranded q2, live_underwater q4 -> good photos first"
+  },
+  "Phyllorhiza punctata": {
+    "photos": [
+      {
+        "observation": 3809046
+      },
+      {
+        "observation": 261235682
+      }
+    ],
+    "note": "photocheck: live_underwater q4, live_underwater q2, dead_or_stranded q3 -> good photos first"
+  },
+  "Physalia megalista": {
+    "photos": [
+      {
+        "observation": 154789336
+      }
+    ],
+    "note": "photocheck: dead_or_stranded q3, dead_or_stranded q3, dead_or_stranded q3 -> good photos first"
+  },
+  "Physalia utriculus": {
+    "photos": [
+      {
+        "photo": 660769247
+      },
+      {
+        "observation": 362048023
+      }
+    ],
+    "note": "photocheck: live_underwater q3, dead_or_stranded q4, live_underwater q3 -> good photos first"
+  },
+  "Physeter macrocephalus": {
+    "photos": [
+      {
+        "observation": 300883241
+      },
+      {
+        "observation": 129273061
+      },
+      {
+        "observation": 38062297
+      }
+    ],
+    "note": "photocheck: live_surface_or_shore q2, dead_or_stranded q2, other q1 -> good photos first"
+  },
+  "Platax teira": {
+    "photos": [
+      {
+        "observation": 15479029
+      },
+      {
+        "observation": 192705887
+      }
+    ],
+    "note": "photocheck: live_underwater q3, live_underwater q4, live_underwater q1 -> good photos first"
+  },
+  "Platycephalus fuscus": {
+    "photos": [
+      {
+        "observation": 43072604
+      },
+      {
+        "observation": 300369552
+      }
+    ],
+    "note": "photocheck: live_underwater q3, dead_or_stranded q2, live_underwater q3 -> good photos first"
+  },
+  "Plesiastrea versipora": {
+    "photos": [
+      {
+        "observation": 202787738
+      }
+    ],
+    "note": "photocheck: live_underwater q3, dead_or_stranded q3, dead_or_stranded q2 -> good photos first"
+  },
+  "Pocillopora meandrina": {
+    "photos": [
+      {
+        "photo": 215730
+      }
+    ],
+    "note": "photocheck: live_underwater q5, caught_or_in_hand q2, dead_or_stranded q2 -> good photos first"
+  },
+  "Pomacanthus maculosus": {
+    "photos": [
+      {
+        "photo": 58409720
+      },
+      {
+        "observation": 189977375
+      }
+    ],
+    "note": "photocheck: live_underwater q5, live_underwater q1, live_underwater q2 -> good photos first"
+  },
+  "Pomacanthus semicirculatus": {
+    "photos": [
+      {
+        "observation": 144558262
+      },
+      {
+        "observation": 398805198
+      }
+    ],
+    "note": "photocheck: dead_or_stranded q3, live_underwater q2, live_underwater q4 -> good photos first"
+  },
+  "Porcellana platycheles": {
+    "photos": [
+      {
+        "photo": 658673818
+      },
+      {
+        "observation": 389294789
+      }
+    ],
+    "note": "photocheck: live_underwater q4, caught_or_in_hand q3, live_surface_or_shore q3 -> good photos first"
+  },
+  "Porites cylindrica": {
+    "photos": [
+      {
+        "photo": 6743218
+      },
+      {
+        "photo": 4481323
+      }
+    ],
+    "note": "photocheck: live_underwater q4, live_underwater q4, specimen_or_museum q2 -> good photos first"
+  },
+  "Porpita porpita": {
+    "photos": [
+      {
+        "observation": 121841067
+      },
+      {
+        "observation": 204834105
+      }
+    ],
+    "note": "photocheck: live_underwater q4, dead_or_stranded q2, dead_or_stranded q2 -> good photos first"
+  },
+  "Portunus armatus": {
+    "photos": [
+      {
+        "observation": 257466475
+      },
+      {
+        "observation": 198630849
+      }
+    ],
+    "note": "photocheck: live_underwater q4, live_underwater q5, dead_or_stranded q2 -> good photos first"
+  },
+  "Portunus pelagicus": {
+    "photos": [
+      {
+        "observation": 31658572
+      },
+      {
+        "observation": 247923878
+      },
+      {
+        "observation": 298167477
+      }
+    ],
+    "note": "photocheck: caught_or_in_hand q2, caught_or_in_hand q4, live_surface_or_shore q4 -> good photos first"
+  },
+  "Portunus sanguinolentus": {
+    "photos": [
+      {
+        "observation": 237287988
+      },
+      {
+        "observation": 198689568
+      }
+    ],
+    "note": "photocheck: live_surface_or_shore q4, caught_or_in_hand q3, live_surface_or_shore q3 -> good photos first"
+  },
+  "Posidonia oceanica": {
+    "photos": [
+      {
+        "observation": 154953818
+      },
+      {
+        "observation": 311896890
+      },
+      {
+        "observation": 300637382
+      }
+    ],
+    "note": "photocheck: live_underwater q3, specimen_or_museum q3, caught_or_in_hand q3 -> good photos first"
+  },
+  "Prionace glauca": {
+    "photos": [
+      {
+        "photo": 92126694
+      }
+    ],
+    "note": "photocheck: live_underwater q5, dead_or_stranded q2, caught_or_in_hand q2 -> good photos first"
+  },
+  "Prostheceraeus moseleyi": {
+    "photos": [
+      {
+        "observation": 267033355
+      },
+      {
+        "observation": 51608087
+      }
+    ],
+    "note": "photocheck: live_underwater q4, live_underwater q3, caught_or_in_hand q2 -> good photos first"
+  },
+  "Protoreaster lincki": {
+    "photos": [
+      {
+        "observation": 9743016
+      },
+      {
+        "observation": 247984601
+      }
+    ],
+    "note": "photocheck: live_underwater q5, live_underwater q4, caught_or_in_hand q4 -> good photos first"
+  },
+  "Pseudobiceros hancockanus": {
+    "photos": [
+      {
+        "observation": 191082498
+      },
+      {
+        "observation": 191082522
+      }
+    ],
+    "note": "photocheck: caught_or_in_hand q3, live_underwater q4, live_underwater q2 -> good photos first"
+  },
+  "Pseudoceros gamblei": {
+    "photos": [
+      {
+        "photo": 223659107
+      },
+      {
+        "observation": 289210409
+      }
+    ],
+    "note": "photocheck: live_underwater q4, caught_or_in_hand q3, live_underwater q3 -> good photos first"
+  },
+  "Pseudoceros indicus": {
+    "photos": [
+      {
+        "observation": 329210746
+      },
+      {
+        "observation": 348979123
+      },
+      {
+        "observation": 328336548
+      }
+    ],
+    "note": "photocheck: live_surface_or_shore q2, live_underwater q4, live_surface_or_shore q3 -> good photos first"
+  },
+  "Pseudogoniistius nigripes": {
+    "photos": [
+      {
+        "observation": 309187504
+      },
+      {
+        "observation": 344375642
+      },
+      {
+        "observation": 143992945
+      }
+    ],
+    "note": "photocheck: live_underwater q2, live_underwater q3, live_underwater q3 -> good photos first"
+  },
+  "Pseudorhiza haeckeli": {
+    "photos": [
+      {
+        "observation": 327559196
+      },
+      {
+        "observation": 331517719
+      }
+    ],
+    "note": "photocheck: live_underwater q4, dead_or_stranded q2, live_underwater q3 -> good photos first"
+  },
+  "Pterois volitans": {
+    "photos": [
+      {
+        "photo": 70521568
+      },
+      {
+        "observation": 293654008
+      },
+      {
+        "observation": 337705864
+      }
+    ],
+    "note": "photocheck: live_underwater q4, caught_or_in_hand q3, live_underwater q2 -> good photos first"
+  },
+  "Pteroplatytrygon violacea": {
+    "photos": [
+      {
+        "observation": 400267256
+      },
+      {
+        "observation": 302844196
+      }
+    ],
+    "note": "photocheck: caught_or_in_hand q2, live_surface_or_shore q2, live_underwater q3 -> good photos first"
+  },
+  "Raja asterias": {
+    "photos": [
+      {
+        "photo": 505388777
+      }
+    ],
+    "note": "photocheck: live_underwater q4, caught_or_in_hand q2, caught_or_in_hand q2 -> good photos first"
+  },
+  "Raja radula": {
+    "photos": [
+      {
+        "observation": 270592818
+      }
+    ],
+    "note": "photocheck: live_underwater q3, caught_or_in_hand q2, caught_or_in_hand q3 -> good photos first"
+  },
+  "Raja undulata": {
+    "photos": [
+      {
+        "observation": 278468743
+      },
+      {
+        "observation": 133799543
+      },
+      {
+        "observation": 307755451
+      }
+    ],
+    "note": "photocheck: caught_or_in_hand q2, other q2, caught_or_in_hand q2 -> good photos first"
+  },
+  "Rhabdosargus sarba": {
+    "photos": [
+      {
+        "observation": 326622681
+      },
+      {
+        "observation": 152925286
+      },
+      {
+        "observation": 19744441
+      }
+    ],
+    "note": "photocheck: live_underwater q3, caught_or_in_hand q5, live_underwater q2 -> good photos first"
+  },
+  "Rhincodon typus": {
+    "photos": [
+      {
+        "photo": 229381770
+      },
+      {
+        "observation": 134590116
+      },
+      {
+        "observation": 30791054
+      }
+    ],
+    "note": "photocheck: live_underwater q5, dead_or_stranded q2, dead_or_stranded q2 -> good photos first"
+  },
+  "Rhinecanthus rectangulus": {
+    "photos": [
+      {
+        "observation": 40215057
+      },
+      {
+        "observation": 19305886
+      },
+      {
+        "observation": 18998226
+      }
+    ],
+    "note": "photocheck: live_underwater q2, live_underwater q4, live_underwater q2 -> good photos first"
+  },
+  "Rhizostoma pulmo": {
+    "photos": [
+      {
+        "observation": 234194781
+      },
+      {
+        "observation": 29233212
+      }
+    ],
+    "note": "photocheck: dead_or_stranded q3, dead_or_stranded q2, live_underwater q4 -> good photos first"
+  },
+  "Rhopilema hispidum": {
+    "photos": [
+      {
+        "observation": 366940211
+      },
+      {
+        "observation": 271730566
+      }
+    ],
+    "note": "photocheck: dead_or_stranded q2, dead_or_stranded q3, dead_or_stranded q3 -> good photos first"
+  },
+  "Rhopilema nomadica": {
+    "photos": [
+      {
+        "observation": 143585824
+      },
+      {
+        "observation": 197333407
+      },
+      {
+        "observation": 348248575
+      }
+    ],
+    "note": "photocheck: dead_or_stranded q2, dead_or_stranded q3, live_underwater q1 -> good photos first"
+  },
+  "Sabella spallanzanii": {
+    "photos": [
+      {
+        "photo": 597682125
+      },
+      {
+        "observation": 1249152
+      },
+      {
+        "observation": 22218372
+      }
+    ],
+    "note": "photocheck: live_underwater q4, live_underwater q2, dead_or_stranded q4 -> good photos first"
+  },
+  "Salaria pavo": {
+    "photos": [
+      {
+        "observation": 291438003
+      },
+      {
+        "observation": 129600796
+      },
+      {
+        "observation": 396847671
+      }
+    ],
+    "note": "photocheck: caught_or_in_hand q4, live_surface_or_shore q2, live_underwater q3 -> good photos first"
+  },
+  "Scobinichthys granulatus": {
+    "photos": [
+      {
+        "observation": 263750174
+      },
+      {
+        "observation": 152220138
+      },
+      {
+        "observation": 24760252
+      }
+    ],
+    "note": "photocheck: dead_or_stranded q3, dead_or_stranded q2, live_underwater q2 -> good photos first"
+  },
+  "Scorpaena porcus": {
+    "photos": [
+      {
+        "photo": 20070519
+      },
+      {
+        "observation": 272146496
+      },
+      {
+        "observation": 189389585
+      }
+    ],
+    "note": "photocheck: live_underwater q4, live_underwater q2, dead_or_stranded q2 -> good photos first"
+  },
+  "Scorpis lineolata": {
+    "photos": [
+      {
+        "observation": 199247270
+      },
+      {
+        "observation": 260360688
+      },
+      {
+        "observation": 381253543
+      }
+    ],
+    "note": "photocheck: live_underwater q2, live_underwater q3, live_underwater q2 -> good photos first"
+  },
+  "Scyliorhinus canicula": {
+    "photos": [
+      {
+        "observation": 250685873
+      }
+    ],
+    "note": "photocheck: dead_or_stranded q2, other q2, caught_or_in_hand q2 -> good photos first"
+  },
+  "Scyliorhinus stellaris": {
+    "photos": [
+      {
+        "photo": 224300307
+      },
+      {
+        "photo": 67740351
+      }
+    ],
+    "note": "photocheck: live_underwater q4, live_underwater q3, caught_or_in_hand q2 -> good photos first"
+  },
+  "Scyllarus arctus": {
+    "photos": [
+      {
+        "observation": 402349390
+      },
+      {
+        "observation": 66870202
+      },
+      {
+        "observation": 120497173
+      }
+    ],
+    "note": "photocheck: live_underwater q2, live_underwater q4, live_underwater q2 -> good photos first"
+  },
+  "Sepiella inermis": {
+    "photos": [
+      {
+        "observation": 378688920
+      }
+    ],
+    "note": "photocheck: caught_or_in_hand q4, dead_or_stranded q2, live_surface_or_shore q3 -> good photos first"
+  },
+  "Sepioteuthis australis": {
+    "photos": [
+      {
+        "observation": 346085059
+      },
+      {
+        "observation": 9261370
+      },
+      {
+        "observation": 187447838
+      }
+    ],
+    "note": "photocheck: live_underwater q5, live_underwater q2, live_underwater q1 -> good photos first"
+  },
+  "Serranus scriba": {
+    "photos": [
+      {
+        "observation": 154755047
+      },
+      {
+        "observation": 382886770
+      }
+    ],
+    "note": "photocheck: live_underwater q3, caught_or_in_hand q3, live_underwater q4 -> good photos first"
+  },
+  "Siganus rivulatus": {
+    "photos": [
+      {
+        "observation": 185945735
+      },
+      {
+        "observation": 400728045
+      },
+      {
+        "observation": 292405706
+      }
+    ],
+    "note": "photocheck: live_underwater q2, live_underwater q3, live_underwater q3 -> good photos first"
+  },
+  "Sousa chinensis": {
+    "photos": [
+      {
+        "observation": 411917432
+      },
+      {
+        "observation": 249916498
+      }
+    ],
+    "note": "photocheck: live_surface_or_shore q1, live_surface_or_shore q3, live_surface_or_shore q4 -> good photos first"
+  },
+  "Sousa sahulensis": {
+    "photos": [
+      {
+        "observation": 252481523
+      },
+      {
+        "photo": 13553051
+      },
+      {
+        "observation": 291145941
+      }
+    ],
+    "note": "photocheck: live_surface_or_shore q2, live_surface_or_shore q3, live_surface_or_shore q2 -> good photos first"
+  },
+  "Sparus aurata": {
+    "photos": [
+      {
+        "photo": 167478208
+      },
+      {
+        "observation": 303819183
+      },
+      {
+        "observation": 170087469
+      }
+    ],
+    "note": "photocheck: live_underwater q4, caught_or_in_hand q3, caught_or_in_hand q3 -> good photos first"
+  },
+  "Sphaerechinus granularis": {
+    "photos": [
+      {
+        "observation": 172641324
+      },
+      {
+        "observation": 83666970
+      },
+      {
+        "observation": 117555766
+      }
+    ],
+    "note": "photocheck: dead_or_stranded q2, dead_or_stranded q2, live_underwater q3 -> good photos first"
+  },
+  "Sphyraena viridensis": {
+    "photos": [
+      {
+        "observation": 163888689
+      },
+      {
+        "observation": 255624935
+      }
+    ],
+    "note": "photocheck: live_underwater q3, live_underwater q3, caught_or_in_hand q2 -> good photos first"
+  },
+  "Sphyrna lewini": {
+    "photos": [
+      {
+        "photo": 86555463
+      }
+    ],
+    "note": "photocheck: live_underwater q4, caught_or_in_hand q2, caught_or_in_hand q3 -> good photos first"
+  },
+  "Spondyliosoma cantharus": {
+    "photos": [
+      {
+        "photo": 42541170
+      },
+      {
+        "observation": 84105554
+      }
+    ],
+    "note": "photocheck: live_underwater q3, caught_or_in_hand q3, live_underwater q3 -> good photos first"
+  },
+  "Squilla mantis": {
+    "photos": [
+      {
+        "observation": 63521979
+      },
+      {
+        "observation": 50172983
+      }
+    ],
+    "note": "photocheck: caught_or_in_hand q3, live_underwater q2, live_surface_or_shore q4 -> good photos first"
+  },
+  "Stenella coeruleoalba": {
+    "photos": [
+      {
+        "observation": 301148722
+      },
+      {
+        "observation": 90457917
+      }
+    ],
+    "note": "photocheck: dead_or_stranded q3, live_surface_or_shore q2, live_surface_or_shore q4 -> good photos first"
+  },
+  "Stenopus hispidus": {
+    "photos": [
+      {
+        "observation": 291895656
+      },
+      {
+        "observation": 45298652
+      },
+      {
+        "observation": 122020861
+      }
+    ],
+    "note": "photocheck: live_underwater q2, live_underwater q2, live_underwater q3 -> good photos first"
+  },
+  "Stichopus chloronotus": {
+    "photos": [
+      {
+        "observation": 337301098
+      },
+      {
+        "observation": 313037279
+      }
+    ],
+    "note": "photocheck: other q3, live_underwater q4, live_underwater q4 -> good photos first"
+  },
+  "Stomopneustes variolaris": {
+    "photos": [
+      {
+        "observation": 297504509
+      },
+      {
+        "observation": 10381840
+      }
+    ],
+    "note": "photocheck: dead_or_stranded q2, live_surface_or_shore q4, live_underwater q3 -> good photos first"
+  },
+  "Styela plicata": {
+    "photos": [
+      {
+        "observation": 269867976
+      },
+      {
+        "observation": 91355394
+      },
+      {
+        "observation": 13843490
+      }
+    ],
+    "note": "photocheck: caught_or_in_hand q3, live_underwater q2, caught_or_in_hand q3 -> good photos first"
+  },
+  "Sufflamen bursa": {
+    "photos": [
+      {
+        "observation": 100442768
+      },
+      {
+        "observation": 191606656
+      },
+      {
+        "observation": 334530611
+      }
+    ],
+    "note": "photocheck: live_underwater q3, caught_or_in_hand q4, live_underwater q2 -> good photos first"
+  },
+  "Symphodus tinca": {
+    "photos": [
+      {
+        "observation": 171836334
+      },
+      {
+        "observation": 154729581
+      }
+    ],
+    "note": "photocheck: caught_or_in_hand q3, live_underwater q5, live_underwater q4 -> good photos first"
+  },
+  "Taeniurops meyeni": {
+    "photos": [
+      {
+        "observation": 219185745
+      },
+      {
+        "observation": 202450778
+      }
+    ],
+    "note": "photocheck: live_underwater q4, live_underwater q4, live_underwater q1 -> good photos first"
+  },
+  "Tetractenos glaber": {
+    "photos": [
+      {
+        "observation": 47095826
+      },
+      {
+        "observation": 232864040
+      },
+      {
+        "observation": 191663286
+      }
+    ],
+    "note": "photocheck: live_underwater q3, caught_or_in_hand q4, caught_or_in_hand q4 -> good photos first"
+  },
+  "Thalassia hemprichii": {
+    "photos": [
+      {
+        "observation": 135521784
+      },
+      {
+        "observation": 151267303
+      }
+    ],
+    "note": "photocheck: live_underwater q4, dead_or_stranded q2, live_underwater q3 -> good photos first"
+  },
+  "Thalassodendron ciliatum": {
+    "photos": [
+      {
+        "observation": 337134688
+      },
+      {
+        "observation": 142197418
+      },
+      {
+        "observation": 333635704
+      }
+    ],
+    "note": "photocheck: caught_or_in_hand q3, caught_or_in_hand q3, live_underwater q2 -> good photos first"
+  },
+  "Thalassoma pavo": {
+    "photos": [
+      {
+        "observation": 206844391
+      },
+      {
+        "observation": 94061941
+      },
+      {
+        "observation": 1943424
+      }
+    ],
+    "note": "photocheck: live_underwater q2, live_underwater q4, live_underwater q2 -> good photos first"
+  },
+  "Thalassoma trilobatum": {
+    "photos": [
+      {
+        "observation": 7483547
+      },
+      {
+        "observation": 4769551
+      },
+      {
+        "observation": 198111886
+      }
+    ],
+    "note": "photocheck: live_underwater q2, live_underwater q3, live_underwater q3 -> good photos first"
+  },
+  "Thorunna daniellae": {
+    "photos": [
+      {
+        "observation": 47817115
+      },
+      {
+        "observation": 341053903
+      },
+      {
+        "observation": 164753899
+      }
+    ],
+    "note": "photocheck: live_underwater q2, live_underwater q3, live_underwater q4 -> good photos first"
+  },
+  "Thysanoteuthis rhombus": {
+    "photos": [
+      {
+        "observation": 379406468
+      },
+      {
+        "photo": 332502773
+      }
+    ],
+    "note": "photocheck: live_underwater q2, other q2, live_underwater q4 -> good photos first"
+  },
+  "Torpedo marmorata": {
+    "photos": [
+      {
+        "observation": 255705116
+      },
+      {
+        "observation": 182378651
+      },
+      {
+        "observation": 73190861
+      }
+    ],
+    "note": "photocheck: live_underwater q2, live_underwater q4, live_underwater q3 -> good photos first"
+  },
+  "Torpedo torpedo": {
+    "photos": [
+      {
+        "observation": 16138215
+      },
+      {
+        "observation": 217267607
+      }
+    ],
+    "note": "photocheck: live_underwater q4, live_underwater q4, caught_or_in_hand q3 -> good photos first"
+  },
+  "Torquigener flavimaculosus": {
+    "photos": [
+      {
+        "observation": 300112287
+      },
+      {
+        "observation": 387597657
+      }
+    ],
+    "note": "photocheck: live_underwater q1, live_underwater q2, live_underwater q4 -> good photos first"
+  },
+  "Torquigener pleurogramma": {
+    "photos": [
+      {
+        "observation": 333827892
+      },
+      {
+        "observation": 368297315
+      },
+      {
+        "observation": 151032607
+      }
+    ],
+    "note": "photocheck: live_underwater q2, live_underwater q2, live_underwater q5 -> good photos first"
+  },
+  "Trachinotus ovatus": {
+    "photos": [
+      {
+        "observation": 400272538
+      },
+      {
+        "observation": 254934370
+      },
+      {
+        "observation": 313780756
+      }
+    ],
+    "note": "photocheck: live_underwater q2, live_underwater q2, live_underwater q4 -> good photos first"
+  },
+  "Trachurus novaezelandiae": {
+    "photos": [
+      {
+        "observation": 317534961
+      },
+      {
+        "observation": 338655078
+      },
+      {
+        "observation": 195727130
+      }
+    ],
+    "note": "photocheck: caught_or_in_hand q1, dead_or_stranded q3, live_underwater q2 -> good photos first"
+  },
+  "Triaenodon obesus": {
+    "photos": [
+      {
+        "photo": 229382841
+      },
+      {
+        "observation": 63722440
+      },
+      {
+        "observation": 244056528
+      }
+    ],
+    "note": "photocheck: live_underwater q5, live_surface_or_shore q2, other q1 -> good photos first"
+  },
+  "Tripneustes gratilla": {
+    "photos": [
+      {
+        "observation": 31182629
+      },
+      {
+        "observation": 103947779
+      }
+    ],
+    "note": "photocheck: live_underwater q3, live_underwater q4, dead_or_stranded q3 -> good photos first"
+  },
+  "Trygonorrhina dumerilii": {
+    "photos": [
+      {
+        "observation": 152694752
+      },
+      {
+        "observation": 169154697
+      }
+    ],
+    "note": "photocheck: live_underwater q3, dead_or_stranded q2, dead_or_stranded q2 -> good photos first"
+  },
+  "Upeneichthys lineatus": {
+    "photos": [
+      {
+        "observation": 37427171
+      },
+      {
+        "observation": 43072598
+      },
+      {
+        "observation": 76187104
+      }
+    ],
+    "note": "photocheck: live_underwater q2, live_underwater q3, live_underwater q3 -> good photos first"
+  },
+  "Urogymnus granulatus": {
+    "photos": [
+      {
+        "observation": 268691266
+      }
+    ],
+    "note": "photocheck: live_surface_or_shore q1, live_underwater q1, live_underwater q3 -> good photos first"
+  },
+  "Veretillum cynomorium": {
+    "photos": [
+      {
+        "observation": 49203652
+      },
+      {
+        "observation": 74299371
+      }
+    ],
+    "note": "photocheck: dead_or_stranded q2, live_underwater q4, live_underwater q2 -> good photos first"
+  },
+  "Versuriga anadyomene": {
+    "photos": [
+      {
+        "observation": 265526562
+      },
+      {
+        "observation": 334607875
+      },
+      {
+        "observation": 337304613
+      }
+    ],
+    "note": "photocheck: live_underwater q2, live_underwater q5, live_underwater q3 -> good photos first"
+  },
+  "Xantho poressa": {
+    "photos": [
+      {
+        "observation": 180272532
+      }
+    ],
+    "note": "photocheck: dead_or_stranded q2, live_surface_or_shore q3, caught_or_in_hand q3 -> good photos first"
+  },
+  "Xestospongia testudinaria": {
+    "photos": [
+      {
+        "observation": 166460039
+      },
+      {
+        "observation": 164134436
+      },
+      {
+        "observation": 166460020
+      }
+    ],
+    "note": "photocheck: live_underwater q2, live_underwater q3, live_underwater q4 -> good photos first"
+  },
+  "Zebrasoma scopas": {
+    "photos": [
+      {
+        "observation": 165294009
+      },
+      {
+        "observation": 299806772
+      },
+      {
+        "observation": 7831178
+      }
+    ],
+    "note": "photocheck: live_underwater q2, live_underwater q4, live_underwater q2 -> good photos first"
+  },
+  "Zebrasoma xanthurum": {
+    "photos": [
+      {
+        "observation": 191256600
+      },
+      {
+        "observation": 247633755
+      }
+    ],
+    "note": "photocheck: live_underwater q4, live_surface_or_shore q1, live_underwater q2 -> good photos first"
+  },
+  "Zonaria pyrum": {
+    "photos": [
+      {
+        "observation": 329568513
+      }
+    ],
+    "note": "photocheck: live_surface_or_shore q4, dead_or_stranded q3 -> good photos first"
   }
 }
