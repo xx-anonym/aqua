@@ -89,7 +89,7 @@ const DEVICES = [
     await page.screenshot({ path: path.join(OUT_DIR, file) });
     await page.close();
     links.push(
-      `    <link rel="apple-touch-startup-image" href="/splash/${file}" media="(device-width: ${w}px) and (device-height: ${h}px) and (-webkit-device-pixel-ratio: ${r}) and (orientation: portrait)" />`,
+      `    <link rel="apple-touch-startup-image" href="/splash/${file}" media="(device-width: ${w}px) and (device-height: ${h}px) and (-webkit-device-pixel-ratio: ${r})" />`,
     );
     console.log(file, Math.round(fs.statSync(path.join(OUT_DIR, file)).size / 1024), 'KB');
   }

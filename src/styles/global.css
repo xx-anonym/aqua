@@ -16,6 +16,9 @@
   --radius: 14px;
   --radius-sm: 10px;
   --tabbar-h: 68px;
+  /* Room below the tab bar for the iOS home indicator. The full safe area (34pt) left a tall empty
+     strip under the labels; like native tab bars, part of it is enough. */
+  --tabbar-pad: max(env(safe-area-inset-bottom) - 12px, 0px);
   --header-h: 56px;
   --touch: 48px;
   /* Clearance below the status bar, see "iOS 26 edge blur" below. */
@@ -123,7 +126,7 @@ img {
   max-width: 760px;
   margin: 0 auto;
   min-height: 100dvh;
-  padding-bottom: calc(var(--tabbar-h) + env(safe-area-inset-bottom) + 16px);
+  padding-bottom: calc(var(--tabbar-h) + var(--tabbar-pad) + 16px);
 }
 
 .page {
@@ -174,7 +177,7 @@ img {
   justify-content: center;
   background: var(--surface);
   border-top: 1px solid var(--border);
-  padding-bottom: env(safe-area-inset-bottom);
+  padding-bottom: var(--tabbar-pad);
 }
 
 .tabbar-inner {
@@ -1424,7 +1427,7 @@ label.btn:has(input:focus-visible) {
 .update-banner {
   position: fixed;
   left: 50%;
-  bottom: calc(var(--tabbar-h) + env(safe-area-inset-bottom) + 16px);
+  bottom: calc(var(--tabbar-h) + var(--tabbar-pad) + 16px);
   transform: translateX(-50%);
   z-index: 55;
   display: flex;
@@ -1443,7 +1446,7 @@ label.btn:has(input:focus-visible) {
 .toast {
   position: fixed;
   left: 50%;
-  bottom: calc(var(--tabbar-h) + env(safe-area-inset-bottom) + 16px);
+  bottom: calc(var(--tabbar-h) + var(--tabbar-pad) + 16px);
   transform: translateX(-50%);
   z-index: 60;
   background: var(--text);
