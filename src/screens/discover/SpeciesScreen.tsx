@@ -18,6 +18,7 @@ import { Icon } from '../../ui/icons/Icon';
 import { RegionMap } from '../../ui/maps';
 import { AlbumPickerSheet } from '../collection/AlbumPickerSheet';
 import { AddSightingSheet } from '../sighting/AddSightingSheet';
+import { MyPhotos } from './MyPhotos';
 
 export default function SpeciesScreen() {
   const { id = '' } = useParams();
@@ -177,6 +178,7 @@ export default function SpeciesScreen() {
       <p className="small muted">{leafRegions.map((r) => regionName(r, lang)).join(' · ') || '–'}</p>
 
       <h3 className="section-title">{t('species.mySightings', { count: sightings.length })}</h3>
+      <MyPhotos sightings={sightings} />
       {sightings.length === 0 ? (
         <p className="muted">{t('species.noSightings')}</p>
       ) : (

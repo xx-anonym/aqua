@@ -1,12 +1,14 @@
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useLang, useCatalog } from '../../catalog/useCatalog';
 import { useDb, useDbQuery } from '../../db/react';
 import { formatDate } from '../../lib/format';
-import { formatDepth, formatDuration } from '../../lib/units';
+import { formatDepth, formatDuration, formatDurationShort } from '../../lib/units';
 import { useSettings } from '../../settings/settings';
 import { listDives } from '../../user/dives';
+import { diveCountries, diveYears, emptyDiveFilter, filterDives, isFilterActive, type DiveFilter } from '../../user/diveFilter';
+import { useSessionState } from '../../lib/sessionState';
 import { exportCsv } from '../../user/io/csv';
 import { downloadText, exportFileName } from '../../user/io/importer';
 import { exportUddf } from '../../user/io/uddf';
@@ -41,6 +43,26 @@ export default function LogbookScreen() {
   const [menuOpen, setMenuOpen] = useState(false);
   const unidentified = useDbQuery((d) => unidentifiedSightings(d));
   const [editing, setEditing] = useState<SightingWithContext | null>(null);
+  const [filter, setFilter] = useSessionState<DiveFilter>('logbook.filter', emptyDiveFilter);
+  const sightingRows = useDbQuery((d) =>
+    d.all<{ dive_id: string; species_id: string; note: string | null }>(
+      'SELECT dive_id, species_id, note FROM sighting WHERE deleted_at IS NULL AND dive_id IS NOT NULL',
+    ),
+  );
+  // Searchable text per dive: names of the species seen on it and the notes of its sightings.
+  const sightingText = useMemo(() => {
+    const map = new Map<string, string>();
+    for (const r of sightingRows) {
+      const sp = catalog.byId.get(r.species_id);
+      const words = [sp?.nameDe, sp?.nameEn, sp?.scientificName, r.note].filter(Boolean).join(' ');
+      map.set(r.dive_id, `${map.get(r.dive_id) ?? ''} ${words}`);
+    }
+    return map;
+  }, [sightingRows, catalog]);
+  const shown = useMemo(() => filterDives(dives, filter, sightingText), [dives, filter, sightingText]);
+  const years = useMemo(() => diveYears(dives), [dives]);
+  const countries = useMemo(() => diveCountries(dives), [dives]);
+  const filtering = isFilterActive(filter);
 
   const doExport = (kind: 'csv' | 'uddf') => {
     if (kind === 'csv') downloadText(exportFileName('csv'), exportCsv(db, catalog), 'text/csv;charset=utf-8');
@@ -70,7 +92,7 @@ export default function LogbookScreen() {
           {(
             [
               [stats.diveCount, 'dives'],
-              [stats.totalMinutes ? formatDuration(stats.totalMinutes) : '–', 'time'],
+              [stats.totalMinutes ? formatDurationShort(stats.totalMinutes) : '–', 'time'],
               [formatDepth(stats.deepestM, depthUnit, lang), 'deepest'],
               [stats.sites, 'sites'],
               [stats.countries, 'countries'],
@@ -85,12 +107,67 @@ export default function LogbookScreen() {
         </div>
       )}
 
+      {dives.length > 0 && (
+        <Link className="stats-link" to="/logbook/stats">
+          {t('logbook.allStats')}
+          <Icon name="chevron" />
+        </Link>
+      )}
+
       <div className="row" style={{ margin: '16px 0' }}>
         <Link className="btn primary" to="/logbook/new" data-haptic>
           <Icon name="plus" />
           {t('logbook.newDive')}
         </Link>
       </div>
+
+      {dives.length > 1 && (
+        <div className="stack logbook-filter" role="search" style={{ gap: 8, marginBottom: 16 }}>
+          <label className="search">
+            <Icon name="search" />
+            <input
+              className="input"
+              type="search"
+              value={filter.query}
+              placeholder={t('logbook.searchPlaceholder')}
+              aria-label={t('logbook.search')}
+              onChange={(e) => setFilter({ ...filter, query: e.target.value })}
+            />
+          </label>
+          <div className="grid-2">
+            <select className="input" aria-label={t('logbook.year')} value={filter.year ?? ''} onChange={(e) => setFilter({ ...filter, year: e.target.value || null })}>
+              <option value="">{t('logbook.allYears')}</option>
+              {years.map((y) => (
+                <option key={y} value={y}>
+                  {y}
+                </option>
+              ))}
+            </select>
+            <select
+              className="input"
+              aria-label={t('logbook.country')}
+              value={filter.country ?? ''}
+              onChange={(e) => setFilter({ ...filter, country: e.target.value || null })}
+              disabled={!countries.length}
+            >
+              <option value="">{t('logbook.allCountries')}</option>
+              {countries.map((c) => (
+                <option key={c} value={c}>
+                  {c}
+                </option>
+              ))}
+            </select>
+          </div>
+          {filtering && (
+            <div className="row spread small" aria-live="polite">
+              <span className="muted">{t('logbook.filtered', { shown: shown.length, total: dives.length })}</span>
+              <button type="button" className="btn small ghost" onClick={() => setFilter(emptyDiveFilter())} data-haptic>
+                {t('logbook.resetFilter')}
+              </button>
+            </div>
+          )}
+        </div>
+      )}
 
       {unidentified.length > 0 && (
         <section style={{ marginBottom: 20 }}>
@@ -124,8 +201,10 @@ export default function LogbookScreen() {
         <EmptyState icon="logbook" title={t('logbook.empty')}>
           {t('logbook.emptyHint')}
         </EmptyState>
+      ) : shown.length === 0 ? (
+        <EmptyState icon="search" title={t('logbook.noMatches')} />
       ) : (
-        byYear(dives).map(([year, group]) => (
+        byYear(shown).map(([year, group]) => (
           <section key={year} aria-label={year}>
             <h3 className="list-group-title">
               <span>{year}</span>

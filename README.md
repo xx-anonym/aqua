@@ -86,6 +86,11 @@ Schritte einzeln: `candidates` → `enrich` → `traits` → `photos` → `desti
 Entwicklungskatalog ohne Netz). Antworten der Quellen werden in `data-pipeline/cache` gespeichert.
 Falsche oder schwache Fotos einer Art ersetzt man in `input/photo_overrides.json` (iNaturalist-Beobachtungen,
 nur CC0/CC BY) und baut sie mit `python data-pipeline/pipeline.py photos "<Art>"`, danach `build`.
+`data-pipeline/photocheck.py` prüft alle Katalogfotos mit einem OpenAI-Bildmodell (lebend unter
+Wasser, tot/gestrandet, gefangen, Präparat, Zeichnung …; Qualität 1–5), holt für Arten ohne gutes
+Foto Ersatzkandidaten von iNaturalist und schreibt mit `plan` die neue Auswahl nach
+`input/photo_overrides.json` (gute Fotos zuerst, schlechte entfernt; Bericht in
+`review/photocheck.md`). Handverlesene Einträge bleiben unberührt.
 
 | Quelle | Verwendung | Lizenz / Hinweis |
 | --- | --- | --- |

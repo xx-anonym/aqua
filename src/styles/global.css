@@ -1547,6 +1547,254 @@ label.btn:has(input:focus-visible) {
   }
 }
 
+/* ---------- Logbook ---------- */
+
+.stats-link {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 2px;
+  margin-top: 8px;
+  min-height: 36px;
+  font-weight: 650;
+  font-size: 0.92rem;
+  text-decoration: none;
+}
+
+.stats-link svg {
+  width: 18px;
+  height: 18px;
+}
+
+/* ---------- Statistics charts (src/ui/charts.tsx) ---------- */
+
+.chart-card {
+  margin-top: 12px;
+}
+
+.chart-card h2 {
+  font-size: 1rem;
+  font-weight: 750;
+  margin: 0 0 4px;
+}
+
+.chart-card > p {
+  margin: 0 0 8px;
+}
+
+.chart-card .map {
+  margin-top: 8px;
+}
+
+.chart {
+  position: relative;
+  margin: 8px 0 0;
+  touch-action: pan-y;
+}
+
+.chart svg {
+  display: block;
+  overflow: visible;
+}
+
+.chart-grid {
+  stroke: var(--border);
+  stroke-width: 1;
+  shape-rendering: crispEdges;
+}
+
+.chart-axis {
+  fill: var(--muted);
+  font-size: 11px;
+  font-variant-numeric: tabular-nums;
+}
+
+.chart-value {
+  fill: var(--text);
+  font-size: 12px;
+  font-weight: 750;
+  font-variant-numeric: tabular-nums;
+}
+
+.chart-mark {
+  fill: var(--primary);
+  transition: fill 120ms ease;
+}
+
+.chart-mark.on {
+  fill: var(--primary-strong);
+}
+
+.chart-line {
+  fill: none;
+  stroke: var(--primary);
+  stroke-width: 2;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+}
+
+.chart-cross {
+  stroke: var(--muted);
+  stroke-width: 1;
+  stroke-dasharray: 3 3;
+}
+
+.chart-dot {
+  fill: var(--primary);
+  stroke: var(--surface);
+  stroke-width: 2;
+}
+
+.chart rect[tabindex] {
+  outline: none;
+  cursor: pointer;
+}
+
+.chart rect[tabindex]:focus-visible {
+  stroke: var(--focus);
+  stroke-width: 2;
+}
+
+.chart-tip {
+  position: absolute;
+  transform: translate(-50%, -100%);
+  pointer-events: none;
+  background: var(--text);
+  color: var(--surface);
+  font-size: 0.8rem;
+  font-weight: 650;
+  padding: 5px 8px;
+  border-radius: 8px;
+  white-space: nowrap;
+  box-shadow: var(--shadow);
+}
+
+.chart-table {
+  margin-top: 4px;
+}
+
+.chart-table summary {
+  display: inline-flex;
+  align-items: center;
+  min-height: 36px;
+  font-size: 0.85rem;
+  font-weight: 650;
+  color: var(--primary);
+  cursor: pointer;
+}
+
+.chart-table table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.chart-table th,
+.chart-table td {
+  padding: 6px 0;
+  border-bottom: 1px solid var(--border);
+  text-align: left;
+  font-weight: 500;
+}
+
+.chart-table thead th {
+  color: var(--muted);
+  font-weight: 650;
+}
+
+.chart-table td,
+.chart-table thead th:last-child {
+  text-align: right;
+}
+
+/* ---------- Own photos on the species page ---------- */
+
+.my-photos {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  margin: 0 -16px 12px;
+  padding: 0 16px 4px;
+  scrollbar-width: none;
+}
+
+.my-photo {
+  flex: none;
+  display: block;
+  width: 96px;
+  height: 96px;
+  padding: 0;
+  border: none;
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  background: var(--surface-2);
+  cursor: pointer;
+}
+
+.my-photo img,
+.my-photo .placeholder {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  display: flex;
+  flex-direction: column;
+  background: #000;
+  color: #fff;
+  animation: page-in 0.2s ease-out;
+}
+
+.lightbox-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: calc(env(safe-area-inset-top) + 4px) 8px 4px 16px;
+  font-weight: 650;
+}
+
+.lightbox-bar .icon-btn {
+  color: #fff;
+}
+
+.lightbox-track {
+  flex: 1;
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+}
+
+.lightbox-track figure {
+  flex: 0 0 100%;
+  margin: 0;
+  scroll-snap-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding-bottom: calc(env(safe-area-inset-bottom) + 16px);
+}
+
+.lightbox-track img {
+  max-width: 100%;
+  max-height: 80dvh;
+  object-fit: contain;
+}
+
+.lightbox-track figcaption {
+  font-size: 0.9rem;
+  color: #d5e3e6;
+  padding: 0 16px;
+  text-align: center;
+}
+
 /* ---------- iOS 26 edge blur ---------- */
 
 /* In the installed iPhone app (status bar "black-translucent"), iOS 26 draws a soft blur over the

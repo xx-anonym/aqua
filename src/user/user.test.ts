@@ -18,7 +18,7 @@ import {
 import { lifeList, progressReport } from './lifelist';
 import { addToCollection, collectionSpeciesIds, deleteCollection, favoriteIds, removeFromCollection, saveCollection, toggleFavorite } from './collections';
 import { listSites, regionForPoint, saveSite } from './sites';
-import { logStats } from './stats';
+import { depthBins, diveAverages, divesPerYear, logStats, sightingSites, speciesOverTime } from './stats';
 
 let db: AppDb;
 beforeEach(async () => {
@@ -225,5 +225,40 @@ describe('dive sites and statistics', () => {
     addSighting(db, { species_id: 'mobula-alfredi' });
     expect(logStats(db)).toEqual({ diveCount: 3, totalMinutes: 156, deepestM: 31.2, countries: 2, sites: 3, speciesCount: 2 });
     expect(listSites(db).find((s) => s.id === a)?.dive_count).toBe(1);
+  });
+
+  it('prepares the statistics charts', () => {
+    const catalog = loadCatalog(db);
+    const reef = saveSite(db, { name: 'Riff', lat: 27.2, lng: 33.9, country: 'Ägypten', is_private: true }, catalog.regions);
+    const noGps = saveSite(db, { name: 'Ohne GPS', lat: null, lng: null, country: null, is_private: true }, catalog.regions);
+    const d1 = saveDive(db, { dive_no: 1, date: '2023-06-01', site_id: reef, max_depth_m: 8, duration_min: 40 } as never);
+    saveDive(db, { dive_no: 2, date: '2025-06-02', site_id: noGps, max_depth_m: 18.5, duration_min: 60 } as never);
+    saveDive(db, { dive_no: 3, date: '2025-06-03', site_id: reef, max_depth_m: 27 } as never);
+    addSighting(db, { dive_id: d1, species_id: 'pterois-miles', seen_at: '2023-06-01T10:00:00.000Z' });
+    addSighting(db, { dive_id: d1, species_id: 'mobula-alfredi', seen_at: '2023-06-01T10:30:00.000Z' });
+    addSighting(db, { species_id: 'pterois-miles', seen_at: '2025-06-02T10:00:00.000Z' }); // seen before: no new step
+    addSighting(db, { species_id: 'chromis-chromis', seen_at: '2025-06-03T09:00:00.000Z' });
+    addSighting(db, { species_id: UNIDENTIFIED, note: 'gelber Fisch', seen_at: '2025-06-03T09:00:00.000Z' });
+
+    // 2024 had no dives but stays on the axis
+    expect(divesPerYear(db)).toEqual([
+      { year: '2023', count: 1 },
+      { year: '2024', count: 0 },
+      { year: '2025', count: 2 },
+    ]);
+    // 10 m bins, nothing after the deepest occupied one
+    expect(depthBins(db)).toEqual([
+      { fromM: 0, toM: 10, count: 1 },
+      { fromM: 10, toM: 20, count: 1 },
+      { fromM: 20, toM: 30, count: 1 },
+    ]);
+    expect(speciesOverTime(db)).toEqual([
+      { date: '2023-06-01', total: 2 },
+      { date: '2025-06-03', total: 3 },
+    ]);
+    // Only sites with coordinates and sightings
+    expect(sightingSites(db)).toEqual([{ id: reef, name: 'Riff', lat: 27.2, lng: 33.9, dives: 1, species: 2 }]);
+    expect(diveAverages(db).depthM).toBeCloseTo(17.83, 1);
+    expect(diveAverages(db).minutes).toBe(50);
   });
 });

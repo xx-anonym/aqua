@@ -26,6 +26,7 @@ export const routes = [
       { path: 'logbook/new', element: page(() => import('./screens/logbook/DiveEditorScreen')) },
       { path: 'logbook/import', element: page(() => import('./screens/logbook/ImportScreen')) },
       { path: 'logbook/sites', element: page(() => import('./screens/logbook/SitesScreen')) },
+      { path: 'logbook/stats', element: page(() => import('./screens/logbook/StatsScreen')) },
       { path: 'logbook/:id', element: page(() => import('./screens/logbook/DiveDetailScreen')) },
       { path: 'logbook/:id/edit', element: page(() => import('./screens/logbook/DiveEditorScreen')) },
       { path: 'sighting/new', element: page(() => import('./screens/sighting/QuickSightingScreen')) },

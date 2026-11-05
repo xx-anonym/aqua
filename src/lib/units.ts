@@ -38,3 +38,10 @@ export function formatDuration(min: number | null | undefined): string {
   const m = total % 60;
   return h ? `${h} h ${m.toString().padStart(2, '0')} min` : `${m} min`;
 }
+
+/** Short form for narrow tiles: "49 min", "25:51 h". */
+export function formatDurationShort(min: number | null | undefined): string {
+  if (min == null) return '–';
+  const total = Math.round(min);
+  return total < 60 ? `${total} min` : `${Math.floor(total / 60)}:${(total % 60).toString().padStart(2, '0')} h`;
+}
