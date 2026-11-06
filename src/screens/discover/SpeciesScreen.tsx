@@ -11,7 +11,7 @@ import { formatDepth } from '../../lib/units';
 import { useSettings } from '../../settings/settings';
 import { isFavorite, toggleFavorite } from '../../user/collections';
 import { lifeList } from '../../user/lifelist';
-import { sightingsForSpecies, type Sighting } from '../../user/sightings';
+import { sightingSummary, sightingsForSpecies, type Sighting } from '../../user/sightings';
 import { useDeleteSighting } from '../sighting/useDeleteSighting';
 import { EmptyState, IucnBadge, PageHeader, SpeciesCard, TraitIcon } from '../../ui/components';
 import { Icon } from '../../ui/icons/Icon';
@@ -31,6 +31,7 @@ export default function SpeciesScreen() {
   const photos = useMemo(() => (species ? loadPhotos(db, species.id) : []), [db, species]);
   const sightings = useDbQuery((d) => sightingsForSpecies(d, id), [id]);
   const removeSighting = useDeleteSighting();
+  const [showAll, setShowAll] = useState(false);
   const [editing, setEditing] = useState<Sighting | null>(null);
   const favorite = useDbQuery((d) => isFavorite(d, id), [id]);
   const seen = useDbQuery((d) => lifeList(d));
@@ -54,6 +55,14 @@ export default function SpeciesScreen() {
     .filter((r) => r && r.geometry)
     .map((r) => r!);
 
+  const sum = sightingSummary(sightings);
+  const summary =
+    sum &&
+    [
+      t('species.seenTimes', { count: sum.count }),
+      t('species.seenSince', { year: sum.sinceYear }),
+      t('species.seenLast', { place: sum.lastSite ?? formatDate(sum.lastDate, lang) }),
+    ].join(' · ');
   const facts: [string, string][] = [
     [t('species.maxSize'), species.maxSizeCm != null ? `${species.maxSizeCm.toLocaleString(lang)} cm` : '–'],
     [
@@ -143,6 +152,55 @@ export default function SpeciesScreen() {
         </button>
       </div>
 
+      {sightings.length > 0 && (
+        <section aria-labelledby="my-sightings">
+          <h3 className="section-title" id="my-sightings">
+            {t('species.mySightings', { count: sightings.length })}
+          </h3>
+          {sightings.length > 1 && <p className="small muted sightings-summary">{summary}</p>}
+          <MyPhotos sightings={sightings} />
+          <div className="list">
+            {(showAll ? sightings : sightings.slice(0, 3)).map((s) => {
+              const body = (
+                <>
+                  <Icon name={s.dive_id ? 'logbook' : 'eye'} />
+                  <div className="grow">
+                    <div className="title">{formatDate(s.seen_at, lang)}</div>
+                    <div className="sub">
+                      {s.dive_id ? `#${s.dive_no ?? '–'} · ${s.site_name ?? t('dive.noSite')}` : t('sighting.withoutDive')}
+                      {s.count && s.count > 1 ? ` · ${t('sighting.countValue', { count: s.count })}` : ''}
+                      {s.note ? ` · ${s.note}` : ''}
+                    </div>
+                  </div>
+                </>
+              );
+              return (
+                <div key={s.id} className="list-item">
+                  {s.dive_id ? (
+                    <Link to={`/logbook/${s.dive_id}`} className="list-item-main">
+                      {body}
+                    </Link>
+                  ) : (
+                    <div className="list-item-main">{body}</div>
+                  )}
+                  <button className="icon-btn" aria-label={t('sighting.edit')} title={t('sighting.edit')} onClick={() => setEditing(s)}>
+                    <Icon name="edit" />
+                  </button>
+                  <button className="icon-btn" aria-label={t('sighting.delete')} title={t('sighting.delete')} onClick={() => removeSighting(s.id)} data-haptic>
+                    <Icon name="trash" />
+                  </button>
+                </div>
+              );
+            })}
+          </div>
+          {sightings.length > 3 && !showAll && (
+            <button type="button" className="btn small ghost show-all" onClick={() => setShowAll(true)}>
+              {t('species.allSightings', { count: sightings.length })}
+            </button>
+          )}
+        </section>
+      )}
+
       {speciesDescription(species, lang) && <p style={{ marginTop: 18 }}>{speciesDescription(species, lang)}</p>}
 
       <div className="facts" style={{ marginTop: 12 }}>
@@ -176,47 +234,6 @@ export default function SpeciesScreen() {
       <h3 className="section-title">{t('species.distribution')}</h3>
       <RegionMap regions={catalog.regions} activeIds={leafRegions.map((r) => r.id)} />
       <p className="small muted">{leafRegions.map((r) => regionName(r, lang)).join(' · ') || '–'}</p>
-
-      <h3 className="section-title">{t('species.mySightings', { count: sightings.length })}</h3>
-      <MyPhotos sightings={sightings} />
-      {sightings.length === 0 ? (
-        <p className="muted">{t('species.noSightings')}</p>
-      ) : (
-        <div className="list">
-          {sightings.map((s) => {
-            const body = (
-              <>
-                <Icon name={s.dive_id ? 'logbook' : 'eye'} />
-                <div className="grow">
-                  <div className="title">{formatDate(s.seen_at, lang)}</div>
-                  <div className="sub">
-                    {s.dive_id ? `#${s.dive_no ?? '–'} · ${s.site_name ?? t('dive.noSite')}` : t('sighting.withoutDive')}
-                    {s.count ? ` · ${t('sighting.countValue', { count: s.count })}` : ''}
-                    {s.note ? ` · ${s.note}` : ''}
-                  </div>
-                </div>
-              </>
-            );
-            return (
-              <div key={s.id} className="list-item">
-                {s.dive_id ? (
-                  <Link to={`/logbook/${s.dive_id}`} className="list-item-main">
-                    {body}
-                  </Link>
-                ) : (
-                  <div className="list-item-main">{body}</div>
-                )}
-                <button className="icon-btn" aria-label={t('sighting.edit')} title={t('sighting.edit')} onClick={() => setEditing(s)}>
-                  <Icon name="edit" />
-                </button>
-                <button className="icon-btn" aria-label={t('sighting.delete')} title={t('sighting.delete')} onClick={() => removeSighting(s.id)} data-haptic>
-                  <Icon name="trash" />
-                </button>
-              </div>
-            );
-          })}
-        </div>
-      )}
 
       {similar.length > 0 && (
         <>

@@ -126,3 +126,16 @@ export function recentSightings(db: AppDb, limit = 20): SightingWithContext[] {
     [limit],
   );
 }
+
+/** For the line above the own sightings of a species: how often, since when, where last. */
+export function sightingSummary(sightings: Pick<SightingWithContext, 'seen_at' | 'site_name'>[]) {
+  if (!sightings.length) return null;
+  // sightingsForSpecies() sorts the newest first.
+  const [latest] = sightings;
+  return {
+    count: sightings.length,
+    sinceYear: sightings[sightings.length - 1].seen_at.slice(0, 4),
+    lastSite: latest.site_name ?? null,
+    lastDate: latest.seen_at,
+  };
+}

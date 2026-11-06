@@ -6,6 +6,7 @@ import { catalogAssetUrl } from '../catalog/catalog';
 import { speciesName, traitLabel, useLang } from '../catalog/useCatalog';
 import { COLOR_SWATCHES, Icon } from './icons/Icon';
 import { ProfileButton } from './ProfileButton';
+import { useBackToClose } from './backToClose';
 
 export function PageHeader({ title, back, actions }: { title: string; back?: boolean | string; actions?: ReactNode }) {
   const navigate = useNavigate();
@@ -148,6 +149,7 @@ export function Sheet({
   const { t } = useTranslation();
   const titleId = useId();
   const ref = useRef<HTMLDivElement>(null);
+  useBackToClose(onClose);
   useEffect(() => {
     const prev = document.activeElement as HTMLElement | null;
     ref.current?.focus();
@@ -180,6 +182,36 @@ export function Sheet({
         <div className="sheet-body">{children}</div>
         {footer && <div className="sheet-foot">{footer}</div>}
       </div>
+    </div>
+  );
+}
+
+/** A number with − and + beside it (still typeable), e.g. how many animals were seen. */
+export function Stepper({
+  value,
+  onChange,
+  label,
+  lessLabel,
+  moreLabel,
+  min = 1,
+}: {
+  value: string;
+  onChange: (v: string) => void;
+  label: string;
+  lessLabel: string;
+  moreLabel: string;
+  min?: number;
+}) {
+  const n = Number(value) || 0;
+  return (
+    <div className="stepper" role="group" aria-label={label}>
+      <button type="button" className="icon-btn" onClick={() => onChange(String(Math.max(min, n - 1)))} disabled={n <= min} aria-label={lessLabel} data-haptic>
+        <Icon name="minus" />
+      </button>
+      <input className="input" type="number" inputMode="numeric" min={min} value={value} onChange={(e) => onChange(e.target.value)} aria-label={label} />
+      <button type="button" className="icon-btn" onClick={() => onChange(String(Math.max(min, n + 1)))} aria-label={moreLabel} data-haptic>
+        <Icon name="plus" />
+      </button>
     </div>
   );
 }

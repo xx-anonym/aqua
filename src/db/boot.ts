@@ -2,6 +2,7 @@ import initSqlJs from 'sql.js';
 import wasmUrl from 'sql.js/dist/sql-wasm.wasm?url';
 import { AppDb } from './appDb';
 import { idb } from './idb';
+import { requestPersistentStorage } from '../lib/install';
 
 const CATALOG_URL = '/catalog/catalog.sqlite';
 
@@ -39,6 +40,7 @@ export function persistNow(db: AppDb): Promise<void> {
         again = false;
         await idb.set('kv', 'userdb', db.exportUser());
       } while (again);
+      void requestPersistentStorage();
     } finally {
       writing = null;
     }

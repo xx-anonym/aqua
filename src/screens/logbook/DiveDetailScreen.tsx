@@ -182,7 +182,7 @@ export default function DiveDetailScreen() {
                 <div className="grow">
                   <div className="title">{unknown ? t('sighting.unidentified') : sp ? speciesName(sp, lang) : s.species_id}</div>
                   <div className="sub">
-                    {[unknown ? null : sp?.scientificName, s.count ? t('sighting.countValue', { count: s.count }) : null, s.note]
+                    {[unknown ? null : sp?.scientificName, s.count && s.count > 1 ? t('sighting.countValue', { count: s.count }) : null, s.note]
                       .filter(Boolean)
                       .join(' · ')}
                   </div>

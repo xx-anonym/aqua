@@ -7,10 +7,10 @@ import { useDb, useDbQuery } from '../../db/react';
 import { formatDate } from '../../lib/format';
 import { timeLocal, todayLocal } from '../../lib/ids';
 import { useObjectUrl } from '../../lib/useObjectUrl';
-import { listDives } from '../../user/dives';
+import { diveOfToday, listDives } from '../../user/dives';
 import { deletePhoto, savePhoto, usePhotoUrl } from '../../user/photos';
 import { addSighting, hasSighting, UNIDENTIFIED, updateSighting, type IdentifiedBy, type Sighting } from '../../user/sightings';
-import { Field, Sheet, SpeciesThumb } from '../../ui/components';
+import { Field, Sheet, SpeciesThumb, Stepper } from '../../ui/components';
 import { useFeedback } from '../../ui/feedback';
 import { Icon } from '../../ui/icons/Icon';
 import { SpeciesPickerSheet } from './SpeciesPickerSheet';
@@ -70,11 +70,13 @@ export function AddSightingSheet({
   const [species, setSpecies] = useState<Species | null>(initialSpecies);
   const [via, setVia] = useState<IdentifiedBy>(sighting?.identified_by ?? identifiedBy);
   const [picking, setPicking] = useState(false);
-  const [dive, setDive] = useState<string>(sighting ? (sighting.dive_id ?? '') : (diveId ?? ''));
+  // A new sighting belongs to today's dive, if there is one; the select shows which.
+  const [presetDive] = useState(() => (sighting || diveId !== undefined ? null : (diveOfToday(dives, todayLocal())?.id ?? null)));
+  const [dive, setDive] = useState<string>(sighting ? (sighting.dive_id ?? '') : (diveId ?? presetDive ?? ''));
   const selectedDive = dives.find((d) => d.id === dive);
   const [date, setDate] = useState(sighting ? localDate(sighting.seen_at) : todayLocal());
   const [time, setTime] = useState(sighting ? localTime(sighting.seen_at) : timeLocal());
-  const [count, setCount] = useState(sighting?.count ? String(sighting.count) : '');
+  const [count, setCount] = useState(sighting?.count ? String(sighting.count) : '1');
   const [note, setNote] = useState(sighting?.note ?? '');
   // Photo: keep the stored one, replace it with a new file, or remove it.
   const [newPhoto, setNewPhoto] = useState<Blob | null>(initialPhoto ?? null);
@@ -173,6 +175,7 @@ export function AddSightingSheet({
               </select>
             </Field>
           )}
+          {presetDive && dive === presetDive && <p className="field-hint">{t('sighting.diveToday')}</p>}
           {!selectedDive && (
             <div className="grid-2">
               <Field label={t('sighting.date')}>
@@ -192,7 +195,7 @@ export function AddSightingSheet({
             />
           </Field>
           <Field label={t('sighting.count')}>
-            <input className="input" type="number" inputMode="numeric" min={1} value={count} onChange={(e) => setCount(e.target.value)} />
+            <Stepper value={count} onChange={setCount} label={t('sighting.count')} lessLabel={t('sighting.countLess')} moreLabel={t('sighting.countMore')} />
           </Field>
           <Field label={t('sighting.photo')}>
             <div className="stack" style={{ gap: 8 }}>

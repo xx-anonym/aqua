@@ -208,7 +208,7 @@ function PhotoIdCard() {
         <div className="notice small row spread" style={{ flexWrap: 'nowrap' }}>
           <span>{t('identify.loginRequired')}</span>
           <Link className="btn small primary" to="/profile" style={{ flex: 'none' }}>
-            {t('signInReminder.signIn')}
+            {t('deviceNotice.signIn')}
           </Link>
         </div>
       )}

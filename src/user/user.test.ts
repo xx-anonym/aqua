@@ -2,13 +2,14 @@ import { describe, expect, it, beforeEach } from 'vitest';
 import { createTestDb } from '../test/testDb';
 import type { AppDb } from '../db/appDb';
 import { loadCatalog } from '../catalog/catalog';
-import { deleteDive, durationFromTimes, getDive, lastEquipment, listDives, nextDiveNo, restoreDive, saveDive } from './dives';
+import { deleteDive, diveOfToday, durationFromTimes, getDive, lastEquipment, listDives, nextDiveNo, recentSites, restoreDive, saveDive, siteForNewDive } from './dives';
 import {
   addSighting,
   assignSpecies,
   deleteSighting,
   getSighting,
   restoreSighting,
+  sightingSummary,
   sightingsForDive,
   sightingsForSpecies,
   UNIDENTIFIED,
@@ -223,7 +224,7 @@ describe('dive sites and statistics', () => {
     addSighting(db, { species_id: 'pterois-miles' });
     addSighting(db, { species_id: 'pterois-miles' });
     addSighting(db, { species_id: 'mobula-alfredi' });
-    expect(logStats(db)).toEqual({ diveCount: 3, totalMinutes: 156, deepestM: 31.2, countries: 2, sites: 3, speciesCount: 2 });
+    expect(logStats(db)).toEqual({ diveCount: 3, totalMinutes: 156, deepestM: 31.2, countries: 2, sites: 3, speciesCount: 2, sightingCount: 3 });
     expect(listSites(db).find((s) => s.id === a)?.dive_count).toBe(1);
   });
 
@@ -262,3 +263,41 @@ describe('dive sites and statistics', () => {
     expect(diveAverages(db).minutes).toBe(50);
   });
 });
+
+describe('form suggestions', () => {
+  it('preselects the site of a dive from the last days and lists recent sites', () => {
+    const catalog = loadCatalog(db);
+    const ras = saveSite(db, { name: 'Ras Mohammed', lat: null, lng: null, country: 'Ägypten', is_private: true }, catalog.regions);
+    const jackson = saveSite(db, { name: 'Jackson Reef', lat: null, lng: null, country: 'Ägypten', is_private: true }, catalog.regions);
+    const home = saveSite(db, { name: 'Baggersee', lat: null, lng: null, country: 'Deutschland', is_private: true }, catalog.regions);
+    expect(siteForNewDive(db, '2026-11-06')).toBeNull();
+    saveDive(db, { dive_no: 1, date: '2026-06-01', site_id: home } as never);
+    saveDive(db, { dive_no: 2, date: '2026-11-03', entry_time: '09:00', site_id: jackson } as never);
+    saveDive(db, { dive_no: 3, date: '2026-11-03', entry_time: '14:00', site_id: ras } as never);
+    // the afternoon dive was the last one, three days ago: same trip
+    expect(siteForNewDive(db, '2026-11-06')).toBe(ras);
+    // a week later it is no longer a guess worth making
+    expect(siteForNewDive(db, '2026-11-10')).toBeNull();
+    expect(recentSites(db).map((r) => r.name)).toEqual(['Ras Mohammed', 'Jackson Reef', 'Baggersee']);
+  });
+
+  it("assigns a new sighting to today's latest dive", () => {
+    saveDive(db, { dive_no: 1, date: '2026-11-05' } as never);
+    expect(diveOfToday(listDives(db), '2026-11-06')).toBeNull();
+    saveDive(db, { dive_no: 2, date: '2026-11-06', entry_time: '09:00' } as never);
+    saveDive(db, { dive_no: 3, date: '2026-11-06', entry_time: '14:00' } as never);
+    expect(diveOfToday(listDives(db), '2026-11-06')?.dive_no).toBe(3);
+  });
+
+  it('summarises the own sightings of a species', () => {
+    expect(sightingSummary([])).toBeNull();
+    expect(
+      sightingSummary([
+        { seen_at: '2026-09-07T10:00:00Z', site_name: 'Ras Mohammed' },
+        { seen_at: '2024-09-18T10:00:00Z', site_name: null },
+        { seen_at: '2022-04-10T10:00:00Z', site_name: 'Ras Mohammed' },
+      ]),
+    ).toEqual({ count: 3, sinceYear: '2022', lastSite: 'Ras Mohammed', lastDate: '2026-09-07T10:00:00Z' });
+  });
+});
+

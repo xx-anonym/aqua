@@ -63,6 +63,9 @@ export default function StatsScreen() {
             [formatDepth(stats.deepestM, depthUnit, lang), t('logbook.stats.deepest')],
             [formatDepth(averages.depthM, depthUnit, lang), t('statistics.avgDepth')],
             [formatDurationShort(averages.minutes), t('statistics.avgTime')],
+            [stats.sites, t('logbook.stats.sites')],
+            [stats.countries, t('logbook.stats.countries')],
+            [stats.sightingCount, t('statistics.sightings')],
           ] as const
         ).map(([value, label]) => (
           <div className="stat" key={label}>

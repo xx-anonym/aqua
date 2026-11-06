@@ -24,6 +24,8 @@ import {
   getDive,
   lastEquipment,
   nextDiveNo,
+  recentSites,
+  siteForNewDive,
   SUITS,
   TANK_MATERIALS,
   WATER_TYPES,
@@ -134,7 +136,10 @@ export default function DiveEditorScreen() {
   const units = useSettings();
   const existing = useMemo(() => (id ? getDive(db, id) : null), [db, id]);
   const sites = useDbQuery((d) => listSites(d));
-  const [form, setForm] = useState<Form>(() => toForm(existing, nextDiveNo(db), units));
+  // A new dive starts at the site of the latest one if that was only days ago (same trip).
+  const [presetSite] = useState(() => (existing ? null : siteForNewDive(db, todayLocal())));
+  const [form, setForm] = useState<Form>(() => ({ ...toForm(existing, nextDiveNo(db), units), ...(presetSite ? { site_id: presetSite } : {}) }));
+  const recent = useMemo(() => (existing ? [] : recentSites(db)), [db, existing]);
   const [sightings, setSightings] = useState<DraftSighting[]>(() =>
     id
       ? sightingsForDive(db, id).map((x) => ({
@@ -296,6 +301,20 @@ export default function DiveEditorScreen() {
             <option value="__new">+ {t('dive.newSite')}</option>
           </select>
         </Field>
+        {presetSite && form.site_id === presetSite && <p className="field-hint">{t('dive.sitePreset')}</p>}
+        {recent.some((r) => r.id !== form.site_id) && (
+          <div className="suggest-row" aria-label={t('dive.recentSites')} role="group">
+            <span className="small muted">{t('dive.recentSites')}</span>
+            {recent
+              .filter((r) => r.id !== form.site_id)
+              .slice(0, 3)
+              .map((r) => (
+                <button key={r.id} type="button" className="chip" onClick={() => set('site_id', r.id)} data-haptic>
+                  {r.name}
+                </button>
+              ))}
+          </div>
+        )}
       </div>
 
       <Accordion title={t('dive.basics')} hint={t('dive.sectionHint', { count: filled(form.entry_time, form.exit_time, form.max_depth, form.avg_depth, form.duration) })} defaultOpen>

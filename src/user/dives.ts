@@ -195,3 +195,46 @@ export function durationFromTimes(entry: string | null, exit: string | null): nu
   if (d < 0) d += 24 * 60;
   return d;
 }
+
+// ---- Suggestions for the forms (src/screens/logbook/DiveEditorScreen.tsx, AddSightingSheet.tsx)
+
+export interface RecentSite {
+  id: string;
+  name: string;
+  /** Date of the latest dive there (YYYY-MM-DD). */
+  last: string;
+}
+
+/** Sites of the latest dives, each once, the most recent first. */
+export function recentSites(db: AppDb, limit = 4): RecentSite[] {
+  return db.all<RecentSite>(
+    `SELECT s.id, s.name, MAX(d.date) AS last FROM dive d JOIN dive_site s ON s.id = d.site_id
+     WHERE d.deleted_at IS NULL AND s.deleted_at IS NULL
+     GROUP BY s.id ORDER BY MAX(d.date || ' ' || COALESCE(d.entry_time, '')) DESC LIMIT ?`,
+    [limit],
+  );
+}
+
+const daysBetween = (a: string, b: string) => Math.round((Date.parse(`${b}T12:00:00Z`) - Date.parse(`${a}T12:00:00Z`)) / 86_400_000);
+
+/**
+ * The site to preselect for a new dive on `date`: that of the latest dive, if it was at most
+ * `days` days before – most likely still the same trip. Otherwise none.
+ */
+export function siteForNewDive(db: AppDb, date: string, days = 3): string | null {
+  const last = db.get<{ site_id: string | null; date: string }>(
+    `SELECT d.site_id, d.date FROM dive d JOIN dive_site s ON s.id = d.site_id AND s.deleted_at IS NULL
+     WHERE d.deleted_at IS NULL AND d.date <= ?
+     ORDER BY d.date DESC, COALESCE(d.entry_time, '') DESC, d.dive_no DESC LIMIT 1`,
+    [date],
+  );
+  if (!last?.site_id) return null;
+  const gap = daysBetween(last.date, date);
+  return gap >= 0 && gap <= days ? last.site_id : null;
+}
+
+/** The dive a new sighting most likely belongs to: the latest one of `today`, if there is one. */
+export function diveOfToday<T extends { id: string; date: string }>(dives: T[], today: string): T | null {
+  // listDives() sorts the newest first.
+  return dives.find((d) => d.date === today) ?? null;
+}

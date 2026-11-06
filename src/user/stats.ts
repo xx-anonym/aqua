@@ -9,6 +9,8 @@ export interface LogStats {
   countries: number;
   sites: number;
   speciesCount: number;
+  /** Sightings of identified and unidentified animals. */
+  sightingCount: number;
 }
 
 export function logStats(db: AppDb): LogStats {
@@ -27,9 +29,10 @@ export function logStats(db: AppDb): LogStats {
       .map((r) => fold(r.country.trim()))
       .filter(Boolean),
   );
-  const sp = db.get<{ n: number }>('SELECT COUNT(DISTINCT species_id) AS n FROM sighting WHERE deleted_at IS NULL AND species_id <> ?', [
-    UNIDENTIFIED,
-  ]);
+  const sp = db.get<{ n: number; all: number }>(
+    'SELECT COUNT(DISTINCT CASE WHEN species_id <> ? THEN species_id END) AS n, COUNT(*) AS "all" FROM sighting WHERE deleted_at IS NULL',
+    [UNIDENTIFIED],
+  );
   return {
     diveCount: d?.n ?? 0,
     totalMinutes: d?.minutes ?? 0,
@@ -37,6 +40,7 @@ export function logStats(db: AppDb): LogStats {
     countries: countries.size,
     sites: d?.sites ?? 0,
     speciesCount: sp?.n ?? 0,
+    sightingCount: sp?.all ?? 0,
   };
 }
 

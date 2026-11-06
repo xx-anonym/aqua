@@ -5,6 +5,7 @@ import { useLang, type Lang } from '../../catalog/useCatalog';
 import { formatDate } from '../../lib/format';
 import { usePhotoUrl } from '../../user/photos';
 import type { SightingWithContext } from '../../user/sightings';
+import { useBackToClose } from '../../ui/backToClose';
 import { Icon } from '../../ui/icons/Icon';
 
 type PhotoSighting = SightingWithContext & { photo_uri: string };
@@ -38,6 +39,7 @@ function Lightbox({ photos, start, onClose }: { photos: PhotoSighting[]; start: 
   const lang = useLang();
   const track = useRef<HTMLDivElement>(null);
   const [index, setIndex] = useState(start);
+  useBackToClose(onClose);
 
   useEffect(() => {
     const el = track.current;

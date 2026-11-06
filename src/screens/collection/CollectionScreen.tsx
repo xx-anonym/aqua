@@ -9,7 +9,7 @@ import { favoriteIds, listCollections, saveCollection } from '../../user/collect
 import { lifeList, progressReport } from '../../user/lifelist';
 import { EmptyState, PageHeader, ProgressBar, SpeciesCard } from '../../ui/components';
 import { Icon } from '../../ui/icons/Icon';
-import { SignInReminder } from '../../ui/SignInReminder';
+import { DeviceNotice } from '../../ui/DeviceNotice';
 
 type Tab = 'life' | 'albums' | 'favorites';
 type Show = 'all' | 'seen' | 'missing';
@@ -51,7 +51,7 @@ export default function CollectionScreen() {
   return (
     <div className="page">
       <PageHeader title={t('collection.title')} />
-      <SignInReminder />
+      <DeviceNotice />
       <div className="segmented" role="tablist" style={{ marginBottom: 16 }}>
         {(['life', 'albums', 'favorites'] as Tab[]).map((x) => (
           <button key={x} role="tab" aria-selected={tab === x} onClick={() => setParams({ tab: x }, { replace: true })}>

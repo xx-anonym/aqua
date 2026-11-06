@@ -18,7 +18,7 @@ import { AddSightingSheet, SightingThumb } from '../sighting/AddSightingSheet';
 import { EmptyState, PageHeader, Sheet, Stars } from '../../ui/components';
 import { useFeedback } from '../../ui/feedback';
 import { Icon } from '../../ui/icons/Icon';
-import { SignInReminder } from '../../ui/SignInReminder';
+import { DeviceNotice } from '../../ui/DeviceNotice';
 
 /** Dives grouped by year, newest year first (the list is already sorted by date). */
 function byYear<T extends { date: string }>(dives: T[]): [string, T[]][] {
@@ -86,43 +86,28 @@ export default function LogbookScreen() {
           </>
         }
       />
-      <SignInReminder />
+      <DeviceNotice />
       {dives.length > 0 && (
-        <div className="stats" role="group" aria-label={t('logbook.statsLabel')}>
+        // The key figures as one line; the page behind it has all of them and the charts.
+        <Link className="stats-line" to="/logbook/stats" aria-label={`${t('logbook.statsLabel')}: ${t('logbook.allStats')}`}>
           {(
             [
               [stats.diveCount, 'dives'],
               [stats.totalMinutes ? formatDurationShort(stats.totalMinutes) : '–', 'time'],
-              [formatDepth(stats.deepestM, depthUnit, lang), 'deepest'],
-              [stats.sites, 'sites'],
-              [stats.countries, 'countries'],
               [stats.speciesCount, 'species'],
             ] as const
           ).map(([value, key]) => (
-            <div className="stat" key={key}>
-              <div className="value">{value}</div>
-              <div className="label">{t(`logbook.stats.${key}`)}</div>
-            </div>
+            <span className="stat-mini" key={key}>
+              <strong>{value}</strong>
+              <span>{t(`logbook.stats.${key}`)}</span>
+            </span>
           ))}
-        </div>
-      )}
-
-      {dives.length > 0 && (
-        <Link className="stats-link" to="/logbook/stats">
-          {t('logbook.allStats')}
           <Icon name="chevron" />
         </Link>
       )}
 
-      <div className="row" style={{ margin: '16px 0' }}>
-        <Link className="btn primary" to="/logbook/new" data-haptic>
-          <Icon name="plus" />
-          {t('logbook.newDive')}
-        </Link>
-      </div>
-
       {dives.length > 1 && (
-        <div className="stack logbook-filter" role="search" style={{ gap: 8, marginBottom: 16 }}>
+        <div className="logbook-filter" role="search">
           <label className="search">
             <Icon name="search" />
             <input
@@ -134,8 +119,13 @@ export default function LogbookScreen() {
               onChange={(e) => setFilter({ ...filter, query: e.target.value })}
             />
           </label>
-          <div className="grid-2">
-            <select className="input" aria-label={t('logbook.year')} value={filter.year ?? ''} onChange={(e) => setFilter({ ...filter, year: e.target.value || null })}>
+          <div className="filter-pills">
+            <select
+              className={`pill-select${filter.year ? ' on' : ''}`}
+              aria-label={t('logbook.year')}
+              value={filter.year ?? ''}
+              onChange={(e) => setFilter({ ...filter, year: e.target.value || null })}
+            >
               <option value="">{t('logbook.allYears')}</option>
               {years.map((y) => (
                 <option key={y} value={y}>
@@ -143,23 +133,24 @@ export default function LogbookScreen() {
                 </option>
               ))}
             </select>
-            <select
-              className="input"
-              aria-label={t('logbook.country')}
-              value={filter.country ?? ''}
-              onChange={(e) => setFilter({ ...filter, country: e.target.value || null })}
-              disabled={!countries.length}
-            >
-              <option value="">{t('logbook.allCountries')}</option>
-              {countries.map((c) => (
-                <option key={c} value={c}>
-                  {c}
-                </option>
-              ))}
-            </select>
+            {countries.length > 0 && (
+              <select
+                className={`pill-select${filter.country ? ' on' : ''}`}
+                aria-label={t('logbook.country')}
+                value={filter.country ?? ''}
+                onChange={(e) => setFilter({ ...filter, country: e.target.value || null })}
+              >
+                <option value="">{t('logbook.allCountries')}</option>
+                {countries.map((c) => (
+                  <option key={c} value={c}>
+                    {c}
+                  </option>
+                ))}
+              </select>
+            )}
           </div>
           {filtering && (
-            <div className="row spread small" aria-live="polite">
+            <div className="row spread small filter-count" aria-live="polite">
               <span className="muted">{t('logbook.filtered', { shown: shown.length, total: dives.length })}</span>
               <button type="button" className="btn small ghost" onClick={() => setFilter(emptyDiveFilter())} data-haptic>
                 {t('logbook.resetFilter')}
@@ -200,6 +191,12 @@ export default function LogbookScreen() {
       {dives.length === 0 ? (
         <EmptyState icon="logbook" title={t('logbook.empty')}>
           {t('logbook.emptyHint')}
+          <div style={{ marginTop: 14 }}>
+            <Link className="btn primary" to="/logbook/new" data-haptic>
+              <Icon name="plus" />
+              {t('logbook.newDive')}
+            </Link>
+          </div>
         </EmptyState>
       ) : shown.length === 0 ? (
         <EmptyState icon="search" title={t('logbook.noMatches')} />
