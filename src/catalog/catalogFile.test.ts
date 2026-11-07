@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { existsSync, readFileSync } from 'node:fs';
+import { createHash } from 'node:crypto';
 import { join } from 'node:path';
 import initSqlJs from 'sql.js';
 import { AppDb } from '../db/appDb';
@@ -43,6 +44,14 @@ describe('shipped catalog', async () => {
     }
   });
 
+  // Image addresses carry the first 10 hex digits of the file's SHA-1 (?v=…), so a replaced photo
+  // never comes out of a cache under its old address.
+  const expectFingerprinted = (address: string) => {
+    const [file, v] = address.split('?v=');
+    expect(existsSync(join(DIR, file)), file).toBe(true);
+    expect(v, address).toBe(createHash('sha1').update(readFileSync(join(DIR, file))).digest('hex').slice(0, 10));
+  };
+
   it.skipIf(isSeed)('has an openly licensed photo with credit and a thumbnail for every species', () => {
     for (const s of catalog.species) {
       const photos = loadPhotos(db, s.id);
@@ -51,9 +60,9 @@ describe('shipped catalog', async () => {
         expect(['cc0', 'cc-by']).toContain(p.license);
         expect(p.author.length, s.id).toBeGreaterThan(0);
         expect(p.sourceUrl).toMatch(/^https:\/\//);
-        expect(existsSync(join(DIR, p.file)), p.file).toBe(true);
+        expectFingerprinted(p.file);
       }
-      expect(existsSync(join(DIR, s.thumb!)), s.thumb!).toBe(true);
+      expectFingerprinted(s.thumb!);
       expect(s.traits.length, s.id).toBeGreaterThan(3);
       expect(s.descriptionDe, s.id).toBeTruthy();
     }
