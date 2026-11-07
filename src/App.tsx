@@ -28,6 +28,23 @@ function useApplySettings() {
   }, [i18n, language]);
 }
 
+/**
+ * Diagnosis for the iPhone app starting with a too short view (index.html, --launch-gap): reports
+ * the largest gap measured once per app version, so the error log shows whether and how much.
+ */
+function reportLaunchGap() {
+  const gap = (window as { __aquaLaunchGap?: number }).__aquaLaunchGap ?? 0;
+  if (!gap) return;
+  const key = 'aqua-launch-gap-reported';
+  try {
+    if (localStorage.getItem(key) === __APP_VERSION__) return;
+    localStorage.setItem(key, __APP_VERSION__);
+  } catch {
+    return;
+  }
+  reportError('error', `Diagnose: Ansicht beim Start ${gap}px kürzer als der Bildschirm (ausgeglichen)`);
+}
+
 export function App() {
   const [db, setDb] = useState<AppDb | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -46,6 +63,7 @@ export function App() {
             .all<{ a: string }>('SELECT thumb AS a FROM cat.species WHERE thumb IS NOT NULL UNION ALL SELECT file FROM cat.species_photo')
             .map((r) => r.a);
           void tidyImageCaches(addresses, version).catch(() => undefined);
+          reportLaunchGap();
         }, 4000);
       })
       .catch((e: unknown) => {

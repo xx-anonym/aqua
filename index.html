@@ -172,6 +172,24 @@
       // which made the centred start screen jump. Pin it to the screen height, as on the iOS
       // startup image.
       if (navigator.standalone) document.documentElement.style.setProperty('--sp-h', screen.height + 'px');
+      // The same short start view also lifted everything fixed to the bottom edge (tab bar, sheets)
+      // until iOS grew the view – sometimes seconds later, e.g. while the Dynamic Island showed a
+      // status. --launch-gap is how much shorter the view is than the screen; those elements move
+      // down by it. Only on the iPhone: on an iPad a shorter window is real (Slide Over).
+      if (navigator.standalone && /iPhone/.test(navigator.userAgent)) {
+        var fitGap = function () {
+          var portrait = innerHeight >= innerWidth;
+          var full = portrait ? Math.max(screen.width, screen.height) : Math.min(screen.width, screen.height);
+          var gap = full - innerHeight;
+          gap = gap > 0 && gap <= 120 ? gap : 0;
+          window.__aquaLaunchGap = Math.max(window.__aquaLaunchGap || 0, gap);
+          document.documentElement.style.setProperty('--launch-gap', gap + 'px');
+        };
+        fitGap();
+        addEventListener('resize', fitGap);
+        addEventListener('orientationchange', fitGap);
+        addEventListener('pageshow', fitGap);
+      }
     </script>
   </head>
   <body>

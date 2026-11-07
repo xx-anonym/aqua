@@ -187,7 +187,8 @@ img {
   position: fixed;
   left: 0;
   right: 0;
-  bottom: 0;
+  /* --launch-gap: installed iPhone app starting with a too short view (index.html) */
+  bottom: calc(0px - var(--launch-gap, 0px));
   z-index: 30;
   display: flex;
   justify-content: center;
@@ -774,6 +775,7 @@ textarea.input {
 .sheet-backdrop {
   position: fixed;
   inset: 0;
+  bottom: calc(0px - var(--launch-gap, 0px));
   z-index: 50;
   background: rgb(0 0 0 / 0.45);
   display: flex;
@@ -1514,7 +1516,7 @@ label.btn:has(input:focus-visible) {
 .update-banner {
   position: fixed;
   left: 50%;
-  bottom: calc(var(--tabbar-h) + var(--tabbar-pad) + 16px);
+  bottom: calc(var(--tabbar-h) + var(--tabbar-pad) + 16px - var(--launch-gap, 0px));
   transform: translateX(-50%);
   z-index: 55;
   display: flex;
@@ -1533,7 +1535,7 @@ label.btn:has(input:focus-visible) {
 .toast {
   position: fixed;
   left: 50%;
-  bottom: calc(var(--tabbar-h) + var(--tabbar-pad) + 16px);
+  bottom: calc(var(--tabbar-h) + var(--tabbar-pad) + 16px - var(--launch-gap, 0px));
   transform: translateX(-50%);
   z-index: 60;
   background: var(--text);
@@ -1568,6 +1570,7 @@ label.btn:has(input:focus-visible) {
 .celebrate {
   position: fixed;
   inset: 0;
+  bottom: calc(0px - var(--launch-gap, 0px));
   z-index: 70;
   display: flex;
   align-items: center;
@@ -1916,6 +1919,7 @@ label.btn:has(input:focus-visible) {
 .lightbox {
   position: fixed;
   inset: 0;
+  bottom: calc(0px - var(--launch-gap, 0px));
   z-index: 60;
   display: flex;
   flex-direction: column;
