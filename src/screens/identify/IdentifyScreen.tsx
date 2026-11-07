@@ -30,14 +30,18 @@ import { regionForPoint } from '../../user/sites';
 function Suggestions({
   result,
   photo,
+  keyPrefix,
+  onPick,
 }: {
   result: IdentifyResult;
   photo: Blob;
+  keyPrefix: string;
+  onPick?: IdentifyPick;
 }) {
   const { t } = useTranslation();
   const lang = useLang();
   const catalog = useCatalog();
-  const [rejected, setRejected] = useSessionState<string[]>('identify.rejected', []);
+  const [rejected, setRejected] = useSessionState<string[]>(`${keyPrefix}.rejected`, []);
   const [confirmed, setConfirmed] = useState<Species | null>(null);
   const items = result.suggestions.filter((s) => !rejected.includes(s.species_id) && catalog.byId.has(s.species_id));
 
@@ -52,9 +56,16 @@ function Suggestions({
         const pct = Math.round(s.confidence * 100);
         return (
           <div key={s.species_id} className="card suggestion">
-            <Link to={`/species/${sp.id}`} aria-label={speciesName(sp, lang)}>
-              <SpeciesThumb species={sp} />
-            </Link>
+            {onPick ? (
+              // Inside a picker the species page would leave the open form.
+              <span>
+                <SpeciesThumb species={sp} alt={speciesName(sp, lang)} />
+              </span>
+            ) : (
+              <Link to={`/species/${sp.id}`} aria-label={speciesName(sp, lang)}>
+                <SpeciesThumb species={sp} />
+              </Link>
+            )}
             <div>
               <div style={{ fontWeight: 750 }}>{speciesName(sp, lang)}</div>
               <div className="muted small" style={{ fontStyle: 'italic' }}>
@@ -66,7 +77,7 @@ function Suggestions({
               <div className="small">{t('identify.confidence', { value: pct })}</div>
               {s.reason && <div className="small muted">{s.reason}</div>}
               <div className="row" style={{ marginTop: 6 }}>
-                <button className="btn small primary" onClick={() => setConfirmed(sp)} data-haptic>
+                <button className="btn small primary" onClick={() => (onPick ? onPick(sp, 'photo_ai', photo) : setConfirmed(sp))} data-haptic>
                   <Icon name="check" />
                   {t('identify.confirm')}
                 </button>
@@ -89,21 +100,21 @@ function Suggestions({
   );
 }
 
-function PhotoIdCard() {
+function PhotoIdCard({ keyPrefix = 'identify', onPick }: { keyPrefix?: string; onPick?: IdentifyPick }) {
   const { t } = useTranslation();
   const lang = useLang();
   const catalog = useCatalog();
   const defaultRegion = useSettings((s) => s.region);
   const syncStatus = useSync((s) => s.status);
   // Kept while visiting a suggested species and coming back (session state, not component state).
-  const [region, setRegion] = useSessionState<string | null>('identify.region', () => regionOfPlace(defaultRegion));
-  const [photo, setPhoto] = useSessionState<Blob | null>('identify.photo', null);
-  const [result, setResult] = useSessionState<IdentifyResult | null>('identify.result', null);
-  const [error, setError] = useSessionState<string | null>('identify.error', null);
-  const [busy, setBusy] = useSessionState('identify.busy', false);
-  const [, setRejected] = useSessionState<string[]>('identify.rejected', []);
+  const [region, setRegion] = useSessionState<string | null>(`${keyPrefix}.region`, () => regionOfPlace(defaultRegion));
+  const [photo, setPhoto] = useSessionState<Blob | null>(`${keyPrefix}.photo`, null);
+  const [result, setResult] = useSessionState<IdentifyResult | null>(`${keyPrefix}.result`, null);
+  const [error, setError] = useSessionState<string | null>(`${keyPrefix}.error`, null);
+  const [busy, setBusy] = useSessionState(`${keyPrefix}.busy`, false);
+  const [, setRejected] = useSessionState<string[]>(`${keyPrefix}.rejected`, []);
   // Where an automatically chosen region came from ('photo' = GPS in the photo, 'location' = device).
-  const [regionHint, setRegionHint] = useSessionState<'photo' | 'location' | null>('identify.regionHint', null);
+  const [regionHint, setRegionHint] = useSessionState<'photo' | 'location' | null>(`${keyPrefix}.regionHint`, null);
   const [locating, setLocating] = useState(false);
   const [queue, setQueue] = useState<QueuedPhoto[]>([]);
   const preview = useObjectUrl(photo);
@@ -207,9 +218,11 @@ function PhotoIdCard() {
       {syncStatus === 'signedOut' && (
         <div className="notice small row spread" style={{ flexWrap: 'nowrap' }}>
           <span>{t('identify.loginRequired')}</span>
-          <Link className="btn small primary" to="/profile" style={{ flex: 'none' }}>
-            {t('deviceNotice.signIn')}
-          </Link>
+          {!onPick && (
+            <Link className="btn small primary" to="/profile" style={{ flex: 'none' }}>
+              {t('deviceNotice.signIn')}
+            </Link>
+          )}
         </div>
       )}
       <div className="field">
@@ -269,7 +282,7 @@ function PhotoIdCard() {
           {error}
         </p>
       )}
-      {result && photo && <Suggestions result={result} photo={photo} />}
+      {result && photo && <Suggestions result={result} photo={photo} keyPrefix={keyPrefix} onPick={onPick} />}
       {queue.length > 0 && (
         <div className="stack">
           <div className="small" style={{ fontWeight: 650 }}>
@@ -292,15 +305,15 @@ function PhotoIdCard() {
 const STEP_TYPES: TraitType[] = ['color', 'pattern', 'body_shape', 'behavior', 'social'];
 
 /** Guided identification without a photo: region → category → colour → pattern → shape → behaviour. */
-function TraitWizard() {
+function TraitWizard({ keyPrefix = 'wizard', onPick }: { keyPrefix?: string; onPick?: IdentifyPick }) {
   const { t } = useTranslation();
   const lang = useLang();
   const catalog = useCatalog();
   const defaultRegion = useSettings((s) => s.region);
   const seen = useDbQuery((d) => lifeList(d));
-  const [filter, setFilter] = useSessionState<SpeciesFilter>('wizard.filter', () => ({ ...emptyFilter(), ...placeFilter(defaultRegion) }));
-  const [step, setStep] = useSessionState('wizard.step', 0);
-  const [showResults, setShowResults] = useSessionState('wizard.results', false);
+  const [filter, setFilter] = useSessionState<SpeciesFilter>(`${keyPrefix}.filter`, () => ({ ...emptyFilter(), ...placeFilter(defaultRegion) }));
+  const [step, setStep] = useSessionState(`${keyPrefix}.step`, 0);
+  const [showResults, setShowResults] = useSessionState(`${keyPrefix}.results`, false);
   const total = 2 + STEP_TYPES.length;
   const matches = useMemo(() => applyFilter(catalog.species, filter), [catalog, filter]);
 
@@ -437,10 +450,33 @@ function TraitWizard() {
         ) : (
           <div className="species-grid">
             {matches.slice(0, 60).map((s) => (
-              <SpeciesCard key={s.id} species={s} seen={seen.has(s.id)} to={`/species/${s.id}`} />
+              <SpeciesCard
+                key={s.id}
+                species={s}
+                seen={seen.has(s.id)}
+                to={onPick ? undefined : `/species/${s.id}`}
+                onClick={onPick ? () => onPick(s, 'filter') : undefined}
+              />
             ))}
           </div>
         ))}
+    </div>
+  );
+}
+
+/** A species chosen by identifying: how, and the photo when it was the photo ID. */
+export type IdentifyPick = (species: Species, via: 'filter' | 'photo_ai', photo?: Blob) => void;
+
+/**
+ * Photo ID and the trait wizard inside a species picker (src/screens/sighting/SpeciesPickerSheet.tsx):
+ * choosing a result hands the species back instead of saving a sighting or opening its page, so
+ * an open form stays as it is. Its own session state, apart from the identify page.
+ */
+export function IdentifyPanel({ onPick }: { onPick: IdentifyPick }) {
+  return (
+    <div className="stack">
+      <PhotoIdCard keyPrefix="pickIdentify" onPick={onPick} />
+      <TraitWizard keyPrefix="pickWizard" onPick={onPick} />
     </div>
   );
 }

@@ -2375,3 +2375,15 @@ button.list-item:active {
   width: 24px;
   height: 24px;
 }
+
+/* Species pickers: identify by photo or traits instead of choosing from the list. */
+.btn.identify-btn {
+  margin-bottom: 10px;
+  background: color-mix(in srgb, var(--primary) 12%, var(--surface));
+  color: var(--primary);
+}
+
+.back-to-list {
+  margin: -4px 0 8px -6px;
+}
+

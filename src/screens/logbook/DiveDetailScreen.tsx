@@ -14,7 +14,7 @@ import { EmptyState, PageHeader, Stars } from '../../ui/components';
 import { useFeedback } from '../../ui/feedback';
 import { Icon } from '../../ui/icons/Icon';
 import { AddSightingSheet, SightingThumb } from '../sighting/AddSightingSheet';
-import { SpeciesPickerSheet } from '../sighting/SpeciesPickerSheet';
+import { SpeciesPickerSheet, type PickVia } from '../sighting/SpeciesPickerSheet';
 import { useDeleteSighting } from '../sighting/useDeleteSighting';
 import { ProfileChart } from './ProfileChart';
 
@@ -31,7 +31,7 @@ export default function DiveDetailScreen() {
   const site = useDbQuery((d) => (dive?.site_id ? getSite(d, dive.site_id) : undefined), [dive?.site_id]);
   const sightings = useDbQuery((d) => sightingsForDive(d, id), [id]);
   const [picking, setPicking] = useState(false);
-  const [picked, setPicked] = useState<{ species: Species | null; via: 'manual' | 'filter' } | null>(null);
+  const [picked, setPicked] = useState<{ species: Species | null; via: PickVia; photo?: Blob } | null>(null);
   const [editing, setEditing] = useState<Sighting | null>(null);
   const removeSighting = useDeleteSighting();
 
@@ -228,9 +228,9 @@ export default function DiveDetailScreen() {
       {picking && (
         <SpeciesPickerSheet
           onClose={() => setPicking(false)}
-          onPick={(species, via) => {
+          onPick={(species, via, photo) => {
             setPicking(false);
-            setPicked({ species, via });
+            setPicked({ species, via, photo });
           }}
           onUnknown={() => {
             setPicking(false);
@@ -246,7 +246,7 @@ export default function DiveDetailScreen() {
         />
       )}
       {picked && (
-        <AddSightingSheet species={picked.species} diveId={dive.id} identifiedBy={picked.via} onClose={() => setPicked(null)} />
+        <AddSightingSheet species={picked.species} diveId={dive.id} identifiedBy={picked.via} initialPhoto={picked.photo} onClose={() => setPicked(null)} />
       )}
     </div>
   );

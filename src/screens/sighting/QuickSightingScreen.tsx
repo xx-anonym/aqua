@@ -6,7 +6,7 @@ import { useCatalog } from '../../catalog/useCatalog';
 import { PageHeader } from '../../ui/components';
 import { SpeciesBrowser } from '../discover/SpeciesBrowser';
 import { AddSightingSheet } from './AddSightingSheet';
-import { UnknownSpeciesButton } from './SpeciesPickerSheet';
+import { IdentifyButton, UnknownSpeciesButton } from './SpeciesPickerSheet';
 
 /** Plus button → "Schnelle Sichtung": pick a species via list, search or filter, then save. */
 export default function QuickSightingScreen() {
@@ -26,6 +26,7 @@ export default function QuickSightingScreen() {
       <p className="muted" style={{ marginTop: 0 }}>
         {t('sighting.pickSpecies')}
       </p>
+      <IdentifyButton to="/identify" />
       <UnknownSpeciesButton onClick={() => setPicked({ species: null, via: 'manual' })} />
       <SpeciesBrowser stateKey="quick" onSelect={(species, via) => setPicked({ species, via })} />
       {picked && (

@@ -40,7 +40,7 @@ import { listSites } from '../../user/sites';
 import { Accordion, Chip, EmptyState, Field, PageHeader, SpeciesThumb, Stars } from '../../ui/components';
 import { useFeedback } from '../../ui/feedback';
 import { Icon } from '../../ui/icons/Icon';
-import { SpeciesPickerSheet } from '../sighting/SpeciesPickerSheet';
+import { SpeciesPickerSheet, type PickVia } from '../sighting/SpeciesPickerSheet';
 import { SiteEditorSheet } from './SiteEditorSheet';
 
 type Str = string;
@@ -76,7 +76,7 @@ interface DraftSighting {
   id?: string;
   species_id: string;
   count: Str;
-  identified_by: 'manual' | 'filter';
+  identified_by: PickVia;
 }
 
 const s = (v: number | null | undefined, digits = 1) => (v == null ? '' : String(round(v, digits)));
@@ -147,7 +147,7 @@ export default function DiveEditorScreen() {
           id: x.id,
           species_id: x.species_id,
           count: x.count ? String(x.count) : '',
-          identified_by: x.identified_by === 'filter' ? 'filter' : 'manual',
+          identified_by: x.identified_by === 'filter' || x.identified_by === 'photo_ai' ? x.identified_by : 'manual',
         }))
       : [],
   );
@@ -253,7 +253,8 @@ export default function DiveEditorScreen() {
     navigate(`/logbook/${diveId}`, { replace: true });
   };
 
-  const addSpecies = (sp: Species, via: 'manual' | 'filter') => {
+  // A photo from the photo ID is not kept here: photos belong to saved sightings (dive page).
+  const addSpecies = (sp: Species, via: PickVia) => {
     setPicking(false);
     setSightings((list) =>
       list.some((x) => x.species_id === sp.id)

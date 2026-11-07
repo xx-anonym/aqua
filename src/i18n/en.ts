@@ -256,6 +256,8 @@ const en = {
     withoutDive: 'Without a dive',
     quickTitle: 'Quick sighting',
     pickSpecies: 'Which species did you see?',
+    identify: 'Identify the animal – by photo or traits',
+    backToList: 'Back to the species list',
     delete: 'Delete sighting',
     deleted: 'Sighting deleted',
     identifiedBy: { manual: 'from list/search', filter: 'via feature filter', photo_ai: 'via photo ID', import: 'imported' },

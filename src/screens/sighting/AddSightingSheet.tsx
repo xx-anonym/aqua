@@ -238,9 +238,11 @@ export function AddSightingSheet({
         <SpeciesPickerSheet
           title={unknown ? t('sighting.assignSpecies') : t('sighting.changeSpecies')}
           onClose={() => setPicking(false)}
-          onPick={(s, how) => {
+          onPick={(s, how, photo) => {
             setSpecies(s);
             setVia(how);
+            // Identified by photo: that photo becomes the sighting's, unless it already has one.
+            if (photo && !photoPreview) setNewPhoto(photo);
             setPicking(false);
           }}
         />

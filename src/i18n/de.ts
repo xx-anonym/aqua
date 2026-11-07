@@ -257,6 +257,8 @@ const de = {
     withoutDive: 'Ohne Tauchgang',
     quickTitle: 'Schnelle Sichtung',
     pickSpecies: 'Welche Art hast du gesehen?',
+    identify: 'Tier bestimmen – per Foto oder Merkmalen',
+    backToList: 'Zur Artenliste',
     delete: 'Sichtung löschen',
     deleted: 'Sichtung gelöscht',
     identifiedBy: { manual: 'aus Liste/Suche', filter: 'per Merkmalsfilter', photo_ai: 'per Foto-ID', import: 'importiert' },
