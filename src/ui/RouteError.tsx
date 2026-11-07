@@ -1,6 +1,7 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Link, useRouteError } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import { isChunkLoadError, reloadForNewVersion } from '../lib/chunkReload';
 import { reportError } from '../lib/errorLog';
 import { Icon } from './icons/Icon';
 
@@ -11,7 +12,18 @@ import { Icon } from './icons/Icon';
 export function RouteError() {
   const { t } = useTranslation();
   const error = useRouteError();
-  useEffect(() => reportError('render', error), [error]);
+  // After an update the page's code may be gone from the server: reload once instead.
+  const [reloading] = useState(() => isChunkLoadError(error) && reloadForNewVersion());
+  useEffect(() => {
+    if (!reloading) reportError('render', error);
+  }, [error, reloading]);
+  if (reloading) {
+    return (
+      <div className="loading">
+        <div className="spinner" />
+      </div>
+    );
+  }
   return (
     <div className="page">
       <div className="empty" role="alert">
