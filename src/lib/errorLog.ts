@@ -56,6 +56,8 @@ function describe(error: unknown): { message: string; stack: string | null } {
 
 /** The report for an error, or null if it is noise (extensions, cross-origin scripts, …). */
 export function buildReport(kind: ErrorKind, error: unknown, ctx: ErrorContext, source?: string | null): ErrorReport | null {
+  // Robots without a screen (e.g. the host's check right after each deployment) are no users.
+  if (/HeadlessChrome|bot\b|crawler|spider/i.test(ctx.browser)) return null;
   const { message, stack } = describe(error);
   const all = `${message}\n${stack ?? ''}\n${source ?? ''}`;
   if (/^(Script error\.?|ResizeObserver loop)/.test(message) || /(chrome|moz|safari(-web)?)-extension:\/\//.test(all)) return null;

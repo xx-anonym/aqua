@@ -41,6 +41,8 @@ describe('error log', () => {
     ext.stack = 'Error: boom\n    at chrome-extension://abc/content.js:1:1';
     expect(buildReport('error', ext, ctx)).toBeNull();
     expect(buildReport('rejection', new DOMException('aborted', 'AbortError'), ctx)).toBeNull();
+    // the host's headless check after each deployment
+    expect(buildReport('error', new Error('x'), { ...ctx, browser: 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 HeadlessChrome/153.0 Safari/537.36' })).toBeNull();
     expect(buildReport('rejection', 'x'.repeat(900), ctx)!.message).toHaveLength(500);
     expect(buildReport('rejection', { code: 42 }, ctx)!.message).toBe('{"code":42}');
   });
