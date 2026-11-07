@@ -126,6 +126,8 @@ const en = {
     searchResults_one: '{{count}} result',
     searchResults_other: '{{count}} results',
     noResults: 'No matching species',
+    identify: 'Identify',
+    notFoundIdentify: 'Not here? Identify the animal',
     adjustFilter: 'Adjust filter',
     showMore: 'Show {{count}} more',
   },

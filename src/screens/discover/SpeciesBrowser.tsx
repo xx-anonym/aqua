@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useMemo, useState, type ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
 import { activeCount, applyFilter } from '../../catalog/filter';
 import { searchSpecies } from '../../catalog/search';
@@ -23,11 +23,14 @@ export function SpeciesBrowser({
   linkTo,
   onSelect,
   autoFocus,
+  emptyHint,
 }: {
   stateKey: string;
   linkTo?: (s: Species) => string;
   onSelect?: (s: Species, via: 'manual' | 'filter') => void;
   autoFocus?: boolean;
+  /** Shown under "no matching species", e.g. a way to identify the animal instead. */
+  emptyHint?: ReactNode;
 }) {
   const { t } = useTranslation();
   const lang = useLang();
@@ -126,6 +129,7 @@ export function SpeciesBrowser({
               {t('discover.adjustFilter')}
             </button>
           )}
+          {emptyHint && <div>{emptyHint}</div>}
         </EmptyState>
       ) : (
         <div className="species-grid">

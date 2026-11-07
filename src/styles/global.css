@@ -164,7 +164,23 @@ img {
 
 .header-actions {
   display: flex;
+  align-items: center;
   gap: 4px;
+}
+
+/* A labelled action in the header, e.g. "Bestimmen" on Discover. */
+.btn.header-pill {
+  min-height: 38px;
+  padding: 0 14px 0 10px;
+  gap: 6px;
+  margin-right: 4px;
+  background: color-mix(in srgb, var(--primary) 12%, var(--surface));
+  color: var(--primary);
+}
+
+.btn.header-pill svg {
+  width: 20px;
+  height: 20px;
 }
 
 .tabbar {

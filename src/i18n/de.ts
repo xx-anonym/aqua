@@ -127,6 +127,8 @@ const de = {
     searchResults_one: '{{count}} Treffer',
     searchResults_other: '{{count}} Treffer',
     noResults: 'Keine passenden Arten',
+    identify: 'Bestimmen',
+    notFoundIdentify: 'Nicht dabei? Tier bestimmen',
     adjustFilter: 'Filter anpassen',
     showMore: '{{count}} weitere anzeigen',
   },
