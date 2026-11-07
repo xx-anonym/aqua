@@ -17,6 +17,7 @@ import {
   updateSighting,
 } from './sightings';
 import { lifeList, progressReport } from './lifelist';
+import { anniversaries, firstSightingsSince } from './home';
 import { addToCollection, collectionSpeciesIds, deleteCollection, favoriteIds, removeFromCollection, saveCollection, toggleFavorite } from './collections';
 import { listSites, regionForPoint, saveSite } from './sites';
 import { depthBins, diveAverages, divesPerYear, logStats, sightingSites, speciesOverTime } from './stats';
@@ -298,6 +299,27 @@ describe('form suggestions', () => {
         { seen_at: '2022-04-10T10:00:00Z', site_name: 'Ras Mohammed' },
       ]),
     ).toEqual({ count: 3, sinceYear: '2022', lastSite: 'Ras Mohammed', lastDate: '2026-09-07T10:00:00Z' });
+  });
+});
+
+describe('start page', () => {
+  it('finds dives on this day in earlier years', () => {
+    const dives = [{ date: '2025-11-07' }, { date: '2023-11-07' }, { date: '2025-11-06' }, { date: '2026-11-07' }];
+    expect(anniversaries(dives, '2026-11-07')).toEqual([
+      { dive: { date: '2025-11-07' }, years: 1 },
+      { dive: { date: '2023-11-07' }, years: 3 },
+    ]);
+    // 29 February turns up on the 28th when the year has no 29th
+    expect(anniversaries([{ date: '2024-02-29' }], '2025-02-28')).toHaveLength(1);
+    expect(anniversaries([{ date: '2024-02-29' }], '2028-02-28')).toHaveLength(0);
+  });
+
+  it('lists the species first seen since a day, newest first', () => {
+    addSighting(db, { species_id: 'pterois-miles', seen_at: '2025-06-01T10:00:00Z' } as never);
+    addSighting(db, { species_id: 'chelonia-mydas', seen_at: '2026-03-01T10:00:00Z' } as never);
+    addSighting(db, { species_id: 'mobula-alfredi', seen_at: '2026-05-01T10:00:00Z' } as never);
+    addSighting(db, { species_id: 'pterois-miles', seen_at: '2026-06-01T10:00:00Z' } as never);
+    expect(firstSightingsSince(lifeList(db), '2026-01-01').map((e) => e.speciesId)).toEqual(['mobula-alfredi', 'chelonia-mydas']);
   });
 });
 

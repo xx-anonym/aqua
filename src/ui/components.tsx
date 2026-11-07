@@ -16,7 +16,7 @@ export function PageHeader({ title, back, actions }: { title: string; back?: boo
     if (typeof back === 'string') return navigate(back);
     // Pages opened directly (e.g. after the sign-in redirect) have no in-app history to go back to.
     const idx = (window.history.state as { idx?: number } | null)?.idx ?? 0;
-    return idx > 0 ? navigate(-1) : navigate('/discover');
+    return idx > 0 ? navigate(-1) : navigate('/start');
   };
   // Main screens carry the profile button; detail screens keep the header for their own actions.
   const showProfile = !back && !pathname.startsWith('/profile');

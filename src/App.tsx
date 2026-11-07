@@ -11,6 +11,7 @@ import { hideSplash } from './ui/splash';
 import { router } from './router';
 import { initCloud } from './sync/syncManager';
 import { tidyImageCaches } from './lib/offline';
+import { reportError } from './lib/errorLog';
 
 function useApplySettings() {
   const theme = useSettings((s) => s.theme);
@@ -47,7 +48,10 @@ export function App() {
           void tidyImageCaches(addresses, version).catch(() => undefined);
         }, 4000);
       })
-      .catch((e: unknown) => setError(e instanceof Error ? e.message : String(e)));
+      .catch((e: unknown) => {
+        reportError('error', e);
+        setError(e instanceof Error ? e.message : String(e));
+      });
   }, []);
 
   useEffect(() => {

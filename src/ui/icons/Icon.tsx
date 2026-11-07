@@ -11,6 +11,17 @@ const fishAt = (x: number, y: number, s: number) => (
 
 const icons: Record<string, ReactNode> = {
   // Navigation
+  home: (
+    <>
+      <path d="M4 10.5 12 4l8 6.5V19a1.5 1.5 0 0 1-1.5 1.5H15v-6H9v6H5.5A1.5 1.5 0 0 1 4 19z" />
+    </>
+  ),
+  calendar: (
+    <>
+      <rect x="4" y="5.5" width="16" height="14.5" rx="2" />
+      <path d="M4 10h16M8.5 3.5v4M15.5 3.5v4" />
+    </>
+  ),
   discover: (
     <>
       <circle cx="12" cy="12" r="9.5" />

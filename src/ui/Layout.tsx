@@ -4,9 +4,10 @@ import { useTranslation } from 'react-i18next';
 import { Sheet } from './components';
 import { Icon } from './icons/Icon';
 
+// Identifying (photo or traits) is not a tab: it is in the + menu and on the start page.
 const TABS = [
+  { to: '/start', icon: 'home', key: 'start' },
   { to: '/discover', icon: 'discover', key: 'discover' },
-  { to: '/identify', icon: 'identify', key: 'identify' },
   null,
   { to: '/logbook', icon: 'logbook', key: 'logbook' },
   { to: '/collection', icon: 'collection', key: 'collection' },

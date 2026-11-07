@@ -449,7 +449,7 @@ export default function IdentifyScreen() {
   const { t } = useTranslation();
   return (
     <div className="page">
-      <PageHeader title={t('identify.title')} />
+      <PageHeader title={t('identify.title')} back />
       <div className="stack">
         <PhotoIdCard />
         <TraitWizard />

@@ -1,7 +1,9 @@
 import { lazy, Suspense, type ComponentType } from 'react';
 import { createBrowserRouter, Navigate } from 'react-router-dom';
 import { Layout } from './ui/Layout';
+import { RouteError } from './ui/RouteError';
 import DiscoverScreen from './screens/discover/DiscoverScreen';
+import StartScreen from './screens/start/StartScreen';
 
 function page(load: () => Promise<{ default: ComponentType }>) {
   const Component = lazy(load);
@@ -17,25 +19,32 @@ export const routes = [
     path: '/',
     element: <Layout />,
     children: [
-      { index: true, element: <Navigate to="/discover" replace /> },
-      { path: 'discover', element: <DiscoverScreen /> },
-      { path: 'species/:id', element: page(() => import('./screens/discover/SpeciesScreen')) },
-      { path: 'compare/:a/:b', element: page(() => import('./screens/discover/CompareScreen')) },
-      { path: 'identify', element: page(() => import('./screens/identify/IdentifyScreen')) },
-      { path: 'logbook', element: page(() => import('./screens/logbook/LogbookScreen')) },
-      { path: 'logbook/new', element: page(() => import('./screens/logbook/DiveEditorScreen')) },
-      { path: 'logbook/import', element: page(() => import('./screens/logbook/ImportScreen')) },
-      { path: 'logbook/sites', element: page(() => import('./screens/logbook/SitesScreen')) },
-      { path: 'logbook/stats', element: page(() => import('./screens/logbook/StatsScreen')) },
-      { path: 'logbook/:id', element: page(() => import('./screens/logbook/DiveDetailScreen')) },
-      { path: 'logbook/:id/edit', element: page(() => import('./screens/logbook/DiveEditorScreen')) },
-      { path: 'sighting/new', element: page(() => import('./screens/sighting/QuickSightingScreen')) },
-      { path: 'collection', element: page(() => import('./screens/collection/CollectionScreen')) },
-      { path: 'collection/albums/:id', element: page(() => import('./screens/collection/AlbumScreen')) },
-      { path: 'shared', element: page(() => import('./screens/collection/SharedAlbumScreen')) },
-      { path: 'profile', element: page(() => import('./screens/profile/ProfileScreen')) },
-      { path: 'profile/credits', element: page(() => import('./screens/profile/CreditsScreen')) },
-      { path: '*', element: <Navigate to="/discover" replace /> },
+      {
+        // A page that fails while drawing shows RouteError inside the layout (tab bar stays).
+        errorElement: <RouteError />,
+        children: [
+          { index: true, element: <Navigate to="/start" replace /> },
+          { path: 'start', element: <StartScreen /> },
+          { path: 'discover', element: <DiscoverScreen /> },
+          { path: 'species/:id', element: page(() => import('./screens/discover/SpeciesScreen')) },
+          { path: 'compare/:a/:b', element: page(() => import('./screens/discover/CompareScreen')) },
+          { path: 'identify', element: page(() => import('./screens/identify/IdentifyScreen')) },
+          { path: 'logbook', element: page(() => import('./screens/logbook/LogbookScreen')) },
+          { path: 'logbook/new', element: page(() => import('./screens/logbook/DiveEditorScreen')) },
+          { path: 'logbook/import', element: page(() => import('./screens/logbook/ImportScreen')) },
+          { path: 'logbook/sites', element: page(() => import('./screens/logbook/SitesScreen')) },
+          { path: 'logbook/stats', element: page(() => import('./screens/logbook/StatsScreen')) },
+          { path: 'logbook/:id', element: page(() => import('./screens/logbook/DiveDetailScreen')) },
+          { path: 'logbook/:id/edit', element: page(() => import('./screens/logbook/DiveEditorScreen')) },
+          { path: 'sighting/new', element: page(() => import('./screens/sighting/QuickSightingScreen')) },
+          { path: 'collection', element: page(() => import('./screens/collection/CollectionScreen')) },
+          { path: 'collection/albums/:id', element: page(() => import('./screens/collection/AlbumScreen')) },
+          { path: 'shared', element: page(() => import('./screens/collection/SharedAlbumScreen')) },
+          { path: 'profile', element: page(() => import('./screens/profile/ProfileScreen')) },
+          { path: 'profile/credits', element: page(() => import('./screens/profile/CreditsScreen')) },
+          { path: '*', element: <Navigate to="/start" replace /> },
+        ],
+      },
     ],
   },
 ];

@@ -38,3 +38,11 @@ export const licenseUrl = (code: string) =>
     : code.startsWith('cc-')
       ? `https://creativecommons.org/licenses/${code.slice(3)}/4.0/`
       : undefined;
+
+/** "heute", "gestern", "vor 3 Tagen" within a week, else the date. `today` is YYYY-MM-DD. */
+export function relativeDay(value: string, lang: Lang, today: string): string {
+  const days = Math.round((Date.parse(`${today}T12:00:00Z`) - Date.parse(`${value.slice(0, 10)}T12:00:00Z`)) / 86_400_000);
+  if (days >= 0 && days < 7) return new Intl.RelativeTimeFormat(locale(lang), { numeric: 'auto' }).format(-days, 'day');
+  return formatDate(value, lang);
+}
+
