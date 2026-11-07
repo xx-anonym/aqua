@@ -10,6 +10,7 @@ import { UpdateBanner } from './ui/UpdateBanner';
 import { hideSplash } from './ui/splash';
 import { router } from './router';
 import { initCloud } from './sync/syncManager';
+import { tidyImageCaches } from './lib/offline';
 
 function useApplySettings() {
   const theme = useSettings((s) => s.theme);
@@ -37,6 +38,14 @@ export function App() {
       .then((d) => {
         initCloud(d);
         setDb(d);
+        // A few seconds after start, when the first screen is up: sort out stale cached images.
+        window.setTimeout(() => {
+          const version = d.get<{ version: string }>('SELECT version FROM cat.catalog_meta')?.version ?? '';
+          const addresses = d
+            .all<{ a: string }>('SELECT thumb AS a FROM cat.species WHERE thumb IS NOT NULL UNION ALL SELECT file FROM cat.species_photo')
+            .map((r) => r.a);
+          void tidyImageCaches(addresses, version).catch(() => undefined);
+        }, 4000);
       })
       .catch((e: unknown) => setError(e instanceof Error ? e.message : String(e)));
   }, []);

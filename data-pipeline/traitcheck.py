@@ -112,7 +112,7 @@ def catalog_species(con: sqlite3.Connection) -> list[dict]:
         traits.setdefault(r["species_id"], []).append(r["trait_id"])
     photos: dict[str, list[str]] = {}
     for r in con.execute("SELECT species_id, file FROM species_photo ORDER BY species_id, sort"):
-        photos.setdefault(r["species_id"], []).append(r["file"])
+        photos.setdefault(r["species_id"], []).append(r["file"].split("?", 1)[0])  # without the ?v= fingerprint
     for s in species:
         s["traits"] = sorted(traits.get(s["id"], []))
         s["photos"] = photos.get(s["id"], [])

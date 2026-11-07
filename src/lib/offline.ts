@@ -116,3 +116,63 @@ export async function storageEstimate(): Promise<{ usage: number; quota: number 
   const est = await navigator.storage?.estimate?.();
   return est ? { usage: est.usage ?? 0, quota: est.quota ?? 0 } : null;
 }
+
+const TIDIED_KEY = 'aqua-image-caches-tidied';
+
+/** First 10 hex digits of the SHA-1 of a file – the ?v= fingerprint the catalog build adds. */
+export async function fingerprint(data: ArrayBuffer): Promise<string> {
+  const digest = await crypto.subtle.digest('SHA-1', data);
+  return [...new Uint8Array(digest)]
+    .map((b) => b.toString(16).padStart(2, '0'))
+    .join('')
+    .slice(0, 10);
+}
+
+/**
+ * Catalog images are cached "cache first": once seen, a thumbnail came from the cache for good –
+ * also after a catalog update had replaced the photo under the same name. Since catalog
+ * 2026.11.07 every image address carries a fingerprint of its file (?v=…), so a replaced photo
+ * has a new address. Copies cached under an older address are sorted out once per catalog
+ * version: still the same file (same fingerprint) – moved to the current address, so an offline
+ * photo pack survives the update; otherwise deleted.
+ *
+ * `addresses` are the catalog's image addresses relative to /catalog/ (thumbs and photos).
+ */
+export async function tidyImageCaches(addresses: string[], version: string): Promise<{ moved: number; deleted: number }> {
+  const result = { moved: 0, deleted: 0 };
+  if (!('caches' in window) || !globalThis.crypto?.subtle) return result;
+  try {
+    if (localStorage.getItem(TIDIED_KEY) === version) return result;
+  } catch {
+    // Private mode: tidy every start; cheap when nothing is left to do.
+  }
+  const current = new Map<string, string>();
+  for (const a of addresses) {
+    const u = new URL(`/catalog/${a}`, location.origin);
+    current.set(u.pathname, u.href);
+  }
+  for (const name of [THUMB_CACHE, IMAGE_CACHE]) {
+    if (!(await caches.has(name))) continue;
+    const cache = await caches.open(name);
+    for (const request of await cache.keys()) {
+      const url = new URL(request.url);
+      const now = current.get(url.pathname);
+      if (now === url.href) continue;
+      const want = now ? new URL(now).searchParams.get('v') : null;
+      const res = want ? await cache.match(request) : undefined;
+      if (now && res && (await fingerprint(await res.clone().arrayBuffer())) === want) {
+        await cache.put(now, res);
+        result.moved++;
+      } else {
+        result.deleted++;
+      }
+      await cache.delete(request);
+    }
+  }
+  try {
+    localStorage.setItem(TIDIED_KEY, version);
+  } catch {
+    // see above
+  }
+  return result;
+}

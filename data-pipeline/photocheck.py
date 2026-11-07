@@ -187,7 +187,7 @@ def catalog_photos() -> list[tuple[str, str, list[str]]]:
     order = [r[0] for r in con.execute("SELECT id FROM species ORDER BY popularity DESC, scientific_name")]
     photos: dict[str, list[str]] = {}
     for sid, file in con.execute("SELECT species_id, file FROM species_photo ORDER BY species_id, sort"):
-        photos.setdefault(sid, []).append(file)
+        photos.setdefault(sid, []).append(file.split("?", 1)[0])  # without the ?v= fingerprint
     con.close()
     return [(sid, names[sid], photos.get(sid, [])) for sid in order]
 

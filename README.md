@@ -91,6 +91,11 @@ Wasser, tot/gestrandet, gefangen, Präparat, Zeichnung …; Qualität 1–5), ho
 Foto Ersatzkandidaten von iNaturalist und schreibt mit `plan` die neue Auswahl nach
 `input/photo_overrides.json` (gute Fotos zuerst, schlechte entfernt; Bericht in
 `review/photocheck.md`). Handverlesene Einträge bleiben unberührt.
+Jede Bildadresse im Katalog trägt einen Fingerabdruck der Datei (`thumb/x.webp?v=…`, erste 10
+Stellen von SHA-1). Ein ausgetauschtes Foto bekommt so eine neue Adresse – sonst lieferte der
+Service Worker („Cache zuerst“) dauerhaft die alte Kopie. Beim ersten Start mit einem neuen
+Katalog sortiert die App ihre zwischengespeicherten Bilder einmal aus (`tidyImageCaches` in
+`src/lib/offline.ts`): unveränderte zieht sie auf die neue Adresse um, alte löscht sie.
 
 | Quelle | Verwendung | Lizenz / Hinweis |
 | --- | --- | --- |

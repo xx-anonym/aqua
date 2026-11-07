@@ -833,6 +833,11 @@ def write_catalog(db_path: Path, species: list[dict], version: str) -> None:
     con.close()
 
 
+def file_of(address: str) -> str:
+    """The file behind an image address of the catalog ("img/x-1.webp?v=3f9a…" -> "img/x-1.webp")."""
+    return address.split("?", 1)[0]
+
+
 def write_manifest(db_path: Path, species: list[dict], version: str) -> None:
     photos = [p for s in species for p in s.get("photo_rows", [])]
     manifest = {
@@ -843,7 +848,7 @@ def write_manifest(db_path: Path, species: list[dict], version: str) -> None:
         "photos": [{"file": p["file"], "bytes": p.get("bytes", 0)} for p in photos],
         "photo_bytes": sum(p.get("bytes", 0) for p in photos),
         # Grid thumbnails: loaded when viewed, or ahead of a trip from the profile.
-        "thumb_bytes": sum((PUBLIC / s["thumb"]).stat().st_size for s in species if s.get("thumb") and (PUBLIC / s["thumb"]).exists()),
+        "thumb_bytes": sum((PUBLIC / file_of(s["thumb"])).stat().st_size for s in species if s.get("thumb") and (PUBLIC / file_of(s["thumb"])).exists()),
     }
     save_json(PUBLIC / "catalog-manifest.json", manifest)
 
@@ -919,9 +924,6 @@ def step_build() -> None:
     regions_json = load_json(INPUT / "regions.json")
     for s in out:
         s["description_de"], s["description_en"] = describe(s, regions_json)
-    version = datetime.now(timezone.utc).strftime("%Y.%m.%d") + "-" + hashlib.sha1(
-        json.dumps([(s["id"], s["traits"]) for s in out]).encode()).hexdigest()[:6]
-
     if PUBLIC.exists():
         shutil.rmtree(PUBLIC)
     PUBLIC.mkdir(parents=True)
@@ -933,6 +935,19 @@ def step_build() -> None:
         sid = re.sub(r"-\d+$", "", f.stem) if f.parent.name == "img" else f.stem
         if sid not in keep:
             f.unlink()
+    # Every image address carries a fingerprint of the file (?v=…): a replaced photo gets a new
+    # address, so no cache – the app's service worker, the browser, the CDN – keeps showing the
+    # old one under the unchanged name. Unchanged files keep their address and stay cached.
+    def versioned(rel: str) -> str | None:
+        f = PUBLIC / rel
+        return f"{rel}?v={hashlib.sha1(f.read_bytes()).hexdigest()[:10]}" if f.exists() else None
+
+    for s in out:
+        s["thumb"] = versioned(s["thumb"]) if s.get("thumb") else None
+        s["photo_rows"] = [dict(p, file=versioned(p["file"]) or p["file"]) for p in s["photo_rows"]]
+    # The version changes with the data and with every photo.
+    version = datetime.now(timezone.utc).strftime("%Y.%m.%d") + "-" + hashlib.sha1(
+        json.dumps([(s["id"], s["traits"], s["thumb"], [p["file"] for p in s["photo_rows"]]) for s in out]).encode()).hexdigest()[:6]
     db_path = PUBLIC / "catalog.sqlite"
     write_catalog(db_path, out, version)
     write_manifest(db_path, out, version)
