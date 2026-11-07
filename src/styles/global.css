@@ -87,6 +87,10 @@ body {
   line-height: 1.45;
   -webkit-font-smoothing: antialiased;
   -webkit-tap-highlight-color: transparent;
+  /* No rubber band at the ends of the page: iOS moved the whole view with it, the fixed tab bar
+     included. The tab bar stays put; scrollable parts inside (sheets, photo strips) contain their
+     own overscroll below. */
+  overscroll-behavior: none;
 }
 
 #root {
@@ -2392,5 +2396,12 @@ button.list-item:active {
 
 .back-to-list {
   margin: -4px 0 8px -6px;
+}
+
+/* Scrolling inside a sheet or a photo strip stops at its end instead of moving the page behind. */
+.sheet-body,
+.lightbox-track,
+.my-photos {
+  overscroll-behavior: contain;
 }
 
