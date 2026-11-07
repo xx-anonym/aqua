@@ -2347,6 +2347,9 @@ button.list-item:active {
   font-size: 0.85rem;
   font-weight: 650;
   line-height: 1.2;
+  /* Long compound names ("Schwarzflecken-Kugelfisch") break at syllables instead of being cut. */
+  hyphens: auto;
+  overflow-wrap: break-word;
   overflow: hidden;
   display: -webkit-box;
   -webkit-line-clamp: 2;

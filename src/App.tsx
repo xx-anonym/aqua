@@ -29,20 +29,25 @@ function useApplySettings() {
 }
 
 /**
- * Diagnosis for the iPhone app starting with a too short view (index.html, --launch-gap): reports
- * the largest gap measured once per app version, so the error log shows whether and how much.
+ * Diagnosis for the installed iPhone app (index.html, --launch-gap): the screen height, where the
+ * fixed layer ends, the window's own heights and the largest correction – once per app version,
+ * so the error log shows whether the measurement matches the device.
  */
-function reportLaunchGap() {
-  const gap = (window as { __aquaLaunchGap?: number }).__aquaLaunchGap ?? 0;
-  if (!gap) return;
-  const key = 'aqua-launch-gap-reported';
+function reportViewport() {
+  const v = (window as { __aquaViewport?: { screen: number; fixedBottom: number; inner: number; client: number; gap: number; maxGap: number } })
+    .__aquaViewport;
+  if (!v) return;
+  const key = 'aqua-viewport-reported';
   try {
     if (localStorage.getItem(key) === __APP_VERSION__) return;
     localStorage.setItem(key, __APP_VERSION__);
   } catch {
     return;
   }
-  reportError('error', `Diagnose: Ansicht beim Start ${gap}px kürzer als der Bildschirm (ausgeglichen)`);
+  reportError(
+    'error',
+    `Diagnose: Bildschirm ${v.screen}, fester Rand ${v.fixedBottom}, innerHeight ${v.inner}, clientHeight ${v.client}, Ausgleich ${v.gap} (beim Start max. ${v.maxGap})`,
+  );
 }
 
 export function App() {
@@ -63,7 +68,7 @@ export function App() {
             .all<{ a: string }>('SELECT thumb AS a FROM cat.species WHERE thumb IS NOT NULL UNION ALL SELECT file FROM cat.species_photo')
             .map((r) => r.a);
           void tidyImageCaches(addresses, version).catch(() => undefined);
-          reportLaunchGap();
+          reportViewport();
         }, 4000);
       })
       .catch((e: unknown) => {

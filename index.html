@@ -174,21 +174,50 @@
       if (navigator.standalone) document.documentElement.style.setProperty('--sp-h', screen.height + 'px');
       // The same short start view also lifted everything fixed to the bottom edge (tab bar, sheets)
       // until iOS grew the view – sometimes seconds later, e.g. while the Dynamic Island showed a
-      // status. --launch-gap is how much shorter the view is than the screen; those elements move
-      // down by it. Only on the iPhone: on an iPad a shorter window is real (Slide Over).
+      // status. --launch-gap is how far the bottom of the fixed layer (measured with an invisible
+      // element fixed to it) lies above the bottom of the screen; those elements move down by it.
+      // Not window.innerHeight: on the iPhone it stays 59 px short (the status bar) even when the
+      // fixed layer reaches the screen bottom – taking it pushed the tab bar off the screen.
+      // Only on the iPhone: on an iPad a shorter window is real (Slide Over).
       if (navigator.standalone && /iPhone/.test(navigator.userAgent)) {
+        var probe = document.createElement('div');
+        probe.setAttribute('aria-hidden', 'true');
+        probe.style.cssText = 'position:fixed;left:0;bottom:0;width:0;height:0;visibility:hidden;pointer-events:none';
+        document.documentElement.appendChild(probe);
         var fitGap = function () {
-          var portrait = innerHeight >= innerWidth;
+          var portrait = matchMedia('(orientation: portrait)').matches;
           var full = portrait ? Math.max(screen.width, screen.height) : Math.min(screen.width, screen.height);
-          var gap = full - innerHeight;
+          var bottom = probe.getBoundingClientRect().bottom;
+          var gap = Math.round(full - bottom);
           gap = gap > 0 && gap <= 120 ? gap : 0;
-          window.__aquaLaunchGap = Math.max(window.__aquaLaunchGap || 0, gap);
+          var last = window.__aquaViewport || { maxGap: 0 };
+          window.__aquaViewport = {
+            screen: full,
+            fixedBottom: Math.round(bottom),
+            inner: innerHeight,
+            client: document.documentElement.clientHeight,
+            gap: gap,
+            maxGap: Math.max(last.maxGap, gap),
+          };
           document.documentElement.style.setProperty('--launch-gap', gap + 'px');
         };
         fitGap();
         addEventListener('resize', fitGap);
         addEventListener('orientationchange', fitGap);
         addEventListener('pageshow', fitGap);
+        // iOS does not always announce growing the view: look again for a while after start and
+        // after coming back to the app.
+        var watch = function () {
+          var n = 0;
+          var timer = setInterval(function () {
+            fitGap();
+            if (++n >= 40) clearInterval(timer);
+          }, 250);
+        };
+        watch();
+        document.addEventListener('visibilitychange', function () {
+          if (document.visibilityState === 'visible') watch();
+        });
       }
     </script>
   </head>
