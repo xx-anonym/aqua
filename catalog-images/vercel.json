@@ -1,0 +1,13 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "ignoreCommand": "git diff --quiet ${VERCEL_GIT_PREVIOUS_SHA:-HEAD^} HEAD -- .",
+  "headers": [
+    {
+      "source": "/(img|thumb)/(.*)",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=2592000" },
+        { "key": "Access-Control-Allow-Origin", "value": "*" }
+      ]
+    }
+  ]
+}
