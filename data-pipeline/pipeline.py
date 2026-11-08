@@ -8,7 +8,7 @@ Builds the species catalog (catalog.sqlite + WebP photos) for the Aqua app from 
   python data-pipeline/pipeline.py photos      # CC0 / CC BY photos -> WebP (640 px) + thumbnails
   python data-pipeline/pipeline.py destinations # GBIF: which species were seen off which country, per region
   python data-pipeline/pipeline.py names       # German names from Wikidata / WoRMS where the sources had none
-  python data-pipeline/pipeline.py build       # public/catalog/catalog.sqlite + catalog-manifest.json
+  python data-pipeline/pipeline.py build       # public/catalog/catalog.sqlite + catalog-manifest.json, photos in catalog-images/
   python data-pipeline/pipeline.py all
   python data-pipeline/pipeline.py seed        # small dev catalog from src/test/fixtures (no network)
 
@@ -36,6 +36,8 @@ REPO = ROOT.parent
 INPUT = ROOT / "input"
 CACHE = ROOT / "cache"
 PUBLIC = REPO / "public" / "catalog"
+# Photos and thumbnails: their own Vercel project (catalog-images/README.md), not part of the app.
+IMAGES = REPO / "catalog-images"
 SCHEMA = (ROOT / "schema" / "catalog.sql").read_text()
 
 PHOTO_EDGE = 640
@@ -848,7 +850,7 @@ def write_manifest(db_path: Path, species: list[dict], version: str) -> None:
         "photos": [{"file": p["file"], "bytes": p.get("bytes", 0)} for p in photos],
         "photo_bytes": sum(p.get("bytes", 0) for p in photos),
         # Grid thumbnails: loaded when viewed, or ahead of a trip from the profile.
-        "thumb_bytes": sum((PUBLIC / file_of(s["thumb"])).stat().st_size for s in species if s.get("thumb") and (PUBLIC / file_of(s["thumb"])).exists()),
+        "thumb_bytes": sum((IMAGES / file_of(s["thumb"])).stat().st_size for s in species if s.get("thumb") and (IMAGES / file_of(s["thumb"])).exists()),
     }
     save_json(PUBLIC / "catalog-manifest.json", manifest)
 
@@ -927,11 +929,14 @@ def step_build() -> None:
     if PUBLIC.exists():
         shutil.rmtree(PUBLIC)
     PUBLIC.mkdir(parents=True)
-    shutil.copytree(CACHE / "photos" / "img", PUBLIC / "img")
-    shutil.copytree(CACHE / "photos" / "thumb", PUBLIC / "thumb")
+    # Only the image folders are replaced; vercel.json and README of the photo project stay.
+    for sub in ("img", "thumb"):
+        if (IMAGES / sub).exists():
+            shutil.rmtree(IMAGES / sub)
+        shutil.copytree(CACHE / "photos" / sub, IMAGES / sub)
     # Drop images of species that did not make it into the catalog
     keep = {s["id"] for s in out}
-    for f in list((PUBLIC / "img").iterdir()) + list((PUBLIC / "thumb").iterdir()):
+    for f in list((IMAGES / "img").iterdir()) + list((IMAGES / "thumb").iterdir()):
         sid = re.sub(r"-\d+$", "", f.stem) if f.parent.name == "img" else f.stem
         if sid not in keep:
             f.unlink()
@@ -939,7 +944,7 @@ def step_build() -> None:
     # address, so no cache – the app's service worker, the browser, the CDN – keeps showing the
     # old one under the unchanged name. Unchanged files keep their address and stay cached.
     def versioned(rel: str) -> str | None:
-        f = PUBLIC / rel
+        f = IMAGES / rel
         return f"{rel}?v={hashlib.sha1(f.read_bytes()).hexdigest()[:10]}" if f.exists() else None
 
     for s in out:

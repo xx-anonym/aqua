@@ -75,7 +75,8 @@ Anon-Key – geschützt wird über Row Level Security). Ohne diese Werte läuft 
 
 ## Datenpipeline (`data-pipeline/`)
 
-Erzeugt `public/catalog/catalog.sqlite`, `catalog-manifest.json` und die Fotos aus offenen Quellen.
+Erzeugt `public/catalog/catalog.sqlite`, `catalog-manifest.json` und die Fotos aus offenen Quellen
+(in `catalog-images/`, siehe Deployment).
 Benötigt Python 3.11+ mit `pyarrow`, `Pillow` und `babel` (`pip install -r data-pipeline/requirements.txt`).
 
 ```bash
@@ -150,6 +151,20 @@ Seabook oder anderen kommerziellen Apps verwendet.
 ## Deployment
 
 Vercel baut aus diesem Repository (`vercel.json`: Vite-Build, SPA-Rewrites, Cache-Header).
+
+Zwei Vercel-Projekte aus demselben Branch:
+
+- **aqua-tauchlog** – die App (Wurzelverzeichnis). Veröffentlicht nur, wenn sich an der App etwas
+  geändert hat: `ignoreCommand` in `vercel.json` überspringt Commits, die nur `catalog-images/`,
+  `data-pipeline/` oder Markdown-Dateien betreffen.
+- **aqua-katalog** – die Katalogfotos (Root Directory `catalog-images/`, über 90 MB). Veröffentlicht
+  nur, wenn sich dort etwas ändert. Die App leitet `/catalog/img/…` und `/catalog/thumb/…` per
+  Rewrite dorthin weiter; für Nutzer, Service Worker und Offline-Paket bleiben die Adressen gleich.
+
+Warum getrennt: Vercel speichert jede Veröffentlichung vollständig. Mit den Fotos waren es 99 MB je
+Veröffentlichung, und der Speicher des kostenlosen Plans (10 GB) war nach gut 60 Veröffentlichungen
+zu drei Vierteln voll. Ohne Fotos sind es rund 7 MB. Lokal liefern `npm run dev` und `npm run preview`
+die Fotos aus `catalog-images/` unter denselben Adressen aus (`vite.config.ts`).
 
 Serverless-Funktionen in `api/`:
 

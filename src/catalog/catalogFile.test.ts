@@ -9,6 +9,8 @@ import { searchSpecies } from './search';
 import { parseIndex, regionCandidates } from '../../supabase/functions/identify/logic';
 
 const DIR = join(__dirname, '../../public/catalog');
+// The photos are their own Vercel project (catalog-images/README.md).
+const IMAGES = join(__dirname, '../../catalog-images');
 
 /** Invariants of the shipped catalog.sqlite produced by data-pipeline. */
 describe('shipped catalog', async () => {
@@ -48,8 +50,8 @@ describe('shipped catalog', async () => {
   // never comes out of a cache under its old address.
   const expectFingerprinted = (address: string) => {
     const [file, v] = address.split('?v=');
-    expect(existsSync(join(DIR, file)), file).toBe(true);
-    expect(v, address).toBe(createHash('sha1').update(readFileSync(join(DIR, file))).digest('hex').slice(0, 10));
+    expect(existsSync(join(IMAGES, file)), file).toBe(true);
+    expect(v, address).toBe(createHash('sha1').update(readFileSync(join(IMAGES, file))).digest('hex').slice(0, 10));
   };
 
   it.skipIf(isSeed)('has an openly licensed photo with credit and a thumbnail for every species', () => {

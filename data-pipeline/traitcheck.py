@@ -40,6 +40,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 PIPE = ROOT / "data-pipeline"
 CATALOG = ROOT / "public" / "catalog"
+IMAGES = ROOT / "catalog-images"  # the catalog photos (their own Vercel project)
 DB = CATALOG / "catalog.sqlite"
 MANIFEST = CATALOG / "catalog-manifest.json"
 TRAITS_CSV = PIPE / "input" / "traits.csv"
@@ -168,7 +169,7 @@ def species_prompt(s: dict, vocab: list[dict]) -> str:
 
 
 def image_part(file: str, detail: str) -> dict:
-    path = CATALOG / file
+    path = IMAGES / file
     mime = "image/webp" if path.suffix == ".webp" else "image/jpeg"
     data = base64.b64encode(path.read_bytes()).decode()
     return {"type": "image_url", "image_url": {"url": f"data:{mime};base64,{data}", "detail": detail}}

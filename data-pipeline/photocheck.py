@@ -41,6 +41,7 @@ from traitcheck import auth_headers, call_openai  # noqa: E402
 ROOT = Path(__file__).resolve().parent.parent
 PIPE = ROOT / "data-pipeline"
 CATALOG = ROOT / "public" / "catalog"
+IMAGES = ROOT / "catalog-images"  # the catalog photos (their own Vercel project)
 DB = CATALOG / "catalog.sqlite"
 REVIEW = PIPE / "review"
 CHECK = REVIEW / "photocheck.jsonl"
@@ -196,7 +197,7 @@ def cmd_check(args) -> None:
     key = openai_key()
     REVIEW.mkdir(exist_ok=True)
     done = read_jsonl(CHECK)
-    jobs = [(sid, name, [CATALOG / f for f in files], {"files": files})
+    jobs = [(sid, name, [IMAGES / f for f in files], {"files": files})
             for sid, name, files in catalog_photos() if files and sid not in done]
     if args.limit:
         jobs = jobs[: args.limit]

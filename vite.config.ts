@@ -3,6 +3,9 @@ import react from '@vitejs/plugin-react';
 import { VitePWA } from 'vite-plugin-pwa';
 
 import { execSync } from 'node:child_process';
+import { createReadStream, existsSync, statSync } from 'node:fs';
+import { join, normalize } from 'node:path';
+import type { Connect } from 'vite';
 import pkg from './package.json' with { type: 'json' };
 
 /** Short commit id of this build (Vercel provides it; locally read from git). */
@@ -18,6 +21,21 @@ function buildId(): string {
 
 const BUILD = { version: pkg.version, build: buildId(), built_at: new Date().toISOString() };
 
+/**
+ * The catalog photos live in catalog-images/ (their own Vercel project, see its README); in the
+ * deployed app vercel.json rewrites /catalog/img/… and /catalog/thumb/… there. Locally the dev and
+ * preview servers serve them under the same addresses.
+ */
+const IMAGES = join(__dirname, 'catalog-images');
+const catalogImages: Connect.NextHandleFunction = (req, res, next) => {
+  const path = (req.url ?? '').split('?')[0];
+  if (!/^\/catalog\/(img|thumb)\//.test(path)) return next();
+  const file = normalize(join(IMAGES, path.slice('/catalog/'.length)));
+  if (!file.startsWith(IMAGES) || !existsSync(file) || !statSync(file).isFile()) return next();
+  res.setHeader('Content-Type', 'image/webp');
+  createReadStream(file).pipe(res);
+};
+
 export default defineConfig({
   define: {
     __APP_VERSION__: JSON.stringify(BUILD.version),
@@ -26,6 +44,11 @@ export default defineConfig({
   },
   plugins: [
     react(),
+    {
+      name: 'aqua-catalog-images',
+      configureServer: (server) => void server.middlewares.use(catalogImages),
+      configurePreviewServer: (server) => void server.middlewares.use(catalogImages),
+    },
     // /version.json names the deployed build, so "Nach Updates suchen" can ask the server directly
     // instead of relying only on the service worker (Safari reports a new worker late).
     {
