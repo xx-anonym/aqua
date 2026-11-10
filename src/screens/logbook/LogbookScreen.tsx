@@ -191,10 +191,14 @@ export default function LogbookScreen() {
       {dives.length === 0 ? (
         <EmptyState icon="logbook" title={t('logbook.empty')}>
           {t('logbook.emptyHint')}
-          <div style={{ marginTop: 14 }}>
+          <div className="stack" style={{ alignItems: 'center', marginTop: 14 }}>
             <Link className="btn primary" to="/logbook/new" data-haptic>
               <Icon name="plus" />
               {t('logbook.newDive')}
+            </Link>
+            <Link className="btn outline" to="/logbook/import">
+              <Icon name="upload" />
+              {t('logbook.import')}
             </Link>
           </div>
         </EmptyState>

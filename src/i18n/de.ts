@@ -66,6 +66,12 @@ const de = {
     error: 'Die App konnte nicht starten.',
     retry: 'Erneut versuchen',
   },
+  leaveGuard: {
+    title: 'Änderungen verwerfen?',
+    text: 'Deine Änderungen an diesem Tauchgang wurden noch nicht gespeichert.',
+    stay: 'Weiter bearbeiten',
+    discard: 'Verwerfen',
+  },
   start: {
     title: 'Start',
     welcome: 'Willkommen bei Aqua',

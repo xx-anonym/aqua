@@ -11,11 +11,14 @@ import { useBackToClose } from './backToClose';
 export function PageHeader({
   title,
   back,
+  onBack,
   actions,
   titleHidden,
 }: {
   title: string;
   back?: boolean | string;
+  /** Lets editing screens protect unsaved work before using the usual back navigation. */
+  onBack?: () => void;
   actions?: ReactNode;
   /** Fades the title out while the page shows the same title large below (it stays for screen readers). */
   titleHidden?: boolean;
@@ -24,6 +27,7 @@ export function PageHeader({
   const { pathname } = useLocation();
   const { t } = useTranslation();
   const goBack = () => {
+    if (onBack) return onBack();
     if (typeof back === 'string') return navigate(back);
     // Pages opened directly (e.g. after the sign-in redirect) have no in-app history to go back to.
     const idx = (window.history.state as { idx?: number } | null)?.idx ?? 0;

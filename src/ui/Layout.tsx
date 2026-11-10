@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { NavLink, Outlet, ScrollRestoration, useNavigate } from 'react-router-dom';
+import { NavLink, Outlet, ScrollRestoration, useLocation, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { Sheet } from './components';
 import { Icon } from './icons/Icon';
@@ -15,8 +15,12 @@ const TABS = [
 
 export function Layout() {
   const { t } = useTranslation();
+  const { pathname } = useLocation();
   const navigate = useNavigate();
   const [plusOpen, setPlusOpen] = useState(false);
+  // A form may take several minutes to fill in. Its own back button gives the user a chance to
+  // keep their draft, so the global navigation is deliberately out of reach while editing it.
+  const editingDive = /^\/logbook\/(?:new|[^/]+\/edit)$/.test(pathname);
 
   const go = (to: string) => {
     setPlusOpen(false);
@@ -29,26 +33,28 @@ export function Layout() {
         <Outlet />
       </main>
       <ScrollRestoration />
-      <nav className="tabbar" aria-label={t('tabs.label')}>
-        <div className="tabbar-inner">
-          {TABS.map((tab) =>
-            tab ? (
-              <NavLink key={tab.key} to={tab.to} className={({ isActive }) => `tab${isActive ? ' active' : ''}`}>
-                <span className="tab-icon">
-                  <Icon name={tab.icon} />
-                </span>
-                <span>{t(`tabs.${tab.key}`)}</span>
-              </NavLink>
-            ) : (
-              <div key="plus" className="tab-plus">
-                <button onClick={() => setPlusOpen(true)} aria-label={t('plus.label')} aria-haspopup="dialog">
-                  <Icon name="plus" />
-                </button>
-              </div>
-            ),
-          )}
-        </div>
-      </nav>
+      {!editingDive && (
+        <nav className="tabbar" aria-label={t('tabs.label')}>
+          <div className="tabbar-inner">
+            {TABS.map((tab) =>
+              tab ? (
+                <NavLink key={tab.key} to={tab.to} className={({ isActive }) => `tab${isActive ? ' active' : ''}`}>
+                  <span className="tab-icon">
+                    <Icon name={tab.icon} />
+                  </span>
+                  <span>{t(`tabs.${tab.key}`)}</span>
+                </NavLink>
+              ) : (
+                <div key="plus" className="tab-plus">
+                  <button onClick={() => setPlusOpen(true)} aria-label={t('plus.label')} aria-haspopup="dialog">
+                    <Icon name="plus" />
+                  </button>
+                </div>
+              ),
+            )}
+          </div>
+        </nav>
+      )}
       {plusOpen && (
         <Sheet title={t('plus.label')} onClose={() => setPlusOpen(false)}>
           <div className="list">
