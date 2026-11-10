@@ -72,7 +72,8 @@ describe('shipped catalog', async () => {
       expect(s.traits.length, s.id).toBeGreaterThan(3);
       expect(s.descriptionDe, s.id).toBeTruthy();
     }
-  });
+    // Hashes some 3500 image files: needs more than the default 5 s on a busy machine.
+  }, 30_000);
 
   it.skipIf(isSeed)('finds well-known species by German name', () => {
     expect(searchSpecies(catalog.search, 'Rotfeuerfisch')[0]?.scientificName).toMatch(/^Pterois/);

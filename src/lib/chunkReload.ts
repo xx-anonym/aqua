@@ -18,12 +18,55 @@ export function isChunkLoadError(error: unknown): boolean {
   );
 }
 
-/** Reloads the page unless that was just tried; true when it reloads. */
+const DEEP_KEY = 'aqua-chunk-deep-reload';
+
+/**
+ * Second step, when a plain reload did not help (seen in Safari on a Mac, with every file fine on
+ * the server): the browser's own copies are the suspect. Takes the service worker and its code
+ * cache away and reloads – the app then comes fresh from the network. Once per tab.
+ */
+async function reloadWithoutCaches(): Promise<void> {
+  try {
+    const regs = (await navigator.serviceWorker?.getRegistrations().catch(() => [])) ?? [];
+    await Promise.all(regs.map((r) => r.unregister()));
+    if ('caches' in window) {
+      const names = await caches.keys();
+      await Promise.all(names.filter((n) => n.startsWith('workbox-precache')).map((n) => caches.delete(n)));
+    }
+  } finally {
+    location.reload();
+  }
+}
+
+/** What the browser knows about the code files it loaded – for the report when all recovery failed. */
+export function chunkDiagnosis(): string {
+  try {
+    const sw = navigator.serviceWorker?.controller ? 'SW aktiv' : 'kein SW';
+    const files = (performance.getEntriesByType('resource') as PerformanceResourceTiming[])
+      .filter((e) => /\/assets\/.*\.js/.test(e.name))
+      .slice(-8)
+      .map((e) => `${e.name.split('/').pop()}:${(e as { responseStatus?: number }).responseStatus ?? '?'}/${e.transferSize}`);
+    return `${sw}; online ${navigator.onLine}; ${files.join(', ')}`;
+  } catch {
+    return 'keine Diagnose';
+  }
+}
+
+/**
+ * Reloads the page unless that was just tried; true when it reloads. The first time a plain
+ * reload, the second time (within the same tab) without service worker and code cache.
+ */
 export function reloadForNewVersion(now = Date.now()): boolean {
   if (reloading) return true;
   try {
     const last = Number(sessionStorage.getItem(KEY)) || 0;
-    if (now - last < 20_000) return false;
+    if (now - last < 20_000) {
+      if (sessionStorage.getItem(DEEP_KEY)) return false;
+      sessionStorage.setItem(DEEP_KEY, '1');
+      reloading = true;
+      void reloadWithoutCaches();
+      return true;
+    }
     sessionStorage.setItem(KEY, String(now));
   } catch {
     return false; // without storage there is no loop guard: show the error page instead

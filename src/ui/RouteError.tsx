@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Link, useRouteError } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { isChunkLoadError, reloadForNewVersion } from '../lib/chunkReload';
+import { chunkDiagnosis, isChunkLoadError, reloadForNewVersion } from '../lib/chunkReload';
 import { reportError } from '../lib/errorLog';
 import { Icon } from './icons/Icon';
 
@@ -15,7 +15,10 @@ export function RouteError() {
   // After an update the page's code may be gone from the server: reload once instead.
   const [reloading] = useState(() => isChunkLoadError(error) && reloadForNewVersion());
   useEffect(() => {
-    if (!reloading) reportError('render', error);
+    if (reloading) return;
+    reportError('render', error);
+    // Recovery did not help: add what the browser knows about the code files.
+    if (isChunkLoadError(error)) reportError('error', `Diagnose Seitencode: ${chunkDiagnosis()}`);
   }, [error, reloading]);
   if (reloading) {
     return (
