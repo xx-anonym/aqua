@@ -2,7 +2,6 @@ import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { PageHeader } from '../../ui/components';
 import { Icon } from '../../ui/icons/Icon';
-import { DeviceNotice } from '../../ui/DeviceNotice';
 import { SpeciesBrowser } from './SpeciesBrowser';
 
 export default function DiscoverScreen() {
@@ -19,7 +18,6 @@ export default function DiscoverScreen() {
           </Link>
         }
       />
-      <DeviceNotice />
       <SpeciesBrowser
         stateKey="discover"
         linkTo={(s) => `/species/${s.id}`}

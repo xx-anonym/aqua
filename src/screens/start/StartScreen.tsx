@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { regionName, speciesName, useCatalog, useLang } from '../../catalog/useCatalog';
 import { useDbQuery } from '../../db/react';
-import { formatDate, relativeDay } from '../../lib/format';
+import { relativeDay, shortDate } from '../../lib/format';
 import { todayLocal } from '../../lib/ids';
 import { formatDepth, formatDuration } from '../../lib/units';
 import { useSettings } from '../../settings/settings';
@@ -40,7 +40,7 @@ export default function StartScreen() {
   const newThisYear = useMemo(() => firstSightingsSince(seen, `${year}-01-01`), [seen, year]);
   const progress = useMemo(() => progressOf(catalog.speciesInRegion(regionId), seen), [catalog, regionId, seen]);
   const region = regionId ? catalog.regionsById.get(regionId) : undefined;
-  const newest = useMemo(() => firstSightingsSince(seen, '0000-01-01').slice(0, 4), [seen]);
+  const newest = useMemo(() => firstSightingsSince(seen, '0000-01-01').slice(0, 8), [seen]);
 
   const identifyCard = (
     <Link className="card start-identify" to="/identify" data-haptic>
@@ -184,7 +184,7 @@ export default function StartScreen() {
                         <SpeciesThumb species={sp} />
                       </span>
                       <span className="name">{speciesName(sp, lang)}</span>
-                      <span className="small muted">{formatDate(e.firstSeen, lang)}</span>
+                      <span className="small muted">{shortDate(e.firstSeen, lang, year)}</span>
                     </Link>
                   ) : null;
                 })}

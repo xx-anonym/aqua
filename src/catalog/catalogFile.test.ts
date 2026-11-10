@@ -22,9 +22,13 @@ describe('shipped catalog', async () => {
   it('ships the photo-ID candidate index of this catalog (scripts/photo-id-index.mjs, run before every build)', () => {
     const index = parseIndex(JSON.parse(readFileSync(join(DIR, 'photo-id.json'), 'utf8')))!;
     expect(index.version).toBe(catalog.meta.version);
-    expect(regionCandidates(index, null)!.map((c) => c.id)).toEqual(catalog.species.map((s) => s.id));
+    // The index lists the most observed first. The app's own order differs only in showing species
+    // without a photo of a living animal last – for the photo ID they count like any other.
+    const byPopularity = (list: typeof catalog.species) =>
+      [...list].sort((a, b) => b.popularity - a.popularity || (a.scientificName < b.scientificName ? -1 : 1)).map((s) => s.id);
+    expect(regionCandidates(index, null)!.map((c) => c.id)).toEqual(byPopularity(catalog.species));
     for (const r of catalog.regions) {
-      expect(regionCandidates(index, r.id)!.map((c) => c.id), r.id).toEqual(catalog.speciesInRegion(r.id).map((s) => s.id));
+      expect(regionCandidates(index, r.id)!.map((c) => c.id), r.id).toEqual(byPopularity(catalog.speciesInRegion(r.id)));
     }
   });
 

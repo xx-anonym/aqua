@@ -27,6 +27,7 @@ CREATE TABLE species (
   popularity       INTEGER NOT NULL DEFAULT 0,  -- observation count, used for default sorting
   worms_aphia_id   INTEGER,
   inat_taxon_id    INTEGER,
+  photo_poor       INTEGER NOT NULL DEFAULT 0,  -- 1: no photo of a living animal (input/poor_photos.txt)
   thumb            TEXT               -- path of the grid thumbnail relative to /catalog/
 );
 

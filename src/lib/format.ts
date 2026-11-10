@@ -46,3 +46,10 @@ export function relativeDay(value: string, lang: Lang, today: string): string {
   return formatDate(value, lang);
 }
 
+/** "6. Nov." in the current year, "28. Dez. 2025" otherwise – for narrow tiles. */
+export function shortDate(value: string, lang: Lang, currentYear: string): string {
+  if (value.slice(0, 4) !== currentYear) return formatDate(value, lang);
+  const d = value.length === 10 ? new Date(`${value}T12:00:00`) : new Date(value);
+  return Number.isNaN(d.getTime()) ? value : d.toLocaleDateString(locale(lang), { day: 'numeric', month: 'short' });
+}
+

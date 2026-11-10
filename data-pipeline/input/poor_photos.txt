@@ -1,0 +1,18 @@
+# Species whose catalog photos all show dead, stranded, caught or preserved animals and for which
+# the photo check (review/photocheck.md) found no better openly licensed one. The catalog marks
+# them (species.photo_poor), and the app lists them after the others. Remove a name once it has a
+# good photo (input/photo_overrides.json).
+Argonauta argo
+Callyspongia (Cavochalina) bilamellata
+Hexanchus griseus
+Mauritia histrio
+Naria nebrites
+Naria spurca
+Nautilus pompilius
+Ovalipes australiensis
+Purpuradusta gracilis
+Raja clavata
+Rhombosepion orbignyanum
+Sepia gibba
+Thamnaconus degeni
+Velella velella

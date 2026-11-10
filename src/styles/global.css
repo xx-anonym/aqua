@@ -156,7 +156,12 @@ img {
   padding-left: 4px;
 }
 
+.header h1.faded {
+  opacity: 0;
+}
+
 .header h1 {
+  transition: opacity 0.18s ease;
   flex: 1;
   margin: 0;
   font-size: 1.25rem;
@@ -2325,10 +2330,26 @@ button.list-item:active {
   font-weight: 700;
 }
 
+/* A strip to swipe through: tiles wide enough for names like "Indischer Rotfeuerfisch". */
 .start-newest {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  display: flex;
   gap: 10px;
+  overflow-x: auto;
+  margin: 0 -16px;
+  padding: 0 16px 4px;
+  scrollbar-width: none;
+  scroll-snap-type: x proximity;
+  scroll-padding: 0 16px;
+  overscroll-behavior-x: contain;
+}
+
+.start-newest::-webkit-scrollbar {
+  display: none;
+}
+
+.start-newest .start-species {
+  flex: 0 0 132px;
+  scroll-snap-align: start;
 }
 
 .start-species {
@@ -2403,5 +2424,21 @@ button.list-item:active {
 .lightbox-track,
 .my-photos {
   overscroll-behavior: contain;
+}
+
+/* Species page: the generated text folded to three lines until "Mehr lesen". */
+.description p {
+  margin: 14px 0 0;
+}
+
+.description p.clamped {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.description .btn {
+  margin-left: -10px;
 }
 

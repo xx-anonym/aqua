@@ -799,12 +799,12 @@ def write_catalog(db_path: Path, species: list[dict], version: str) -> None:
         con.execute(
             """INSERT INTO species (id, scientific_name, common_name_de, common_name_en, category, group_key, family,
                  description_de, description_en, habitat, lifestyle, max_size_cm, depth_min_m, depth_max_m, iucn_status,
-                 is_premium, popularity, worms_aphia_id, inat_taxon_id, thumb)
-               VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 0, ?, ?, ?, ?)""",
+                 is_premium, popularity, worms_aphia_id, inat_taxon_id, thumb, photo_poor)
+               VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 0, ?, ?, ?, ?, ?)""",
             (s["id"], s["scientific_name"], s.get("common_name_de"), s.get("common_name_en"), s["category"], s.get("group_key"),
              s.get("family"), s.get("description_de"), s.get("description_en"), s.get("habitat"), s.get("lifestyle"),
              s.get("max_size_cm"), s.get("depth_min_m"), s.get("depth_max_m"), s.get("iucn"), s.get("popularity", 0),
-             s.get("aphia_id"), s.get("inat_id"), s.get("thumb")),
+             s.get("aphia_id"), s.get("inat_id"), s.get("thumb"), 1 if s.get("photo_poor") else 0),
         )
         for t in s.get("traits", []):
             if t in valid_traits:
@@ -869,6 +869,8 @@ def step_build() -> None:
     realm_cleanup(species)
     curated = read_traits_csv(INPUT / "traits.csv")
     skip = excluded()
+    poor_file = INPUT / "poor_photos.txt"
+    poor_photos = {l.strip() for l in poor_file.read_text(encoding="utf-8").splitlines() if l.strip() and not l.startswith("#")} if poor_file.exists() else set()
     applies = {t["id"]: t["applies_to"].split(",") for t in load_json(INPUT / "traits.json")}
     # German names: found by the "names" step, else translated from the English name (input/names_de.csv)
     auto_names = load_json(CACHE / "names_de.json") if (CACHE / "names_de.json").exists() else {}
@@ -910,6 +912,7 @@ def step_build() -> None:
         s["popularity"] = int(sum(s["region_counts"].values()))
         s["thumb"] = f"thumb/{s['id']}.webp"
         s["photo_rows"] = s["chosen_photos"]
+        s["photo_poor"] = s["scientific_name"] in poor_photos
         out.append(s)
     # A German name given to several species ("Nacktschnecke") is a group name: it stays with the
     # most observed species, the others get a specific name if one is known.

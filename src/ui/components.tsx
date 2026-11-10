@@ -8,7 +8,18 @@ import { COLOR_SWATCHES, Icon } from './icons/Icon';
 import { ProfileButton } from './ProfileButton';
 import { useBackToClose } from './backToClose';
 
-export function PageHeader({ title, back, actions }: { title: string; back?: boolean | string; actions?: ReactNode }) {
+export function PageHeader({
+  title,
+  back,
+  actions,
+  titleHidden,
+}: {
+  title: string;
+  back?: boolean | string;
+  actions?: ReactNode;
+  /** Fades the title out while the page shows the same title large below (it stays for screen readers). */
+  titleHidden?: boolean;
+}) {
   const navigate = useNavigate();
   const { pathname } = useLocation();
   const { t } = useTranslation();
@@ -27,7 +38,7 @@ export function PageHeader({ title, back, actions }: { title: string; back?: boo
           <Icon name="back" />
         </button>
       )}
-      <h1>{title}</h1>
+      <h1 className={titleHidden ? 'faded' : undefined}>{title}</h1>
       {(actions || showProfile) && (
         <div className="header-actions">
           {actions}

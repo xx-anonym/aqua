@@ -1,4 +1,4 @@
-import { useMemo, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { catalogAssetUrl, loadPhotos } from '../../catalog/catalog';
@@ -32,6 +32,18 @@ export default function SpeciesScreen() {
   const sightings = useDbQuery((d) => sightingsForSpecies(d, id), [id]);
   const removeSighting = useDeleteSighting();
   const [showAll, setShowAll] = useState(false);
+  const [moreText, setMoreText] = useState(false);
+  // The header repeats the name only once the large title has scrolled out of view.
+  const titleRef = useRef<HTMLHeadingElement>(null);
+  const [titleInView, setTitleInView] = useState(true);
+  useEffect(() => {
+    const el = titleRef.current;
+    if (!el || typeof IntersectionObserver === 'undefined') return setTitleInView(false);
+    const io = new IntersectionObserver(([e]) => setTitleInView(e.isIntersecting), { rootMargin: '-64px 0px 0px 0px' });
+    io.observe(el);
+    return () => io.disconnect();
+  }, [id]);
+  useEffect(() => setMoreText(false), [id]);
   const [editing, setEditing] = useState<Sighting | null>(null);
   const favorite = useDbQuery((d) => isFavorite(d, id), [id]);
   const seen = useDbQuery((d) => lifeList(d));
@@ -78,7 +90,7 @@ export default function SpeciesScreen() {
 
   return (
     <div className="page">
-      <PageHeader title={name} back />
+      <PageHeader title={name} back titleHidden={titleInView} />
       <div
         className="gallery"
         ref={galleryRef}
@@ -124,7 +136,7 @@ export default function SpeciesScreen() {
       )}
 
       <div className="title-block">
-        <h2>{name}</h2>
+        <h2 ref={titleRef}>{name}</h2>
         <div className="sci">{species.scientificName}</div>
         <div className="row" style={{ marginTop: 10 }}>
           <span className="tag">{t(`category.${species.category}`)}</span>
@@ -201,9 +213,8 @@ export default function SpeciesScreen() {
         </section>
       )}
 
-      {speciesDescription(species, lang) && <p style={{ marginTop: 18 }}>{speciesDescription(species, lang)}</p>}
-
-      <div className="facts" style={{ marginTop: 12 }}>
+      {/* The profile at a glance first; the generated text, which repeats much of it, folded. */}
+      <div className="facts" style={{ marginTop: 18 }}>
         {facts.map(([label, value]) => (
           <div className="fact" key={label}>
             <div className="label">{label}</div>
@@ -211,6 +222,17 @@ export default function SpeciesScreen() {
           </div>
         ))}
       </div>
+
+      {speciesDescription(species, lang) && (
+        <div className="description">
+          <p className={moreText ? undefined : 'clamped'}>{speciesDescription(species, lang)}</p>
+          {!moreText && (
+            <button type="button" className="btn small ghost" onClick={() => setMoreText(true)}>
+              {t('species.readMore')}
+            </button>
+          )}
+        </div>
+      )}
 
       {species.traits.length > 0 && (
         <>

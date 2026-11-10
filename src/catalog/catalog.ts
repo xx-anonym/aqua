@@ -67,6 +67,11 @@ export class Catalog {
   }
 }
 
+/** Older catalogs (kept in IndexedDB for offline use) may lack newer columns. */
+function hasColumn(db: AppDb, table: string, column: string): boolean {
+  return db.all<{ name: string }>(`SELECT name FROM cat.pragma_table_info('${table}')`).some((c) => c.name === column);
+}
+
 export function loadCatalog(db: AppDb): Catalog {
   const regions: Region[] = db
     .all<{ id: string; name_de: string; name_en: string; parent_id: string | null; geometry: string | null }>(
@@ -110,7 +115,11 @@ export function loadCatalog(db: AppDb): Catalog {
   }
 
   const species: Species[] = db
-    .all<SpeciesRow>('SELECT * FROM cat.species ORDER BY popularity DESC, scientific_name')
+    // Most observed first; species without a photo of a living animal (photo_poor, catalogs from
+    // 2026-11-10) come after the others, so a list never opens with a dead fish.
+    .all<SpeciesRow>(
+      `SELECT * FROM cat.species ORDER BY ${hasColumn(db, 'species', 'photo_poor') ? 'photo_poor, ' : ''}popularity DESC, scientific_name`,
+    )
     .map((r) => ({
       id: r.id,
       scientificName: r.scientific_name,
