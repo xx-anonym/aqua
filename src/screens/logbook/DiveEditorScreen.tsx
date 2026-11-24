@@ -1,5 +1,5 @@
-import { useMemo, useState, type FormEvent } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useCallback, useMemo, useRef, useState, type FormEvent } from 'react';
+import { useBeforeUnload, useBlocker, useNavigate, useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import type { Species } from '../../catalog/types';
 import { speciesName, useCatalog, useLang } from '../../catalog/useCatalog';
@@ -37,7 +37,7 @@ import {
 import { softDelete, upsertRow } from '../../user/repo';
 import { hasSighting, sightingsForDive } from '../../user/sightings';
 import { listSites } from '../../user/sites';
-import { Accordion, Chip, EmptyState, Field, PageHeader, SpeciesThumb, Stars } from '../../ui/components';
+import { Accordion, Chip, EmptyState, Field, PageHeader, Sheet, SpeciesThumb, Stars } from '../../ui/components';
 import { useFeedback } from '../../ui/feedback';
 import { Icon } from '../../ui/icons/Icon';
 import { SpeciesPickerSheet, type PickVia } from '../sighting/SpeciesPickerSheet';
@@ -153,8 +153,53 @@ export default function DiveEditorScreen() {
   );
   const [picking, setPicking] = useState(false);
   const [siteSheet, setSiteSheet] = useState(false);
+  const [leaveRequested, setLeaveRequested] = useState(false);
 
-  if (id && !existing) {
+  // Keep a local draft until the user explicitly saves. Leaving this screen through the back
+  // button or the persistent tab bar must not silently throw that draft away.
+  const initialDraft = useRef({ form: JSON.stringify(form), sightings: JSON.stringify(sightings) });
+  const allowLeave = useRef(false);
+  const missingDive = !!id && !existing;
+  const dirty = !missingDive && (initialDraft.current.form !== JSON.stringify(form) || initialDraft.current.sightings !== JSON.stringify(sightings));
+  const shouldBlock = useCallback(() => dirty && !allowLeave.current, [dirty]);
+  const blocker = useBlocker(shouldBlock);
+
+  useBeforeUnload(
+    useCallback(
+      (event) => {
+        if (!dirty) return;
+        event.preventDefault();
+        event.returnValue = '';
+      },
+      [dirty],
+    ),
+    { capture: true },
+  );
+
+  const leave = () => {
+    allowLeave.current = true;
+    const idx = (window.history.state as { idx?: number } | null)?.idx ?? 0;
+    if (idx > 0) navigate(-1);
+    else navigate('/start');
+  };
+  const requestBack = () => {
+    if (dirty) setLeaveRequested(true);
+    else leave();
+  };
+  const dismissLeaveGuard = () => {
+    setLeaveRequested(false);
+    if (blocker.state === 'blocked') blocker.reset();
+  };
+  const discardChanges = () => {
+    // The header back button opens this dialog before starting a navigation. A browser/history
+    // navigation, on the other hand, is already paused by the router and must be resumed.
+    if (leaveRequested) {
+      setLeaveRequested(false);
+      leave();
+    } else if (blocker.state === 'blocked') blocker.proceed();
+  };
+
+  if (missingDive) {
     return (
       <div className="page">
         <PageHeader title={t('dive.notFound')} back="/logbook" />
@@ -250,6 +295,8 @@ export default function DiveEditorScreen() {
     });
     if (firstSeen.length) celebrate(firstSeen[0]);
     else toast(t('dive.saved'));
+    // The successful save is the one intentional navigation that must pass the leave guard.
+    allowLeave.current = true;
     navigate(`/logbook/${diveId}`, { replace: true });
   };
 
@@ -272,6 +319,7 @@ export default function DiveEditorScreen() {
       <PageHeader
         title={existing ? t('dive.editTitle') : t('dive.newTitle')}
         back
+        onBack={requestBack}
         actions={
           <button className="btn small primary" type="submit" data-haptic>
             {t('common.save')}
@@ -439,6 +487,24 @@ export default function DiveEditorScreen() {
           onClose={() => setSiteSheet(false)}
           onSaved={(siteId) => set('site_id', siteId)}
         />
+      )}
+      {(leaveRequested || blocker.state === 'blocked') && (
+        <Sheet
+          title={t('leaveGuard.title')}
+          onClose={dismissLeaveGuard}
+          footer={
+            <>
+              <button type="button" className="btn" onClick={dismissLeaveGuard}>
+                {t('leaveGuard.stay')}
+              </button>
+              <button type="button" className="btn danger" onClick={discardChanges} data-haptic>
+                {t('leaveGuard.discard')}
+              </button>
+            </>
+          }
+        >
+          <p style={{ margin: 0 }}>{t('leaveGuard.text')}</p>
+        </Sheet>
       )}
     </form>
   );

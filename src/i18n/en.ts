@@ -66,6 +66,12 @@ const en = {
     error: 'The app could not start.',
     retry: 'Try again',
   },
+  leaveGuard: {
+    title: 'Discard changes?',
+    text: 'Your changes to this dive have not been saved yet.',
+    stay: 'Keep editing',
+    discard: 'Discard',
+  },
   start: {
     title: 'Start',
     welcome: 'Welcome to Aqua',
