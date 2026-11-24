@@ -689,12 +689,8 @@ textarea.input {
   gap: 12px;
 }
 
-/* Cards beyond the first rows are drawn only when they come near the screen; the size stands in
-   until then (and is remembered afterwards, "auto"). */
-.species-grid > :nth-child(n + 9) {
-  content-visibility: auto;
-  contain-intrinsic-size: auto 190px;
-}
+/* No content-visibility on the cards: coming back to the list (scroll position restored), Safari
+   showed the not yet drawn cards empty for a moment. The list shows 60 cards at a time anyway. */
 
 .species-card {
   display: flex;
