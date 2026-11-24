@@ -10,11 +10,11 @@ import { useBackToClose } from './backToClose';
  * The element marked data-autofocus gets the focus (the sheet itself, so no keyboard pops up);
  * the element focused before gets it back when the dialog goes away.
  */
-export function useModalDialog(onClose: () => void) {
+export function useModalDialog(onClose: () => void, historyEntry = true) {
   const ref = useRef<HTMLDialogElement>(null);
   const close = useRef(onClose);
   close.current = onClose;
-  useBackToClose(onClose);
+  useBackToClose(onClose, historyEntry);
   useLayoutEffect(() => {
     const dialog = ref.current;
     if (!dialog) return;

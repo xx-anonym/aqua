@@ -33,11 +33,15 @@ function skipLeftBehindEntries() {
   });
 }
 
-/** Closes the calling overlay on "back"; call once in the overlay component. */
-export function useBackToClose(onClose: () => void) {
+/**
+ * Closes the calling overlay on "back"; call once in the overlay component. With `enabled` false
+ * (fixed for the overlay's lifetime) it takes no history entry and "back" passes it by.
+ */
+export function useBackToClose(onClose: () => void, enabled = true) {
   const close = useRef(onClose);
   close.current = onClose;
   useEffect(() => {
+    if (!enabled) return;
     skipLeftBehindEntries();
     const depth = ++open;
     let pushed = false;
@@ -76,5 +80,6 @@ export function useBackToClose(onClose: () => void) {
       }, 0);
       release = { depth, timer: t };
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- fixed for the overlay's lifetime
   }, []);
 }

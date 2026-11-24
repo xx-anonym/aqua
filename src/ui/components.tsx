@@ -163,15 +163,18 @@ export function Sheet({
   onClose,
   children,
   footer,
+  historyEntry = true,
 }: {
   title: string;
   onClose: () => void;
   children: ReactNode;
   footer?: ReactNode;
+  /** false: "back" does not close this sheet (it takes no history entry). */
+  historyEntry?: boolean;
 }) {
   const { t } = useTranslation();
   const titleId = useId();
-  const ref = useModalDialog(onClose);
+  const ref = useModalDialog(onClose, historyEntry);
   return (
     // A click on the dimmed area (the dialog itself, around the sheet) closes it.
     <dialog

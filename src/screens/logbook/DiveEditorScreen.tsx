@@ -1,5 +1,5 @@
 import { useCallback, useMemo, useRef, useState, type FormEvent } from 'react';
-import { useBeforeUnload, useBlocker, useNavigate, useParams } from 'react-router-dom';
+import { useBeforeUnload, useBlocker, useNavigate, useParams, type BlockerFunction } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import type { Species } from '../../catalog/types';
 import { speciesName, useCatalog, useLang } from '../../catalog/useCatalog';
@@ -161,7 +161,13 @@ export default function DiveEditorScreen() {
   const allowLeave = useRef(false);
   const missingDive = !!id && !existing;
   const dirty = !missingDive && (initialDraft.current.form !== JSON.stringify(form) || initialDraft.current.sightings !== JSON.stringify(sightings));
-  const shouldBlock = useCallback(() => dirty && !allowLeave.current, [dirty]);
+  // Only a change of page counts: a window (species picker, site…) closing goes "back" to an entry
+  // with the same address (useBackToClose). Blocking that made the router reload the page.
+  const shouldBlock = useCallback<BlockerFunction>(
+    ({ currentLocation, nextLocation }) =>
+      dirty && !allowLeave.current && (currentLocation.pathname !== nextLocation.pathname || currentLocation.search !== nextLocation.search),
+    [dirty],
+  );
   const blocker = useBlocker(shouldBlock);
 
   useBeforeUnload(
@@ -490,6 +496,9 @@ export default function DiveEditorScreen() {
       )}
       {(leaveRequested || blocker.state === 'blocked') && (
         <Sheet
+          // No own history entry: while the router restores the address of a stopped "back", one
+          // pushed at the same moment would replace the editor's entry.
+          historyEntry={false}
           title={t('leaveGuard.title')}
           onClose={dismissLeaveGuard}
           footer={
