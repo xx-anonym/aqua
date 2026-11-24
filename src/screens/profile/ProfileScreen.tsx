@@ -16,6 +16,7 @@ import {
   storageEstimate,
   type CatalogManifest,
 } from '../../lib/offline';
+import { usePackJob } from '../../lib/offlinePack';
 import { useSettings, type Language, type Theme } from '../../settings/settings';
 import { fetchOAuthProviders, type OAuthProvider } from '../../sync/cloud';
 import { sendSignInEmail, signInWithProvider, signOut, syncNow, useSync, verifyCode } from '../../sync/syncManager';
@@ -231,6 +232,8 @@ function OfflineCard() {
   const [storage, setStorage] = useState<{ usage: number; quota: number } | null>(null);
   const abort = useRef<AbortController | null>(null);
   const thumbs = catalog.species.map((s) => s.thumb);
+  // The whole pack loading in the background (offer on the first start): its progress shows here.
+  const job = usePackJob();
   const thumbTotal = thumbs.filter(Boolean).length;
 
   const refresh = async (m = manifest) => {
@@ -264,6 +267,11 @@ function OfflineCard() {
     toast(failed ? `${t('profile.downloaded')} (${failed} ✕)` : t('profile.downloaded'));
   };
 
+  useEffect(() => {
+    if (!job.running && job.failed !== null) void refresh();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [job.running]);
+
   const total = manifest?.photos.length ?? 0;
   const complete = total > 0 && cached >= total;
   const thumbsComplete = thumbTotal > 0 && thumbsCached >= thumbTotal;
@@ -279,6 +287,14 @@ function OfflineCard() {
         {t('profile.offlineIntro')}
       </p>
       <div className="small">{t('profile.catalogVersion', { version: catalog.meta.version, count: catalog.species.length })}</div>
+      {job.running && (
+        <div className="stack" style={{ gap: 6 }}>
+          <div className="progress" role="progressbar" aria-label={t('offerPack.title')} aria-valuemin={0} aria-valuemax={job.total} aria-valuenow={job.done}>
+            <div style={{ width: `${(job.done / Math.max(1, job.total)) * 100}%` }} />
+          </div>
+          <div className="small muted">{t('offerPack.progress', { done: job.done, total: job.total })}</div>
+        </div>
+      )}
 
       <div className="stack" style={{ gap: 8 }}>
         <div>
@@ -293,7 +309,7 @@ function OfflineCard() {
         </div>
         {bar('thumbs')}
         {!thumbsComplete && (
-          <button className="btn outline" onClick={downloadThumbs} disabled={!!progress || !navigator.onLine} style={{ alignSelf: 'flex-start' }}>
+          <button className="btn outline" onClick={downloadThumbs} disabled={!!progress || job.running || !navigator.onLine} style={{ alignSelf: 'flex-start' }}>
             <Icon name="offline" />
             {progress?.kind === 'thumbs'
               ? t('profile.downloading', { done: progress.done, total: progress.total })
@@ -310,7 +326,7 @@ function OfflineCard() {
           </div>
           {bar('photos')}
           {!complete && (
-            <button className="btn primary" onClick={download} disabled={!!progress || !navigator.onLine} style={{ alignSelf: 'flex-start' }}>
+            <button className="btn primary" onClick={download} disabled={!!progress || job.running || !navigator.onLine} style={{ alignSelf: 'flex-start' }}>
               <Icon name="offline" />
               {progress?.kind === 'photos'
                 ? t('profile.downloading', { done: progress.done, total: progress.total })
@@ -322,7 +338,7 @@ function OfflineCard() {
         </div>
       )}
 
-      {(cached > 0 || thumbsCached > 0) && !progress && (
+      {(cached > 0 || thumbsCached > 0) && !progress && !job.running && (
         <button
           className="btn ghost"
           style={{ alignSelf: 'flex-start' }}

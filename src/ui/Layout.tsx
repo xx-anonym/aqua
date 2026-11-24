@@ -3,6 +3,8 @@ import { NavLink, Outlet, ScrollRestoration, useLocation, useNavigate } from 're
 import { useTranslation } from 'react-i18next';
 import { Sheet } from './components';
 import { Icon } from './icons/Icon';
+import { OfflineOffer } from './OfflineOffer';
+import { SMOOTH_TRANSITIONS } from '../lib/transitions';
 
 // Identifying (photo or traits) is not a tab: it is in the + menu and on the start page.
 const TABS = [
@@ -33,12 +35,13 @@ export function Layout() {
         <Outlet />
       </main>
       <ScrollRestoration />
+      <OfflineOffer />
       {!editingDive && (
         <nav className="tabbar" aria-label={t('tabs.label')}>
           <div className="tabbar-inner">
             {TABS.map((tab) =>
               tab ? (
-                <NavLink key={tab.key} to={tab.to} viewTransition className={({ isActive }) => `tab${isActive ? ' active' : ''}`}>
+                <NavLink key={tab.key} to={tab.to} viewTransition={SMOOTH_TRANSITIONS} className={({ isActive }) => `tab${isActive ? ' active' : ''}`}>
                   <span className="tab-icon">
                     <Icon name={tab.icon} />
                   </span>

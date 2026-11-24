@@ -7,6 +7,7 @@ import { speciesName, traitLabel, useLang } from '../catalog/useCatalog';
 import { COLOR_SWATCHES, Icon } from './icons/Icon';
 import { ProfileButton } from './ProfileButton';
 import { useModalDialog } from './dialog';
+import { SMOOTH_TRANSITIONS } from '../lib/transitions';
 
 export function PageHeader({
   title,
@@ -108,7 +109,7 @@ export function SpeciesCard({
   const cls = `species-card${dimUnseen && !seen ? ' unseen' : ''}`;
   if (to) {
     return (
-      <Link to={to} className={cls} viewTransition>
+      <Link to={to} className={cls} viewTransition={SMOOTH_TRANSITIONS}>
         {body}
       </Link>
     );
