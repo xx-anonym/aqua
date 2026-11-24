@@ -2,6 +2,7 @@ import { createContext, useCallback, useContext, useEffect, useMemo, useState, t
 import { useTranslation } from 'react-i18next';
 import { useCatalog, speciesName, useLang } from '../catalog/useCatalog';
 import { SpeciesThumb } from './components';
+import { MANUAL_POPOVER, showInTopLayer } from './dialog';
 
 export interface ToastAction {
   label: string;
@@ -37,7 +38,7 @@ export function FeedbackProvider({ children }: { children: ReactNode }) {
     <FeedbackContext.Provider value={value}>
       {children}
       {toastMsg && (
-        <div className="toast" role="status" aria-live="polite" key={toastMsg.key}>
+        <div className="toast" role="status" aria-live="polite" key={toastMsg.key} {...MANUAL_POPOVER} ref={showInTopLayer}>
           <span>{toastMsg.text}</span>
           {toastMsg.action && (
             <button
@@ -80,7 +81,15 @@ function Celebration({ speciesId, onDone }: { speciesId: string; onDone: () => v
 
   if (!species) return null;
   return (
-    <div className="celebrate" onClick={onDone} role="alertdialog" aria-live="assertive" aria-label={t('celebrate.title')}>
+    <div
+      className="celebrate"
+      onClick={onDone}
+      role="alertdialog"
+      aria-live="assertive"
+      aria-label={t('celebrate.title')}
+      {...MANUAL_POPOVER}
+      ref={showInTopLayer}
+    >
       {BUBBLES.map((b, i) => (
         <span
           key={i}

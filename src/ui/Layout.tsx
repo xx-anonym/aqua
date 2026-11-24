@@ -33,7 +33,7 @@ export function Layout() {
         <div className="tabbar-inner">
           {TABS.map((tab) =>
             tab ? (
-              <NavLink key={tab.key} to={tab.to} className={({ isActive }) => `tab${isActive ? ' active' : ''}`}>
+              <NavLink key={tab.key} to={tab.to} viewTransition className={({ isActive }) => `tab${isActive ? ' active' : ''}`}>
                 <span className="tab-icon">
                   <Icon name={tab.icon} />
                 </span>

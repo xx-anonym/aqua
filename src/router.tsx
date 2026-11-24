@@ -1,17 +1,45 @@
-import { lazy, Suspense, type ComponentType } from 'react';
+import { lazy, Suspense, useState, type ComponentType } from 'react';
 import { createBrowserRouter, Navigate } from 'react-router-dom';
 import { Layout } from './ui/Layout';
 import { RouteError } from './ui/RouteError';
 import DiscoverScreen from './screens/discover/DiscoverScreen';
 import StartScreen from './screens/start/StartScreen';
 
+const preloads: (() => Promise<unknown>)[] = [];
+
+/**
+ * A page whose code loads on first use. Once loaded – on the way there, or ahead by preloadPages –
+ * it draws at once without the loading step, so a page transition shows the page itself and not
+ * the spinner.
+ */
 function page(load: () => Promise<{ default: ComponentType }>) {
-  const Component = lazy(load);
-  return (
-    <Suspense fallback={<div className="loading"><div className="spinner" /></div>}>
-      <Component />
-    </Suspense>
-  );
+  let loaded: ComponentType | null = null;
+  const preload = () =>
+    load().then((m) => {
+      loaded = m.default;
+      return m;
+    });
+  preloads.push(() => preload().catch(() => undefined));
+  const Lazy = lazy(preload);
+  function Page() {
+    // Decided once per page visit, so the page is not drawn anew when its code arrives.
+    const [Ready] = useState(() => loaded);
+    if (Ready) return <Ready />;
+    return (
+      <Suspense fallback={<div className="loading"><div className="spinner" /></div>}>
+        <Lazy />
+      </Suspense>
+    );
+  }
+  return <Page />;
+}
+
+/** Loads the code of all pages in idle time (it is in the offline cache, so this costs no data). */
+export function preloadPages() {
+  const run = () => preloads.forEach((p) => void p());
+  // Safari has no requestIdleCallback.
+  if (typeof window.requestIdleCallback === 'function') window.requestIdleCallback(run, { timeout: 5000 });
+  else setTimeout(run, 2000);
 }
 
 export const routes = [

@@ -1,6 +1,7 @@
 import { useRegisterSW } from 'virtual:pwa-register/react';
 import { useTranslation } from 'react-i18next';
 import { Icon } from './icons/Icon';
+import { MANUAL_POPOVER, showInTopLayer } from './dialog';
 
 const CHECK_EVERY_MS = 30 * 60 * 1000;
 const MIN_GAP_MS = 60 * 1000;
@@ -126,7 +127,7 @@ export function UpdateBanner() {
   showBanner = setNeedRefresh;
   if (!needRefresh) return null;
   return (
-    <div className="update-banner" role="status" aria-live="polite">
+    <div className="update-banner" role="status" aria-live="polite" {...MANUAL_POPOVER} ref={showInTopLayer}>
       <span>{t('update.available')}</span>
       <button
         className="btn small primary"

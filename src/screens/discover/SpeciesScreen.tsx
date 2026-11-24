@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useParams, useViewTransitionState } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { catalogAssetUrl, loadPhotos } from '../../catalog/catalog';
 import { similarSpecies } from '../../catalog/similar';
@@ -13,12 +13,15 @@ import { isFavorite, toggleFavorite } from '../../user/collections';
 import { lifeList } from '../../user/lifelist';
 import { sightingSummary, sightingsForSpecies, type Sighting } from '../../user/sightings';
 import { useDeleteSighting } from '../sighting/useDeleteSighting';
-import { EmptyState, IucnBadge, PageHeader, SpeciesCard, TraitIcon } from '../../ui/components';
+import { EmptyState, IucnBadge, PageHeader, SPECIES_PHOTO_TRANSITION, SpeciesCard, TraitIcon } from '../../ui/components';
 import { Icon } from '../../ui/icons/Icon';
 import { RegionMap } from '../../ui/maps';
 import { AlbumPickerSheet } from '../collection/AlbumPickerSheet';
 import { AddSightingSheet } from '../sighting/AddSightingSheet';
 import { MyPhotos } from './MyPhotos';
+
+/** The first photo is the page's largest picture: load it before anything else (lowercase: React 18). */
+const HERO_IMAGE = { loading: 'eager', fetchpriority: 'high' } as Record<string, string>;
 
 export default function SpeciesScreen() {
   const { id = '' } = useParams();
@@ -50,6 +53,7 @@ export default function SpeciesScreen() {
   const [sheet, setSheet] = useState<'sighting' | 'album' | null>(null);
   const [photoIndex, setPhotoIndex] = useState(0);
   const galleryRef = useRef<HTMLDivElement>(null);
+  const opening = useViewTransitionState(`/species/${id}`);
 
   if (!species) {
     return (
@@ -61,6 +65,7 @@ export default function SpeciesScreen() {
   }
 
   const name = speciesName(species, lang);
+  const thumbUrl = catalogAssetUrl(species.thumb);
   const similar = similarSpecies(catalog, species);
   const leafRegions = species.regions
     .map((r) => catalog.regionsById.get(r))
@@ -108,7 +113,20 @@ export default function SpeciesScreen() {
         ) : (
           photos.map((p, i) => (
             <figure key={p.file}>
-              <img src={catalogAssetUrl(p.file)!} alt={t('species.photoAlt', { name, n: i + 1 })} loading={i ? 'lazy' : 'eager'} />
+              <img
+                src={catalogAssetUrl(p.file)!}
+                alt={t('species.photoAlt', { name, n: i + 1 })}
+                {...(i ? { loading: 'lazy' } : HERO_IMAGE)}
+                style={
+                  i
+                    ? undefined
+                    : {
+                        // The tile's small photo (already loaded) shows until the large one is there.
+                        backgroundImage: thumbUrl ? `url("${thumbUrl}")` : undefined,
+                        viewTransitionName: opening ? SPECIES_PHOTO_TRANSITION : undefined,
+                      }
+                }
+              />
               <figcaption>
                 © {p.author} ·{' '}
                 {licenseUrl(p.license) ? (
@@ -263,7 +281,8 @@ export default function SpeciesScreen() {
           <div className="species-grid">
             {similar.map(({ species: s }) => (
               <div key={s.id} className="stack" style={{ gap: 6 }}>
-                <SpeciesCard species={s} seen={seen.has(s.id)} to={`/species/${s.id}`} />
+                {/* The large photo of this page turns into the next one; the tile stays out of it. */}
+                <SpeciesCard species={s} seen={seen.has(s.id)} to={`/species/${s.id}`} morph={false} />
                 <Link className="btn small outline" to={`/compare/${species.id}/${s.id}`}>
                   <Icon name="compare" />
                   {t('species.compare')}

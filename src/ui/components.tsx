@@ -1,12 +1,12 @@
-import { useEffect, useId, useRef, type ReactNode } from 'react';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { useId, type ReactNode } from 'react';
+import { Link, useLocation, useNavigate, useViewTransitionState } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import type { Species, Trait } from '../catalog/types';
 import { catalogAssetUrl } from '../catalog/catalog';
 import { speciesName, traitLabel, useLang } from '../catalog/useCatalog';
 import { COLOR_SWATCHES, Icon } from './icons/Icon';
 import { ProfileButton } from './ProfileButton';
-import { useBackToClose } from './backToClose';
+import { useModalDialog } from './dialog';
 
 export function PageHeader({
   title,
@@ -49,10 +49,13 @@ export function PageHeader({
   );
 }
 
-export function SpeciesThumb({ species, alt }: { species: Species; alt?: string }) {
+/** Name shared by a species tile's photo and the species page's first photo while one turns into the other. */
+export const SPECIES_PHOTO_TRANSITION = 'species-photo';
+
+export function SpeciesThumb({ species, alt, transitionName }: { species: Species; alt?: string; transitionName?: string }) {
   const src = catalogAssetUrl(species.thumb);
   return src ? (
-    <img src={src} alt={alt ?? ''} loading="lazy" decoding="async" />
+    <img src={src} alt={alt ?? ''} loading="lazy" decoding="async" style={transitionName ? { viewTransitionName: transitionName } : undefined} />
   ) : (
     <div className="placeholder">
       <Icon name={species.category === 'coral_sponge_plant' ? 'shape-branching' : species.category === 'creature' ? 'shape-slug' : 'fish'} />
@@ -66,20 +69,25 @@ export function SpeciesCard({
   dimUnseen,
   onClick,
   to,
+  morph = true,
 }: {
   species: Species;
   seen?: boolean;
   dimUnseen?: boolean;
   onClick?: () => void;
   to?: string;
+  /** Off where the page's own large photo already carries the transition (species page). */
+  morph?: boolean;
 }) {
   const lang = useLang();
   const { t } = useTranslation();
   const name = speciesName(species, lang);
+  // While the page of this tile opens, its photo grows into the page's large photo.
+  const opening = useViewTransitionState(to ?? '#');
   const body = (
     <>
       <div className="thumb">
-        <SpeciesThumb species={species} />
+        <SpeciesThumb species={species} transitionName={to && morph && opening ? SPECIES_PHOTO_TRANSITION : undefined} />
         {seen && (
           <span className="seen-badge" title={t('species.seen')}>
             <Icon name="check" />
@@ -96,7 +104,7 @@ export function SpeciesCard({
   const cls = `species-card${dimUnseen && !seen ? ' unseen' : ''}`;
   if (to) {
     return (
-      <Link to={to} className={cls}>
+      <Link to={to} className={cls} viewTransition>
         {body}
       </Link>
     );
@@ -159,31 +167,16 @@ export function Sheet({
 }) {
   const { t } = useTranslation();
   const titleId = useId();
-  const ref = useRef<HTMLDivElement>(null);
-  useBackToClose(onClose);
-  useEffect(() => {
-    const prev = document.activeElement as HTMLElement | null;
-    ref.current?.focus();
-    const onKey = (e: KeyboardEvent) => e.key === 'Escape' && onClose();
-    window.addEventListener('keydown', onKey);
-    document.body.style.overflow = 'hidden';
-    return () => {
-      window.removeEventListener('keydown', onKey);
-      document.body.style.overflow = '';
-      prev?.focus?.();
-    };
-  }, [onClose]);
+  const ref = useModalDialog(onClose);
   return (
-    <div className="sheet-backdrop" onClick={onClose}>
-      <div
-        className="sheet"
-        role="dialog"
-        aria-modal="true"
-        aria-labelledby={titleId}
-        tabIndex={-1}
-        ref={ref}
-        onClick={(e) => e.stopPropagation()}
-      >
+    // A click on the dimmed area (the dialog itself, around the sheet) closes it.
+    <dialog
+      className="sheet-backdrop"
+      aria-labelledby={titleId}
+      ref={ref}
+      onClick={(e) => e.target === e.currentTarget && onClose()}
+    >
+      <div className="sheet" tabIndex={-1} data-autofocus onClick={(e) => e.stopPropagation()}>
         <div className="sheet-head">
           <h2 id={titleId}>{title}</h2>
           <button className="icon-btn" onClick={onClose} aria-label={t('common.close')}>
@@ -193,7 +186,7 @@ export function Sheet({
         <div className="sheet-body">{children}</div>
         {footer && <div className="sheet-foot">{footer}</div>}
       </div>
-    </div>
+    </dialog>
   );
 }
 

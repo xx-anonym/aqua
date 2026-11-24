@@ -689,6 +689,13 @@ textarea.input {
   gap: 12px;
 }
 
+/* Cards beyond the first rows are drawn only when they come near the screen; the size stands in
+   until then (and is remembered afterwards, "auto"). */
+.species-grid > :nth-child(n + 9) {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 190px;
+}
+
 .species-card {
   display: flex;
   flex-direction: column;
@@ -781,15 +788,47 @@ textarea.input {
 
 /* ---------- Bottom sheet ---------- */
 
-.sheet-backdrop {
+/* A native modal <dialog> (showModal): it lies above everything in the top layer, keeps focus
+   inside and makes the page behind inert. It spans the whole window and is the dimmed area itself;
+   the sheet sits at its bottom. */
+dialog.sheet-backdrop {
   position: fixed;
   inset: 0;
   bottom: calc(0px - var(--launch-gap, 0px));
-  z-index: 50;
+  width: auto;
+  height: auto;
+  max-width: none;
+  max-height: none;
+  margin: 0;
+  padding: 0;
+  border: none;
+  color: inherit;
   background: rgb(0 0 0 / 0.45);
-  display: flex;
   align-items: flex-end;
   justify-content: center;
+}
+
+dialog.sheet-backdrop[open] {
+  display: flex;
+}
+
+/* The page behind does not scroll: gestures on the dimmed area or the sheet's head and foot stay in
+   the dialog (no lock on body, which made the page jump). The sheet's body scrolls on its own. */
+dialog:modal {
+  overflow: hidden;
+  overscroll-behavior: contain;
+  touch-action: none;
+}
+
+dialog::backdrop {
+  background: transparent;
+  overflow: hidden;
+  overscroll-behavior: contain;
+}
+
+.sheet-body,
+.lightbox-track {
+  touch-action: auto;
 }
 
 .sheet {
@@ -952,6 +991,11 @@ textarea.input {
   aspect-ratio: 4 / 3;
   object-fit: cover;
   background: var(--surface-2);
+}
+
+.gallery img {
+  background-size: cover;
+  background-position: center;
 }
 
 .gallery figcaption {
@@ -1574,6 +1618,30 @@ label.btn:has(input:focus-visible) {
   cursor: pointer;
 }
 
+/* Toast, update note and celebration are popovers, so they show above an open sheet (top layer).
+   The browser's popover defaults (centred box with border) are undone here. */
+.toast[popover],
+.update-banner[popover] {
+  top: auto;
+  right: auto;
+  margin: 0;
+  height: auto;
+  overflow: visible;
+}
+
+.toast[popover] {
+  border: none;
+}
+
+.celebrate[popover] {
+  width: auto;
+  height: auto;
+  margin: 0;
+  padding: 0;
+  border: none;
+  color: inherit;
+}
+
 /* ---------- New species celebration ---------- */
 
 .celebrate {
@@ -1929,12 +1997,21 @@ label.btn:has(input:focus-visible) {
   position: fixed;
   inset: 0;
   bottom: calc(0px - var(--launch-gap, 0px));
-  z-index: 60;
-  display: flex;
+  width: auto;
+  height: auto;
+  max-width: none;
+  max-height: none;
+  margin: 0;
+  padding: 0;
+  border: none;
   flex-direction: column;
   background: #000;
   color: #fff;
   animation: page-in 0.2s ease-out;
+}
+
+.lightbox[open] {
+  display: flex;
 }
 
 .lightbox-bar {
@@ -2096,6 +2173,55 @@ button.list-item:active {
   .bubble {
     display: none;
   }
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none !important;
+  }
+}
+
+/* ---------- Page transitions (View Transitions) ---------- */
+
+/* Pages cross-fade; the tab bar stays put; a species photo grows from its tile into the page. */
+.tabbar {
+  view-transition-name: tabbar;
+}
+
+/* The page's own fade-in would run inside the cross-fade a second time. */
+:root:active-view-transition .page {
+  animation: none;
+}
+
+::view-transition-group(root) {
+  animation-duration: 0.2s;
+}
+
+::view-transition-group(species-photo) {
+  animation-duration: 0.3s;
+  animation-timing-function: cubic-bezier(0.2, 0, 0, 1);
+}
+
+::view-transition-old(species-photo),
+::view-transition-new(species-photo) {
+  height: 100%;
+  object-fit: cover;
+}
+
+/* ---------- Text wrapping ---------- */
+
+/* Headings break into lines of similar length; running text avoids a lone last word. */
+h1,
+h2,
+h3,
+.section-title {
+  text-wrap: balance;
+}
+
+p,
+figcaption,
+.sub,
+.field-hint {
+  text-wrap: pretty;
 }
 
 .loading {

@@ -1,11 +1,10 @@
-import { useEffect, useRef, useState } from 'react';
-import { createPortal } from 'react-dom';
+import { useEffect, useRef, useState, type KeyboardEvent } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useLang, type Lang } from '../../catalog/useCatalog';
 import { formatDate } from '../../lib/format';
 import { usePhotoUrl } from '../../user/photos';
 import type { SightingWithContext } from '../../user/sightings';
-import { useBackToClose } from '../../ui/backToClose';
+import { useModalDialog } from '../../ui/dialog';
 import { Icon } from '../../ui/icons/Icon';
 
 type PhotoSighting = SightingWithContext & { photo_uri: string };
@@ -39,27 +38,26 @@ function Lightbox({ photos, start, onClose }: { photos: PhotoSighting[]; start: 
   const lang = useLang();
   const track = useRef<HTMLDivElement>(null);
   const [index, setIndex] = useState(start);
-  useBackToClose(onClose);
+  // A native modal dialog: Escape and the back gesture close it, focus stays inside.
+  const dialog = useModalDialog(onClose);
 
   useEffect(() => {
     const el = track.current;
     if (el) el.scrollLeft = start * el.clientWidth;
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') onClose();
-      if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') {
-        const next = Math.max(0, Math.min(photos.length - 1, Math.round((el?.scrollLeft ?? 0) / (el?.clientWidth || 1)) + (e.key === 'ArrowRight' ? 1 : -1)));
-        el?.scrollTo({ left: next * el.clientWidth, behavior: 'smooth' });
-      }
-    };
-    document.addEventListener('keydown', onKey);
-    return () => document.removeEventListener('keydown', onKey);
-  }, [start, photos.length, onClose]);
+  }, [start]);
 
-  return createPortal(
-    <div className="lightbox" role="dialog" aria-modal="true" aria-label={t('species.myPhotos', { count: photos.length })}>
+  const onKeyDown = (e: KeyboardEvent) => {
+    const el = track.current;
+    if (!el || (e.key !== 'ArrowRight' && e.key !== 'ArrowLeft')) return;
+    const next = Math.max(0, Math.min(photos.length - 1, Math.round(el.scrollLeft / (el.clientWidth || 1)) + (e.key === 'ArrowRight' ? 1 : -1)));
+    el.scrollTo({ left: next * el.clientWidth, behavior: 'smooth' });
+  };
+
+  return (
+    <dialog className="lightbox" ref={dialog} aria-label={t('species.myPhotos', { count: photos.length })} onKeyDown={onKeyDown}>
       <div className="lightbox-bar">
         <span>{photos.length > 1 ? `${index + 1} / ${photos.length}` : ''}</span>
-        <button type="button" className="icon-btn" onClick={onClose} aria-label={t('common.close')} autoFocus>
+        <button type="button" className="icon-btn" onClick={onClose} aria-label={t('common.close')} data-autofocus>
           <Icon name="close" />
         </button>
       </div>
@@ -73,8 +71,7 @@ function Lightbox({ photos, start, onClose }: { photos: PhotoSighting[]; start: 
           <Slide key={p.id} sighting={p} text={caption(p, lang, t('dive.noSite'))} />
         ))}
       </div>
-    </div>,
-    document.body,
+    </dialog>
   );
 }
 

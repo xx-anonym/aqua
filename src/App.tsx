@@ -8,10 +8,12 @@ import { useSettings } from './settings/settings';
 import { FeedbackProvider } from './ui/feedback';
 import { UpdateBanner } from './ui/UpdateBanner';
 import { hideSplash } from './ui/splash';
-import { router } from './router';
+import { preloadPages, router } from './router';
 import { initCloud } from './sync/syncManager';
 import { tidyImageCaches } from './lib/offline';
 import { reportError } from './lib/errorLog';
+
+const THEME_COLOR = { light: '#0b5f66', dark: '#061217' } as const;
 
 function useApplySettings() {
   const theme = useSettings((s) => s.theme);
@@ -21,6 +23,12 @@ function useApplySettings() {
     const root = document.documentElement;
     if (theme === 'system') delete root.dataset.theme;
     else root.dataset.theme = theme;
+    // The browser bar follows the app's theme: by the system setting (the media queries in
+    // index.html), or the chosen one for both.
+    document.querySelectorAll<HTMLMetaElement>('meta[name="theme-color"]').forEach((meta) => {
+      const own = meta.media.includes('dark') ? THEME_COLOR.dark : THEME_COLOR.light;
+      meta.content = theme === 'system' ? own : THEME_COLOR[theme];
+    });
   }, [theme]);
   useEffect(() => {
     void i18n.changeLanguage(language);
@@ -79,7 +87,10 @@ export function App() {
 
   useEffect(() => {
     if (error) hideSplash(true);
-    else if (db) hideSplash();
+    else if (db) {
+      hideSplash();
+      preloadPages();
+    }
   }, [db, error]);
 
   if (error) {
