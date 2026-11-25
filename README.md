@@ -161,6 +161,10 @@ Zwei Vercel-Projekte aus demselben Branch:
   nur, wenn sich dort etwas ändert. Die App leitet `/catalog/img/…` und `/catalog/thumb/…` per
   Rewrite dorthin weiter; für Nutzer, Service Worker und Offline-Paket bleiben die Adressen gleich.
 
+Beide `ignoreCommand`s rufen `scripts/vercel-ignore.sh` auf. Es vergleicht mit dem Commit des
+letzten Deployments des Projekts; Vercel klont nur die letzten 10 Commits, daher lädt das Skript
+ältere Historie bei Bedarf nach und baut im Zweifel (statt das Deployment scheitern zu lassen).
+
 Warum getrennt: Vercel speichert jede Veröffentlichung vollständig. Mit den Fotos waren es 99 MB je
 Veröffentlichung, und der Speicher des kostenlosen Plans (10 GB) war nach gut 60 Veröffentlichungen
 zu drei Vierteln voll. Ohne Fotos sind es rund 7 MB. Lokal liefern `npm run dev` und `npm run preview`
