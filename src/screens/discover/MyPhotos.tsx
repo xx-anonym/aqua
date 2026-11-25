@@ -54,10 +54,10 @@ function Lightbox({ photos, start, onClose }: { photos: PhotoSighting[]; start: 
   };
 
   return (
-    <dialog className="lightbox" ref={dialog} aria-label={t('species.myPhotos', { count: photos.length })} onKeyDown={onKeyDown}>
+    <dialog className="lightbox" ref={dialog} tabIndex={-1} data-autofocus aria-label={t('species.myPhotos', { count: photos.length })} onKeyDown={onKeyDown}>
       <div className="lightbox-bar">
         <span>{photos.length > 1 ? `${index + 1} / ${photos.length}` : ''}</span>
-        <button type="button" className="icon-btn" onClick={onClose} aria-label={t('common.close')} data-autofocus>
+        <button type="button" className="icon-btn" onClick={onClose} aria-label={t('common.close')}>
           <Icon name="close" />
         </button>
       </div>

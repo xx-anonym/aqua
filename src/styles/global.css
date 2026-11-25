@@ -808,6 +808,28 @@ dialog.sheet-backdrop[open] {
   display: flex;
 }
 
+/* Opened in the page on the iPhone (dialog.ts): above the tab bar and the page, as before. */
+dialog.sheet-backdrop {
+  z-index: 50;
+}
+
+.lightbox {
+  z-index: 60;
+}
+
+/* The focus goes to the sheet (or photo view) itself, so screen readers start there; it is no
+   control, so no focus ring (Safari drew one after a tap). */
+[data-autofocus]:focus {
+  outline: none;
+}
+
+dialog.sheet-backdrop[open],
+.lightbox[open] {
+  overflow: hidden;
+  overscroll-behavior: contain;
+  touch-action: none;
+}
+
 /* The page behind does not scroll: gestures on the dimmed area or the sheet's head and foot stay in
    the dialog (no lock on body, which made the page jump). The sheet's body scrolls on its own. */
 dialog:modal {
