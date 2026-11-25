@@ -163,7 +163,8 @@ Zwei Vercel-Projekte aus demselben Branch:
 
 Beide `ignoreCommand`s rufen `scripts/vercel-ignore.sh` auf. Es vergleicht mit dem Commit des
 letzten Deployments des Projekts; Vercel klont nur die letzten 10 Commits, daher lädt das Skript
-ältere Historie bei Bedarf nach und baut im Zweifel (statt das Deployment scheitern zu lassen).
+ältere Historie bei Bedarf nach; geht das nicht, vergleicht es mit dem ältesten vorhandenen Commit
+(statt das Deployment scheitern zu lassen).
 
 Warum getrennt: Vercel speichert jede Veröffentlichung vollständig. Mit den Fotos waren es 99 MB je
 Veröffentlichung, und der Speicher des kostenlosen Plans (10 GB) war nach gut 60 Veröffentlichungen
