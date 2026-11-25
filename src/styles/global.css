@@ -823,18 +823,19 @@ dialog.sheet-backdrop {
   outline: none;
 }
 
+/* Not a scroll container (overflow visible): the sheet slides in from 40px below, and with
+   overflow hidden the dialog scrolled to show it – Safari kept that scroll until the animation
+   ended, so the sheet sat too high and then jumped down. touch-action keeps the page still. */
 dialog.sheet-backdrop[open],
 .lightbox[open] {
-  overflow: hidden;
-  overscroll-behavior: contain;
+  overflow: visible;
   touch-action: none;
 }
 
 /* The page behind does not scroll: gestures on the dimmed area or the sheet's head and foot stay in
    the dialog (no lock on body, which made the page jump). The sheet's body scrolls on its own. */
 dialog:modal {
-  overflow: hidden;
-  overscroll-behavior: contain;
+  overflow: visible;
   touch-action: none;
 }
 
